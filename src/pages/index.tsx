@@ -41,7 +41,31 @@ export default function Landing() {
               euismod. Vestibulum porta dui nec gravida aliquam.
             </p>
           </div>
-          <div className={styles.importSect}></div>
+          <div className={styles.importSect}>
+            <div className={styles.importInfoSect}>
+              <h3>IMPORT YOUR CLIPPINGS</h3>
+              <p>Locate "Clippings.txt"</p>
+            </div>
+            <div className={styles.importButtonSect}>
+              <div className={styles.button}>
+                <p>+ Import To KTON</p>
+              </div>
+            </div>
+            <div className={styles.importProgressSect}>
+              <p>
+                <span>Current Book </span>
+                <span>N/A</span>
+              </p>
+              <p>
+                <span>Progress </span>
+                <span>N/A</span>
+              </p>
+              <p>
+                <span>Estimated Time </span>
+                <span>N/A</span>
+              </p>
+            </div>
+          </div>
         </div>
         <Kindle />
       </div>
