@@ -1,0 +1,13 @@
+@import "../Styles/Breakpoints.scss";
+
+.Tag {
+  padding: 5px 30px 5px 30px;
+  border: 1px solid black;
+  height: fit-content;
+  color: black;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}
