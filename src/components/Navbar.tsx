@@ -1,8 +1,12 @@
 import styles from "../styles/Navbar.module.scss";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function Navbar() {
   const [screenWidth, setScreenWidth] = useState(0);
+
+  const router = useRouter();
+  const isIndexRoute = router.pathname === "/";
 
   useEffect(() => {
     const handleResize = () => {
@@ -45,15 +49,16 @@ export default function Navbar() {
   return (
     <div className={styles.navbar}>
       <div className={styles.navbarWidth}>
-        <div className={styles.navigationTitle}>
-          <div className={styles.circle}></div>
-          <p>{screenWidth < 1024 ? `KTON` : `KINDLE NOTES MANAGER`}</p>
-        </div>
+        <ul>
+          <li>{screenWidth < 1024 ? `KTON` : `KINDLE NOTES MANAGER`}</li>
+        </ul>
         <div className={styles.navigationButtons}>
-          <span className={styles.hoverMenu}>
-            <p>Menu</p>
-            <Modal />
-          </span>
+          {isIndexRoute ? null : (
+            <span className={styles.hoverMenu}>
+              <p>Menu</p>
+              <Modal />
+            </span>
+          )}
           <p>Login</p>
         </div>
       </div>
