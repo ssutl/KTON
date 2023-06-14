@@ -4,7 +4,7 @@
   height: 6vh;
   width: 100%;
   display: flex;
-  border-bottom: 1px solid black;
+  border-bottom: 0.5px solid black;
   justify-content: center;
 
   .navbarWidth {
@@ -13,7 +13,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-weight: 720;
+    font-weight: 500;
 
     @include breakpoint-mixin("laptop-small") {
       width: 95%;
@@ -51,14 +51,79 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: relative;
 
-      p:nth-of-type(1) {
-        margin-right: 30px;
+      p {
+        cursor: pointer;
       }
 
-      @include breakpoint-mixin("laptop-small") {
-        p:nth-of-type(1) {
+      span {
+        margin-right: 30px;
+
+        @include breakpoint-mixin("laptop-small") {
           margin-right: 40px;
+        }
+      }
+
+      .hoverMenu {
+        width: fit-content;
+
+        .modal {
+          position: absolute;
+          right: 50%;
+          width: 120px;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 300ms, visibility 600ms;
+          // border-radius: 10px;
+
+          .modal_height {
+            margin-top: 30px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 10px;
+            padding: 10px 0px 10px 0px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+            .modal_title {
+              height: 30px;
+              width: 100%;
+              opacity: 0.7;
+              display: flex;
+              align-items: center;
+
+              p {
+                margin-left: 10px;
+              }
+            }
+
+            .modal_item {
+              height: 40px;
+              border-radius: 5px;
+              display: flex;
+              // justify-content: center;
+              align-items: center;
+              width: 90%;
+              cursor: pointer;
+
+              p {
+                margin-left: 20px;
+              }
+
+              &:hover {
+                background-color: #f7f7f7;
+              }
+            }
+          }
+        }
+
+        &:hover {
+          .modal {
+            visibility: visible;
+            opacity: 1;
+          }
         }
       }
     }
