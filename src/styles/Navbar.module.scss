@@ -34,14 +34,17 @@
       align-items: center;
 
       @include breakpoint-mixin("laptop-small") {
-        width: 7%;
+        width: 25%;
+        p {
+          font-size: 18px;
+        }
       }
 
       @include breakpoint-mixin("laptop-wide") {
-        width: 5%;
+        width: 18%;
       }
       @include breakpoint-mixin("desktop") {
-        width: 4%;
+        width: 13%;
       }
     }
 
@@ -83,9 +86,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            border-radius: 10px;
+            // border-radius: 10px;
             padding: 10px 0px 10px 0px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border: 1px solid black;
+            background-color: white;
 
             .modal_title {
               height: 30px;
