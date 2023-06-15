@@ -1,6 +1,8 @@
 import Tag from "@/components/Tag";
 import styles from "../styles/Landing.module.scss";
 import ImportButton from "@/components/ImportButton";
+import { useEffect } from "react";
+import Router from "next/router";
 
 export default function Landing() {
   const Kindle = () => {
@@ -26,6 +28,20 @@ export default function Landing() {
       </div>
     );
   };
+
+  //UseEffect to check if there's already an authToken
+  useEffect(() => {
+    const authToken = localStorage.getItem("token");
+    const clippings = localStorage.getItem("clippings");
+
+    if (authToken || clippings) {
+      // Pass user into the app without restrictions
+      Router.push("Home");
+    } else {
+      alert("!User needs to do import");
+    }
+  }, []);
+
   return (
     <>
       <div className={styles.header}>

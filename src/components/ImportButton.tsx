@@ -2,30 +2,43 @@ import React, { useState, useEffect } from "react";
 import styles from "../styles/ImportButton.module.scss";
 import clippingsParser from "@/helpers/UploadedTXTHelper";
 import uploadedTxtHelper from "@/helpers/clippingsParse";
+import Router from "next/router";
 
 //interface ImportButtonProps {}
 
 const ImportButton = () => {
   const [incomingFile, setIncomingFile] = useState<File | null>(null);
+  const [uploadStatus, setUploadStatus] = useState<boolean>(false);
 
-  const uploadFile = () => {
+  const uploadFile = async () => {
     var file = incomingFile;
     var textType = /text.*/;
 
     if (file && file.type.match(textType)) {
       var reader = new FileReader();
 
-      reader.onload = function (e) {
+      reader.onload = async function (e) {
         var content = reader.result;
+        let success_upload: boolean = false;
         //Here the content has been read successfuly
-        if (content !== null && typeof content === "string")
-          uploadedTxtHelper(content);
-        alert(content);
+        if (content !== null && typeof content === "string") {
+          success_upload = await uploadedTxtHelper(content);
+          setUploadStatus(success_upload);
+        }
       };
 
       reader.readAsText(file);
     }
   };
+
+  //UseEffect to see what the local storage state is after upload
+  useEffect(() => {
+    const clippings = localStorage.getItem("clippings");
+
+    if (clippings) {
+      Router.push("Home");
+    }
+  }, [uploadStatus]);
 
   return (
     <>
