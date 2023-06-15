@@ -1,5 +1,6 @@
 import Tag from "@/components/Tag";
 import styles from "../styles/Landing.module.scss";
+import ImportButton from "@/components/ImportButton";
 
 export default function Landing() {
   const Kindle = () => {
@@ -95,9 +96,7 @@ export default function Landing() {
               <p>Locate "Clippings.txt"</p>
             </div>
             <div className={styles.importButtonSect}>
-              <div className={styles.button}>
-                <p>+ Import To KTON</p>
-              </div>
+              <ImportButton />
             </div>
             <div className={styles.importProgressSect}>
               <p>
