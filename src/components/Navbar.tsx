@@ -7,11 +7,19 @@ export default function Navbar() {
 
   const router = useRouter();
   const isIndexRoute = router.pathname === "/";
+  let userLoggedIn = false;
 
   useEffect(() => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
     };
+
+    //UseEffect to see what the local storage state is after upload
+    const authToken = localStorage.getItem("token");
+
+    if (authToken) {
+      userLoggedIn = true;
+    }
 
     handleResize(); // Initial screen width
 
@@ -29,16 +37,28 @@ export default function Navbar() {
           <div className={styles.modal_title}>
             <p>Pages</p>
           </div>
-          <div className={styles.modal_item}>
+          <div
+            className={styles.modal_item}
+            onClick={() => router.push("Home")}
+          >
             <p>Home</p>
           </div>
-          <div className={styles.modal_item}>
+          <div
+            className={styles.modal_item}
+            onClick={() => router.push("Library")}
+          >
             <p>Library</p>
           </div>
-          <div className={styles.modal_item}>
+          <div
+            className={styles.modal_item}
+            onClick={() => router.push("Stats")}
+          >
             <p>Stats</p>
           </div>
-          <div className={styles.modal_item}>
+          <div
+            className={styles.modal_item}
+            onClick={() => router.push("Export")}
+          >
             <p>Export</p>
           </div>
         </div>
@@ -59,7 +79,7 @@ export default function Navbar() {
               <Modal />
             </span>
           )}
-          <p>Login</p>
+          {userLoggedIn ? null : <p>Login</p>}
         </div>
       </div>
     </div>

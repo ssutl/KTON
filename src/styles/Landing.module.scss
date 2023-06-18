@@ -148,17 +148,6 @@
         width: 100%;
         display: flex;
         align-items: center;
-
-        .button {
-          padding: 10px 40px 10px 40px;
-          border: 1px solid black;
-          width: fit-content;
-          cursor: pointer;
-
-          &:hover {
-            opacity: 0.5;
-          }
-        }
       }
 
       .importProgressSect {
