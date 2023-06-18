@@ -1,0 +1,126 @@
+import React, { useState, useEffect, useContext } from "react";
+import { AllHighlights, dbBook, singleHighlight, userInfo } from "./Interface";
+import axios, { AxiosResponse } from "axios";
+
+function InitAPI() {
+  async function getAllHighlights() {
+    const authToken = localStorage.getItem("token");
+    console.log("authToken: ", authToken);
+    console.log("FUNCTION CALLED");
+
+    if (authToken === null) {
+      return undefined;
+    } else {
+      try {
+        console.log("setting highlights");
+        const response = await axios({
+          method: `GET`,
+          url: `${process.env.NEXT_PUBLIC_BACKENDURL}/books/all-highlights`,
+          headers: {
+            "x-auth-token": authToken.replace(/\"/g, ""),
+          },
+        });
+
+        if (Array.isArray(response.data.allHighlights)) {
+          return response.data.allHighlights.filter(
+            (eachHighlight: singleHighlight) =>
+              eachHighlight.highlight.deleted === false
+          ).length === 0
+            ? []
+            : response.data.allHighlights
+                .filter(
+                  (eachHighlight: singleHighlight) =>
+                    eachHighlight.highlight.deleted === false
+                )
+                .sort(function (a: any, b: any) {
+                  return (
+                    new Date(b.highlight.Date).getTime() -
+                    new Date(a.highlight.Date).getTime()
+                  );
+                });
+        }
+      } catch (error) {
+        console.error("Error fetching all highlights:", error);
+        throw error; // Optionally re-throw the error to handle it in the caller
+      }
+    }
+  }
+
+  async function getAllBooks() {
+    console.log("FUNCTION CALLED");
+
+    const authToken = localStorage.getItem("token");
+    console.log("authToken: ", authToken);
+
+    if (authToken === null) {
+      return undefined;
+    } else {
+      try {
+        const response = await axios({
+          method: `GET`,
+          url: `${process.env.NEXT_PUBLIC_BACKENDURL}/books`,
+          headers: {
+            "x-auth-token": authToken.replace(/\"/g, ""),
+          },
+        });
+
+        return response.data.filter(
+          (eachBook: dbBook) => eachBook.deleted === false
+        ).length === 0
+          ? []
+          : response.data
+              .map((eachBook: dbBook) => {
+                eachBook.highlights.sort(function (a, b) {
+                  return (
+                    new Date(b.Date).getTime() - new Date(a.Date).getTime()
+                  );
+                });
+
+                return eachBook;
+              })
+              .reverse()
+              .filter((eachBook: dbBook) => eachBook.deleted === false);
+      } catch (error) {
+        console.error("Error fetching all books:", error);
+        throw error; // Optionally re-throw the error to handle it in the caller
+      }
+    }
+  }
+
+  async function getUserInfo() {
+    console.log("FUNCTION CALLED");
+
+    const authToken = localStorage.getItem("token");
+    console.log("authToken: ", authToken);
+
+    if (authToken === null) {
+      return undefined;
+    } else {
+      try {
+        const response = await axios({
+          method: `GET`,
+          url: `${process.env.NEXT_PUBLIC_BACKENDURL}/users/info`,
+          headers: {
+            "x-auth-token": authToken.replace(/\"/g, ""),
+          },
+        });
+
+        console.log("response", response.data);
+        return response.data;
+      } catch (error) {
+        console.error("Error fetching user info:", error);
+        throw error; // Optionally re-throw the error to handle it in the caller
+      }
+    }
+  }
+
+  // Rest of the code remains the same
+
+  return {
+    getAllBooks,
+    getAllHighlights,
+    getUserInfo,
+  };
+}
+
+export default InitAPI;
