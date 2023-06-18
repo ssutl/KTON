@@ -37,8 +37,6 @@ export default function Landing() {
     if (authToken || clippings) {
       // Pass user into the app without restrictions
       Router.push("Home");
-    } else {
-      alert("!User needs to do import");
     }
   }, []);
 

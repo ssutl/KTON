@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/Navbar.module.scss";
+import Router from "next/router";
 
 //interface HomeProps {}
 
@@ -16,8 +17,11 @@ const Home = () => {
       setRestrictions(false);
     } else if (clippings && !authToken) {
       setRestrictions(true);
+    } else {
+      Router.push("/");
     }
   }, []);
+
   return (
     <div className={styles.Home}>{`Welcome to KTON, ${
       restrictions
