@@ -5,14 +5,11 @@ import axios, { AxiosResponse } from "axios";
 function InitAPI() {
   async function getAllHighlights() {
     const authToken = localStorage.getItem("token");
-    console.log("authToken: ", authToken);
-    console.log("FUNCTION CALLED");
 
     if (authToken === null) {
       return undefined;
     } else {
       try {
-        console.log("setting highlights");
         const response = await axios({
           method: `GET`,
           url: `${process.env.NEXT_PUBLIC_BACKENDURL}/books/all-highlights`,
@@ -47,10 +44,7 @@ function InitAPI() {
   }
 
   async function getAllBooks() {
-    console.log("FUNCTION CALLED");
-
     const authToken = localStorage.getItem("token");
-    console.log("authToken: ", authToken);
 
     if (authToken === null) {
       return undefined;
@@ -88,10 +82,7 @@ function InitAPI() {
   }
 
   async function getUserInfo() {
-    console.log("FUNCTION CALLED");
-
     const authToken = localStorage.getItem("token");
-    console.log("authToken: ", authToken);
 
     if (authToken === null) {
       return undefined;
@@ -105,7 +96,6 @@ function InitAPI() {
           },
         });
 
-        console.log("response", response.data);
         return response.data;
       } catch (error) {
         console.error("Error fetching user info:", error);

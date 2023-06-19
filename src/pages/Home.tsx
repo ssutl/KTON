@@ -17,25 +17,26 @@ const Home = () => {
     updateHighlights,
   } = useContext(KTON_CONTEXT);
   const { getAllBooks, getAllHighlights, getUserInfo } = InitApi();
-
   const [restrictions, setRestrictions] = useState<boolean>(true);
+  const displayBanner =
+    userinfo !== undefined &&
+    books !== undefined &&
+    highlights !== undefined &&
+    !restrictions;
+
+  console.log("DISPLAYBANNER", displayBanner);
 
   useEffect(() => {
-    setRestrictions(userAuthenticated());
+    setRestrictions(!userAuthenticated());
 
     // Fetch data from your database and update the context state variables
     const fetchData = async () => {
       try {
-        // Example API call to fetch user info
-        const userResponse = await getUserInfo();
+        const [userResponse, booksResponse, highlightsResponse] =
+          await Promise.all([getUserInfo(), getAllBooks(), getAllHighlights()]);
+
         updateUserInfo(userResponse);
-
-        // Example API call to fetch books
-        const booksResponse = await getAllBooks();
         updateBooks(booksResponse);
-
-        // Example API call to fetch highlights
-        const highlightsResponse = await getAllHighlights();
         updateHighlights(highlightsResponse);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -53,16 +54,20 @@ const Home = () => {
     console.log("Highlights:", highlights);
   }, [userinfo, books, highlights]);
 
-  return (
-    <div className={styles.Home}>
-      {`Welcome to KTON, ${
-        restrictions
-          ? `your account has restrictions, login to ensure you can access all feature`
-          : `your account is totally un-restricted`
-      }`}
-      <QuoteBanner />
-    </div>
-  );
+  if (displayBanner) {
+    return (
+      <div className={styles.Home}>
+        {`Welcome to KTON, ${
+          restrictions
+            ? `your account has restrictions, login to ensure you can access all feature`
+            : `your account is totally un-restricted`
+        }`}
+        <QuoteBanner />
+      </div>
+    );
+  } else {
+    return <div>Loading</div>;
+  }
 };
 
 export default Home;

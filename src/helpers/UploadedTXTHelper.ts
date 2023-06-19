@@ -76,7 +76,6 @@ export function parseContents(
  */
 export function clippingsParser(incomingTxtFileContents: string) {
   if (incomingTxtFileContents == null || !incomingTxtFileContents) {
-    console.log("txt file contents error");
     return;
   }
   const parsedContent = parseContents(incomingTxtFileContents);
