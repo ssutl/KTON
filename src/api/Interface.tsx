@@ -13,6 +13,7 @@ export interface highlight {
   category: string[];
   last_updated: string;
 }
+
 export interface AllHighlights {
   allHighlights: [
     {
@@ -22,22 +23,8 @@ export interface AllHighlights {
     }
   ];
 }
-export interface singleHighlight {
-  author: string;
-  highlight: highlight;
-  title: string;
-}
 
-export interface randomHighlight {
-  randomHighlight: {
-    author: string;
-    bookID: string;
-    title: string;
-    highlight: highlight;
-  };
-}
-
-export interface dbBook {
+export interface Book {
   length: number;
   userID: string;
   cover_image: string;

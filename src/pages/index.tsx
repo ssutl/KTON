@@ -42,11 +42,6 @@ export default function Landing() {
 
   return (
     <>
-      <div className={styles.header}>
-        <div className={styles.headerWidth}>
-          <p>OVER 10,000 IMPORTED HIGHLIGHTS</p>
-        </div>
-      </div>
       <div className={styles.main}>
         <div className={styles.main_left}>
           <div className={styles.section1}>

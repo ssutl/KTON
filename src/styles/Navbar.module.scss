@@ -35,6 +35,10 @@
 
       p {
         cursor: pointer;
+
+        &:hover {
+          opacity: 0.5;
+        }
       }
 
       span {
@@ -55,6 +59,7 @@
           opacity: 0;
           visibility: hidden;
           transition: opacity 300ms, visibility 600ms;
+          z-index: 1000;
           // border-radius: 10px;
 
           .modal_height {

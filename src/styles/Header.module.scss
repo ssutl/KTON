@@ -1,0 +1,30 @@
+@import "../Styles/Breakpoints.scss";
+.header {
+  width: 100%;
+  display: flex;
+  border-bottom: 0.5px solid black;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0px 10px 0px;
+
+  @include breakpoint-mixin("laptop-small") {
+    padding: 0px;
+    height: 6vh;
+  }
+
+  .headerWidth {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+
+    p {
+      font-size: 18px;
+    }
+
+    @include breakpoint-mixin("laptop-small") {
+      width: 95%;
+    }
+  }
+}
