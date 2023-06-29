@@ -2,13 +2,12 @@ import React, { useEffect, useState, useContext } from "react";
 import styles from "../styles/QuoteBanner.module.scss";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import { KTON_CONTEXT } from "../context/KTONContext";
-import { Book, highlight } from "@/api/Interface";
+import { Book } from "@/api/Interface";
 
 //interface QuoteBannerProps {}
 
 const QuoteBanner = ({ ...props }) => {
-  const { highlights, books } = useContext(KTON_CONTEXT);
-  const [restrictions, setRestrictions] = useState<boolean>(true);
+  const { books } = useContext(KTON_CONTEXT);
 
   const [randomCollection, setRandomCollection] = useState<
     | {
@@ -35,8 +34,6 @@ const QuoteBanner = ({ ...props }) => {
   };
 
   useEffect(() => {
-    setRestrictions(!userAuthenticated());
-
     if (userAuthenticated()) {
       //For logged in users we will use their clippings which are stored in the user context
 
@@ -45,7 +42,7 @@ const QuoteBanner = ({ ...props }) => {
 
         const interval = setInterval(() => {
           randomHighlightGenerator(books);
-        }, 10000);
+        }, 20000);
 
         return () => {
           clearInterval(interval);
@@ -55,12 +52,12 @@ const QuoteBanner = ({ ...props }) => {
       //For non logged in users we will use their clippings in local storage to display random quote
       const clippings = localStorage.getItem("clippings");
       if (clippings) {
-        const parsedClippings = JSON.parse(clippings);
+        const parsedClippings: Book[] = JSON.parse(clippings);
         randomHighlightGenerator(parsedClippings);
 
         const interval = setInterval(() => {
           randomHighlightGenerator(parsedClippings);
-        }, 10000);
+        }, 20000);
 
         return () => {
           clearInterval(interval);

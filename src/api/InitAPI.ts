@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Book, highlight, userInfo } from "./Interface";
+import {
+  Book,
+  Book_highlight,
+  Meta_con_highlight,
+  userInfo,
+} from "./Interface";
 import axios, { AxiosResponse } from "axios";
 
 function InitAPI() {
@@ -20,18 +25,15 @@ function InitAPI() {
 
         if (Array.isArray(response.data.allHighlights)) {
           return response.data.allHighlights.filter(
-            (eachHighlight: {
-              author: string;
-              highlight: highlight;
-              title: string;
-            }) => eachHighlight.highlight.deleted === false
+            (eachHighlight: Meta_con_highlight) =>
+              eachHighlight.highlight.deleted === false
           ).length === 0
             ? []
             : response.data.allHighlights
                 .filter(
                   (eachHighlight: {
                     author: string;
-                    highlight: highlight;
+                    highlight: Book_highlight;
                     title: string;
                   }) => eachHighlight.highlight.deleted === false
                 )

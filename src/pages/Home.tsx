@@ -4,6 +4,7 @@ import { KTON_CONTEXT } from "../context/KTONContext";
 import QuoteBanner from "@/components/QuoteBanner";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import InitApi from "../api/InitAPI";
+import HomeStatBanner from "@/components/HomeStatBanner";
 
 //interface HomeProps {}
 
@@ -52,6 +53,7 @@ const Home = () => {
     return (
       <div className={styles.Home}>
         <QuoteBanner />
+        <HomeStatBanner />
       </div>
     );
   } else {

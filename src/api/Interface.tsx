@@ -1,4 +1,4 @@
-export interface highlight {
+export interface Book_highlight {
   _id: string;
   deleted: boolean;
   Text: string;
@@ -14,6 +14,12 @@ export interface highlight {
   last_updated: string;
 }
 
+export interface Meta_con_highlight {
+  author: string;
+  highlight: Book_highlight;
+  title: string;
+}
+
 export interface Book {
   length: number;
   userID: string;
@@ -26,7 +32,7 @@ export interface Book {
   summary: string;
   deleted: boolean;
   upload_date: string;
-  highlights: highlight[];
+  highlights: Book_highlight[];
   _id: string;
 }
 
