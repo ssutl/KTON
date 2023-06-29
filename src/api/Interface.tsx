@@ -14,16 +14,6 @@ export interface highlight {
   last_updated: string;
 }
 
-export interface AllHighlights {
-  allHighlights: [
-    {
-      author: string;
-      highlight: highlight;
-      title: string;
-    }
-  ];
-}
-
 export interface Book {
   length: number;
   userID: string;

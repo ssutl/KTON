@@ -3,7 +3,7 @@ import styles from "../styles/Navbar.module.scss";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import QuoteBanner from "@/components/QuoteBanner";
 import userAuthenticated from "@/helpers/UserAuthenticated";
-// import InitApi from "../api/InitAPI";
+import InitApi from "../api/InitAPI";
 
 //interface HomeProps {}
 
@@ -16,7 +16,7 @@ const Home = () => {
     updateUserInfo,
     updateHighlights,
   } = useContext(KTON_CONTEXT);
-  // const { getAllBooks, getAllHighlights, getUserInfo } = InitApi();
+  const { getAllBooks, getAllHighlights, getUserInfo } = InitApi();
   const [restrictions, setRestrictions] = useState<boolean>(true);
   const loaded =
     (userinfo !== undefined &&
@@ -32,11 +32,11 @@ const Home = () => {
     // Fetch data from your database and update the context state variables
     const fetchData = async () => {
       try {
-        // const [userResponse, booksResponse, highlightsResponse] =
-        //   await Promise.all([getUserInfo(), getAllBooks(), getAllHighlights()]);
-        // updateUserInfo(userResponse);
-        // updateBooks(booksResponse);
-        // updateHighlights(highlightsResponse);
+        const [userResponse, booksResponse, highlightsResponse] =
+          await Promise.all([getUserInfo(), getAllBooks(), getAllHighlights()]);
+        updateUserInfo(userResponse);
+        updateBooks(booksResponse);
+        updateHighlights(highlightsResponse);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

@@ -2,12 +2,12 @@ import React, { useEffect, useState, useContext } from "react";
 import styles from "../styles/QuoteBanner.module.scss";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import { KTON_CONTEXT } from "../context/KTONContext";
-import { AllHighlights, Book, highlight } from "@/api/Interface";
+import { Book, highlight } from "@/api/Interface";
 
 //interface QuoteBannerProps {}
 
 const QuoteBanner = ({ ...props }) => {
-  const { highlights } = useContext(KTON_CONTEXT);
+  const { highlights, books } = useContext(KTON_CONTEXT);
   const [restrictions, setRestrictions] = useState<boolean>(true);
 
   const [randomCollection, setRandomCollection] = useState<
@@ -38,6 +38,19 @@ const QuoteBanner = ({ ...props }) => {
     setRestrictions(!userAuthenticated());
 
     if (userAuthenticated()) {
+      //For logged in users we will use their clippings which are stored in the user context
+
+      if (books) {
+        randomHighlightGenerator(books);
+
+        const interval = setInterval(() => {
+          randomHighlightGenerator(books);
+        }, 10000);
+
+        return () => {
+          clearInterval(interval);
+        };
+      }
     } else {
       //For non logged in users we will use their clippings in local storage to display random quote
       const clippings = localStorage.getItem("clippings");
@@ -59,14 +72,10 @@ const QuoteBanner = ({ ...props }) => {
   return (
     <div className={styles.QuoteBanner}>
       <div className={styles.QuoteBannerWidth}>
-        {restrictions ? (
-          <p className={styles.highlight}>{randomCollection?.highlight}</p>
-        ) : null}
-        {restrictions ? (
-          <p className={styles.metaData}>
-            {randomCollection?.author} - {randomCollection?.title}
-          </p>
-        ) : null}
+        <p className={styles.highlight}>{randomCollection?.highlight}</p>
+        <p className={styles.metaData}>
+          {randomCollection?.author} - {randomCollection?.title}
+        </p>
       </div>
     </div>
   );
