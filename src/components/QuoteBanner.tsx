@@ -74,7 +74,7 @@ const QuoteBanner = () => {
     return (
       <div className={styles.QuoteBanner}>
         <div className={styles.QuoteBannerWidth}>
-          <p className={styles.highlight}>{randomCollection?.highlight}</p>
+          <h1 className={styles.highlight}>{randomCollection?.highlight}</h1>
           {restrictions ? null : (
             <p className={styles.metaData1}>
               <span>Star</span> - <span>Delete</span>{" "}

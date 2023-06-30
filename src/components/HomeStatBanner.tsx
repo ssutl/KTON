@@ -5,7 +5,7 @@ import userAuthenticated from "@/helpers/UserAuthenticated";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import { streakRanges, summary } from "date-streaks";
 import { Book, Meta_con_highlight } from "@/api/Interface";
-import clippings_AllHighlights from "./Clippings_AllHighlights";
+import clippings_AllHighlights from "../helpers/Clippings_AllHighlights";
 
 //interface HomeStatBannerProps {}
 

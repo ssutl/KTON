@@ -18,6 +18,7 @@ const Home = () => {
     updateUserInfo,
     updateHighlights,
   } = useContext(KTON_CONTEXT);
+
   const { getAllBooks, getAllHighlights, getUserInfo } = InitApi();
   const [restrictions, setRestrictions] = useState<boolean>(true);
   const loaded =

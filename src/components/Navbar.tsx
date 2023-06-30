@@ -77,17 +77,15 @@ export default function Navbar() {
   return (
     <div className={styles.navbar}>
       <div className={styles.navbarWidth}>
-        <ul>
-          <li>{screenWidth < 1024 ? `KTON` : `KINDLE NOTES MANAGER`}</li>
-        </ul>
+        <h3>{screenWidth < 1024 ? `KTON` : `KINDLE NOTES MANAGER`}</h3>
         <div className={styles.navigationButtons}>
           {isIndexRoute ? null : (
             <span className={styles.hoverMenu}>
-              <p>Menu</p>
+              <h3>Menu</h3>
               <Modal />
             </span>
           )}
-          {userLoggedIn ? null : <p>Login</p>}
+          {userLoggedIn ? null : <h3>Login</h3>}
         </div>
       </div>
     </div>

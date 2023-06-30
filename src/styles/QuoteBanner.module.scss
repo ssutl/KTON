@@ -39,8 +39,6 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
-      font-size: 40px;
-      font-weight: 100;
       -webkit-line-clamp: 5;
       //Code to trancuate text
 
@@ -50,7 +48,6 @@
     }
 
     .metaData1 {
-      font-size: 15px;
       position: absolute;
       left: 0;
       bottom: 10px;
@@ -63,7 +60,6 @@
       }
     }
     .metaData2 {
-      font-size: 15px;
       position: absolute;
       right: 0;
       bottom: 10px;

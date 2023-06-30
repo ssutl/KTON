@@ -20,12 +20,6 @@
       width: 95%;
     }
 
-    ul {
-      list-style-position: inside;
-      padding-left: 0;
-      font-size: 18px;
-    }
-
     .navigationButtons {
       width: fit-content;
       height: 100%;
@@ -34,7 +28,7 @@
       align-items: center;
       position: relative;
 
-      p {
+      h3 {
         cursor: pointer;
 
         &:hover {
