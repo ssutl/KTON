@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import styles from "../styles/Navbar.module.scss";
+import styles from "../styles/Home.module.scss";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import QuoteBanner from "@/components/QuoteBanner";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import InitApi from "../api/InitAPI";
 import HomeStatBanner from "@/components/HomeStatBanner";
+import HeatMapBanner from "@/components/HeatMapBanner";
 
 //interface HomeProps {}
 
@@ -53,6 +54,7 @@ const Home = () => {
     return (
       <div className={styles.Home}>
         <QuoteBanner />
+        <HeatMapBanner />
         <HomeStatBanner />
       </div>
     );

@@ -7,7 +7,7 @@
   justify-content: center;
 
   @include breakpoint-mixin("laptop-small") {
-    height: 40vh;
+    height: 35vh;
   }
 
   .QuoteBannerWidth {
@@ -42,7 +42,20 @@
       }
     }
 
-    .metaData {
+    .metaData1 {
+      font-size: 15px;
+      position: absolute;
+      left: 0;
+      bottom: 10px;
+      cursor: pointer;
+
+      span {
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+    }
+    .metaData2 {
       font-size: 15px;
       position: absolute;
       right: 0;

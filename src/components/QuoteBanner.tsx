@@ -6,8 +6,9 @@ import { Book } from "@/api/Interface";
 
 //interface QuoteBannerProps {}
 
-const QuoteBanner = ({ ...props }) => {
+const QuoteBanner = () => {
   const { books } = useContext(KTON_CONTEXT);
+  const [restrictions, setRestrictions] = useState(true);
 
   const [randomCollection, setRandomCollection] = useState<
     | {
@@ -34,6 +35,9 @@ const QuoteBanner = ({ ...props }) => {
   };
 
   useEffect(() => {
+    //Setting restrictions
+    setRestrictions(!userAuthenticated());
+
     if (userAuthenticated()) {
       //For logged in users we will use their clippings which are stored in the user context
 
@@ -66,16 +70,24 @@ const QuoteBanner = ({ ...props }) => {
     }
   }, []);
 
-  return (
-    <div className={styles.QuoteBanner}>
-      <div className={styles.QuoteBannerWidth}>
-        <p className={styles.highlight}>{randomCollection?.highlight}</p>
-        <p className={styles.metaData}>
-          {randomCollection?.author} - {randomCollection?.title}
-        </p>
+  if (randomCollection) {
+    return (
+      <div className={styles.QuoteBanner}>
+        <div className={styles.QuoteBannerWidth}>
+          <p className={styles.highlight}>{randomCollection?.highlight}</p>
+          {restrictions ? null : (
+            <p className={styles.metaData1}>
+              <span>Star</span> - <span>Delete</span>{" "}
+            </p>
+          )}
+
+          <p className={styles.metaData2}>
+            {randomCollection?.author} - {randomCollection?.title}
+          </p>
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else return <h1>Component Loading </h1>;
 };
 
 export default QuoteBanner;

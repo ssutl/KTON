@@ -7,10 +7,10 @@ import userAuthenticated from "@/helpers/UserAuthenticated";
 
 export default function Header() {
   const router = useRouter();
-  const [restrictions, setRestrictions] = useState<boolean>(true);
+  const [restrictionHeader, setRestrictionHeader] = useState(false);
 
   useEffect(() => {
-    setRestrictions(!userAuthenticated());
+    setRestrictionHeader(!userAuthenticated());
   });
 
   if (router.pathname === "/") {
@@ -22,17 +22,21 @@ export default function Header() {
       </div>
     );
   } else if (router.pathname === "/Home") {
-    return (
-      <div className={styles.header}>
-        <div className={styles.headerWidth}>
-          {`Welcome to KTON, ${
-            restrictions
-              ? `your account has restrictions, login to ensure you can access all features!`
-              : `your account is totally un-restricted, happy annotating!`
-          }`}
+    if (restrictionHeader) {
+      return (
+        <div className={styles.header}>
+          <div className={styles.headerWidth}>
+            <p>
+              Welcome to KTON your account has restrictions, login to ensure you
+              can access all features!
+            </p>
+            <span onClick={() => setRestrictionHeader(false)}>x</span>
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return null;
+    }
   } else {
     return null;
   }

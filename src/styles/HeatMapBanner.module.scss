@@ -1,0 +1,15 @@
+@import "../Styles/Breakpoints.scss";
+
+.HeatMapBanner {
+  width: 95%;
+  display: flex;
+  height: 35vh;
+  align-items: center;
+
+  .HeatMapContainer {
+    height: 85%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+}

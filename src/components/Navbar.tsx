@@ -59,6 +59,12 @@ export default function Navbar() {
             className={styles.modal_item}
             onClick={() => router.push("Export")}
           >
+            <p>Import</p>
+          </div>
+          <div
+            className={styles.modal_item}
+            onClick={() => router.push("Export")}
+          >
             <p>Export</p>
           </div>
         </div>

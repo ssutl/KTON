@@ -1,14 +1,16 @@
 @import "../Styles/Breakpoints.scss";
 
 .banner {
-  border-bottom: 0.5px solid black;
   display: flex;
   flex-direction: column;
   width: 100%;
 
   @include breakpoint-mixin("laptop-small") {
     flex-direction: row;
-    height: 30vh;
+    height: 25vh;
+    width: 95%;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .statsBox {
@@ -18,31 +20,23 @@
     justify-content: space-evenly;
     height: 30vh;
     text-align: center;
+    border-bottom: 0.5px black solid;
 
     h1 {
       font-size: 40px;
       font-weight: 100;
+
+      // //Code to trancuate text
+      // white-space: nowrap;
+      // overflow: hidden;
+      // text-overflow: ellipsis;
+      // //Code to trancuate text
     }
 
     @include breakpoint-mixin("laptop-small") {
       width: 30%;
-      height: 100%;
-    }
-  }
-  .statsBoxLong {
-    width: 100%;
-    height: 100%;
-    height: 30vh;
-    border-top: 0.5px black solid;
-    border-bottom: 0.5px black solid;
-
-    @include breakpoint-mixin("laptop-small") {
-      width: 40%;
-      height: 100%;
-      border-left: 0.5px black solid;
-      border-right: 0.5px black solid;
-      border-top: 0px;
-      border-bottom: 0px;
+      height: 80%;
+      border: 0.5px solid black;
     }
   }
 }
