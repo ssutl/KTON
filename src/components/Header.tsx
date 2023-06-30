@@ -11,7 +11,7 @@ export default function Header() {
 
   useEffect(() => {
     setRestrictionHeader(!userAuthenticated());
-  });
+  }, []);
 
   if (router.pathname === "/") {
     return (

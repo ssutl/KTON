@@ -13,8 +13,18 @@
     align-items: center;
     border: 0.5px solid black;
     background-color: #202020;
+    // background-color: #bec6d9;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
       rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    cursor: pointer;
+
+    @include breakpoint-mixin("laptop-small") {
+      &:hover {
+        transition: all 0.5s ease;
+        transform: scale(1.025);
+        border: 1px solid grey;
+      }
+    }
 
     // .color-empty-dark {
     //   fill: $background-dark;
@@ -22,6 +32,7 @@
 
     .color-empty-light {
       fill: #191919;
+      // fill: #343d46;
     }
 
     .color-scale-1 {

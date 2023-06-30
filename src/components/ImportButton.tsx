@@ -35,7 +35,7 @@ const ImportButton = () => {
   useEffect(() => {
     const clippings = localStorage.getItem("clippings");
 
-    if (clippings) {
+    if (clippings && uploadStatus) {
       Router.push("Home");
     }
   }, [uploadStatus]);

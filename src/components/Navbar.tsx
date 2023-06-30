@@ -39,7 +39,9 @@ export default function Navbar() {
           </div>
           <div
             className={styles.modal_item}
-            onClick={() => router.push("Home")}
+            onClick={() =>
+              router.pathname === "/Home" ? null : router.push("Home")
+            }
           >
             <p>Home</p>
           </div>
