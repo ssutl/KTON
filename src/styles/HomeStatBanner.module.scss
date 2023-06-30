@@ -1,42 +1,42 @@
 @import "../Styles/Breakpoints.scss";
 
-.banner {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+// .HomeStatBanner {
+//   height: 25vh;
+//   width: 95%;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-evenly;
 
-  @include breakpoint-mixin("laptop-small") {
-    flex-direction: row;
-    height: 25vh;
-    width: 95%;
-    justify-content: space-between;
-    align-items: center;
-  }
+//   span:first-of-type {
+//     font-weight: 100;
+//     opacity: 0.6;
+//   }
+
+//   span {
+//     opacity: 1;
+//     font-weight: 700;
+//   }
+// }
+
+.HomeStatBanner {
+  height: 25vh;
+  width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
 
   .statsBox {
+    width: 30%;
+    height: 80%;
+    border: 0.5px solid black;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+      rgba(0, 0, 0, 0.22) 0px 10px 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    height: 30vh;
-    text-align: center;
-    border-bottom: 0.5px black solid;
-
-    h1 {
-      font-size: 40px;
-      font-weight: 100;
-
-      // //Code to trancuate text
-      // white-space: nowrap;
-      // overflow: hidden;
-      // text-overflow: ellipsis;
-      // //Code to trancuate text
-    }
-
-    @include breakpoint-mixin("laptop-small") {
-      width: 30%;
-      height: 80%;
-      border: 0.5px solid black;
-    }
+    background-color: #202020;
   }
 }

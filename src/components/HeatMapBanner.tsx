@@ -4,9 +4,6 @@ import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 import CalenderFunctions from "../helpers/CalanderFunctions";
 import userAuthenticated from "@/helpers/UserAuthenticated";
-import { Book, Meta_con_highlight } from "@/api/Interface";
-import { streakRanges } from "date-streaks";
-import { group } from "console";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import HeatMapDataFunc from "@/helpers/HeatmapDataFunc";
 import clippings_AllHighlights from "./Clippings_AllHighlights";
@@ -39,21 +36,17 @@ const HeatMapBanner = () => {
             startDate={shiftDate(today, -535)}
             endDate={today}
             values={heatMapData}
-            // classForValue={(value: any) => {
-            //   return `color-scale-${
-            //     Math.ceil(
-            //       value.count
-            //         .toExponential()
-            //         .substring(0, value.count.toExponential().indexOf("e"))
-            //     ) > 3
-            //       ? 4
-            //       : Math.ceil(
-            //           value.count
-            //             .toExponential()
-            //             .substring(0, value.count.toExponential().indexOf("e"))
-            //         )
-            //   }`;
-            // }}
+            classForValue={(value) => {
+              if (!value) {
+                return styles["color-empty-light"];
+              }
+              const count = Math.ceil(
+                value.count
+                  .toExponential()
+                  .substring(0, value.count.toExponential().indexOf("e"))
+              );
+              return styles[`color-scale-${count > 3 ? 4 : count}`];
+            }}
             showWeekdayLabels={false}
           />
         </div>

@@ -39,6 +39,59 @@ export default function HomeStatBanner() {
   }
 
   if (main_highlights) {
-    return <h1>Banner</h1>;
+    return (
+      // <div className={styles.HomeStatBanner}>
+      //   <p>
+      //     <span>Current Book </span>
+      //     <span>{main_highlights[0].title} </span>
+      //   </p>
+      //   <p>
+      //     <span>Longest Streak </span>
+      //     <span>{getLongestStreak()?.duration} </span>
+      //     <span>
+      //       [
+      //       {getLongestStreak()?.end === null
+      //         ? `${getLongestStreak()?.start.toDateString()} - todays date lol`
+      //         : `${getLongestStreak()?.start.toDateString()} - ${getLongestStreak()?.end?.toDateString()}`}
+      //       ]
+      //     </span>
+      //   </p>
+      //   <p>
+      //     <span>Total Highlights </span>
+      //     <span>{main_highlights.length} </span>
+      //   </p>
+      // </div>
+      <div className={styles.HomeStatBanner}>
+        <div className={styles.statsBox}>
+          <p>Longest Streak</p>
+          <h1>{getLongestStreak()?.duration}</h1>
+          <p>
+            {getLongestStreak()?.end === null
+              ? `${getLongestStreak()?.start.toDateString()} - todays date lol`
+              : `${getLongestStreak()?.start.toDateString()} - ${getLongestStreak()?.end?.toDateString()}`}
+          </p>
+        </div>
+        <div className={`${styles.statsBox} ${styles.statsBoxLong}`}>
+          <p>Current Read</p>
+          <h1>{main_highlights[0].title}</h1>
+          <p>
+            Started:{" "}
+            {new Date(main_highlights[0].highlight.Date).toDateString()}
+          </p>
+        </div>
+        <div className={styles.statsBox}>
+          <p>Total Highlights</p>
+          <h1>{main_highlights.length}</h1>
+          <p>
+            {`${new Date(
+              main_highlights[main_highlights.length - 1].highlight.Date
+            ).toDateString()} - ${new Date(
+              main_highlights[0].highlight.Date
+            ).toDateString()}`}
+          </p>
+          <p></p>
+        </div>
+      </div>
+    );
   } else return <h1>Component Loading </h1>;
 }
