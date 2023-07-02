@@ -6,7 +6,7 @@ export default function clippings_AllHighlights(clippings: string | null) {
 
     const clippings_highlights: Meta_con_highlight[] = [];
 
-    //Converting the clippings to intended form
+    //Converting the clippings to meta_con_highlight[] form
     parsedClippings.map((eachBook) => {
       eachBook.highlights.map((eachHiglight) =>
         clippings_highlights.push({

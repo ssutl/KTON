@@ -10,6 +10,7 @@ interface KTONContextProps {
   updateHighlights: (value: Meta_con_highlight[] | undefined) => void;
 }
 
+//The initial context of the app for authed users will have everything empty and undefined until InitAPI is called
 const InitialContext: KTONContextProps = {
   userinfo: undefined,
   books: undefined,
@@ -22,6 +23,7 @@ const InitialContext: KTONContextProps = {
 export const KTON_CONTEXT = createContext<KTONContextProps>(InitialContext);
 
 export const KTON_Provider = ({ children }: any) => {
+  //Creating the main state where everything will be stored
   const [userinfo, setUserInfo] = useState<userInfo | undefined>(
     InitialContext.userinfo
   );
@@ -30,6 +32,7 @@ export const KTON_Provider = ({ children }: any) => {
     Meta_con_highlight[] | undefined
   >(InitialContext.highlights);
 
+  //Creating the main functions to update each state
   const updateUserInfo = (value: userInfo | undefined) => {
     setUserInfo(value);
   };
@@ -42,6 +45,7 @@ export const KTON_Provider = ({ children }: any) => {
     setHighlights(value);
   };
 
+  //Wrapping the app in the provider
   return (
     <KTON_CONTEXT.Provider
       value={{

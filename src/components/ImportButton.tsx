@@ -14,6 +14,7 @@ const ImportButton = () => {
     var file = incomingFile;
     var textType = /text.*/;
 
+    //This upload process is for the landing page, therefore user isn't logged in and we can parse server side
     if (file && file.type.match(textType)) {
       var reader = new FileReader();
 
@@ -28,6 +29,8 @@ const ImportButton = () => {
       };
 
       reader.readAsText(file);
+    } else {
+      alert("File type does not match");
     }
   };
 
@@ -35,6 +38,7 @@ const ImportButton = () => {
   useEffect(() => {
     const clippings = localStorage.getItem("clippings");
 
+    //If the local storage has clippings we can send unauthed user to home page
     if (clippings && uploadStatus) {
       Router.push("Home");
     }

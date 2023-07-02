@@ -1,36 +1,43 @@
 import styles from "../styles/HomeStatBanner.module.scss";
 import React, { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/router";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import { streakRanges, summary } from "date-streaks";
-import { Book, Meta_con_highlight } from "@/api/Interface";
+import { Meta_con_highlight } from "@/api/Interface";
 import clippings_AllHighlights from "../helpers/Clippings_AllHighlights";
 
 //interface HomeStatBannerProps {}
 
 export default function HomeStatBanner() {
   const { highlights } = useContext(KTON_CONTEXT);
+  //These are the highlights in context, which only authenticated users will have
 
   const [main_highlights, setMain_highlights] = useState<
     Meta_con_highlight[] | undefined
   >();
+  //This will be the main highlights, which we'll conditionally push either local clippings highlights to or context highlights
+  //This is what we'll use for rendering
 
   useEffect(() => {
-    if (!userAuthenticated()) {
+    //If user authed, give context highlights, else pass in clippings highlights
+    if (userAuthenticated()) {
+      setMain_highlights(highlights);
+    } else {
       const clippings = localStorage.getItem("clippings");
       setMain_highlights(clippings_AllHighlights(clippings));
-    } else {
-      setMain_highlights(highlights);
     }
   }, []);
 
   function getLongestStreak() {
+    //Getting the longest streak of days read
     if (main_highlights) {
-      const groupedDates = main_highlights.map(
+      //Creating an array of all the dates read
+      const arrayOfDates = main_highlights.map(
         (eachHighlight) => eachHighlight.highlight.Date
       );
-      const streakInfo = streakRanges({ dates: groupedDates });
+
+      //Finding the longest consecutive streak of dates
+      const streakInfo = streakRanges({ dates: arrayOfDates });
 
       const sortedArr = streakInfo.sort((a, b) => b.duration - a.duration);
 
@@ -40,27 +47,6 @@ export default function HomeStatBanner() {
 
   if (main_highlights) {
     return (
-      // <div className={styles.HomeStatBanner}>
-      //   <p>
-      //     <span>Current Book </span>
-      //     <span>{main_highlights[0].title} </span>
-      //   </p>
-      //   <p>
-      //     <span>Longest Streak </span>
-      //     <span>{getLongestStreak()?.duration} </span>
-      //     <span>
-      //       [
-      //       {getLongestStreak()?.end === null
-      //         ? `${getLongestStreak()?.start.toDateString()} - todays date lol`
-      //         : `${getLongestStreak()?.start.toDateString()} - ${getLongestStreak()?.end?.toDateString()}`}
-      //       ]
-      //     </span>
-      //   </p>
-      //   <p>
-      //     <span>Total Highlights </span>
-      //     <span>{main_highlights.length} </span>
-      //   </p>
-      // </div>
       <div className={styles.HomeStatBanner}>
         <div className={styles.statsBox}>
           <p>Longest Streak</p>

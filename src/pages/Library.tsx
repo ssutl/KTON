@@ -44,7 +44,13 @@ const Library = () => {
                 />
               </div>
               <div className={styles.modal_title}>
-                <p>Books</p>
+                {mainBooks.filter((eachBook) =>
+                  eachBook.title.toLowerCase().includes(searchValue)
+                ).length === 0 ? (
+                  <p>No Titles Match</p>
+                ) : (
+                  <p>Books</p>
+                )}
               </div>
               {mainBooks
                 .filter((eachBook) =>

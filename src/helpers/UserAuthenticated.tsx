@@ -1,6 +1,7 @@
 import Router from "next/router";
 
 const userAuthenticated = () => {
+  //Quick check to see if the user is authenticated or not
   const authToken = localStorage.getItem("token");
   const clippings = localStorage.getItem("clippings");
 

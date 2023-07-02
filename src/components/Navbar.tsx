@@ -1,6 +1,7 @@
 import styles from "../styles/Navbar.module.scss";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import userAuthenticated from "@/helpers/UserAuthenticated";
 
 export default function Navbar() {
   const [screenWidth, setScreenWidth] = useState(0);
@@ -10,26 +11,21 @@ export default function Navbar() {
   let userLoggedIn = false;
 
   useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth);
-    };
+    setScreenWidth(window.innerWidth);
 
-    //UseEffect to see what the local storage state is after upload
-    const authToken = localStorage.getItem("token");
+    window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
 
-    if (authToken) {
-      userLoggedIn = true;
-    }
-
-    handleResize(); // Initial screen width
-
-    window.addEventListener("resize", handleResize);
+    //Setting user auth status
+    userLoggedIn = userAuthenticated();
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", () =>
+        setScreenWidth(window.innerWidth)
+      );
     };
   }, []);
 
+  //The pop up menu
   const Modal = () => {
     return (
       <div className={styles.modal}>
@@ -74,6 +70,7 @@ export default function Navbar() {
     );
   };
 
+  //Display the navbar
   return (
     <div className={styles.navbar}>
       <div className={styles.navbarWidth}>

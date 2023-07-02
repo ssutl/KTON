@@ -7,6 +7,10 @@ import {
 import axios, { AxiosResponse } from "axios";
 
 function InitAPI() {
+  //Here holds the API which will be called when an authenticated user logs in
+  //This information will then be passed to the context so the entire app can have it
+
+  //Grabbing highlights
   async function getAllHighlights() {
     const authToken = localStorage.getItem("token");
 
@@ -14,6 +18,7 @@ function InitAPI() {
       return undefined;
     } else {
       try {
+        //Awaiting response
         const response = await axios({
           method: `GET`,
           url: `${process.env.NEXT_PUBLIC_BACKENDURL}/books/all-highlights`,
@@ -22,12 +27,13 @@ function InitAPI() {
           },
         });
 
+        //Filtering deleted highlights
         if (Array.isArray(response.data.allHighlights)) {
           return response.data.allHighlights.filter(
             (eachHighlight: Meta_con_highlight) =>
               eachHighlight.highlight.deleted === false
           ).length === 0
-            ? []
+            ? undefined
             : response.data.allHighlights
                 .filter(
                   (eachHighlight: {
@@ -50,6 +56,7 @@ function InitAPI() {
     }
   }
 
+  //Getting all books
   async function getAllBooks() {
     const authToken = localStorage.getItem("token");
 
@@ -57,6 +64,7 @@ function InitAPI() {
       return undefined;
     } else {
       try {
+        //Awaiting response
         const response = await axios({
           method: `GET`,
           url: `${process.env.NEXT_PUBLIC_BACKENDURL}/books`,
@@ -65,10 +73,11 @@ function InitAPI() {
           },
         });
 
+        //Filtering deleted books
         return response.data.filter(
           (eachBook: Book) => eachBook.deleted === false
         ).length === 0
-          ? []
+          ? undefined
           : response.data
               .map((eachBook: Book) => {
                 eachBook.highlights.sort(function (a, b) {
@@ -88,6 +97,7 @@ function InitAPI() {
     }
   }
 
+  //Getting User Info
   async function getUserInfo() {
     const authToken = localStorage.getItem("token");
 
@@ -95,6 +105,7 @@ function InitAPI() {
       return undefined;
     } else {
       try {
+        //Awaiting response
         const response = await axios({
           method: `GET`,
           url: `${process.env.NEXT_PUBLIC_BACKENDURL}/users/info`,
@@ -110,8 +121,6 @@ function InitAPI() {
       }
     }
   }
-
-  // Rest of the code remains the same
 
   return {
     getAllBooks,

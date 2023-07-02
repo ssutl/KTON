@@ -7,7 +7,8 @@ import { Book } from "@/api/Interface";
 //interface QuoteBannerProps {}
 
 const QuoteBanner = () => {
-  const { books } = useContext(KTON_CONTEXT);
+  const { books, highlights } = useContext(KTON_CONTEXT);
+  //Books from authenticated users
   const [restrictions, setRestrictions] = useState(true);
 
   const [randomCollection, setRandomCollection] = useState<
@@ -18,6 +19,7 @@ const QuoteBanner = () => {
       }
     | undefined
   >();
+  //This is the main collection we are reading from, either authed user info or unauthed will go here
 
   const randomHighlightGenerator = (allBooks: Book[]) => {
     const randomBookNumber = Math.round(Math.random() * (allBooks.length - 1));
@@ -38,24 +40,22 @@ const QuoteBanner = () => {
     //Setting restrictions
     setRestrictions(!userAuthenticated());
 
-    if (userAuthenticated()) {
-      //For logged in users we will use their clippings which are stored in the user context
+    //Passing in context for authed users
+    if (userAuthenticated() && books) {
+      randomHighlightGenerator(books);
 
-      if (books) {
+      const interval = setInterval(() => {
         randomHighlightGenerator(books);
+      }, 20000);
 
-        const interval = setInterval(() => {
-          randomHighlightGenerator(books);
-        }, 20000);
-
-        return () => {
-          clearInterval(interval);
-        };
-      }
+      return () => {
+        clearInterval(interval);
+      };
     } else {
       //For non logged in users we will use their clippings in local storage to display random quote
       const clippings = localStorage.getItem("clippings");
       if (clippings) {
+        //Have to convert clippings to books format
         const parsedClippings: Book[] = JSON.parse(clippings);
         randomHighlightGenerator(parsedClippings);
 
@@ -70,6 +70,7 @@ const QuoteBanner = () => {
     }
   }, []);
 
+  //Reading from the main collection (source of truth, idk what it means makes sense to me), if it aint there show loading
   if (randomCollection) {
     return (
       <div className={styles.QuoteBanner}>
