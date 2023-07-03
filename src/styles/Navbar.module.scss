@@ -8,6 +8,14 @@
   justify-content: center;
   // color: white;
 
+  @include breakpoint-mixin("laptop-small") {
+    height: 7vh;
+  }
+
+  @include breakpoint-mixin("desktop") {
+    height: 5vh;
+  }
+
   .navbarWidth {
     width: 90%;
     height: 100%;
@@ -15,6 +23,7 @@
     align-items: center;
     justify-content: space-between;
     font-weight: 500;
+    // background-color: orange;
 
     @include breakpoint-mixin("laptop-small") {
       width: 95%;
@@ -26,30 +35,28 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: relative;
+      // background-color: orange;
 
       h3 {
         cursor: pointer;
+        margin-left: 30px;
 
         &:hover {
           opacity: 0.5;
         }
       }
 
-      span {
-        margin-right: 30px;
-
-        @include breakpoint-mixin("laptop-small") {
-          margin-right: 40px;
-        }
-      }
-
       .hoverMenu {
         width: fit-content;
+        position: relative;
+
+        @include breakpoint-mixin("laptop-small") {
+          margin-right: 0px;
+        }
 
         .modal {
           position: absolute;
-          right: 50%;
+          right: 0%;
           width: 120px;
           opacity: 0;
           visibility: hidden;

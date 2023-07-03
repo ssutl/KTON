@@ -1,12 +1,14 @@
 @import "../Styles/Breakpoints.scss";
 
 .Library {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  //   background-color: orange;
+  overflow-y: scroll;
+  height: calc(95vh - 1px);
 
   @include breakpoint-mixin("laptop-small") {
+    height: calc(93vh - 1px);
+  }
+
+  @include breakpoint-mixin("desktop") {
     height: calc(95vh - 1px);
   }
 
@@ -17,14 +19,26 @@
     display: flex;
     justify-content: center;
 
+    @include breakpoint-mixin("laptop-small") {
+      height: 7vh;
+    }
+
+    @include breakpoint-mixin("desktop") {
+      height: 5vh;
+    }
+
     .searchBannerWidth {
       //   background-color: aqua;
       display: flex;
       align-items: center;
       justify-content: space-between;
       height: 100%;
-      width: 95%;
 
+      //To account for the scrollbar
+      width: calc(95% + 10px);
+      margin-left: 10px;
+      //To account for the scrollbar
+      // background-color: orange;
       .hoverMenu {
         //To increase the range user can hover over
         padding-left: 30px;
@@ -34,8 +48,8 @@
 
         .SearchFieldModal {
           position: absolute;
+          width: 320px;
           right: 0px;
-          width: 600px;
           opacity: 0;
           visibility: hidden;
           transition: opacity 300ms, visibility 600ms;
@@ -47,6 +61,10 @@
           border: 1px solid black;
           background-color: #202020;
           overflow-y: scroll;
+
+          @include breakpoint-mixin("laptop-small") {
+            width: 600px;
+          }
 
           .searchBar {
             height: 5vh;
@@ -123,8 +141,161 @@
   }
 
   .filterBanner {
-    height: 6vh;
     width: 100%;
-    border-bottom: 1px solid black;
+    border-bottom: 0.5px solid black;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0px 10px 0px;
+
+    .filterBannerWidth {
+      height: 100%;
+      width: 95%;
+      display: flex;
+      flex-direction: column-reverse;
+
+      @include breakpoint-mixin("laptop-small") {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .filterSection {
+        width: fit-content;
+        height: 100%;
+        display: flex;
+
+        h3 {
+          cursor: pointer;
+
+          &:hover {
+            opacity: 0.5;
+          }
+        }
+
+        .hoverMenu {
+          width: fit-content;
+          position: relative;
+          margin-right: 30px;
+
+          @include breakpoint-mixin("laptop-small") {
+            margin-right: 40px;
+          }
+
+          .modal {
+            position: absolute;
+            left: 50%;
+            width: 120px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 300ms, visibility 600ms;
+            z-index: 1000;
+            // border-radius: 10px;
+
+            .modal_height {
+              margin-top: 30px;
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              // border-radius: 10px;
+              padding: 10px 0px 10px 0px;
+              box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+                rgba(0, 0, 0, 0.22) 0px 10px 10px;
+              border: 1px solid black;
+              background-color: #202020;
+
+              .modal_title {
+                height: 30px;
+                width: 100%;
+                opacity: 0.7;
+                display: flex;
+                align-items: center;
+
+                p {
+                  margin-left: 10px;
+                }
+              }
+
+              .modal_item {
+                height: 40px;
+                border-radius: 5px;
+                display: flex;
+                // justify-content: center;
+                align-items: center;
+                width: 90%;
+                cursor: pointer;
+
+                p {
+                  margin-left: 20px;
+                }
+
+                &:hover {
+                  background-color: #474343;
+                }
+              }
+            }
+          }
+
+          &:hover {
+            .modal {
+              visibility: visible;
+              opacity: 1;
+            }
+          }
+        }
+      }
+
+      .descriptionSection {
+        width: 100%;
+        text-align: justify;
+        margin-bottom: 20px;
+
+        @include breakpoint-mixin("laptop-small") {
+          margin-bottom: 0px;
+          width: 25%;
+        }
+      }
+    }
   }
+
+  .bookContainer {
+    height: fit-content;
+    width: 100%;
+    // background-color: orange;
+    display: grid;
+
+    @include breakpoint-mixin("laptop-small") {
+      grid-template-columns: repeat(
+        4,
+        1fr
+      ); /* Adjust the number of columns as needed */
+    }
+
+    @include breakpoint-mixin("laptop-wide") {
+      grid-template-columns: repeat(
+        5,
+        1fr
+      ); /* Adjust the number of columns as needed */
+    }
+
+    @include breakpoint-mixin("desktop-wide") {
+      grid-template-columns: repeat(
+        6,
+        1fr
+      ); /* Adjust the number of columns as needed */
+    }
+  }
+}
+
+.Library::-webkit-scrollbar {
+  height: 100%;
+  background-color: rgb(45, 41, 41);
+  width: 10px;
+}
+
+.Library::-webkit-scrollbar-thumb {
+  background-color: rgba(70, 68, 68, 0.428);
+  border: 1px solid transparent;
+  background-clip: content-box;
+  border-radius: 10px;
+  height: 40px;
 }

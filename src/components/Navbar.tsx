@@ -8,15 +8,15 @@ export default function Navbar() {
 
   const router = useRouter();
   const isIndexRoute = router.pathname === "/";
-  let userLoggedIn = false;
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
 
   useEffect(() => {
     setScreenWidth(window.innerWidth);
+    setUserLoggedIn(userAuthenticated());
 
     window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
 
     //Setting user auth status
-    userLoggedIn = userAuthenticated();
 
     return () => {
       window.removeEventListener("resize", () =>
@@ -82,7 +82,7 @@ export default function Navbar() {
               <Modal />
             </span>
           )}
-          {userLoggedIn ? null : <h3>Login</h3>}
+          {userLoggedIn ? <h3>Logout</h3> : <h3>Login</h3>}
         </div>
       </div>
     </div>
