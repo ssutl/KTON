@@ -31,7 +31,11 @@ const QuoteBanner = () => {
 
     setRandomCollection({
       highlight: randomHighlight.Text,
-      author: randomBook.author,
+      //Removing the ; from author list
+      author:
+        randomBook.author.slice(-1) === ";"
+          ? randomBook.author.slice(0, -1)
+          : randomBook.author.replace(";", " & "),
       title: randomBook.title,
     });
   };

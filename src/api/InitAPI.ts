@@ -5,8 +5,19 @@ import {
   userInfo,
 } from "./Interface";
 import axios, { AxiosResponse } from "axios";
+import React, { useState, useEffect, useContext } from "react";
+import { KTON_CONTEXT } from "../context/KTONContext";
+import userAuthenticated from "@/helpers/UserAuthenticated";
 
 function InitAPI() {
+  const {
+    userinfo,
+    books,
+    highlights,
+    updateBooks,
+    updateUserInfo,
+    updateHighlights,
+  } = useContext(KTON_CONTEXT);
   //Here holds the API which will be called when an authenticated user logs in
   //This information will then be passed to the context so the entire app can have it
 
@@ -122,10 +133,28 @@ function InitAPI() {
     }
   }
 
+  function InitialiseApp() {
+    console.log("called");
+    // Fetch data from your database and update the context state variables
+    const fetchData = async () => {
+      try {
+        const [userResponse, booksResponse, highlightsResponse] =
+          await Promise.all([getUserInfo(), getAllBooks(), getAllHighlights()]);
+        updateUserInfo(userResponse);
+        updateBooks(booksResponse);
+        updateHighlights(highlightsResponse);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    if (userAuthenticated()) {
+      fetchData();
+    }
+  }
+
   return {
-    getAllBooks,
-    getAllHighlights,
-    getUserInfo,
+    InitialiseApp,
   };
 }
 
