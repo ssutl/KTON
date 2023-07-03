@@ -36,32 +36,32 @@ export default function Navbar() {
           <div
             className={styles.modal_item}
             onClick={() =>
-              router.pathname === "/Home" ? null : router.push("Home")
+              router.pathname === "/Home" ? null : router.push("/Home")
             }
           >
             <p>Home</p>
           </div>
           <div
             className={styles.modal_item}
-            onClick={() => router.push("Library")}
+            onClick={() => router.push("/Library")}
           >
             <p>Library</p>
           </div>
           <div
             className={styles.modal_item}
-            onClick={() => router.push("Stats")}
+            onClick={() => router.push("/Stats")}
           >
             <p>Stats</p>
           </div>
           <div
             className={styles.modal_item}
-            onClick={() => router.push("Export")}
+            onClick={() => router.push("/Export")}
           >
             <p>Import</p>
           </div>
           <div
             className={styles.modal_item}
-            onClick={() => router.push("Export")}
+            onClick={() => router.push("/Export")}
           >
             <p>Export</p>
           </div>

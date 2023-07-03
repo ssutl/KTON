@@ -5,6 +5,7 @@ import Tilt from "react-parallax-tilt";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import axios, { AxiosResponse } from "axios";
 import { usePalette } from "react-palette";
+import { useRouter } from "next/router";
 
 interface BookProps {
   book: Book;
@@ -17,7 +18,7 @@ const BookComponent = ({ book, index }: BookProps) => {
   const [restrictions, setRestrictions] = useState(true);
   const [imageIsValid, setImageIsValid] = useState(false);
   const [isMouseInside, setIsMouseInside] = useState(false);
-  console.log("isMouseInside", isMouseInside);
+  const router = useRouter();
 
   const handleMouseEnter = () => {
     setIsMouseInside(true);
@@ -54,7 +55,10 @@ const BookComponent = ({ book, index }: BookProps) => {
   };
 
   return (
-    <div className={styles.Book}>
+    <div
+      className={styles.Book}
+      onClick={() => router.push(`Book/${restrictions ? index : book._id}`)}
+    >
       <div
         className={styles.ImageSection}
         onMouseEnter={handleMouseEnter}
