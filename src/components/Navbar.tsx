@@ -1,27 +1,31 @@
 import styles from "../styles/Navbar.module.scss";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import userAuthenticated from "@/helpers/UserAuthenticated";
 
 export default function Navbar() {
   const [screenWidth, setScreenWidth] = useState(0);
 
   const router = useRouter();
   const isIndexRoute = router.pathname === "/";
+  let userLoggedIn = false;
 
   useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth);
-    };
+    setScreenWidth(window.innerWidth);
 
-    handleResize(); // Initial screen width
+    window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
 
-    window.addEventListener("resize", handleResize);
+    //Setting user auth status
+    userLoggedIn = userAuthenticated();
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", () =>
+        setScreenWidth(window.innerWidth)
+      );
     };
   }, []);
 
+  //The pop up menu
   const Modal = () => {
     return (
       <div className={styles.modal}>
@@ -29,16 +33,36 @@ export default function Navbar() {
           <div className={styles.modal_title}>
             <p>Pages</p>
           </div>
-          <div className={styles.modal_item}>
+          <div
+            className={styles.modal_item}
+            onClick={() =>
+              router.pathname === "/Home" ? null : router.push("Home")
+            }
+          >
             <p>Home</p>
           </div>
-          <div className={styles.modal_item}>
+          <div
+            className={styles.modal_item}
+            onClick={() => router.push("Library")}
+          >
             <p>Library</p>
           </div>
-          <div className={styles.modal_item}>
+          <div
+            className={styles.modal_item}
+            onClick={() => router.push("Stats")}
+          >
             <p>Stats</p>
           </div>
-          <div className={styles.modal_item}>
+          <div
+            className={styles.modal_item}
+            onClick={() => router.push("Export")}
+          >
+            <p>Import</p>
+          </div>
+          <div
+            className={styles.modal_item}
+            onClick={() => router.push("Export")}
+          >
             <p>Export</p>
           </div>
         </div>
@@ -46,20 +70,19 @@ export default function Navbar() {
     );
   };
 
+  //Display the navbar
   return (
     <div className={styles.navbar}>
       <div className={styles.navbarWidth}>
-        <ul>
-          <li>{screenWidth < 1024 ? `KTON` : `KINDLE NOTES MANAGER`}</li>
-        </ul>
+        <h3>{screenWidth < 1024 ? `KTON` : `KINDLE NOTES MANAGER`}</h3>
         <div className={styles.navigationButtons}>
           {isIndexRoute ? null : (
             <span className={styles.hoverMenu}>
-              <p>Menu</p>
+              <h3>Menu</h3>
               <Modal />
             </span>
           )}
-          <p>Login</p>
+          {userLoggedIn ? null : <h3>Login</h3>}
         </div>
       </div>
     </div>

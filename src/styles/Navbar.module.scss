@@ -1,11 +1,12 @@
 @import "../Styles/Breakpoints.scss";
 
 .navbar {
-  height: 6vh;
+  height: 5vh;
   width: 100%;
   display: flex;
   border-bottom: 0.5px solid black;
   justify-content: center;
+  // color: white;
 
   .navbarWidth {
     width: 90%;
@@ -19,12 +20,6 @@
       width: 95%;
     }
 
-    ul {
-      list-style-position: inside;
-      padding-left: 0;
-      font-size: 18px;
-    }
-
     .navigationButtons {
       width: fit-content;
       height: 100%;
@@ -33,8 +28,12 @@
       align-items: center;
       position: relative;
 
-      p {
+      h3 {
         cursor: pointer;
+
+        &:hover {
+          opacity: 0.5;
+        }
       }
 
       span {
@@ -55,6 +54,7 @@
           opacity: 0;
           visibility: hidden;
           transition: opacity 300ms, visibility 600ms;
+          z-index: 1000;
           // border-radius: 10px;
 
           .modal_height {
@@ -65,9 +65,10 @@
             align-items: center;
             // border-radius: 10px;
             padding: 10px 0px 10px 0px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+              rgba(0, 0, 0, 0.22) 0px 10px 10px;
             border: 1px solid black;
-            background-color: white;
+            background-color: #202020;
 
             .modal_title {
               height: 30px;
@@ -95,7 +96,7 @@
               }
 
               &:hover {
-                background-color: #f7f7f7;
+                background-color: #474343;
               }
             }
           }

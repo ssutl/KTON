@@ -1,0 +1,16 @@
+.input {
+  display: none;
+}
+
+.button {
+  padding: 10px 40px 10px 40px;
+  border: 0.5px solid white;
+  width: fit-content;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}

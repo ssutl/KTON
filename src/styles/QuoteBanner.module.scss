@@ -1,0 +1,73 @@
+@import "../Styles/Breakpoints.scss";
+.QuoteBanner {
+  height: 45vh;
+  width: 100%;
+  border-bottom: 0.5px solid black;
+  display: flex;
+  justify-content: center;
+  background-image: url("../../public/landscape.jpg");
+  background-position: center center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  background-attachment: fixed;
+  background-position: 0 -250px; /* Center the image */
+  color: white;
+
+  @include breakpoint-mixin("laptop-small") {
+    height: 35vh;
+  }
+
+  .QuoteBannerWidth {
+    height: 100%;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    // background-color: orange;
+    position: relative;
+
+    @include breakpoint-mixin("laptop-small") {
+      width: 95%;
+    }
+
+    .highlight {
+      max-width: 100%;
+      text-align: justify;
+      //Code to trancuate text
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 5;
+      //Code to trancuate text
+
+      @include breakpoint-mixin("laptop-small") {
+        -webkit-line-clamp: 4;
+      }
+    }
+
+    .metaData1 {
+      position: absolute;
+      left: 0;
+      bottom: 10px;
+      cursor: pointer;
+
+      span {
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+    }
+    .metaData2 {
+      position: absolute;
+      right: 0;
+      bottom: 10px;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
+}
