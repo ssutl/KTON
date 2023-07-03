@@ -82,7 +82,7 @@ export default function Navbar() {
               <Modal />
             </span>
           )}
-          {userLoggedIn ? null : <h3>Login</h3>}
+          {userLoggedIn ? <h3>Logout</h3> : <h3>Login</h3>}
         </div>
       </div>
     </div>

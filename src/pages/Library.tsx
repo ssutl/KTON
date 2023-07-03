@@ -146,7 +146,7 @@ const Library = () => {
               eachBook.title.toLowerCase().includes(searchValue)
             )
             .map((eachBook, i) => (
-              <BookComponent book={eachBook} key={i} />
+              <BookComponent book={eachBook} index={i} key={i} />
             ))}
         </div>
       </div>

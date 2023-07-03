@@ -48,8 +48,8 @@
 
         .SearchFieldModal {
           position: absolute;
+          width: 320px;
           right: 0px;
-          width: 600px;
           opacity: 0;
           visibility: hidden;
           transition: opacity 300ms, visibility 600ms;
@@ -61,6 +61,10 @@
           border: 1px solid black;
           background-color: #202020;
           overflow-y: scroll;
+
+          @include breakpoint-mixin("laptop-small") {
+            width: 600px;
+          }
 
           .searchBar {
             height: 5vh;
