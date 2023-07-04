@@ -1,0 +1,102 @@
+@import "../styles/Breakpoints.scss";
+
+.BookPage {
+  display: flex;
+  height: calc(95vh - 1px);
+
+  @include breakpoint-mixin("laptop-small") {
+    height: calc(93vh - 1px);
+  }
+
+  @include breakpoint-mixin("desktop") {
+    height: calc(95vh - 1px);
+  }
+
+  .bookHalf {
+    height: 100%;
+    width: 50%;
+
+    // background-color: olivedrab;
+
+    .overlay {
+      position: absolute;
+      height: 100vh;
+      width: 50%;
+      top: 0px;
+      left: 0px;
+      // background-color: orange;
+      z-index: -100;
+      border-right: 0.5px solid black;
+      filter: opacity(0.4);
+      background: radial-gradient(var(--background-color) 5%, transparent 100%)
+        center no-repeat;
+      background-size: 150%;
+    }
+
+    .imageSection {
+      height: 70vh;
+      width: 100%;
+      // background-color: orange;
+      display: flex;
+      justify-content: center;
+
+      .ImageContainer {
+        height: 75%;
+        width: 40%;
+        //To align with title of book on other side
+        margin-top: 5vh;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+          rgba(0, 0, 0, 0.22) 0px 10px 10px;
+
+        &:hover {
+          transition: all 0.5s ease;
+          transform: scale(1.025);
+        }
+
+        img {
+          height: 100%;
+          width: 100%;
+          border: none;
+          outline: none;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+
+  .highlightHalf {
+    overflow-y: auto;
+    width: 50%;
+
+    .bookTitle {
+      height: 15vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin: 5vh auto 5vh auto;
+
+      //Aligning title with highlights below
+      width: calc((90% + 10px));
+      // background-color: orange;
+
+      h1 {
+        max-width: 70%;
+        text-align: justify;
+      }
+    }
+  }
+
+  .highlightHalf::-webkit-scrollbar {
+    height: 100%;
+    background-color: rgb(45, 41, 41);
+    width: 10px;
+  }
+
+  .highlightHalf::-webkit-scrollbar-thumb {
+    background-color: rgba(70, 68, 68, 0.428);
+    border: 1px solid transparent;
+    background-clip: content-box;
+    border-radius: 10px;
+    height: 40px;
+  }
+}

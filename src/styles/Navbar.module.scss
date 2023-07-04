@@ -23,7 +23,6 @@
     align-items: center;
     justify-content: space-between;
     font-weight: 500;
-    // background-color: orange;
 
     @include breakpoint-mixin("laptop-small") {
       width: 95%;

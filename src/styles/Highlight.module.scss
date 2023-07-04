@@ -1,0 +1,45 @@
+@import "../styles/Breakpoints.scss";
+
+.Highlight {
+  padding: 30px 0px 20px 0px;
+  //Plus 10px for the width of the scroll bar
+  width: calc(90% + 10px);
+  border-top: 0.5px solid grey;
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+
+  .mainHalf {
+    height: 100%;
+    width: 70%;
+    // background-color: orange;
+    text-align: justify;
+
+    h2 {
+      margin-bottom: 25px;
+    }
+
+    .highlightOptions {
+      display: flex;
+      height: fit-content;
+      width: 100%;
+      justify-content: space-between;
+
+      p {
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+
+  .metaHalf {
+    display: flex;
+    height: 100%;
+    width: 30%;
+    // background-color: red;
+    justify-content: flex-end;
+  }
+}
