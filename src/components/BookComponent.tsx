@@ -85,9 +85,9 @@ const BookComponent = ({ book, index }: BookProps) => {
             </h3>
           ) : !imageIsValid && !restrictions ? (
             <h3>Cannot find image, feel free to add your own</h3>
-          ) : (
+          ) : !restrictions && imageIsValid ? (
             <img draggable="false" src={book.cover_image} className="image" />
-          )}
+          ) : null}
         </Tilt>
       </div>
       <div className={styles.Book_Meta_Section}>

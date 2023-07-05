@@ -35,7 +35,7 @@ export default function Landing() {
     const clippings = localStorage.getItem("clippings");
 
     if (authToken || clippings) {
-      // Pass user into the app without restrictions
+      // Pass user into the app
       Router.push("Home");
     }
   }, []);

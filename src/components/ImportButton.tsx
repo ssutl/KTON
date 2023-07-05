@@ -54,7 +54,8 @@ const ImportButton = () => {
           if (event.target.files !== null) {
             if (
               event.target.files[0].type === "text/plain" &&
-              event.target.files[0].name === "My Clippings.txt"
+              (event.target.files[0].name === "My Clippings.txt" ||
+                event.target.files[0].name === "clippings.txt")
             ) {
               setIncomingFile(event.target.files[0]);
             } else {

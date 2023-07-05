@@ -16,12 +16,14 @@ const BookPage = () => {
   const { books } = useContext(KTON_CONTEXT);
   const { InitialiseApp } = InitApi();
   const [mainBook, setMainBook] = useState<undefined | Book>(undefined);
+  const [restrictions, setRestricitons] = useState<boolean>(true);
   const { data, loading, error } = usePalette(
     mainBook ? mainBook.cover_image : ""
   );
 
   //Initialising App by making data call on page load, this updates user context
   useEffect(() => {
+    setRestricitons(!userAuthenticated());
     //If the user is logged in but the book data is empty then we gotta refresh context, this way we can keep initial load fast by not loading books off of navigation
     if (userAuthenticated() && !books) {
       InitialiseApp();
@@ -48,7 +50,6 @@ const BookPage = () => {
   if (mainBook) {
     return (
       <div className={styles.BookPage}>
-        <div className={styles.searchBar}></div>
         <div className={styles.bookHalf}>
           <div
             className={styles.overlay}
@@ -68,11 +69,13 @@ const BookPage = () => {
               className={styles.ImageContainer}
               perspective={650}
             >
-              <img
-                draggable="false"
-                src={mainBook.cover_image}
-                className="image"
-              />
+              {restrictions ? null : (
+                <img
+                  draggable="false"
+                  src={mainBook.cover_image}
+                  className="image"
+                />
+              )}
             </Tilt>
           </div>
         </div>
@@ -81,9 +84,19 @@ const BookPage = () => {
             <h1>{mainBook.title}</h1>
             <p>{mainBook.author}</p>
           </div>
-          {mainBook.highlights.map((eachHighlight, index) => (
-            <Highlight highlight={eachHighlight} index={index} />
-          ))}
+          {mainBook.highlights
+            .slice(0, restrictions ? 50 : mainBook.highlights.length)
+            .map((eachHighlight, index) => (
+              <Highlight highlight={eachHighlight} key={index} index={index} />
+            ))}
+          {restrictions && mainBook.highlights.length > 50 ? (
+            <div className={styles.highlightRestriction}>
+              <h2>
+                Your highlights have been limited to 50, login to see your full
+                list
+              </h2>
+            </div>
+          ) : null}
         </div>
       </div>
     );

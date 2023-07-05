@@ -84,6 +84,16 @@
         text-align: justify;
       }
     }
+
+    .highlightRestriction {
+      padding: 30px 0px 20px 0px;
+      //Plus 10px for the width of the scroll bar
+      width: calc(90% + 10px);
+      border-top: 0.5px solid grey;
+      display: flex;
+      margin-right: auto;
+      margin-left: auto;
+    }
   }
 
   .highlightHalf::-webkit-scrollbar {

@@ -8,11 +8,11 @@ export default function Navbar() {
 
   const router = useRouter();
   const isIndexRoute = router.pathname === "/";
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [restrictions, setRestrictions] = useState(false);
 
   useEffect(() => {
     setScreenWidth(window.innerWidth);
-    setUserLoggedIn(userAuthenticated());
+    setRestrictions(!userAuthenticated());
 
     window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
 
@@ -47,23 +47,36 @@ export default function Navbar() {
           >
             <p>Library</p>
           </div>
+          {restrictions ? null : (
+            <>
+              <div
+                className={styles.modal_item}
+                onClick={() => router.push("/Stats")}
+              >
+                <p>Stats</p>
+              </div>
+              <div
+                className={styles.modal_item}
+                onClick={() => router.push("/Export")}
+              >
+                <p>Export</p>
+              </div>
+              <div
+                className={styles.modal_item}
+                onClick={() => router.push("/Export")}
+              >
+                <p>Import</p>
+              </div>
+            </>
+          )}
           <div
             className={styles.modal_item}
-            onClick={() => router.push("/Stats")}
+            onClick={() => {
+              router.push("/");
+              localStorage.clear();
+            }}
           >
-            <p>Stats</p>
-          </div>
-          <div
-            className={styles.modal_item}
-            onClick={() => router.push("/Export")}
-          >
-            <p>Import</p>
-          </div>
-          <div
-            className={styles.modal_item}
-            onClick={() => router.push("/Export")}
-          >
-            <p>Export</p>
+            <p>Landing</p>
           </div>
         </div>
       </div>
@@ -82,7 +95,7 @@ export default function Navbar() {
               <Modal />
             </span>
           )}
-          {userLoggedIn ? <h3>Logout</h3> : <h3>Login</h3>}
+          {restrictions ? <h3>Login</h3> : <h3>Login</h3>}
         </div>
       </div>
     </div>

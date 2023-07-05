@@ -14,9 +14,13 @@ const Library = () => {
   const { books } = useContext(KTON_CONTEXT);
   const [mainBooks, setMainBooks] = useState<Book[] | undefined>(undefined);
   const [searchValue, setSearchValue] = useState("");
+  const [restrictions, setRestricitons] = useState<boolean>(true);
+  const [restrictionBanner, setRestrictionBanner] = useState(false);
 
   //Initialising App by making data call on page load, this updates user context
   useEffect(() => {
+    setRestricitons(!userAuthenticated());
+    setRestrictionBanner(!userAuthenticated());
     InitialiseApp();
   }, []);
 
@@ -54,9 +58,16 @@ const Library = () => {
                   />
                 </div>
                 <div className={styles.modal_title}>
-                  {mainBooks.filter((eachBook) =>
-                    eachBook.title.toLowerCase().includes(searchValue)
-                  ).length === 0 ? (
+                  {mainBooks
+                    .slice(
+                      0,
+                      restrictions
+                        ? Math.round(mainBooks.length / 2)
+                        : mainBooks.length
+                    )
+                    .filter((eachBook) =>
+                      eachBook.title.toLowerCase().includes(searchValue)
+                    ).length === 0 ? (
                     <p>No Titles Match</p>
                   ) : (
                     <p>Books</p>
@@ -65,6 +76,12 @@ const Library = () => {
                 {mainBooks
                   .filter((eachBook) =>
                     eachBook.title.toLowerCase().includes(searchValue)
+                  )
+                  .slice(
+                    0,
+                    restrictions
+                      ? Math.round(mainBooks.length / 2)
+                      : mainBooks.length
                   )
                   .map((eachBook, i) => (
                     <div key={i} className={styles.bookBar}>
@@ -109,6 +126,24 @@ const Library = () => {
     );
   };
 
+  const restrictionBannerComp = () => {
+    return (
+      <div className={styles.restrictionBanner}>
+        <div className={styles.headerWidth}>
+          <p>
+            Login to view all books:{" "}
+            {mainBooks
+              ?.slice(mainBooks.length / 2 + 1, mainBooks.length)
+              .map((eachBook) => `${eachBook.title}, `)
+              .slice(0, 2)}{" "}
+            etc ...
+          </p>
+          <span onClick={() => setRestrictionBanner(false)}>x</span>
+        </div>
+      </div>
+    );
+  };
+
   const filterBanner = () => {
     return (
       <div className={styles.filterBanner}>
@@ -140,10 +175,15 @@ const Library = () => {
       <div className={styles.Library}>
         {SearchBanner()}
         {filterBanner()}
+        {restrictionBanner ? restrictionBannerComp() : null}
         <div className={styles.bookContainer}>
           {mainBooks
             .filter((eachBook) =>
               eachBook.title.toLowerCase().includes(searchValue)
+            )
+            .slice(
+              0,
+              restrictions ? Math.round(mainBooks.length / 2) : mainBooks.length
             )
             .map((eachBook, i) => (
               <BookComponent book={eachBook} index={i} key={i} />

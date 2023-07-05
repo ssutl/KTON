@@ -23,7 +23,7 @@ const Highlight = ({ highlight, index }: highlightProps) => {
     <div className={styles.Highlight}>
       <div className={styles.mainHalf}>
         <h2>{highlight.Text}</h2>
-        <h3>{highlight.notes}</h3>
+        {restrictions ? null : <h3>{highlight.notes}</h3>}
         <div className={styles.highlightOptions}>
           <p onClick={() => (restrictions ? loginModal() : null)}>Annotate</p>
           <p onClick={() => (restrictions ? loginModal() : null)}>Tag</p>
