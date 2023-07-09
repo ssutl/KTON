@@ -1,26 +1,49 @@
 import { Book } from "@/api/Interface";
 import styles from "../../styles/BookPage.module.scss";
 import { useRouter } from "next/router";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import { KTON_CONTEXT } from "../../context/KTONContext";
 import InitApi from "../../api/InitAPI";
 import Highlight from "@/components/Highlight";
 import { usePalette } from "react-palette";
 import Tilt from "react-parallax-tilt";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+
+function useOutsideAlerter(
+  ref: any,
+  modalState: React.Dispatch<React.SetStateAction<boolean>>
+) {
+  useEffect(() => {
+    function handleClickOutside(event: any) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        modalState(false);
+      }
+    }
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref]);
+}
 
 const BookPage = () => {
   const router = useRouter();
   const id = router.query.id;
   const singleId = Array.isArray(id) ? id[0] : id; // Access the first element if it's an array
-  const { books } = useContext(KTON_CONTEXT);
+  const { books, userinfo } = useContext(KTON_CONTEXT);
   const { InitialiseApp } = InitApi();
   const [mainBook, setMainBook] = useState<undefined | Book>(undefined);
   const [restrictions, setRestricitons] = useState<boolean>(true);
+  const [displayGenreModal, setDisplayGenreModal] = useState(false);
+  const multiRef = useRef(null);
   const { data, loading, error } = usePalette(
     mainBook ? mainBook.cover_image : ""
   );
   const [screenWidth, setScreenWidth] = useState(0);
+  const [color, setColor] = useState<string>("");
 
   useEffect(() => {
     //Have to set screenwidth to conditionally change size of heat map
@@ -59,7 +82,11 @@ const BookPage = () => {
       return (
         <div className={styles.bookTitle}>
           <h1>{mainBook.title}</h1>
-          <p>{mainBook.author}</p>
+          <p>
+            {mainBook.author.slice(-1) === ";"
+              ? mainBook.author.slice(0, -1)
+              : mainBook.author.replace(";", " & ")}
+          </p>
         </div>
       );
     else null;
@@ -74,6 +101,29 @@ const BookPage = () => {
         ));
     else null;
   };
+
+  const genreModal = () => {
+    if (userinfo)
+      return (
+        <div className={styles.GenreModal} ref={multiRef}>
+          <div className={styles.searchItem}>
+            <input placeholder="Search for filters" />
+          </div>
+          {Object.keys(userinfo.genres).map((eachGenre, i) => (
+            <div key={i} className={styles.genreItem}>
+              <p>{eachGenre}</p>
+              <MoreHorizIcon className={styles.dots} />
+            </div>
+          ))}
+        </div>
+      );
+    else return null;
+  };
+
+  /**Custom hook which takes in a ref and a setState action which gets triggered when the user clicks outside of the ref */
+  useOutsideAlerter(multiRef, setDisplayGenreModal);
+
+  // const handleChange = (color: string) => setColor(color);
 
   if (mainBook) {
     return (
@@ -107,7 +157,10 @@ const BookPage = () => {
             </Tilt>
           </div>
           <div className={styles.genreBanner}>
-            <h1>Genre Banner</h1>
+            <p onClick={() => setDisplayGenreModal(!displayGenreModal)}>
+              + Add genre
+            </p>
+            {displayGenreModal && userinfo ? genreModal() : null}
           </div>
           {screenWidth < 1024 ? bookTitle() : null}
           <div className={styles.summarySection}>

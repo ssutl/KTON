@@ -48,7 +48,7 @@ export interface userInfo {
   bookRecomDate: string;
   username: string;
   registration_date: string;
-  //   genres: { [key: string]: colorMapKeys };
+  genres: { [key: string]: string };
   categories: string[];
   dark_mode: boolean;
   column_count: number;

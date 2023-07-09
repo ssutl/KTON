@@ -6,6 +6,8 @@ import userAuthenticated from "@/helpers/UserAuthenticated";
 import axios, { AxiosResponse } from "axios";
 import { usePalette } from "react-palette";
 import { useRouter } from "next/router";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import StarIcon from "@mui/icons-material/Star";
 
 interface BookProps {
   book: Book;
@@ -98,6 +100,27 @@ const BookComponent = ({ book, index }: BookProps) => {
               ? book.author.slice(0, -1)
               : book.author.replace(";", " & ")}
           </p>
+          {restrictions ? null : (
+            <p>
+              {[...Array(5)].map((eachStar, i) => {
+                const isFilled = i < book.rating;
+                const starIcon = isFilled ? <StarIcon /> : <StarBorderIcon />;
+
+                return (
+                  <span
+                    key={i}
+                    id="star"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const newRating = isFilled ? i + 1 : i + 1 + book.rating;
+                    }}
+                  >
+                    {starIcon}
+                  </span>
+                );
+              })}
+            </p>
+          )}
         </div>
       </div>
     </div>

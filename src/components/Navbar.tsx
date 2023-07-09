@@ -95,6 +95,7 @@ export default function Navbar() {
               <Modal />
             </span>
           )}
+          {isIndexRoute ? <h3>Pricing</h3> : null}
           {restrictions ? <h3>Login</h3> : <h3>logout</h3>}
         </div>
       </div>

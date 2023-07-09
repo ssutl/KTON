@@ -2,92 +2,125 @@ import React, { useEffect, useState, useContext } from "react";
 import styles from "../styles/QuoteBanner.module.scss";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import { KTON_CONTEXT } from "../context/KTONContext";
-import { Book } from "@/api/Interface";
+import { Book, Meta_con_highlight } from "@/api/Interface";
+import clippings_AllHighlights from "@/helpers/Clippings_AllHighlights";
 
 //interface QuoteBannerProps {}
 
 const QuoteBanner = () => {
-  const { books } = useContext(KTON_CONTEXT);
+  const { books, highlights } = useContext(KTON_CONTEXT);
   //Books from authenticated users
   const [restrictions, setRestrictions] = useState(true);
 
-  const [randomCollection, setRandomCollection] = useState<
-    | {
-        highlight: string;
-        author: string;
-        title: string;
-      }
-    | undefined
+  const [shuffledHighlights, setShuffledHighlights] = useState<
+    Meta_con_highlight[] | undefined
   >();
+
+  const [index, setIndex] = useState<number>(0);
   //This is the main collection we are reading from, either authed user info or unauthed will go here
 
-  const randomHighlightGenerator = (allBooks: Book[]) => {
-    const randomBookNumber = Math.round(Math.random() * (allBooks.length - 1));
-    const randomBook = allBooks[randomBookNumber];
-    const randomHighlightNumber = Math.round(
-      Math.random() * (randomBook.highlights.length - 1)
+  if (shuffledHighlights)
+    console.log(
+      "1 & 2",
+      shuffledHighlights[index].highlight,
+      shuffledHighlights[index + 1].highlight
     );
-    const randomHighlight = randomBook.highlights[randomHighlightNumber];
 
-    setRandomCollection({
-      highlight: randomHighlight.Text,
-      //Removing the ; from author list
-      author:
-        randomBook.author.slice(-1) === ";"
-          ? randomBook.author.slice(0, -1)
-          : randomBook.author.replace(";", " & "),
-      title: randomBook.title,
-    });
+  const shuffleHighlights = (allHighlights: Meta_con_highlight[]) => {
+    setShuffledHighlights(allHighlights.sort(() => Math.random() - 0.5));
   };
 
   useEffect(() => {
     //Setting restrictions
     setRestrictions(!userAuthenticated());
 
-    //Passing in context for authed users
-    if (userAuthenticated() && books) {
-      randomHighlightGenerator(books);
+    const userIsAuthenticated = userAuthenticated();
+    const clippings = localStorage.getItem("clippings");
+    let highlightsData;
 
-      const interval = setInterval(() => {
-        randomHighlightGenerator(books);
-      }, 20000);
-
-      return () => {
-        clearInterval(interval);
-      };
-    } else {
-      //For non logged in users we will use their clippings in local storage to display random quote
-      const clippings = localStorage.getItem("clippings");
-      if (clippings) {
-        //Have to convert clippings to books format
-        const parsedClippings: Book[] = JSON.parse(clippings);
-        randomHighlightGenerator(parsedClippings);
-
-        const interval = setInterval(() => {
-          randomHighlightGenerator(parsedClippings);
-        }, 20000);
-
-        return () => {
-          clearInterval(interval);
-        };
-      }
+    if (userIsAuthenticated && highlights) {
+      shuffleHighlights(highlights);
+    } else if (clippings) {
+      const clippingsHighlights = clippings_AllHighlights(clippings);
+      if (clippingsHighlights) shuffleHighlights(clippingsHighlights);
+      highlightsData = clippingsHighlights;
     }
+
+    const interval = setInterval(() => {
+      setIndex((prevIndex) => prevIndex + 1);
+    }, 20000);
+
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
+  const handleFavourite = () => {
+    //Handling request locally
+    const newState = shuffledHighlights?.map((eachHighlightConMeta, i) => {
+      if (i === index) {
+        return {
+          ...eachHighlightConMeta,
+          highlight: {
+            ...eachHighlightConMeta.highlight,
+            starred: !eachHighlightConMeta.highlight.starred,
+          },
+        };
+      } else return eachHighlightConMeta;
+    });
+    setShuffledHighlights(newState);
+
+    //Handling request on server
+  };
+
+  const handleDelete = () => {
+    //Handling request locally
+
+    const newState = shuffledHighlights?.map((eachHighlightConMeta, i) => {
+      if (i === index) {
+        return {
+          ...eachHighlightConMeta,
+          highlight: {
+            ...eachHighlightConMeta.highlight,
+            deleted: !eachHighlightConMeta.highlight.deleted,
+          },
+        };
+      } else return eachHighlightConMeta;
+    });
+
+    // Update the index to the next highlight
+    if (shuffledHighlights)
+      setIndex((prevIndex) => {
+        const newIndex = prevIndex + 1;
+        return newIndex < shuffledHighlights.length ? newIndex : 0;
+      });
+
+    setShuffledHighlights(newState);
+
+    //Handling request on server
+  };
+
   //Reading from the main collection (source of truth, idk what it means makes sense to me), if it aint there show loading
-  if (randomCollection) {
+  if (shuffledHighlights) {
+    const text = shuffledHighlights[index].highlight.Text;
+    const author = shuffledHighlights[index].author;
+    const title = shuffledHighlights[index].title;
+    const starred = shuffledHighlights[index].highlight.starred;
+
     return (
       <div className={styles.QuoteBanner}>
         <div className={styles.QuoteBannerWidth}>
-          <h1 className={styles.highlight}>{randomCollection?.highlight}</h1>
+          <h1 className={styles.highlight}>{text}</h1>
           {restrictions ? null : (
             <p className={styles.metaData1}>
-              <span>Star</span> - <span>Delete</span>{" "}
+              <span onClick={() => handleFavourite()}>
+                {starred ? `Starred` : `Star`}
+              </span>{" "}
+              -<span onClick={() => handleDelete()}> Delete</span>
             </p>
           )}
-
           <p className={styles.metaData2}>
-            {randomCollection?.author} - {randomCollection?.title}
+            {author} - {title}
           </p>
         </div>
       </div>
