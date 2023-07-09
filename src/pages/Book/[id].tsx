@@ -20,6 +20,13 @@ const BookPage = () => {
   const { data, loading, error } = usePalette(
     mainBook ? mainBook.cover_image : ""
   );
+  const [screenWidth, setScreenWidth] = useState(0);
+
+  useEffect(() => {
+    //Have to set screenwidth to conditionally change size of heat map
+    setScreenWidth(window.innerWidth);
+    window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
+  }, []);
 
   //Initialising App by making data call on page load, this updates user context
   useEffect(() => {
@@ -46,6 +53,27 @@ const BookPage = () => {
       setMainBook(books.filter((book) => book._id === singleId)[0]);
     }
   }, [books]);
+
+  const bookTitle = () => {
+    if (mainBook)
+      return (
+        <div className={styles.bookTitle}>
+          <h1>{mainBook.title}</h1>
+          <p>{mainBook.author}</p>
+        </div>
+      );
+    else null;
+  };
+
+  const highlightsList = () => {
+    if (mainBook)
+      return mainBook.highlights
+        .slice(0, restrictions ? 50 : mainBook.highlights.length)
+        .map((eachHighlight, index) => (
+          <Highlight highlight={eachHighlight} key={index} index={index} />
+        ));
+    else null;
+  };
 
   if (mainBook) {
     return (
@@ -78,17 +106,18 @@ const BookPage = () => {
               )}
             </Tilt>
           </div>
+          <div className={styles.genreBanner}>
+            <h1>Genre Banner</h1>
+          </div>
+          {screenWidth < 1024 ? bookTitle() : null}
+          <div className={styles.summarySection}>
+            <h1>Summary Section</h1>
+          </div>
+          {screenWidth < 1024 ? highlightsList() : null}
         </div>
         <div className={styles.highlightHalf}>
-          <div className={styles.bookTitle}>
-            <h1>{mainBook.title}</h1>
-            <p>{mainBook.author}</p>
-          </div>
-          {mainBook.highlights
-            .slice(0, restrictions ? 50 : mainBook.highlights.length)
-            .map((eachHighlight, index) => (
-              <Highlight highlight={eachHighlight} key={index} index={index} />
-            ))}
+          {screenWidth > 1024 ? bookTitle() : null}
+          {screenWidth > 1024 ? highlightsList() : null}
           {restrictions && mainBook.highlights.length > 50 ? (
             <div className={styles.highlightRestriction}>
               <h2>

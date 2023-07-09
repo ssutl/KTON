@@ -23,7 +23,7 @@ export default function Navbar() {
         setScreenWidth(window.innerWidth)
       );
     };
-  }, []);
+  }, [router.pathname]);
 
   //The pop up menu
   const Modal = () => {
@@ -95,7 +95,7 @@ export default function Navbar() {
               <Modal />
             </span>
           )}
-          {restrictions ? <h3>Login</h3> : <h3>Login</h3>}
+          {restrictions ? <h3>Login</h3> : <h3>logout</h3>}
         </div>
       </div>
     </div>

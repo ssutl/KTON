@@ -7,7 +7,7 @@ import { Book } from "@/api/Interface";
 //interface QuoteBannerProps {}
 
 const QuoteBanner = () => {
-  const { books, highlights } = useContext(KTON_CONTEXT);
+  const { books } = useContext(KTON_CONTEXT);
   //Books from authenticated users
   const [restrictions, setRestrictions] = useState(true);
 

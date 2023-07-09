@@ -5,15 +5,23 @@
   //Plus 10px for the width of the scroll bar
   width: calc(90% + 10px);
   border-top: 0.5px solid grey;
-  display: flex;
   margin-right: auto;
   margin-left: auto;
+  display: flex;
+  flex-direction: column-reverse;
+
+  @include breakpoint-mixin("laptop-small") {
+    flex-direction: row;
+  }
 
   .mainHalf {
-    height: 100%;
-    width: 70%;
-    // background-color: orange;
+    width: 100%;
     text-align: justify;
+
+    @include breakpoint-mixin("laptop-small") {
+      height: 100%;
+      width: 70%;
+    }
 
     h2 {
       margin-bottom: 25px;
@@ -41,9 +49,14 @@
 
   .metaHalf {
     display: flex;
-    height: 100%;
-    width: 30%;
-    // background-color: red;
+    width: 100%;
     justify-content: flex-end;
+    margin-bottom: 20px;
+
+    @include breakpoint-mixin("laptop-small") {
+      margin-bottom: 0px;
+      height: 100%;
+      width: 30%;
+    }
   }
 }
