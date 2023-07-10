@@ -11,6 +11,10 @@ import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import TextareaAutosize from "react-textarea-autosize";
+import favouriteHighlightApi from "@/api/Highlights/Favourite";
+import { useRouter } from "next/router";
+import deleteHighlightApi from "@/api/Highlights/Delete";
+import annotateHighlightApi from "@/api/Highlights/Annotate";
 
 interface highlightProps {
   highlight: Book_highlight;
@@ -25,6 +29,8 @@ const Highlight = ({ highlight, index }: highlightProps) => {
   const [inputAnnotation, setInputAnnotation] = useState(highlight.notes);
   const [annotation, setAnnotation] = useState(highlight.notes);
   const highlightRef = useRef(null);
+  const router = useRouter();
+  const book_id = router.query.id;
 
   useEffect(() => {
     setRestrictions(!userAuthenticated());
@@ -57,16 +63,35 @@ const Highlight = ({ highlight, index }: highlightProps) => {
     //Handling request locally
     setFavourited(!favourited);
     //Handling request on server
+    favouriteHighlightApi({
+      book_id,
+      highlight_id: highlight._id,
+      data: !favourited,
+    });
   };
 
   const handleDelete = () => {
     //Handling request locally
     setDeleted(true);
     //Handling request on server
+    deleteHighlightApi({
+      book_id,
+      highlight_id: highlight._id,
+      data: true,
+    });
   };
 
   const handleAnnotate = () => {
+    //Handling request locally
     setAnnotation(inputAnnotation);
+
+    //Handling request on server
+    annotateHighlightApi({
+      book_id,
+      highlight_id: highlight._id,
+      data: inputAnnotation,
+    });
+
     //Clearing input
     setInputAnnotation("");
     setDisplayAnnotation(false);

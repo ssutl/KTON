@@ -4,6 +4,7 @@ import userAuthenticated from "@/helpers/UserAuthenticated";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import { Book, Meta_con_highlight } from "@/api/Interface";
 import clippings_AllHighlights from "@/helpers/Clippings_AllHighlights";
+import favouriteHighlightApi from "@/api/Highlights/Favourite";
 
 //interface QuoteBannerProps {}
 
@@ -15,8 +16,6 @@ const QuoteBanner = () => {
   const [shuffledHighlights, setShuffledHighlights] = useState<
     Meta_con_highlight[] | undefined
   >();
-
-  console.log("shuffledH", shuffledHighlights !== undefined);
 
   const [index, setIndex] = useState<number>(0);
   //This is the main collection we are reading from, either authed user info or unauthed will go here
@@ -67,6 +66,7 @@ const QuoteBanner = () => {
     setShuffledHighlights(newState);
 
     //Handling request on server
+    favouriteHighlightApi({});
   };
 
   const handleDelete = () => {

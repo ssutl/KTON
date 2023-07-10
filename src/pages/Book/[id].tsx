@@ -9,6 +9,9 @@ import Highlight from "@/components/Highlight";
 import { usePalette } from "react-palette";
 import Tilt from "react-parallax-tilt";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import TextareaAutosize from "react-textarea-autosize";
+import summariseBookApi from "@/api/Books/Summary";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 
 function useOutsideAlerter(
   ref: any,
@@ -36,20 +39,32 @@ const BookPage = () => {
   const { books, userinfo } = useContext(KTON_CONTEXT);
   const { InitialiseApp } = InitApi();
   const [mainBook, setMainBook] = useState<undefined | Book>(undefined);
+  console.log("mainBook: ", mainBook);
   const [restrictions, setRestricitons] = useState<boolean>(true);
   const [displayGenreModal, setDisplayGenreModal] = useState(false);
+  const [inputSummary, setInputSummary] = useState<string | undefined>(
+    undefined
+  );
+  // const [summary, setSummary] = useState<string | undefined>(undefined);
   const multiRef = useRef(null);
   const { data, loading, error } = usePalette(
     mainBook ? mainBook.cover_image : ""
   );
   const [screenWidth, setScreenWidth] = useState(0);
-  const [color, setColor] = useState<string>("");
 
   useEffect(() => {
     //Have to set screenwidth to conditionally change size of heat map
     setScreenWidth(window.innerWidth);
     window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
   }, []);
+
+  useEffect(() => {
+    //If book is undefined at start, change summary once it updates
+    if (mainBook !== undefined) {
+      setInputSummary(mainBook.summary);
+      // setSummary(mainBook.summary);
+    }
+  }, [mainBook]);
 
   //Initialising App by making data call on page load, this updates user context
   useEffect(() => {
@@ -123,7 +138,21 @@ const BookPage = () => {
   /**Custom hook which takes in a ref and a setState action which gets triggered when the user clicks outside of the ref */
   useOutsideAlerter(multiRef, setDisplayGenreModal);
 
-  // const handleChange = (color: string) => setColor(color);
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      // Perform any action you want to execute when Enter is pressed
+      handleSummary();
+    }
+  };
+
+  const handleSummary = () => {
+    //Handling request locally
+    //Handling request on server
+    summariseBookApi({ book_id: id, data: inputSummary });
+
+    //Clear summary
+  };
 
   if (mainBook) {
     return (
@@ -149,6 +178,7 @@ const BookPage = () => {
             >
               {restrictions ? null : (
                 <img
+                  alt="Book Cover"
                   draggable="false"
                   src={mainBook.cover_image}
                   className="image"
@@ -164,7 +194,22 @@ const BookPage = () => {
           </div>
           {screenWidth < 1024 ? bookTitle() : null}
           <div className={styles.summarySection}>
-            <h1>Summary Section</h1>
+            <TextareaAutosize
+              value={inputSummary}
+              placeholder="Add a quick summary here"
+              onChange={(e) => setInputSummary(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+            <div className={styles.buttonsSection}>
+              <p
+                onClick={() => {
+                  handleSummary();
+                }}
+              >
+                Save
+              </p>
+              <p onClick={() => setInputSummary("")}>Clear</p>
+            </div>
           </div>
           {screenWidth < 1024 ? highlightsList() : null}
         </div>

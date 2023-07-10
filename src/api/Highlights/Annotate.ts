@@ -1,7 +1,9 @@
 import axios from "axios";
 
-const favouriteHighlightApi = ({ book_id, highlight_id, data }: any) => {
-  //make an axios request to the backend to favourite a highlight
+//Edit below function to annotate a highlight
+
+const annotateHighlightApi = ({ book_id, highlight_id, data }: any) => {
+  //make an axios request to the backend to annotate a highlight
   const authToken = localStorage.getItem("token");
 
   if (authToken === null) return console.log("No auth token found");
@@ -12,9 +14,9 @@ const favouriteHighlightApi = ({ book_id, highlight_id, data }: any) => {
     headers: {
       "x-auth-token": authToken.replace(/\"/g, ""),
     },
-    data: { starred: data },
+    data: { notes: data },
   }).then((res) => {
     console.log(res.data);
   });
 };
-export default favouriteHighlightApi;
+export default annotateHighlightApi;

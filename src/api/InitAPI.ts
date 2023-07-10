@@ -47,11 +47,8 @@ function InitAPI() {
             ? undefined
             : response.data.allHighlights
                 .filter(
-                  (eachHighlight: {
-                    author: string;
-                    highlight: Book_highlight;
-                    title: string;
-                  }) => eachHighlight.highlight.deleted === false
+                  (eachHighlight: Meta_con_highlight) =>
+                    eachHighlight.highlight.deleted === false
                 )
                 .sort(function (a: any, b: any) {
                   return (
