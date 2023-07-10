@@ -8,7 +8,7 @@ import clippings_AllHighlights from "@/helpers/Clippings_AllHighlights";
 //interface QuoteBannerProps {}
 
 const QuoteBanner = () => {
-  const { books, highlights } = useContext(KTON_CONTEXT);
+  const { highlights } = useContext(KTON_CONTEXT);
   //Books from authenticated users
   const [restrictions, setRestrictions] = useState(true);
 
@@ -16,18 +16,14 @@ const QuoteBanner = () => {
     Meta_con_highlight[] | undefined
   >();
 
+  console.log("shuffledH", shuffledHighlights !== undefined);
+
   const [index, setIndex] = useState<number>(0);
   //This is the main collection we are reading from, either authed user info or unauthed will go here
 
-  if (shuffledHighlights)
-    console.log(
-      "1 & 2",
-      shuffledHighlights[index].highlight,
-      shuffledHighlights[index + 1].highlight
-    );
-
   const shuffleHighlights = (allHighlights: Meta_con_highlight[]) => {
-    setShuffledHighlights(allHighlights.sort(() => Math.random() - 0.5));
+    const shuffledArray = [...allHighlights];
+    setShuffledHighlights(shuffledArray.sort(() => Math.random() - 0.5));
   };
 
   useEffect(() => {

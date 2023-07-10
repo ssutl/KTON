@@ -67,6 +67,17 @@ const Highlight = ({ highlight, index }: highlightProps) => {
 
   const handleAnnotate = () => {
     setAnnotation(inputAnnotation);
+    //Clearing input
+    setInputAnnotation("");
+    setDisplayAnnotation(false);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      // Perform any action you want to execute when Enter is pressed
+      handleAnnotate();
+    }
   };
 
   const annotationSection = () => {
@@ -76,9 +87,16 @@ const Highlight = ({ highlight, index }: highlightProps) => {
           value={inputAnnotation}
           placeholder="Add a quick summary here"
           onChange={(e) => setInputAnnotation(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
         <div className={styles.buttonsSection}>
-          <p onClick={() => handleAnnotate()}>Save</p>
+          <p
+            onClick={() => {
+              handleAnnotate();
+            }}
+          >
+            Save
+          </p>
           <p onClick={() => setInputAnnotation("")}>Clear</p>
         </div>
       </div>

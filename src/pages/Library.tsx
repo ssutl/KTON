@@ -21,7 +21,11 @@ const Library = () => {
   useEffect(() => {
     setRestricitons(!userAuthenticated());
     setRestrictionBanner(!userAuthenticated());
-    InitialiseApp();
+
+    //If the user is logged in but the book data is empty then we gotta refresh context, this way we can keep initial load fast by not loading books off of navigation
+    if (userAuthenticated() && !books) {
+      InitialiseApp();
+    }
   }, []);
 
   useEffect(() => {
