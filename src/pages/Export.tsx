@@ -11,16 +11,22 @@ const Export = () => {
   const router = useRouter();
 
   const getCodeFromUrl = () => {
-    //the router may not contain the code, so we need to check if undefined
-
-    const code = router.pathname.split("code=")[-1].split("&state=")[0];
-    // setNotionCode(code);
+    const codeIndex = window.location.href.indexOf("code=");
+    const cdIndex = window.location.href.indexOf("&", codeIndex);
+    const code = window.location.href.substring(
+      codeIndex + "code=".length,
+      cdIndex
+    );
+    console.log("code", code);
+    // // setNotionCode(code);
     notionApi(code);
   };
 
   useEffect(() => {
     if (router.pathname === "/Export") {
+      console.log("Export page");
     } else {
+      console.log("called");
       getCodeFromUrl();
     }
   }, []);
