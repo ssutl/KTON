@@ -8,24 +8,25 @@ const notionApi = (auth_code: string) => {
 
   if (authToken === null) return console.log("No auth token found");
 
-  //Call the notion
-  //   https://api.notion.com/v1/oauth/token
+  const clientId = process.env.NEXT_PUBLIC_oauth_client_id;
+  const clientSecret = process.env.NEXT_PUBLIC_oauth_client_secret;
+  const redirectUri = process.env.OAUTH_REDIRECT_URI;
 
-  const key_secret = `${process.env.NEXT_PUBLIC_oauth_client_id}:${process.env.NEXT_PUBLIC_oauth_client_secret}`;
-  const key_secret_encoded = Buffer.from(key_secret, "ascii");
-  const b64_encoded_key = key_secret_encoded.toString("base64");
+  const encoded = Buffer.from(`${clientId}:${clientSecret}`).toString("base64");
 
   axios({
     method: "POST",
     url: "https://api.notion.com/v1/oauth/token",
     headers: {
-      Authorization: `Basic ${b64_encoded_key}`,
-      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      Authorization: `Basic ${encoded}`,
+      Accept: "application/json",
+      "Content-Type": "application/json",
     },
+
     data: {
       grant_type: "authorization_code",
       code: auth_code,
-      redirect_uri: process.env.NEXT_PUBLIC_redirect_uri,
+      redirect_uri: redirectUri,
     },
   }).then((res) => {
     console.log("res: ", res);
