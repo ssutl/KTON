@@ -4,6 +4,7 @@ import styles from "../styles/Navbar.module.scss";
 //interface StatsProps {}
 
 const Stats = () => {
+  //add stats here
   return <div>Stats</div>;
 };
 
