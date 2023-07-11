@@ -63,13 +63,13 @@ export default function Landing() {
               annotate or save any of their imported highlights.
             </p>
             <p>
-              If you're enjoying the platform and want to make the most of your
-              digital library, ensure to log in so that all your books can be
-              organized in one place. By logging in, you unlock the full
-              potential of KTON's features, allowing you to seamlessly manage
-              and access your Kindle imports. With a personalized account, you
-              can create custom collections, categorize your books, and easily
-              search for specific titles or authors.
+              If you&#39;re enjoying the platform and want to make the most of
+              your digital library, ensure to log in so that all your books can
+              be organized in one place. By logging in, you unlock the full
+              potential of KTON&#39;s features, allowing you to seamlessly
+              manage and access your Kindle imports. With a personalized
+              account, you can create custom collections, categorize your books,
+              and easily search for specific titles or authors.
             </p>
           </div>
           <div className={styles.section3}>
@@ -102,7 +102,7 @@ export default function Landing() {
           <div className={styles.importSect}>
             <div className={styles.importInfoSect}>
               <h3>IMPORT YOUR CLIPPINGS</h3>
-              <p>Locate "Clippings.txt"</p>
+              <p>Locate &#34;Clippings.txt&#34;</p>
             </div>
             <div className={styles.importButtonSect}>
               <ImportButton />
