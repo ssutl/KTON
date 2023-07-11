@@ -1,3 +1,5 @@
+import { colorMapKeys } from "@/helpers/sortGenreColors";
+
 export interface Book_highlight {
   _id: string;
   deleted: boolean;
@@ -49,7 +51,7 @@ export interface userInfo {
   bookRecomDate: string;
   username: string;
   registration_date: string;
-  genres: { [key: string]: string };
+  genres: { [key: string]: colorMapKeys };
   categories: string[];
   dark_mode: boolean;
   column_count: number;

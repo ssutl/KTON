@@ -12,6 +12,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import TextareaAutosize from "react-textarea-autosize";
 import summariseBookApi from "@/api/Books/Summary";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import genreColors, { colorMapKeys } from "@/helpers/sortGenreColors";
 
 function useOutsideAlerter(
   ref: any,
@@ -38,13 +39,18 @@ const BookPage = () => {
   const singleId = Array.isArray(id) ? id[0] : id; // Access the first element if it's an array
   const { books, userinfo } = useContext(KTON_CONTEXT);
   const { InitialiseApp } = InitApi();
+  const { colorConverter, randomColorGenerator, mapTable } = genreColors();
   const [mainBook, setMainBook] = useState<undefined | Book>(undefined);
-  console.log("mainBook: ", mainBook);
   const [restrictions, setRestricitons] = useState<boolean>(true);
   const [displayGenreModal, setDisplayGenreModal] = useState(false);
+  const [selectedGenreIndex, setSelectedGenreIndex] = useState<
+    number | undefined
+  >(undefined);
+  const [displayGenreDropdown, setDisplayGenreDropdown] = useState<boolean>();
   const [inputSummary, setInputSummary] = useState<string | undefined>(
     undefined
   );
+  const [genreInput, setGenreInput] = useState<string>("");
   // const [summary, setSummary] = useState<string | undefined>(undefined);
   const multiRef = useRef(null);
   const { data, loading, error } = usePalette(
@@ -117,19 +123,64 @@ const BookPage = () => {
     else null;
   };
 
+  const handleAddGenre = (genre: string) => {
+    if (mainBook) {
+      //Sorting locally
+      if (!mainBook.genre.includes(genre)) {
+        const newState = { ...mainBook, genre: [...mainBook.genre, genre] };
+        setMainBook(newState);
+      }
+
+      //sorting on server
+    }
+  };
+
   const genreModal = () => {
     if (userinfo)
       return (
         <div className={styles.GenreModal} ref={multiRef}>
           <div className={styles.searchItem}>
-            <input placeholder="Search for filters" />
+            <input
+              placeholder="Search for filters"
+              onChange={(e) => setGenreInput(e.target.value)}
+            />
           </div>
-          {Object.keys(userinfo.genres).map((eachGenre, i) => (
-            <div key={i} className={styles.genreItem}>
-              <p>{eachGenre}</p>
-              <MoreHorizIcon className={styles.dots} />
-            </div>
-          ))}
+          {Object.keys(userinfo.genres)
+            .filter((eachGenre) =>
+              eachGenre.toLowerCase().includes(genreInput.toLowerCase())
+            )
+            .map((eachGenre, i) => (
+              <div key={i} className={styles.genreItem}>
+                <p
+                  style={
+                    {
+                      "--background-color": colorConverter(
+                        userinfo.genres[eachGenre]
+                      ),
+                    } as React.CSSProperties
+                  }
+                  onClick={() => handleAddGenre(eachGenre)}
+                >
+                  {eachGenre}
+                </p>
+                <MoreHorizIcon
+                  className={styles.dots}
+                  onClick={() => {
+                    setSelectedGenreIndex(i);
+                    setDisplayGenreDropdown(!displayGenreDropdown);
+                  }}
+                />
+              </div>
+            ))}
+          {!Object.keys(userinfo.genres)
+            .map((eachGenre) => eachGenre.toLowerCase())
+            .includes(genreInput.toLowerCase()) &&
+            genreInput !== "" && (
+              <div className={styles.genreItem}>
+                <p>{`Create ${genreInput}`}</p>
+                <MoreHorizIcon className={styles.dots} />
+              </div>
+            )}
         </div>
       );
     else return null;
@@ -158,12 +209,7 @@ const BookPage = () => {
     return (
       <div className={styles.BookPage}>
         <div className={styles.bookHalf}>
-          <div
-            className={styles.overlay}
-            style={
-              { "--background-color": data.vibrant } as React.CSSProperties
-            }
-          ></div>
+          <div className={styles.overlay}></div>
           <div className={styles.imageSection}>
             <Tilt
               glareEnable={true}
@@ -190,6 +236,9 @@ const BookPage = () => {
             <p onClick={() => setDisplayGenreModal(!displayGenreModal)}>
               + Add genre
             </p>
+            {mainBook.genre.map((eachGenre, i) => (
+              <p key={i}>{eachGenre}</p>
+            ))}
             {displayGenreModal && userinfo ? genreModal() : null}
           </div>
           {screenWidth < 1024 ? bookTitle() : null}

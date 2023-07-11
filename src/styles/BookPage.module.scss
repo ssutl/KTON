@@ -15,37 +15,35 @@
   }
 
   .bookHalf {
-    // height: calc(95vh - 1px);
     width: 100%;
     overflow-y: auto;
-    // display: flex;
-    // flex-direction: column;
-    // align-items: center;
+    border-right: 0.5px solid black;
+    display: inline-block;
 
     @include breakpoint-mixin("laptop-small") {
       width: 50%;
     }
 
-    .overlay {
-      position: absolute;
-      height: calc(95vh - 1px);
-      width: 100%;
-      top: calc(5vh + 1px-);
-      left: 0px;
-      // background-color: orange;
-      z-index: -100;
-      border-right: 0.5px solid black;
-      filter: opacity(0.4);
-      background: radial-gradient(var(--background-color) 5%, transparent 100%)
-        center no-repeat;
-      background-size: 150%;
+    // .overlay {
+    //   position: absolute;
+    //   height: calc(95vh - 1px);
+    //   width: 100%;
+    //   top: calc(5vh + 1px-);
+    //   left: 0px;
+    //   // background-color: orange;
+    //   z-index: -100;
+    //   border-right: 0.5px solid black;
+    //   filter: opacity(0.4);
+    //   background: radial-gradient(var(--background-color) 5%, transparent 100%)
+    //     center no-repeat;
+    //   background-size: 150%;
 
-      @include breakpoint-mixin("laptop-small") {
-        top: 0px;
-        height: 100vh;
-        width: 50%;
-      }
-    }
+    //   @include breakpoint-mixin("laptop-small") {
+    //     top: 0px;
+    //     height: 100vh;
+    //     width: 50%;
+    //   }
+    // }
 
     //Height of book cover
     .imageSection {
@@ -96,7 +94,8 @@
       .GenreModal {
         position: absolute;
         top: 50px;
-        height: 20vh;
+        min-height: 9vh;
+        max-height: 20vh;
         width: 300px;
         box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
           rgba(0, 0, 0, 0.22) 0px 10px 10px;
@@ -137,6 +136,11 @@
 
           p {
             margin-left: 20px;
+            padding: 2px 15px 2px 15px;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+              rgba(0, 0, 0, 0.22) 0px 10px 10px;
+            border-right: 0.5px solid var(--background-color);
+            border-bottom: 0.5px solid var(--background-color);
           }
 
           .dots {
@@ -163,6 +167,17 @@
         border-radius: 10px;
         height: 40px;
       }
+
+      // .editModal {
+      //   position: absolute;
+      //   height: 20vh;
+      //   left: 30%;
+      //   width: 300px;
+      //   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+      //     rgba(0, 0, 0, 0.22) 0px 10px 10px;
+      //   background-color: #202020;
+      //   z-index: 100;
+      // }
     }
 
     .summarySection {
@@ -214,6 +229,7 @@
   .highlightHalf {
     overflow-y: auto;
     width: 50%;
+    background-color: #202020;
 
     .highlightRestriction {
       padding: 30px 0px 20px 0px;

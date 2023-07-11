@@ -12,7 +12,8 @@
     display: none;
 
     @include breakpoint-mixin("laptop-small") {
-      display: flex;
+      display: inline-flex;
+
       flex-direction: column;
       align-items: flex-end;
       justify-content: center;
