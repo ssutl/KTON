@@ -5,7 +5,7 @@ import "react-calendar-heatmap/dist/styles.css";
 import CalenderFunctions from "../helpers/CalanderFunctions";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import { KTON_CONTEXT } from "../context/KTONContext";
-import HeatMapDataFunc from "@/helpers/HeatmapDataFunc";
+import HeatMapDataFunc from "@/helpers/HeatMapDataFunc";
 import clippings_AllHighlights from "../helpers/Clippings_AllHighlights";
 
 //interface HeatMapBannerProps {}
