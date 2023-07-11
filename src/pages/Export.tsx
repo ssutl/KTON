@@ -23,10 +23,7 @@ const Export = () => {
   };
 
   useEffect(() => {
-    if (router.pathname === "/Export") {
-      console.log("Export page");
-    } else {
-      console.log("called");
+    if (window.location.href.includes("code=")) {
       getCodeFromUrl();
     }
   }, []);
