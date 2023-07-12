@@ -16,25 +16,27 @@ interface BookProps {
 
 const BookComponent = ({ book, index }: BookProps) => {
   //Getting the most vibrant color
-  const { data, loading, error } = usePalette(book.cover_image);
+  const { data } = usePalette(book.cover_image);
   const [restrictions, setRestrictions] = useState(true);
   const [imageIsValid, setImageIsValid] = useState(false);
   const [isMouseInside, setIsMouseInside] = useState(false);
   const router = useRouter();
 
+  //Tracking the mouse position to make the hover effect
   const handleMouseEnter = () => {
     setIsMouseInside(true);
   };
-
   const handleMouseLeave = () => {
     setIsMouseInside(false);
   };
+  //Tracking the mouse position to make the hover effect
 
+  //Setting restrictions on page load
   useEffect(() => {
-    //Setting restrictions
     setRestrictions(!userAuthenticated());
   }, []);
 
+  //Whenever a book cover is changed we need to check if it is valid or not and update the state
   useEffect(() => {
     imageValid(book.cover_image)
       .then((isValid) => {
@@ -46,6 +48,7 @@ const BookComponent = ({ book, index }: BookProps) => {
       });
   }, [book.cover_image]);
 
+  //Function to check if image returns error or not
   const imageValid = async (url: string) => {
     try {
       const response = await axios.head(url);
@@ -88,7 +91,12 @@ const BookComponent = ({ book, index }: BookProps) => {
           ) : !imageIsValid && !restrictions ? (
             <h3>Cannot find image, feel free to add your own</h3>
           ) : !restrictions && imageIsValid ? (
-            <img draggable="false" src={book.cover_image} className="image" />
+            <img
+              draggable="false"
+              alt="ebook cover image"
+              src={book.cover_image}
+              className="image"
+            />
           ) : null}
         </Tilt>
       </div>

@@ -6,8 +6,11 @@ import { Book } from "@/api/Interface";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import InitApi from "../api/InitAPI";
 import BookComponent from "@/components/BookComponent";
+import Head from "next/head";
 
-//interface LibraryProps {}
+interface ModalProps {
+  type: "Filter" | "Sort";
+}
 
 const Library = () => {
   const { InitialiseApp } = InitApi();
@@ -22,12 +25,13 @@ const Library = () => {
     setRestricitons(!userAuthenticated());
     setRestrictionBanner(!userAuthenticated());
 
-    //If the user is logged in but the book data is empty then we gotta refresh context, this way we can keep initial load fast by not loading books off of navigation
+    //If user is authenticated and they have no books in context, then we need to refresh context
     if (userAuthenticated() && !books) {
       InitialiseApp();
     }
   }, []);
 
+  //Condition to set mainbooks to either books or clippings, depending on user authentication
   useEffect(() => {
     if (userAuthenticated()) {
       if (books) {
@@ -43,6 +47,7 @@ const Library = () => {
     }
   }, [books]);
 
+  //Code to for search bar
   const SearchBanner = () => {
     if (mainBooks)
       return (
@@ -99,11 +104,7 @@ const Library = () => {
       );
   };
 
-  interface ModalProps {
-    type: "Filter" | "Sort";
-  }
-
-  //The pop up menu
+  //The Filter and sort modal
   const Modal: React.FC<ModalProps> = ({ type }) => {
     return (
       <div className={styles.modal}>
@@ -130,6 +131,7 @@ const Library = () => {
     );
   };
 
+  //Banner shown when user is not authenticated
   const restrictionBannerComp = () => {
     return (
       <div className={styles.restrictionBanner}>
@@ -148,6 +150,7 @@ const Library = () => {
     );
   };
 
+  //Banner shown to allow user to filter and sort their books
   const filterBanner = () => {
     return (
       <div className={styles.filterBanner}>
@@ -176,24 +179,31 @@ const Library = () => {
 
   if (mainBooks) {
     return (
-      <div className={styles.Library}>
-        {SearchBanner()}
-        {filterBanner()}
-        {restrictionBanner ? restrictionBannerComp() : null}
-        <div className={styles.bookContainer}>
-          {mainBooks
-            .filter((eachBook) =>
-              eachBook.title.toLowerCase().includes(searchValue)
-            )
-            .slice(
-              0,
-              restrictions ? Math.round(mainBooks.length / 2) : mainBooks.length
-            )
-            .map((eachBook, i) => (
-              <BookComponent book={eachBook} index={i} key={i} />
-            ))}
+      <>
+        <Head>
+          <title>Library</title>
+        </Head>
+        <div className={styles.Library}>
+          {SearchBanner()}
+          {filterBanner()}
+          {restrictionBanner ? restrictionBannerComp() : null}
+          <div className={styles.bookContainer}>
+            {mainBooks
+              .filter((eachBook) =>
+                eachBook.title.toLowerCase().includes(searchValue)
+              )
+              .slice(
+                0,
+                restrictions
+                  ? Math.round(mainBooks.length / 2)
+                  : mainBooks.length
+              )
+              .map((eachBook, i) => (
+                <BookComponent book={eachBook} index={i} key={i} />
+              ))}
+          </div>
         </div>
-      </div>
+      </>
     );
   } else return <h1>Component Loading</h1>;
 };

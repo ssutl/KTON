@@ -21,7 +21,6 @@ export default function Header() {
         </div>
       </div>
     );
-
     //If on home page we need to display the restriction ting
   } else if (router.pathname === "/Home" && restrictionHeader) {
     return (

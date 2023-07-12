@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/ImportButton.module.scss";
-import clippingsParser from "@/helpers/UploadedTXTHelper";
 import uploadedTxtHelper from "@/helpers/clippingsParse";
 import Router from "next/router";
-
-//interface ImportButtonProps {}
 
 const ImportButton = () => {
   const [incomingFile, setIncomingFile] = useState<File | null>(null);
   const [uploadStatus, setUploadStatus] = useState<boolean>(false);
 
+  //Function to handle the upload of the file
   const uploadFile = async () => {
     var file = incomingFile;
     var textType = /text.*/;

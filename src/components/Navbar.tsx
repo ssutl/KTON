@@ -5,18 +5,16 @@ import userAuthenticated from "@/helpers/UserAuthenticated";
 
 export default function Navbar() {
   const [screenWidth, setScreenWidth] = useState(0);
-
   const router = useRouter();
   const isIndexRoute = router.pathname === "/";
   const [restrictions, setRestrictions] = useState(false);
 
+  //On page load update screenwidth state && restrictions
   useEffect(() => {
     setScreenWidth(window.innerWidth);
-    setRestrictions(!userAuthenticated());
-
     window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
 
-    //Setting user auth status
+    setRestrictions(!userAuthenticated());
 
     return () => {
       window.removeEventListener("resize", () =>
@@ -25,7 +23,7 @@ export default function Navbar() {
     };
   }, [router.pathname]);
 
-  //The pop up menu
+  //The navigation modal
   const Modal = () => {
     return (
       <div className={styles.modal}>

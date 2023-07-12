@@ -1,11 +1,12 @@
 import axios from "axios";
 
 const deleteHighlightApi = ({ book_id, highlight_id, data }: any) => {
-  //make an axios request to the backend to delete a highlight
+  //Get token
   const authToken = localStorage.getItem("token");
 
   if (authToken === null) return console.log("No auth token found");
 
+  //Simple request to delete highlight
   axios({
     method: "PUT",
     url: `${process.env.NEXT_PUBLIC_BACKENDURL}/books/${book_id}/${highlight_id}`,

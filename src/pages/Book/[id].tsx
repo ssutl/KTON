@@ -11,27 +11,8 @@ import Tilt from "react-parallax-tilt";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import TextareaAutosize from "react-textarea-autosize";
 import summariseBookApi from "@/api/Books/Summary";
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import genreColors, { colorMapKeys } from "@/helpers/sortGenreColors";
-
-function useOutsideAlerter(
-  ref: any,
-  modalState: React.Dispatch<React.SetStateAction<boolean>>
-) {
-  useEffect(() => {
-    function handleClickOutside(event: any) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        modalState(false);
-      }
-    }
-    // Bind the event listener
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      // Unbind the event listener on clean up
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [ref]);
-}
+import genreColors from "@/helpers/sortGenreColors";
+import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 
 const BookPage = () => {
   const router = useRouter();
@@ -43,9 +24,6 @@ const BookPage = () => {
   const [mainBook, setMainBook] = useState<undefined | Book>(undefined);
   const [restrictions, setRestricitons] = useState<boolean>(true);
   const [displayGenreModal, setDisplayGenreModal] = useState(false);
-  const [selectedGenreIndex, setSelectedGenreIndex] = useState<
-    number | undefined
-  >(undefined);
   const [displayGenreDropdown, setDisplayGenreDropdown] = useState<boolean>();
   const [inputSummary, setInputSummary] = useState<string | undefined>(
     undefined
@@ -166,7 +144,6 @@ const BookPage = () => {
                 <MoreHorizIcon
                   className={styles.dots}
                   onClick={() => {
-                    setSelectedGenreIndex(i);
                     setDisplayGenreDropdown(!displayGenreDropdown);
                   }}
                 />

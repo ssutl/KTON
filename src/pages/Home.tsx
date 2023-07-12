@@ -6,8 +6,7 @@ import userAuthenticated from "@/helpers/UserAuthenticated";
 import InitApi from "../api/InitAPI";
 import HomeStatBanner from "@/components/HomeStatBanner";
 import HeatMapBanner from "@/components/HeatMapBanner";
-
-//interface HomeProps {}
+import Head from "next/head";
 
 const Home = () => {
   const { userinfo, books, highlights } = useContext(KTON_CONTEXT);
@@ -33,11 +32,16 @@ const Home = () => {
     restrictions
   ) {
     return (
-      <div className={styles.Home}>
-        <QuoteBanner />
-        <HeatMapBanner />
-        <HomeStatBanner />
-      </div>
+      <>
+        <Head>
+          <title>Home</title>
+        </Head>
+        <div className={styles.Home}>
+          <QuoteBanner />
+          <HeatMapBanner />
+          <HomeStatBanner />
+        </div>
+      </>
     );
   } else {
     return <div>Home Loading</div>;

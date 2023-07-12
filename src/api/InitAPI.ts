@@ -1,28 +1,17 @@
-import {
-  Book,
-  Book_highlight,
-  Meta_con_highlight,
-  userInfo,
-} from "./Interface";
+import { Book, Meta_con_highlight } from "./Interface";
 import axios, { AxiosResponse } from "axios";
-import React, { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 
 function InitAPI() {
-  const {
-    userinfo,
-    books,
-    highlights,
-    updateBooks,
-    updateUserInfo,
-    updateHighlights,
-  } = useContext(KTON_CONTEXT);
-  //Here holds the API which will be called when an authenticated user logs in
-  //This information will then be passed to the context so the entire app can have it
+  //Grabbing methods to update the applications context
+  const { updateBooks, updateUserInfo, updateHighlights } =
+    useContext(KTON_CONTEXT);
 
-  //Grabbing highlights
+  //Making a request to the db in order to grab users highlights
   async function getAllHighlights() {
+    //Getting auth from local storage
     const authToken = localStorage.getItem("token");
 
     if (authToken === null) {
@@ -38,25 +27,23 @@ function InitAPI() {
           },
         });
 
-        //Filtering deleted highlights
-        if (Array.isArray(response.data.allHighlights)) {
-          return response.data.allHighlights.filter(
-            (eachHighlight: Meta_con_highlight) =>
-              eachHighlight.highlight.deleted === false
-          ).length === 0
-            ? undefined
-            : response.data.allHighlights
-                .filter(
-                  (eachHighlight: Meta_con_highlight) =>
-                    eachHighlight.highlight.deleted === false
-                )
-                .sort(function (a: any, b: any) {
-                  return (
-                    new Date(b.highlight.Date).getTime() -
-                    new Date(a.highlight.Date).getTime()
-                  );
-                });
-        }
+        //Filtering deleted highlights, if there are no highlights return undefined
+        return response.data.allHighlights.filter(
+          (eachHighlight: Meta_con_highlight) =>
+            eachHighlight.highlight.deleted === false
+        ).length === 0
+          ? undefined
+          : response.data.allHighlights
+              .filter(
+                (eachHighlight: Meta_con_highlight) =>
+                  eachHighlight.highlight.deleted === false
+              )
+              .sort(function (a: any, b: any) {
+                return (
+                  new Date(b.highlight.Date).getTime() -
+                  new Date(a.highlight.Date).getTime()
+                );
+              });
       } catch (error) {
         console.error("Error fetching all highlights:", error);
         throw error; // Optionally re-throw the error to handle it in the caller
@@ -64,7 +51,7 @@ function InitAPI() {
     }
   }
 
-  //Getting all books
+  //Making a request to the db in order to get all books
   async function getAllBooks() {
     const authToken = localStorage.getItem("token");
 
@@ -93,7 +80,6 @@ function InitAPI() {
                     new Date(b.Date).getTime() - new Date(a.Date).getTime()
                   );
                 });
-
                 return eachBook;
               })
               .reverse()
@@ -130,8 +116,8 @@ function InitAPI() {
     }
   }
 
+  //Creating a function which calls all the above APIs in order to populate the App context
   function InitialiseApp() {
-    console.log("called");
     // Fetch data from your database and update the context state variables
     const fetchData = async () => {
       try {

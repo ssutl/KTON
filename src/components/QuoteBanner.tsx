@@ -2,29 +2,27 @@ import React, { useEffect, useState, useContext } from "react";
 import styles from "../styles/QuoteBanner.module.scss";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import { KTON_CONTEXT } from "../context/KTONContext";
-import { Book, Meta_con_highlight } from "@/api/Interface";
+import { Meta_con_highlight } from "@/api/Interface";
 import clippings_AllHighlights from "@/helpers/Clippings_AllHighlights";
 import favouriteHighlightApi from "@/api/Highlights/Favourite";
-
-//interface QuoteBannerProps {}
+import deleteHighlightApi from "@/api/Highlights/Delete";
 
 const QuoteBanner = () => {
   const { highlights } = useContext(KTON_CONTEXT);
-  //Books from authenticated users
   const [restrictions, setRestrictions] = useState(true);
-
+  const [index, setIndex] = useState<number>(0);
+  //This is the main collection we are reading from, either authed user info or unauthed will go here
   const [shuffledHighlights, setShuffledHighlights] = useState<
     Meta_con_highlight[] | undefined
   >();
 
-  const [index, setIndex] = useState<number>(0);
-  //This is the main collection we are reading from, either authed user info or unauthed will go here
-
+  //Function to shuffle the highlights
   const shuffleHighlights = (allHighlights: Meta_con_highlight[]) => {
     const shuffledArray = [...allHighlights];
     setShuffledHighlights(shuffledArray.sort(() => Math.random() - 0.5));
   };
 
+  //On page load, we'll set the restrictions and decide where to get highlights from
   useEffect(() => {
     //Setting restrictions
     setRestrictions(!userAuthenticated());
@@ -50,53 +48,65 @@ const QuoteBanner = () => {
     };
   }, []);
 
+  //Function to favourite a highlight
   const handleFavourite = () => {
-    //Handling request locally
-    const newState = shuffledHighlights?.map((eachHighlightConMeta, i) => {
-      if (i === index) {
-        return {
-          ...eachHighlightConMeta,
-          highlight: {
-            ...eachHighlightConMeta.highlight,
-            starred: !eachHighlightConMeta.highlight.starred,
-          },
-        };
-      } else return eachHighlightConMeta;
-    });
-    setShuffledHighlights(newState);
+    if (shuffledHighlights) {
+      //Handling request locally
+      const newState = shuffledHighlights?.map((eachHighlightConMeta, i) => {
+        if (i === index) {
+          return {
+            ...eachHighlightConMeta,
+            highlight: {
+              ...eachHighlightConMeta.highlight,
+              starred: !eachHighlightConMeta.highlight.starred,
+            },
+          };
+        } else return eachHighlightConMeta;
+      });
+      setShuffledHighlights(newState);
 
-    //Handling request on server
-    favouriteHighlightApi({});
+      //Handling request on server
+      favouriteHighlightApi({
+        book_id: shuffledHighlights[index].book_id,
+        highlight_id: shuffledHighlights[index].highlight._id,
+      });
+    }
   };
 
+  //Function to delete a highlight
   const handleDelete = () => {
-    //Handling request locally
-
-    const newState = shuffledHighlights?.map((eachHighlightConMeta, i) => {
-      if (i === index) {
-        return {
-          ...eachHighlightConMeta,
-          highlight: {
-            ...eachHighlightConMeta.highlight,
-            deleted: !eachHighlightConMeta.highlight.deleted,
-          },
-        };
-      } else return eachHighlightConMeta;
-    });
-
-    // Update the index to the next highlight
-    if (shuffledHighlights)
-      setIndex((prevIndex) => {
-        const newIndex = prevIndex + 1;
-        return newIndex < shuffledHighlights.length ? newIndex : 0;
+    if (shuffledHighlights) {
+      //Handling request locally
+      const newState = shuffledHighlights?.map((eachHighlightConMeta, i) => {
+        if (i === index) {
+          return {
+            ...eachHighlightConMeta,
+            highlight: {
+              ...eachHighlightConMeta.highlight,
+              deleted: !eachHighlightConMeta.highlight.deleted,
+            },
+          };
+        } else return eachHighlightConMeta;
       });
 
-    setShuffledHighlights(newState);
+      // Update the index to the next highlight
+      if (shuffledHighlights)
+        setIndex((prevIndex) => {
+          const newIndex = prevIndex + 1;
+          return newIndex < shuffledHighlights.length ? newIndex : 0;
+        });
 
-    //Handling request on server
+      setShuffledHighlights(newState);
+
+      //Handling request on server
+      deleteHighlightApi({
+        book_id: shuffledHighlights[index].book_id,
+        highlight_id: shuffledHighlights[index].highlight._id,
+      });
+    }
   };
 
-  //Reading from the main collection (source of truth, idk what it means makes sense to me), if it aint there show loading
+  //Reading from the main collection (source of truth), if it aint there show loading
   if (shuffledHighlights) {
     const text = shuffledHighlights[index].highlight.Text;
     const author = shuffledHighlights[index].author;

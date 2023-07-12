@@ -3,8 +3,10 @@ import styles from "../styles/Landing.module.scss";
 import ImportButton from "@/components/ImportButton";
 import { useEffect } from "react";
 import Router from "next/router";
+import Head from "next/head";
 
 export default function Landing() {
+  //Kindle Overlay image
   const Kindle = () => {
     return (
       <div className={styles.kindleOverlay}>
@@ -42,6 +44,9 @@ export default function Landing() {
 
   return (
     <>
+      <Head>
+        <title>Landing</title>
+      </Head>
       <div className={styles.main}>
         <div className={styles.main_left}>
           <div className={styles.section1}>

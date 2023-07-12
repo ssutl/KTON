@@ -1,11 +1,12 @@
 import axios from "axios";
 
 const favouriteHighlightApi = ({ book_id, highlight_id, data }: any) => {
-  //make an axios request to the backend to favourite a highlight
+  //Get token
   const authToken = localStorage.getItem("token");
 
   if (authToken === null) return console.log("No auth token found");
 
+  //Simple request to favourite highlight
   axios({
     method: "PUT",
     url: `${process.env.NEXT_PUBLIC_BACKENDURL}/books/${book_id}/${highlight_id}`,

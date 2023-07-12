@@ -3,9 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Book_highlight } from "@/api/Interface";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import ShareIcon from "@mui/icons-material/Share";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import TagIcon from "@mui/icons-material/Tag";
-import CommentIcon from "@mui/icons-material/Comment";
 import NotesIcon from "@mui/icons-material/Notes";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
@@ -15,14 +13,16 @@ import favouriteHighlightApi from "@/api/Highlights/Favourite";
 import { useRouter } from "next/router";
 import deleteHighlightApi from "@/api/Highlights/Delete";
 import annotateHighlightApi from "@/api/Highlights/Annotate";
+import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 
 interface highlightProps {
   highlight: Book_highlight;
   index: number;
 }
 
-const Highlight = ({ highlight, index }: highlightProps) => {
+const Highlight = ({ highlight }: highlightProps) => {
   const [restrictions, setRestrictions] = useState(true);
+  //Setting the state of the highlight from what is passed in from the context, i.e the db, allowing it to be locally updated
   const [deleted, setDeleted] = useState(highlight.deleted);
   const [favourited, setFavourited] = useState(highlight.starred);
   const [displayAnnotation, setDisplayAnnotation] = useState(false);
@@ -32,33 +32,17 @@ const Highlight = ({ highlight, index }: highlightProps) => {
   const router = useRouter();
   const book_id = router.query.id;
 
+  //Set restrictions on page load
   useEffect(() => {
     setRestrictions(!userAuthenticated());
   }, []);
 
+  //Display this modal when restricted buttons have been clicked
   const loginModal = () => {
     alert("login modal");
   };
 
-  function useOutsideAlerter(
-    ref: any,
-    modalState: React.Dispatch<React.SetStateAction<boolean>>
-  ) {
-    useEffect(() => {
-      function handleClickOutside(event: any) {
-        if (ref.current && !ref.current.contains(event.target)) {
-          modalState(false);
-        }
-      }
-      // Bind the event listener
-      document.addEventListener("mouseup", handleClickOutside);
-      return () => {
-        // Unbind the event listener on clean up
-        document.removeEventListener("mouseup", handleClickOutside);
-      };
-    }, [ref]);
-  }
-
+  //Function to handle when the user clicks favourite button
   const handleFavourite = () => {
     //Handling request locally
     setFavourited(!favourited);
@@ -70,6 +54,7 @@ const Highlight = ({ highlight, index }: highlightProps) => {
     });
   };
 
+  //Function to handle when the user clicks delete button
   const handleDelete = () => {
     //Handling request locally
     setDeleted(true);
@@ -81,6 +66,7 @@ const Highlight = ({ highlight, index }: highlightProps) => {
     });
   };
 
+  //Function to handle when the user clicks annotate button
   const handleAnnotate = () => {
     //Handling request locally
     setAnnotation(inputAnnotation);
@@ -97,14 +83,15 @@ const Highlight = ({ highlight, index }: highlightProps) => {
     setDisplayAnnotation(false);
   };
 
+  //Need to save highlight whenever the user clicks the enter key
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      // Perform any action you want to execute when Enter is pressed
       handleAnnotate();
     }
   };
 
+  //Drop down annotation section for each highlight
   const annotationSection = () => {
     return (
       <div className={styles.annotationDropdown}>
@@ -128,9 +115,10 @@ const Highlight = ({ highlight, index }: highlightProps) => {
     );
   };
 
-  /**Custom hook which takes in a ref and a setState action which gets triggered when the user clicks outside of the ref */
+  //Attaching click outside function to highlight
   useOutsideAlerter(highlightRef, setDisplayAnnotation);
 
+  //If highlight is not deleted, display it
   if (!deleted)
     return (
       <div className={styles.Highlight} ref={highlightRef}>

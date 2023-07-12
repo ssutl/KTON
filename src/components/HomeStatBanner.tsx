@@ -2,24 +2,20 @@ import styles from "../styles/HomeStatBanner.module.scss";
 import React, { useState, useEffect, useContext } from "react";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import { KTON_CONTEXT } from "../context/KTONContext";
-import { streakRanges, summary } from "date-streaks";
+import { streakRanges } from "date-streaks";
 import { Meta_con_highlight } from "@/api/Interface";
 import clippings_AllHighlights from "../helpers/Clippings_AllHighlights";
 
-//interface HomeStatBannerProps {}
-
 export default function HomeStatBanner() {
-  const { highlights } = useContext(KTON_CONTEXT);
   //These are the highlights in context, which only authenticated users will have
-
+  //We'll conditionally push either local clippings or context highlights to this state
+  const { highlights } = useContext(KTON_CONTEXT);
   const [main_highlights, setMain_highlights] = useState<
     Meta_con_highlight[] | undefined
   >();
-  //This will be the main highlights, which we'll conditionally push either local clippings highlights to or context highlights
-  //This is what we'll use for rendering
 
+  //Conditon on page load, if user is authenticated, push context else push local clippings
   useEffect(() => {
-    //If user authed, give context highlights, else pass in clippings highlights
     if (userAuthenticated()) {
       setMain_highlights(highlights);
     } else {
@@ -28,8 +24,8 @@ export default function HomeStatBanner() {
     }
   }, []);
 
+  //Getting the longest streak of days read
   function getLongestStreak() {
-    //Getting the longest streak of days read
     if (main_highlights) {
       //Creating an array of all the dates read
       const arrayOfDates = main_highlights.map(
@@ -45,6 +41,7 @@ export default function HomeStatBanner() {
     }
   }
 
+  //Once we have the highlights, we can render the component
   if (main_highlights) {
     return (
       <div className={styles.HomeStatBanner}>

@@ -7,7 +7,6 @@ export default function Document() {
         <meta charSet="UTF-8" />
         <meta name="KTON" content="Organise your kindle highlights" />
         <meta name="keywords" content="Organisation tools" />
-        <title>KTON</title>
         <link rel="icon" href="/Resources/Logo.png" />
       </Head>
       <body>
