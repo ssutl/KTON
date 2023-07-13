@@ -13,6 +13,7 @@ export default function clippings_AllHighlights(clippings: string | null) {
           title: eachBook.title,
           author: eachBook.author,
           highlight: eachHiglight,
+          book_id: eachBook._id,
         })
       );
     });
