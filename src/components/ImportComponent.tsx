@@ -8,10 +8,9 @@ const ImportComponent = () => {
         <h3>IMPORT YOUR CLIPPINGS</h3>
         <p>Locate &#34;Clippings.txt&#34;</p>
       </div>
-      <div className={styles.importButtonSect}>
-        <ImportButton />
-      </div>
-      <div className={styles.importProgressSect}>
+
+      <ImportButton />
+      {/* <div className={styles.importProgressSect}>
         <p>
           <span>Current Book </span>
           <span>N/A</span>
@@ -24,7 +23,7 @@ const ImportComponent = () => {
           <span>Estimated Time </span>
           <span>N/A</span>
         </p>
-      </div>
+      </div> */}
     </div>
   );
 };
