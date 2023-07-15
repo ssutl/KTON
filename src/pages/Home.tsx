@@ -1,34 +1,51 @@
-import React, { useState, useEffect } from "react";
-import styles from "../styles/Navbar.module.scss";
-import Router from "next/router";
-
-//interface HomeProps {}
+import React, { useState, useEffect, useContext } from "react";
+import styles from "../styles/Home.module.scss";
+import { KTON_CONTEXT } from "../context/KTONContext";
+import QuoteBanner from "@/components/QuoteBanner";
+import userAuthenticated from "@/helpers/UserAuthenticated";
+import InitApi from "../api/InitAPI";
+import HomeStatBanner from "@/components/HomeStatBanner";
+import HeatMapBanner from "@/components/HeatMapBanner";
+import Head from "next/head";
 
 const Home = () => {
+  const { userinfo, books, highlights } = useContext(KTON_CONTEXT);
+  const { InitialiseApp } = InitApi();
   const [restrictions, setRestrictions] = useState<boolean>(true);
 
-  //Checking whether to apply restrictions
+  //Initialising App by making data call on page load
   useEffect(() => {
-    const authToken = localStorage.getItem("token");
-    const clippings = localStorage.getItem("clippings");
+    setRestrictions(!userAuthenticated());
 
-    if (authToken) {
-      //Pass user into the app without restrictions
-      setRestrictions(false);
-    } else if (clippings && !authToken) {
-      setRestrictions(true);
-    } else {
-      Router.push("/");
+    //If the user is logged in but the book data is empty then we gotta refresh context, this way we can keep initial load fast by not loading books off of navigation
+    if (userAuthenticated() && !books) {
+      InitialiseApp();
     }
   }, []);
 
-  return (
-    <div className={styles.Home}>{`Welcome to KTON, ${
-      restrictions
-        ? `your account has restrictions, login to ensure you can access all feature`
-        : `your account is totally un-restricted`
-    }`}</div>
-  );
+  //If the data is in the context, or the user is not authenticated we pass them into app, else loading
+  if (
+    (userinfo !== undefined &&
+      books !== undefined &&
+      highlights !== undefined &&
+      !restrictions) ||
+    restrictions
+  ) {
+    return (
+      <>
+        <Head>
+          <title>Home</title>
+        </Head>
+        <div className={styles.Home}>
+          <QuoteBanner />
+          <HeatMapBanner />
+          <HomeStatBanner />
+        </div>
+      </>
+    );
+  } else {
+    return <div>Home Loading</div>;
+  }
 };
 
 export default Home;

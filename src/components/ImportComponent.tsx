@@ -1,0 +1,32 @@
+import styles from "../styles/ImportComponent.module.scss";
+import ImportButton from "./ImportButton";
+
+const ImportComponent = () => {
+  return (
+    <div className={styles.importSect}>
+      <div className={styles.importInfoSect}>
+        <h3>IMPORT YOUR CLIPPINGS</h3>
+        <p>Locate &#34;Clippings.txt&#34;</p>
+      </div>
+      <div className={styles.importButtonSect}>
+        <ImportButton />
+      </div>
+      <div className={styles.importProgressSect}>
+        <p>
+          <span>Current Book </span>
+          <span>N/A</span>
+        </p>
+        <p>
+          <span>Progress </span>
+          <span>N/A</span>
+        </p>
+        <p>
+          <span>Estimated Time </span>
+          <span>N/A</span>
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default ImportComponent;

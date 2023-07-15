@@ -1,0 +1,32 @@
+@import "../styles/Breakpoints.module.scss";
+
+.siteDescSect {
+  display: flex;
+  width: 90%;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  margin-top: 5%;
+
+  @include breakpoint-mixin("laptop-small") {
+    width: 95%;
+  }
+
+  p {
+    max-width: 100%;
+    text-align: justify;
+    margin-bottom: 2%;
+
+    @include breakpoint-mixin("laptop-small") {
+      max-width: 75%;
+    }
+
+    @include breakpoint-mixin("laptop-wide") {
+      max-width: 60%;
+    }
+
+    @include breakpoint-mixin("desktop") {
+      font-size: 20px;
+    }
+  }
+}

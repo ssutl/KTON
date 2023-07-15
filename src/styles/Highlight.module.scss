@@ -1,0 +1,91 @@
+@import "../styles/Breakpoints.module.scss";
+
+.Highlight {
+  padding: 30px 0px 20px 0px;
+  //Plus 10px for the width of the scroll bar
+  width: calc(90% + 10px);
+  border-top: 0.5px solid grey;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column-reverse;
+
+  @include breakpoint-mixin("laptop-small") {
+    flex-direction: row;
+  }
+
+  .mainHalf {
+    width: 100%;
+    text-align: justify;
+
+    @include breakpoint-mixin("laptop-small") {
+      height: 100%;
+      width: 70%;
+    }
+
+    h2 {
+      margin-bottom: 25px;
+    }
+
+    h3 {
+      margin-bottom: 40px;
+    }
+
+    .highlightOptions {
+      display: flex;
+      height: fit-content;
+      width: 100%;
+      justify-content: space-between;
+
+      p {
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+    }
+
+    .annotationDropdown {
+      padding: 20px 0px 20px 0px;
+
+      textarea {
+        min-height: 10vh;
+        width: 100%;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        resize: none;
+      }
+
+      .buttonsSection {
+        display: flex;
+        margin-top: 20px;
+        p {
+          padding: 5px 30px 5px 30px;
+          border: 0.5px solid white;
+          height: fit-content;
+          color: white;
+          cursor: pointer;
+
+          &:hover {
+            opacity: 0.5;
+          }
+        }
+      }
+    }
+  }
+
+  .metaHalf {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+
+    @include breakpoint-mixin("laptop-small") {
+      margin-bottom: 0px;
+      height: 100%;
+      width: 30%;
+    }
+  }
+}

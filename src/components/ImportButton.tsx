@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/ImportButton.module.scss";
-import clippingsParser from "@/helpers/UploadedTXTHelper";
 import uploadedTxtHelper from "@/helpers/clippingsParse";
 import Router from "next/router";
-
-//interface ImportButtonProps {}
 
 const ImportButton = () => {
   const [incomingFile, setIncomingFile] = useState<File | null>(null);
   const [uploadStatus, setUploadStatus] = useState<boolean>(false);
 
+  //Function to handle the upload of the file
   const uploadFile = async () => {
     var file = incomingFile;
     var textType = /text.*/;
 
+    //This upload process is for the landing page, therefore user isn't logged in and we can parse server side
     if (file && file.type.match(textType)) {
       var reader = new FileReader();
 
@@ -28,6 +27,8 @@ const ImportButton = () => {
       };
 
       reader.readAsText(file);
+    } else {
+      alert("File type does not match");
     }
   };
 
@@ -35,7 +36,8 @@ const ImportButton = () => {
   useEffect(() => {
     const clippings = localStorage.getItem("clippings");
 
-    if (clippings) {
+    //If the local storage has clippings we can send unauthed user to home page
+    if (clippings && uploadStatus) {
       Router.push("Home");
     }
   }, [uploadStatus]);
@@ -50,7 +52,8 @@ const ImportButton = () => {
           if (event.target.files !== null) {
             if (
               event.target.files[0].type === "text/plain" &&
-              event.target.files[0].name === "My Clippings.txt"
+              (event.target.files[0].name === "My Clippings.txt" ||
+                event.target.files[0].name === "clippings.txt")
             ) {
               setIncomingFile(event.target.files[0]);
             } else {

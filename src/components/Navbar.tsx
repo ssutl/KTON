@@ -1,35 +1,31 @@
 import styles from "../styles/Navbar.module.scss";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { KTON_CONTEXT } from "../context/KTONContext";
 import { useRouter } from "next/router";
+import userAuthenticated from "@/helpers/UserAuthenticated";
 
 export default function Navbar() {
+  const { updateBooks } = useContext(KTON_CONTEXT);
   const [screenWidth, setScreenWidth] = useState(0);
-
   const router = useRouter();
   const isIndexRoute = router.pathname === "/";
-  let userLoggedIn = false;
+  const [restrictions, setRestrictions] = useState(false);
 
+  //On page load update screenwidth state && restrictions
   useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth);
-    };
+    setScreenWidth(window.innerWidth);
+    window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
 
-    //UseEffect to see what the local storage state is after upload
-    const authToken = localStorage.getItem("token");
-
-    if (authToken) {
-      userLoggedIn = true;
-    }
-
-    handleResize(); // Initial screen width
-
-    window.addEventListener("resize", handleResize);
+    setRestrictions(!userAuthenticated());
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", () =>
+        setScreenWidth(window.innerWidth)
+      );
     };
-  }, []);
+  }, [router.pathname]);
 
+  //The navigation modal
   const Modal = () => {
     return (
       <div className={styles.modal}>
@@ -39,47 +35,68 @@ export default function Navbar() {
           </div>
           <div
             className={styles.modal_item}
-            onClick={() => router.push("Home")}
+            onClick={() =>
+              router.pathname === "/Home" ? null : router.push("/Home")
+            }
           >
             <p>Home</p>
           </div>
           <div
             className={styles.modal_item}
-            onClick={() => router.push("Library")}
+            onClick={() => router.push("/Library")}
           >
             <p>Library</p>
           </div>
+          {restrictions ? null : (
+            <>
+              <div
+                className={styles.modal_item}
+                onClick={() => router.push("/Stats")}
+              >
+                <p>Stats</p>
+              </div>
+              <div
+                className={styles.modal_item}
+                onClick={() => router.push("/Export")}
+              >
+                <p>Export</p>
+              </div>
+            </>
+          )}
           <div
             className={styles.modal_item}
-            onClick={() => router.push("Stats")}
+            onClick={() => router.push("/Library")}
           >
-            <p>Stats</p>
-          </div>
-          <div
-            className={styles.modal_item}
-            onClick={() => router.push("Export")}
-          >
-            <p>Export</p>
+            <p>Settings</p>
           </div>
         </div>
       </div>
     );
   };
 
+  //Display the navbar
   return (
     <div className={styles.navbar}>
       <div className={styles.navbarWidth}>
-        <ul>
-          <li>{screenWidth < 1024 ? `KTON` : `KINDLE NOTES MANAGER`}</li>
-        </ul>
+        <h3>{screenWidth < 1024 ? `KTON` : `KINDLE NOTES MANAGER`}</h3>
         <div className={styles.navigationButtons}>
           {isIndexRoute ? null : (
             <span className={styles.hoverMenu}>
-              <p>Menu</p>
+              <h3>Menu</h3>
               <Modal />
             </span>
           )}
-          {userLoggedIn ? null : <p>Login</p>}
+          {!isIndexRoute && !restrictions ? (
+            <h3
+              onClick={() => {
+                router.push("/");
+                localStorage.removeItem("token");
+                updateBooks(undefined);
+              }}
+            >
+              Logout
+            </h3>
+          ) : null}
         </div>
       </div>
     </div>

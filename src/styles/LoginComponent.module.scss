@@ -1,0 +1,87 @@
+@import "../styles/Breakpoints.module.scss";
+
+.loginSect {
+  height: 35vh;
+  width: 90%;
+  margin-top: 5%;
+  // background-color: orange;
+
+  @include breakpoint-mixin("laptop-small") {
+    width: 50%;
+    height: 40%;
+  }
+
+  @include breakpoint-mixin("laptop-wide") {
+    height: 40%;
+    width: 45%;
+  }
+
+  @include breakpoint-mixin("desktop") {
+    height: 35%;
+    width: 40%;
+  }
+
+  .loginInfoSect {
+    height: 40%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    p {
+      display: flex;
+      width: fit-content;
+    }
+
+    p:nth-of-type(2) {
+      cursor: pointer;
+    }
+
+    span {
+      color: #3fcdfc;
+    }
+  }
+
+  .loginFormSect {
+    height: 40%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    // background-color: yellow;
+
+    input {
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid white;
+      outline: none;
+      padding-bottom: 10px;
+      width: 70%;
+    }
+  }
+
+  .loginButtonSect {
+    height: 20%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    input {
+      display: none;
+    }
+
+    .submitBtn {
+      width: fit-content;
+      padding: 5px 30px 5px 30px;
+      border: 0.5px solid white;
+      height: fit-content;
+      color: white;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
+}

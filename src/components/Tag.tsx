@@ -6,7 +6,14 @@ interface TagProps {
 }
 
 const Tag = ({ name }: TagProps) => {
-  return <div className={styles.Tag}>{name}</div>;
+  return (
+    <p
+      className={styles.Tag}
+      onClick={() => window.open("https://www.instagram.com/ss.utl/")}
+    >
+      {name}
+    </p>
+  );
 };
 
 export default Tag;

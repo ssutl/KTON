@@ -1,0 +1,282 @@
+@import "../styles/Breakpoints.module.scss";
+
+.BookPage {
+  display: flex;
+  height: calc(95vh - 1px);
+  flex-direction: column;
+
+  @include breakpoint-mixin("laptop-small") {
+    flex-direction: row;
+    height: calc(93vh - 1px);
+  }
+
+  @include breakpoint-mixin("desktop") {
+    height: calc(95vh - 1px);
+  }
+
+  .bookHalf {
+    width: 100%;
+    overflow-y: auto;
+    border-right: 0.5px solid black;
+    display: inline-block;
+
+    @include breakpoint-mixin("laptop-small") {
+      width: 50%;
+    }
+
+    // .overlay {
+    //   position: absolute;
+    //   height: calc(95vh - 1px);
+    //   width: 100%;
+    //   top: calc(5vh + 1px-);
+    //   left: 0px;
+    //   // background-color: orange;
+    //   z-index: -100;
+    //   border-right: 0.5px solid black;
+    //   filter: opacity(0.4);
+    //   background: radial-gradient(var(--background-color) 5%, transparent 100%)
+    //     center no-repeat;
+    //   background-size: 150%;
+
+    //   @include breakpoint-mixin("laptop-small") {
+    //     top: 0px;
+    //     height: 100vh;
+    //     width: 50%;
+    //   }
+    // }
+
+    //Height of book cover
+    .imageSection {
+      height: 65vh;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      .ImageContainer {
+        height: 75%;
+        width: 65%;
+        //To align with title of book on other side
+        margin-top: 5vh;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+          rgba(0, 0, 0, 0.22) 0px 10px 10px;
+
+        @include breakpoint-mixin("laptop-small") {
+          height: 80%;
+          width: 40%;
+        }
+
+        &:hover {
+          transition: all 0.5s ease;
+          transform: scale(1.025);
+        }
+
+        img {
+          height: 100%;
+          width: 100%;
+          border: none;
+          outline: none;
+          object-fit: cover;
+        }
+      }
+    }
+
+    .genreBanner {
+      width: calc(90% + 10px);
+      display: flex;
+      position: relative;
+      height: 5vh;
+      margin: 0px auto 0px auto;
+
+      p {
+        cursor: pointer;
+      }
+
+      .GenreModal {
+        position: absolute;
+        top: 50px;
+        min-height: 9vh;
+        max-height: 20vh;
+        width: 300px;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+          rgba(0, 0, 0, 0.22) 0px 10px 10px;
+        background-color: #202020;
+        border: 0.5px solid black;
+        overflow-y: scroll;
+        padding-bottom: 15px;
+
+        .searchItem {
+          height: 5vh;
+          width: 100%;
+          border-bottom: 1px solid black;
+          display: flex;
+          // justify-content: center;
+
+          input {
+            background-color: transparent;
+            height: 100%;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 0px;
+            width: 95%;
+            margin-left: 10px;
+          }
+        }
+
+        .genreItem {
+          height: 4vh;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 95%;
+          margin: 0px auto 0px auto;
+          border-radius: 5px;
+          margin-top: 15px;
+          cursor: pointer;
+
+          p {
+            margin-left: 20px;
+            padding: 2px 15px 2px 15px;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+              rgba(0, 0, 0, 0.22) 0px 10px 10px;
+            border-right: 0.5px solid var(--background-color);
+            border-bottom: 0.5px solid var(--background-color);
+          }
+
+          .dots {
+            margin-right: 20px;
+            font-size: 20px;
+          }
+
+          &:hover {
+            background-color: #474343;
+          }
+        }
+      }
+
+      .GenreModal::-webkit-scrollbar {
+        height: 100%;
+        background-color: rgb(45, 41, 41);
+        width: 10px;
+      }
+
+      .GenreModal::-webkit-scrollbar-thumb {
+        background-color: rgba(70, 68, 68, 0.428);
+        border: 1px solid transparent;
+        background-clip: content-box;
+        border-radius: 10px;
+        height: 40px;
+      }
+
+      // .editModal {
+      //   position: absolute;
+      //   height: 20vh;
+      //   left: 30%;
+      //   width: 300px;
+      //   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+      //     rgba(0, 0, 0, 0.22) 0px 10px 10px;
+      //   background-color: #202020;
+      //   z-index: 100;
+      // }
+    }
+
+    .summarySection {
+      width: calc(90% + 10px);
+      margin: 0px auto 0px auto;
+
+      textarea {
+        min-height: 10vh;
+        width: 100%;
+        height: 100%;
+        resize: none;
+        background-color: transparent;
+        border: none;
+        outline: none;
+      }
+
+      .buttonsSection {
+        display: flex;
+        margin: 20px 0px 20px 0px;
+        p {
+          padding: 5px 30px 5px 30px;
+          border: 0.5px solid white;
+          height: fit-content;
+          color: white;
+          cursor: pointer;
+
+          &:hover {
+            opacity: 0.5;
+          }
+        }
+      }
+    }
+  }
+
+  .bookHalf::-webkit-scrollbar {
+    height: 100%;
+    background-color: rgb(45, 41, 41);
+    width: 10px;
+  }
+
+  .bookHalf::-webkit-scrollbar-thumb {
+    background-color: rgba(70, 68, 68, 0.428);
+    border: 1px solid transparent;
+    background-clip: content-box;
+    border-radius: 10px;
+    height: 40px;
+  }
+
+  .highlightHalf {
+    overflow-y: auto;
+    width: 50%;
+    background-color: #202020;
+
+    .highlightRestriction {
+      padding: 30px 0px 20px 0px;
+      //Plus 10px for the width of the scroll bar
+      width: calc(90% + 10px);
+      border-top: 0.5px solid grey;
+      display: flex;
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+
+  .highlightHalf::-webkit-scrollbar {
+    height: 100%;
+    background-color: rgb(45, 41, 41);
+    width: 10px;
+  }
+
+  .highlightHalf::-webkit-scrollbar-thumb {
+    background-color: rgba(70, 68, 68, 0.428);
+    border: 1px solid transparent;
+    background-clip: content-box;
+    border-radius: 10px;
+    height: 40px;
+  }
+}
+
+.bookTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 5vh auto 5vh auto;
+
+  h1 {
+    margin-bottom: 40px;
+  }
+
+  @include breakpoint-mixin("laptop-small") {
+    // height: 15vh;
+  }
+
+  //Aligning title with highlights below
+  width: calc((90% + 10px));
+  // background-color: orange;
+
+  h1 {
+    max-width: 70%;
+    text-align: justify;
+  }
+}
