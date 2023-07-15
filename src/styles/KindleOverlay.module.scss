@@ -29,6 +29,11 @@
     height: 39vh;
   }
 
+  @include breakpoint-mixin("laptop-wide-desktop") {
+    width: 275px;
+    height: 40vh;
+  }
+
   @include breakpoint-mixin("desktop") {
     width: 290px;
     height: 39vh;

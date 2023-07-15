@@ -48,7 +48,7 @@ export default function LoginPage() {
         <div className={styles.main_right}>
           {screenWidth < 1024 ? <SiteDescription /> : null}
           <LoginComponent />
-          <p>or</p>
+          <p id={styles.or}>or</p>
           <ImportComponent />
         </div>
         <KindleOverlay />

@@ -43,7 +43,7 @@
     flex-direction: column;
     align-items: center;
 
-    p {
+    #or {
       @include breakpoint-mixin("laptop-small") {
         width: 50%;
       }
