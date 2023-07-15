@@ -2,14 +2,14 @@
 
 .Library {
   overflow-y: scroll;
-  height: calc(95vh - 1px);
+  height: 95vh;
 
   @include breakpoint-mixin("laptop-small") {
-    height: calc(93vh - 1px);
+    height: 93vh;
   }
 
   @include breakpoint-mixin("desktop") {
-    height: calc(95vh - 1px);
+    height: 95vh;
   }
 
   .searchBanner {

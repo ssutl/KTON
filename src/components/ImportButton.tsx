@@ -43,7 +43,7 @@ const ImportButton = () => {
   }, [uploadStatus]);
 
   return (
-    <>
+    <div className={styles.buttonContainer}>
       <input
         type="file"
         id="input"
@@ -70,7 +70,7 @@ const ImportButton = () => {
           Upload
         </div>
       ) : null}
-    </>
+    </div>
   );
 };
 

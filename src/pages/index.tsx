@@ -50,6 +50,9 @@ export default function LoginPage() {
           <LoginComponent />
           <p id={styles.or}>or</p>
           <ImportComponent />
+          {/* <ImportComponent />
+          <p id={styles.or}>or</p>
+          <LoginComponent /> */}
         </div>
         <KindleOverlay />
       </div>

@@ -1,9 +1,17 @@
 @import "../styles/Breakpoints.module.scss";
 
 .main {
-  height: calc(90vh);
+  height: 90vh;
   width: 100%;
   display: flex;
+
+  @include breakpoint-mixin("laptop-small") {
+    height: 86vh;
+  }
+
+  @include breakpoint-mixin("desktop") {
+    height: 90vh;
+  }
 
   .main_left {
     height: 100%;
@@ -44,6 +52,8 @@
     align-items: center;
 
     #or {
+      width: 90%;
+
       @include breakpoint-mixin("laptop-small") {
         width: 50%;
       }

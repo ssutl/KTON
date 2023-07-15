@@ -8,9 +8,14 @@
   align-items: center;
   padding: 10px 0px 10px 0px;
   box-sizing: border-box;
+  height: 5vh;
 
   @include breakpoint-mixin("laptop-small") {
     padding: 0px;
+    height: 7vh;
+  }
+
+  @include breakpoint-mixin("desktop") {
     height: 5vh;
   }
 

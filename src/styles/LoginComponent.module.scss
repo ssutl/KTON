@@ -1,23 +1,25 @@
 @import "../styles/Breakpoints.module.scss";
 
 .loginSect {
-  height: 35vh;
+  height: 48vh;
   width: 90%;
   margin-top: 5%;
+  margin-bottom: 10%;
   // background-color: orange;
 
   @include breakpoint-mixin("laptop-small") {
+    margin-bottom: 0%;
     width: 50%;
-    height: 40%;
+    height: 50%;
   }
 
   @include breakpoint-mixin("laptop-wide") {
-    height: 40%;
+    height: 45%;
     width: 45%;
   }
 
   @include breakpoint-mixin("desktop") {
-    height: 35%;
+    height: 40%;
     width: 40%;
   }
 
