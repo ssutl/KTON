@@ -2,13 +2,14 @@ import styles from "../styles/SiteDescription.module.scss";
 import { useEffect, useState } from "react";
 
 const SiteDescription = () => {
-  const [screenWidth, setScreenWidth] = useState(0);
+  const [screenWidth, setScreenWidth] = useState(1024);
 
   useEffect(() => {
     //Have to set screenwidth to conditionally change size of heat map
     setScreenWidth(window.innerWidth);
     window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
   }, []);
+
   return (
     <div className={styles.siteDescSect}>
       <p>
