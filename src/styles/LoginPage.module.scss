@@ -1,0 +1,66 @@
+@import "../styles/Breakpoints.module.scss";
+
+.main {
+  height: calc(90vh);
+  width: 100%;
+  display: flex;
+
+  .main_left {
+    height: 100%;
+    width: 50%;
+    border-right: 0.5px solid black;
+    display: none;
+
+    @include breakpoint-mixin("laptop-small") {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-end;
+      // justify-content: space-between;
+    }
+
+    ul {
+      width: 95%;
+      display: flex;
+      list-style-position: inside;
+      padding-left: 0;
+      font-size: 18px;
+      margin-top: 5%;
+    }
+
+    // .section3 {
+    //   width: 95%;
+    //   display: flex;
+    //   align-items: center;
+    //   margin-bottom: 5%;
+    // }
+  }
+
+  .main_right {
+    height: fit-content;
+    width: 100%;
+    background-color: #202020;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    p {
+      @include breakpoint-mixin("laptop-small") {
+        width: 50%;
+      }
+
+      @include breakpoint-mixin("laptop-wide") {
+        width: 45%;
+      }
+
+      @include breakpoint-mixin("desktop") {
+        width: 40%;
+      }
+    }
+
+    @include breakpoint-mixin("laptop-small") {
+      height: 100%;
+      width: 50%;
+      justify-content: space-between;
+    }
+  }
+}

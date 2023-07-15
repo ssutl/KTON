@@ -1,9 +1,11 @@
 import styles from "../styles/Navbar.module.scss";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { KTON_CONTEXT } from "../context/KTONContext";
 import { useRouter } from "next/router";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 
 export default function Navbar() {
+  const { updateBooks } = useContext(KTON_CONTEXT);
   const [screenWidth, setScreenWidth] = useState(0);
   const router = useRouter();
   const isIndexRoute = router.pathname === "/";
@@ -59,22 +61,13 @@ export default function Navbar() {
               >
                 <p>Export</p>
               </div>
-              <div
-                className={styles.modal_item}
-                onClick={() => router.push("/Export")}
-              >
-                <p>Import</p>
-              </div>
             </>
           )}
           <div
             className={styles.modal_item}
-            onClick={() => {
-              router.push("/");
-              localStorage.clear();
-            }}
+            onClick={() => router.push("/Library")}
           >
-            <p>Landing</p>
+            <p>Settings</p>
           </div>
         </div>
       </div>
@@ -93,8 +86,17 @@ export default function Navbar() {
               <Modal />
             </span>
           )}
-          {isIndexRoute ? <h3>Pricing</h3> : null}
-          {restrictions ? <h3>Login</h3> : <h3>logout</h3>}
+          {!isIndexRoute && !restrictions ? (
+            <h3
+              onClick={() => {
+                router.push("/");
+                localStorage.removeItem("token");
+                updateBooks(undefined);
+              }}
+            >
+              Logout
+            </h3>
+          ) : null}
         </div>
       </div>
     </div>
