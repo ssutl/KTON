@@ -10,7 +10,7 @@ import ImportComponent from "@/components/ImportComponent";
 import KindleOverlay from "@/components/KindleOverlay";
 
 export default function LoginPage() {
-  const [screenWidth, setScreenWidth] = useState(0);
+  const [screenWidth, setScreenWidth] = useState(1024);
 
   useEffect(() => {
     //Have to set screenwidth to conditionally change size of heat map
