@@ -1,14 +1,12 @@
 @import "../styles/Breakpoints.module.scss";
 
 .siteDescSect {
-  display: flex;
-  width: 90%;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-evenly;
-  margin-top: 5%;
-
   @include breakpoint-mixin("laptop-small") {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    margin-top: 5%;
     width: 95%;
   }
 

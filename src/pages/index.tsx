@@ -46,7 +46,6 @@ export default function LoginPage() {
           </div> */}
         </div>
         <div className={styles.main_right}>
-          {screenWidth < 1024 ? <SiteDescription /> : null}
           <LoginComponent />
           <p id={styles.or}>or</p>
           <ImportComponent />
