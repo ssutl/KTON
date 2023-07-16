@@ -13,6 +13,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import summariseBookApi from "@/api/Books/Summary";
 import genreColors from "@/helpers/sortGenreColors";
 import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
+import HandleLoginModal from "@/components/HandleLoginModal";
 
 const BookPage = () => {
   const router = useRouter();
@@ -24,6 +25,7 @@ const BookPage = () => {
   const [mainBook, setMainBook] = useState<undefined | Book>(undefined);
   const [restrictions, setRestricitons] = useState<boolean>(true);
   const [displayGenreModal, setDisplayGenreModal] = useState(false);
+  const { LoginModal, setModal } = HandleLoginModal();
   const [displayGenreDropdown, setDisplayGenreDropdown] = useState<boolean>();
   const [inputSummary, setInputSummary] = useState<string | undefined>(
     undefined
@@ -60,6 +62,7 @@ const BookPage = () => {
 
     //Else user not logged in, we can just grab from clippings
     if (!userAuthenticated()) {
+      console.log("Not authentication func");
       const clippings = localStorage.getItem("clippings");
 
       if (clippings && singleId) {
@@ -67,7 +70,7 @@ const BookPage = () => {
         setMainBook(parsedClippings[parseInt(singleId)]);
       }
     }
-  }, []);
+  }, [singleId]);
 
   //This should trigger at the start if theres already books, or after the initaliseApp has been called to get books
   useEffect(() => {
@@ -96,7 +99,11 @@ const BookPage = () => {
       return mainBook.highlights
         .slice(0, restrictions ? 50 : mainBook.highlights.length)
         .map((eachHighlight, index) => (
-          <Highlight highlight={eachHighlight} key={index} index={index} />
+          <Highlight
+            highlight={eachHighlight}
+            key={index}
+            setModal={setModal}
+          />
         ));
     else null;
   };
@@ -184,74 +191,85 @@ const BookPage = () => {
 
   if (mainBook) {
     return (
-      <div className={styles.BookPage}>
-        <div className={styles.bookHalf}>
-          <div className={styles.overlay}></div>
-          <div className={styles.imageSection}>
-            <Tilt
-              glareEnable={true}
-              glareMaxOpacity={0.1}
-              glarePosition="all"
-              glareBorderRadius="0px"
-              tiltAngleYInitial={-10}
-              tiltEnable={true}
-              gyroscope={true}
-              className={styles.ImageContainer}
-              perspective={650}
-            >
-              {restrictions ? null : (
-                <img
-                  alt="Book Cover"
-                  draggable="false"
-                  src={mainBook.cover_image}
-                  className="image"
-                />
-              )}
-            </Tilt>
-          </div>
-          <div className={styles.genreBanner}>
-            <p onClick={() => setDisplayGenreModal(!displayGenreModal)}>
-              + Add genre
-            </p>
-            {mainBook.genre.map((eachGenre, i) => (
-              <p key={i}>{eachGenre}</p>
-            ))}
-            {displayGenreModal && userinfo ? genreModal() : null}
-          </div>
-          {screenWidth < 1024 ? bookTitle() : null}
-          <div className={styles.summarySection}>
-            <TextareaAutosize
-              value={inputSummary}
-              placeholder="Add a quick summary here"
-              onChange={(e) => setInputSummary(e.target.value)}
-              onKeyDown={handleKeyDown}
-            />
-            <div className={styles.buttonsSection}>
+      <>
+        {LoginModal()}
+        <div className={styles.BookPage}>
+          <div className={styles.bookHalf}>
+            <div className={styles.overlay}></div>
+            <div className={styles.imageSection}>
+              <Tilt
+                glareEnable={true}
+                glareMaxOpacity={0.1}
+                glarePosition="all"
+                glareBorderRadius="0px"
+                tiltAngleYInitial={-10}
+                tiltEnable={true}
+                gyroscope={true}
+                className={styles.ImageContainer}
+                perspective={650}
+              >
+                {restrictions ? null : (
+                  <img
+                    alt="Book Cover"
+                    draggable="false"
+                    src={mainBook.cover_image}
+                    className="image"
+                  />
+                )}
+              </Tilt>
+            </div>
+            <div className={styles.genreBanner}>
               <p
                 onClick={() => {
-                  handleSummary();
+                  restrictions
+                    ? setModal()
+                    : setDisplayGenreModal(!displayGenreModal);
                 }}
               >
-                Save
+                + Add genre
               </p>
-              <p onClick={() => setInputSummary("")}>Clear</p>
+              {mainBook.genre.map((eachGenre, i) => (
+                <p key={i}>{eachGenre}</p>
+              ))}
+              {displayGenreModal && userinfo && !restrictions
+                ? genreModal()
+                : null}
             </div>
+            {screenWidth < 1024 ? bookTitle() : null}
+            <div className={styles.summarySection}>
+              <TextareaAutosize
+                value={inputSummary}
+                placeholder="Add a quick summary here"
+                onChange={(e) => setInputSummary(e.target.value)}
+                onKeyDown={handleKeyDown}
+              />
+              <div className={styles.buttonsSection}>
+                <p
+                  onClick={() => {
+                    restrictions ? setModal() : handleSummary();
+                  }}
+                >
+                  Save
+                </p>
+                <p onClick={() => setInputSummary("")}>Clear</p>
+              </div>
+            </div>
+            {screenWidth < 1024 ? highlightsList() : null}
           </div>
-          {screenWidth < 1024 ? highlightsList() : null}
+          <div className={styles.highlightHalf}>
+            {screenWidth > 1024 ? bookTitle() : null}
+            {screenWidth > 1024 ? highlightsList() : null}
+            {restrictions && mainBook.highlights.length > 50 ? (
+              <div className={styles.highlightRestriction}>
+                <h2>
+                  Your highlights have been limited to 50, login to see your
+                  full list
+                </h2>
+              </div>
+            ) : null}
+          </div>
         </div>
-        <div className={styles.highlightHalf}>
-          {screenWidth > 1024 ? bookTitle() : null}
-          {screenWidth > 1024 ? highlightsList() : null}
-          {restrictions && mainBook.highlights.length > 50 ? (
-            <div className={styles.highlightRestriction}>
-              <h2>
-                Your highlights have been limited to 50, login to see your full
-                list
-              </h2>
-            </div>
-          ) : null}
-        </div>
-      </div>
+      </>
     );
   } else return <h1>Component Loading</h1>;
 };

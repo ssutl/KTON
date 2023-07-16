@@ -1,0 +1,15 @@
+@import "../styles/Breakpoints.module.scss";
+
+.LoginModal {
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #202020ce;
+  z-index: 100;
+}

@@ -40,18 +40,13 @@ export default function LoginPage() {
             <li>A website designed to organise your kindle highlights</li>
           </ul>
           <SiteDescription />
-          {/* <div className={styles.section3}>
-            <Tag name="SSUTL" />
-            <Tag name="CITRUS" />
-          </div> */}
         </div>
         <div className={styles.main_right}>
-          <LoginComponent />
-          <p id={styles.or}>or</p>
-          <ImportComponent />
-          {/* <ImportComponent />
-          <p id={styles.or}>or</p>
-          <LoginComponent /> */}
+          <div className={styles.widthContainer}>
+            <LoginComponent />
+            <p id={styles.or}>or</p>
+            <ImportComponent />
+          </div>
         </div>
         <KindleOverlay />
       </div>
