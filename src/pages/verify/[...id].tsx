@@ -7,8 +7,8 @@ const VerificationPage = () => {
   const id = router.query.id;
 
   useEffect(() => {
-    if (typeof id === "string") {
-      verifyUserApi(id);
+    if (id) {
+      verifyUserApi({ id: id[0], token: id[1] });
     }
   }, [id]);
 

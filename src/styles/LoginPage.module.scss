@@ -20,7 +20,7 @@
     display: none;
 
     @include breakpoint-mixin("laptop-small") {
-      display: inline-flex;
+      display: flex;
       flex-direction: column;
       align-items: flex-end;
       // justify-content: space-between;
@@ -51,26 +51,27 @@
     flex-direction: column;
     align-items: center;
 
-    #or {
-      width: 90%;
-
-      @include breakpoint-mixin("laptop-small") {
-        width: 50%;
-      }
-
-      @include breakpoint-mixin("laptop-wide") {
-        width: 45%;
-      }
-
-      @include breakpoint-mixin("desktop") {
-        width: 40%;
-      }
-    }
-
     @include breakpoint-mixin("laptop-small") {
       height: 100%;
       width: 50%;
+    }
+
+    .widthContainer {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
       justify-content: space-between;
+      width: 90%;
+      margin-top: 5%;
+      margin-bottom: 5%;
+
+      @include breakpoint-mixin("laptop-small") {
+        width: fit-content;
+      }
+
+      #or {
+        width: 100%;
+      }
     }
   }
 }

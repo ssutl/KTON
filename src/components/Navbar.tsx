@@ -10,7 +10,6 @@ export default function Navbar() {
   const router = useRouter();
   const isIndexRoute = router.pathname === "/";
   const [restrictions, setRestrictions] = useState(false);
-  console.log("restrictions: ", restrictions);
 
   //On page load update screenwidth state && restrictions
   useEffect(() => {

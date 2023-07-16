@@ -1,8 +1,7 @@
 @import "../styles/Breakpoints.module.scss";
 .importSect {
   height: 20vh;
-  width: 90%;
-  margin-bottom: 5%;
+  width: 100%;
   margin-top: 10%;
   display: flex;
   flex-direction: column;
@@ -10,17 +9,11 @@
 
   @include breakpoint-mixin("laptop-small") {
     margin-top: 0%;
-    width: 50%;
     height: 25%;
   }
 
   @include breakpoint-mixin("laptop-wide") {
     height: 20%;
-    width: 45%;
-  }
-
-  @include breakpoint-mixin("desktop") {
-    width: 40%;
   }
 
   .importInfoSect {

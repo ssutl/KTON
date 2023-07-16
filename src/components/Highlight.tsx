@@ -14,13 +14,14 @@ import { useRouter } from "next/router";
 import deleteHighlightApi from "@/api/Highlights/Delete";
 import annotateHighlightApi from "@/api/Highlights/Annotate";
 import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
+import HandleLoginModal from "@/components/HandleLoginModal";
 
 interface highlightProps {
   highlight: Book_highlight;
-  index: number;
+  setModal: () => void;
 }
 
-const Highlight = ({ highlight }: highlightProps) => {
+const Highlight = ({ highlight, setModal }: highlightProps) => {
   const [restrictions, setRestrictions] = useState(true);
   //Setting the state of the highlight from what is passed in from the context, i.e the db, allowing it to be locally updated
   const [deleted, setDeleted] = useState(highlight.deleted);
@@ -36,11 +37,6 @@ const Highlight = ({ highlight }: highlightProps) => {
   useEffect(() => {
     setRestrictions(!userAuthenticated());
   }, []);
-
-  //Display this modal when restricted buttons have been clicked
-  const loginModal = () => {
-    alert("login modal");
-  };
 
   //Function to handle when the user clicks favourite button
   const handleFavourite = () => {
@@ -129,24 +125,22 @@ const Highlight = ({ highlight }: highlightProps) => {
             <p
               onClick={() =>
                 restrictions
-                  ? loginModal()
+                  ? setModal()
                   : setDisplayAnnotation(!displayAnnotation)
               }
             >
               <NotesIcon />
             </p>
-            <p onClick={() => (restrictions ? loginModal() : null)}>
+            <p onClick={() => (restrictions ? setModal() : null)}>
               <TagIcon />
             </p>
-            <p
-              onClick={() => (restrictions ? loginModal() : handleFavourite())}
-            >
+            <p onClick={() => (restrictions ? setModal() : handleFavourite())}>
               {favourited ? <StarIcon /> : <StarBorderIcon />}
             </p>
-            <p onClick={() => (restrictions ? loginModal() : null)}>
+            <p onClick={() => (restrictions ? setModal() : null)}>
               <ShareIcon />
             </p>
-            <p onClick={() => (restrictions ? loginModal() : handleDelete())}>
+            <p onClick={() => (restrictions ? setModal() : handleDelete())}>
               <DeleteOutlineIcon />
             </p>
           </div>

@@ -2,25 +2,21 @@
 
 .loginSect {
   height: 48vh;
-  width: 90%;
-  margin-top: 5%;
+  width: 100%;
   margin-bottom: 10%;
-  // background-color: orange;
 
   @include breakpoint-mixin("laptop-small") {
+    width: fit-content;
     margin-bottom: 0%;
-    width: 50%;
     height: 50%;
   }
 
   @include breakpoint-mixin("laptop-wide") {
     height: 45%;
-    width: 45%;
   }
 
   @include breakpoint-mixin("desktop") {
     height: 40%;
-    width: 40%;
   }
 
   .loginInfoSect {
@@ -50,16 +46,18 @@
     flex-direction: column;
     justify-content: space-evenly;
 
-    // background-color: yellow;
-
     input {
       background-color: transparent;
       border: none;
       border-bottom: 1px solid white;
       outline: none;
       padding-bottom: 10px;
-      width: 70%;
       border-radius: 0px;
+      width: 70%;
+
+      @include breakpoint-mixin("laptop-small") {
+        width: 100%;
+      }
     }
   }
 
