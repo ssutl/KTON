@@ -11,7 +11,6 @@ const userAuthenticated = () => {
   } else if (clippings && !authToken) {
     return false;
   } else {
-    Router.push("/");
     return false;
   }
 };

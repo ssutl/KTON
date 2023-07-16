@@ -10,7 +10,7 @@ const LoginApi = ({
   email: string;
   password: string;
 }) => {
-  //   Simple request to update summaries
+  //   Simple request to login user
   axios({
     method: "POST",
     url: `${process.env.NEXT_PUBLIC_BACKENDURL}/${
