@@ -5,10 +5,9 @@ const ImportComponent = () => {
   return (
     <div className={styles.importSect}>
       <div className={styles.importInfoSect}>
-        <h3>IMPORT YOUR CLIPPINGS</h3>
+        <h2>IMPORT YOUR CLIPPINGS</h2>
         <p>Locate &#34;Clippings.txt&#34;</p>
       </div>
-
       <ImportButton />
       {/* <div className={styles.importProgressSect}>
         <p>

@@ -10,6 +10,7 @@ export default function Navbar() {
   const router = useRouter();
   const isIndexRoute = router.pathname === "/";
   const [restrictions, setRestrictions] = useState(false);
+  console.log("restrictions: ", restrictions);
 
   //On page load update screenwidth state && restrictions
   useEffect(() => {
@@ -86,11 +87,12 @@ export default function Navbar() {
               <Modal />
             </span>
           )}
-          {!isIndexRoute && !restrictions ? (
+          {!isIndexRoute ? (
             <h3
               onClick={() => {
                 router.push("/");
                 localStorage.removeItem("token");
+                localStorage.removeItem("clippings");
                 updateBooks(undefined);
               }}
             >

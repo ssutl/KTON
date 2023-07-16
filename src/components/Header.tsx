@@ -10,7 +10,7 @@ export default function Header() {
   useEffect(() => {
     //Setting restrictionHeader to true if user not authenticated
     setRestrictionHeader(!userAuthenticated());
-  }, []);
+  }, [router.pathname]);
 
   //If on landing page we display default header
   if (router.pathname === "/") {
@@ -24,7 +24,7 @@ export default function Header() {
     //If on home page we need to display the restriction ting
   } else if (router.pathname === "/Home" && restrictionHeader) {
     return (
-      <div className={styles.header}>
+      <div className={`${styles.header} ${styles.headerExpand}`}>
         <div className={styles.headerWidth}>
           <p>
             Welcome to KTON your account has restrictions, login to ensure you

@@ -63,11 +63,11 @@ const ImportButton = () => {
         }}
       ></input>
       <label className={styles.button} htmlFor="input">
-        {incomingFile ? <p>{incomingFile.name}</p> : <p>+ Import To KTON</p>}
+        {incomingFile ? <p>{incomingFile.name}</p> : <p>+ Import to KTON</p>}
       </label>
       {incomingFile ? (
         <div className={styles.button} onClick={() => uploadFile()}>
-          Upload
+          <p>Upload</p>
         </div>
       ) : null}
     </div>
