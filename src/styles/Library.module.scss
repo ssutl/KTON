@@ -2,7 +2,7 @@
 
 .Library {
   overflow-y: scroll;
-  height: 93vh;
+  height: 94vh;
 
   @include breakpoint-mixin("laptop-small") {
     height: 93vh;
@@ -13,7 +13,7 @@
   }
 
   .searchBanner {
-    height: 7vh;
+    height: 6vh;
     width: 100%;
     border-bottom: 0.5px solid black;
     display: flex;
@@ -289,6 +289,10 @@
 
         @include breakpoint-mixin("laptop-small") {
           margin-bottom: 0px;
+          width: 35%;
+        }
+
+        @include breakpoint-mixin("desktop") {
           width: 25%;
         }
       }

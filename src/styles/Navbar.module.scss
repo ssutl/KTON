@@ -1,13 +1,17 @@
 @import "../styles/Breakpoints.module.scss";
 
 .navbar {
-  height: 7vh;
+  height: 6vh;
   width: 100%;
   display: flex;
   border-bottom: 0.5px solid black;
   justify-content: center;
   box-sizing: border-box;
   // color: white;
+
+  @include breakpoint-mixin("laptop-small") {
+    height: 7vh;
+  }
 
   @include breakpoint-mixin("desktop") {
     height: 5vh;
