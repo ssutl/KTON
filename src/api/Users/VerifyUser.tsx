@@ -6,7 +6,7 @@ const verifyUserApi = ({ id, token }: { id: string; token: string }) => {
 
   axios({
     method: "GET",
-    url: `${process.env.NEXT_PUBLIC_BACKENDURL}/user/verify/${id}/${token}`,
+    url: `${process.env.NEXT_PUBLIC_BACKENDURL}/users/verify/${id}/${token}`,
     headers: { "Content-Type": "application/json" },
   })
     .then((res) => {

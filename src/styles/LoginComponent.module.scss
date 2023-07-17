@@ -2,11 +2,11 @@
 
 .loginSect {
   height: 48vh;
-  width: 100%;
+  width: fit-content;
   margin-bottom: 10%;
+  // background-color: orange;
 
   @include breakpoint-mixin("laptop-small") {
-    width: fit-content;
     margin-bottom: 0%;
     height: 50%;
   }
@@ -53,11 +53,11 @@
       outline: none;
       padding-bottom: 10px;
       border-radius: 0px;
-      width: 70%;
+      width: 100%;
 
-      @include breakpoint-mixin("laptop-small") {
-        width: 100%;
-      }
+      // @include breakpoint-mixin("laptop-small") {
+      //   width: 100%;
+      // }
     }
   }
 

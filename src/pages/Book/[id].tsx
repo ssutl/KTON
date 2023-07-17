@@ -14,6 +14,7 @@ import summariseBookApi from "@/api/Books/Summary";
 import genreColors from "@/helpers/sortGenreColors";
 import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 import HandleLoginModal from "@/components/HandleLoginModal";
+import cleanAuthor from "@/helpers/cleanAuthor";
 
 const BookPage = () => {
   const router = useRouter();
@@ -84,11 +85,7 @@ const BookPage = () => {
       return (
         <div className={styles.bookTitle}>
           <h1>{mainBook.title}</h1>
-          <p>
-            {mainBook.author.slice(-1) === ";"
-              ? mainBook.author.slice(0, -1)
-              : mainBook.author.replace(";", " & ")}
-          </p>
+          <p>{cleanAuthor(mainBook.author)}</p>
         </div>
       );
     else null;
@@ -126,7 +123,7 @@ const BookPage = () => {
         <div className={styles.GenreModal} ref={multiRef}>
           <div className={styles.searchItem}>
             <input
-              placeholder="Search for filters"
+              placeholder="Search for genres"
               onChange={(e) => setGenreInput(e.target.value)}
             />
           </div>

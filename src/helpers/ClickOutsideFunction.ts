@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 function useOutsideAlerter(
   ref: any,
-  modalState: React.Dispatch<React.SetStateAction<boolean>>
+  modalState: React.Dispatch<React.SetStateAction<any>>
 ) {
   useEffect(() => {
     function handleClickOutside(event: any) {

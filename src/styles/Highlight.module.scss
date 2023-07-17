@@ -31,6 +31,38 @@
       margin-bottom: 40px;
     }
 
+    .tagsHolder {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      width: 100%;
+      justify-content: flex-start;
+      align-items: center;
+
+      .tag {
+        padding: 2px 15px;
+        border: 0.5px solid white;
+        max-width: 60%;
+        overflow-x: hidden;
+        box-sizing: border-box;
+        margin-right: 20px;
+        margin-bottom: 20px;
+
+        p {
+          overflow-x: hidden;
+        }
+
+        span {
+          margin-left: 10px;
+          cursor: pointer;
+        }
+
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+    }
+
     .highlightOptions {
       display: flex;
       height: fit-content;
@@ -43,6 +75,94 @@
         &:hover {
           opacity: 0.5;
         }
+      }
+    }
+
+    .categoryDropdown {
+      padding: 20px 0px 20px 0px;
+
+      .searchItem {
+        height: 5vh;
+        width: 100%;
+        border-bottom: 0.5px solid white;
+        display: flex;
+        // justify-content: center;
+
+        input {
+          background-color: transparent;
+          height: 100%;
+          border: none;
+          outline: none;
+          color: white;
+          padding: 0px;
+          width: 95%;
+          margin-left: 10px;
+        }
+      }
+
+      .categoryScroll {
+        height: 40vh;
+        overflow-y: scroll;
+        // background-color: orange;
+
+        .categoryItem {
+          height: 4vh;
+          display: flex;
+          align-items: center;
+          width: 100%;
+          margin: 0px auto 0px auto;
+          border-radius: 5px;
+          margin-top: 15px;
+          cursor: pointer;
+          padding: 0px 20px 0px 20px;
+
+          .tag {
+            padding: 2px 15px;
+            border: 0.5px solid white;
+            max-width: 60%;
+            overflow-x: hidden;
+            box-sizing: border-box;
+
+            p {
+              overflow-x: hidden;
+            }
+
+            &:hover {
+              opacity: 0.5;
+            }
+          }
+
+          #trashIcon {
+            font-size: 20px;
+          }
+
+          #createText {
+            border: none;
+            margin-right: 15px;
+          }
+
+          &:hover {
+            background-color: #2c2c2c;
+          }
+        }
+
+        .spaceBetween {
+          justify-content: space-between;
+        }
+      }
+
+      .categoryScroll::-webkit-scrollbar {
+        height: 100%;
+        background-color: rgb(45, 41, 41);
+        width: 10px;
+      }
+
+      .categoryScroll::-webkit-scrollbar-thumb {
+        background-color: rgba(70, 68, 68, 0.428);
+        border: 1px solid transparent;
+        background-clip: content-box;
+        border-radius: 10px;
+        height: 40px;
       }
     }
 
