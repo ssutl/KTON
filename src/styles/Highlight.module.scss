@@ -119,12 +119,20 @@
           .tag {
             padding: 2px 15px;
             border: 0.5px solid white;
-            max-width: 60%;
             overflow-x: hidden;
             box-sizing: border-box;
+            max-width: 85%;
+
+            @include breakpoint-mixin("laptop-small") {
+              max-width: 60%;
+            }
 
             p {
               overflow-x: hidden;
+              //force p to be one line
+              white-space: nowrap;
+              //give ellipsis
+              text-overflow: ellipsis;
             }
 
             &:hover {

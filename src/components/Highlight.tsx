@@ -26,6 +26,7 @@ interface highlightProps {
 }
 
 const Highlight = ({ highlight, setModal }: highlightProps) => {
+  const [screenWidth, setScreenWidth] = useState(1024);
   const [restrictions, setRestrictions] = useState(true);
   //Setting the state of the highlight from what is passed in from the context, i.e the db, allowing it to be locally updated
   const { userinfo } = useContext(KTON_CONTEXT);
@@ -51,6 +52,10 @@ const Highlight = ({ highlight, setModal }: highlightProps) => {
   //Set restrictions on page load
   useEffect(() => {
     setRestrictions(!userAuthenticated());
+
+    //Have to set screenwidth to conditionally change size of heat map
+    setScreenWidth(window.innerWidth);
+    window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
   }, []);
 
   //Function to handle when the user clicks favourite button
@@ -231,7 +236,7 @@ const Highlight = ({ highlight, setModal }: highlightProps) => {
                   >
                     <p>{ExistingCategory}</p>
                   </div>
-                  {hoveredOption === ExistingCategory ? (
+                  {hoveredOption === ExistingCategory || screenWidth < 1024 ? (
                     <DeleteOutlineIcon
                       id={styles.trashIcon}
                       onClick={
