@@ -199,7 +199,7 @@ const BookPage = () => {
                 glareMaxOpacity={0.1}
                 glarePosition="all"
                 glareBorderRadius="0px"
-                tiltAngleYInitial={-10}
+                tiltAngleYInitial={screenWidth < 1024 ? 0 : -10}
                 tiltEnable={true}
                 className={styles.ImageContainer}
                 perspective={650}
