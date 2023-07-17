@@ -81,7 +81,7 @@ const BookComponent = ({ book, index }: BookProps) => {
           glareReverse={true}
           glareBorderRadius="0px"
           tiltEnable={true}
-          trackOnWindow={true}
+          // trackOnWindow={true}
           className={styles.ImageHolder}
           perspective={850}
         >
