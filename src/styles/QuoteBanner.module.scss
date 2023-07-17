@@ -55,8 +55,10 @@
       cursor: pointer;
 
       span {
-        &:hover {
-          opacity: 0.5;
+        @include breakpoint-mixin("laptop-small") {
+          &:hover {
+            opacity: 0.5;
+          }
         }
       }
     }
@@ -66,8 +68,10 @@
       bottom: 10px;
       cursor: pointer;
 
-      &:hover {
-        opacity: 0.5;
+      @include breakpoint-mixin("laptop-small") {
+        &:hover {
+          opacity: 0.5;
+        }
       }
     }
   }

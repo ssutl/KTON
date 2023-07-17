@@ -76,13 +76,14 @@ const BookComponent = ({ book, index }: BookProps) => {
         ></div>
         <Tilt
           glareEnable={true}
-          glareMaxOpacity={0.1}
+          glareMaxOpacity={0.4}
           glarePosition="all"
+          glareReverse={true}
           glareBorderRadius="0px"
           tiltEnable={true}
-          gyroscope={true}
+          trackOnWindow={true}
           className={styles.ImageHolder}
-          perspective={650}
+          perspective={850}
         >
           {restrictions && index === 0 ? (
             <h3>
