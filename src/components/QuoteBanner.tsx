@@ -6,6 +6,7 @@ import { Meta_con_highlight } from "@/api/Interface";
 import clippings_AllHighlights from "@/helpers/Clippings_AllHighlights";
 import favouriteHighlightApi from "@/api/Highlights/Favourite";
 import deleteHighlightApi from "@/api/Highlights/Delete";
+import cleanAuthor from "@/helpers/cleanAuthor";
 
 const QuoteBanner = () => {
   const { highlights } = useContext(KTON_CONTEXT);
@@ -126,7 +127,7 @@ const QuoteBanner = () => {
             </p>
           )}
           <p className={styles.metaData2}>
-            {author} - {title}
+            {cleanAuthor(author)} - {title}
           </p>
         </div>
       </div>

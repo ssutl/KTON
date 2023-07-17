@@ -8,6 +8,7 @@ import { usePalette } from "react-palette";
 import { useRouter } from "next/router";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
+import cleanAuthor from "@/helpers/cleanAuthor";
 
 interface BookProps {
   book: Book;
@@ -103,11 +104,7 @@ const BookComponent = ({ book, index }: BookProps) => {
       <div className={styles.Book_Meta_Section}>
         <div className={styles.Meta_center}>
           <h3>{book.title}</h3>
-          <p>
-            {book.author.slice(-1) === ";"
-              ? book.author.slice(0, -1)
-              : book.author.replace(";", " & ")}
-          </p>
+          <p>{cleanAuthor(book.author)}</p>
           {restrictions ? null : (
             <p>
               {[...Array(5)].map((eachStar, i) => {

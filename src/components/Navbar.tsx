@@ -78,7 +78,7 @@ export default function Navbar() {
   return (
     <div className={styles.navbar}>
       <div className={styles.navbarWidth}>
-        <h3>{screenWidth < 1024 ? `KTON` : `KINDLE NOTES MANAGER`}</h3>
+        <h3>KTON</h3>
         <div className={styles.navigationButtons}>
           {isIndexRoute ? null : (
             <span className={styles.hoverMenu}>
