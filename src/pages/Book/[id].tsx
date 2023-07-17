@@ -201,7 +201,6 @@ const BookPage = () => {
                 glareBorderRadius="0px"
                 tiltAngleYInitial={-10}
                 tiltEnable={true}
-                gyroscope={true}
                 className={styles.ImageContainer}
                 perspective={650}
               >
