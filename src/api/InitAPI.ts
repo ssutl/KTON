@@ -3,11 +3,13 @@ import axios, { AxiosResponse } from "axios";
 import { useContext } from "react";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import userAuthenticated from "@/helpers/UserAuthenticated";
+import { useRouter } from "next/router";
 
 function InitAPI() {
   //Grabbing methods to update the applications context
   const { updateBooks, updateUserInfo, updateHighlights } =
     useContext(KTON_CONTEXT);
+  const router = useRouter();
 
   //Making a request to the db in order to grab users highlights
   async function getAllHighlights() {
@@ -28,11 +30,12 @@ function InitAPI() {
         });
 
         //Filtering deleted highlights, if there are no highlights return undefined
+        //If no highlights push them to the import page
         return response.data.allHighlights.filter(
           (eachHighlight: Meta_con_highlight) =>
             eachHighlight.highlight.deleted === false
         ).length === 0
-          ? undefined
+          ? router.push("/Import")
           : response.data.allHighlights
               .filter(
                 (eachHighlight: Meta_con_highlight) =>
@@ -69,10 +72,12 @@ function InitAPI() {
         });
 
         //Filtering deleted books
+
+        //If no books push them to the import page
         return response.data.filter(
           (eachBook: Book) => eachBook.deleted === false
         ).length === 0
-          ? undefined
+          ? router.push("/Import")
           : response.data
               .map((eachBook: Book) => {
                 eachBook.highlights.sort(function (a, b) {

@@ -29,6 +29,7 @@ const LoginApi = ({
       data: { username: email, password: password },
     })
       .then((res) => {
+        console.log("res: ", res);
         if (res.data.token) {
           localStorage.setItem("token", res.data.token);
           Router.push("/Home");

@@ -10,7 +10,12 @@ const userAuthenticated = () => {
     return true;
   } else if (clippings && !authToken) {
     return false;
-  } else {
+  } else if (
+    !clippings &&
+    !authToken &&
+    /^\/verify\/\d+$/.test(Router.asPath)
+  ) {
+    Router.push("/");
     return false;
   }
 };

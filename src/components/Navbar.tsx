@@ -9,6 +9,8 @@ export default function Navbar() {
   const [screenWidth, setScreenWidth] = useState(0);
   const router = useRouter();
   const isIndexRoute = router.pathname === "/";
+  const isImportRoute = router.pathname === "/Import";
+  const isVerifyRoute = /^\/verify\/\d+$/.test(router.asPath);
   const [restrictions, setRestrictions] = useState(false);
 
   //On page load update screenwidth state && restrictions
@@ -80,7 +82,7 @@ export default function Navbar() {
       <div className={styles.navbarWidth}>
         <h3>KTON</h3>
         <div className={styles.navigationButtons}>
-          {isIndexRoute ? null : (
+          {isIndexRoute || isImportRoute || isVerifyRoute ? null : (
             <span className={styles.hoverMenu}>
               <h3>Menu</h3>
               <Modal />
