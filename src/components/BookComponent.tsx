@@ -3,12 +3,12 @@ import styles from "../styles/Book.module.scss";
 import { Book } from "@/api/Interface";
 import Tilt from "react-parallax-tilt";
 import userAuthenticated from "@/helpers/UserAuthenticated";
-import axios, { AxiosResponse } from "axios";
 import { usePalette } from "react-palette";
 import { useRouter } from "next/router";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
 import cleanAuthor from "@/helpers/cleanAuthor";
+import imageValid from "@/helpers/ImageValidation";
 
 interface BookProps {
   book: Book;
@@ -39,26 +39,18 @@ const BookComponent = ({ book, index }: BookProps) => {
 
   //Whenever a book cover is changed we need to check if it is valid or not and update the state
   useEffect(() => {
-    imageValid(book.cover_image)
-      .then((isValid) => {
-        setImageIsValid(isValid);
-      })
-      .catch((error) => {
-        console.log(error);
+    const verifyImage = async () => {
+      try {
+        const imageIsValid = await imageValid(book.cover_image);
+        setImageIsValid(imageIsValid);
+      } catch (err) {
+        console.log("from image", err);
         setImageIsValid(false);
-      });
-  }, [book.cover_image]);
+      }
+    };
 
-  //Function to check if image returns error or not
-  const imageValid = async (url: string) => {
-    try {
-      const response = await axios.head(url);
-      return response.status === 200;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
-  };
+    verifyImage();
+  }, [book.cover_image]);
 
   return (
     <div

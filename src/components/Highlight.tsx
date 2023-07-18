@@ -15,8 +15,6 @@ import { useRouter } from "next/router";
 import deleteHighlightApi from "@/api/Highlights/Delete";
 import annotateHighlightApi from "@/api/Highlights/Annotate";
 import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
-import { drop, set } from "lodash";
-import { userInfo } from "os";
 import addHighlightCategoryApi from "@/api/Highlights/AddCategories";
 import addUserCategoryApi from "@/api/Users/AddCategories";
 

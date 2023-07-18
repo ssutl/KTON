@@ -7,16 +7,22 @@ const VerificationPage = () => {
   const id = router.query.id;
   const [verified, setVerified] = useState<boolean>(false);
 
+  //On page load verify user with the id and token in the url
   useEffect(() => {
-    if (id) {
-      verifyUserApi({ id: id[0], token: id[1] })
-        .then(() => {
+    const verifyUser = async () => {
+      if (id) {
+        try {
+          const status = await verifyUserApi({ id: id[0], token: id[1] });
+
+          //Once verified, token would be in local storage and user would be redirected to import page
           setVerified(true);
-        })
-        .catch((err) => {
+        } catch (err) {
           console.log(err);
-        });
-    }
+        }
+      }
+    };
+
+    verifyUser();
   }, [id]);
 
   return (

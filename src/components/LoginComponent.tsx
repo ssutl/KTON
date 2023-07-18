@@ -17,25 +17,23 @@ const LoginComponent = () => {
     );
   };
 
-  const handleForm = () => {
-    if (password.length < 8) {
-      setLoginStatus("Password must be at least 8 characters long");
-    } else {
-      LoginApi({
-        type: loginType,
-        email: email.toLowerCase(),
-        password: password,
-      })
-        .then((status) => {
-          //This means that the user has not verified their email yet
-          if (status === "pending verification") {
-            //Display a message to the user that they need to verify their email
-            alert("Please verify your email");
-          }
-        })
-        .catch((error) => {
-          setLoginStatus(error);
+  const handleForm = async () => {
+    try {
+      if (password.length < 8) {
+        setLoginStatus("Password must be at least 8 characters long");
+      } else {
+        const status = await LoginApi({
+          type: loginType,
+          email: email.toLowerCase(),
+          password: password,
         });
+
+        if (status === "pending verification") {
+          alert("Please verify your email");
+        }
+      }
+    } catch (error: any) {
+      setLoginStatus(error);
     }
   };
 

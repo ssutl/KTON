@@ -9,6 +9,7 @@ const HandleLoginModal = () => {
     setDisplay(true);
   };
 
+  //Modal which holds the login component for when the user is not authenticated
   const LoginModal = () => {
     if (display) {
       return (
