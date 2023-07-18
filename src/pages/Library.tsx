@@ -7,6 +7,7 @@ import userAuthenticated from "@/helpers/UserAuthenticated";
 import InitApi from "../api/InitAPI";
 import BookComponent from "@/components/BookComponent";
 import Head from "next/head";
+import AllowedRoute from "@/helpers/AllowedRoute";
 
 interface ModalProps {
   type: "Filter" | "Sort";
@@ -24,6 +25,9 @@ const Library = () => {
   useEffect(() => {
     setRestricitons(!userAuthenticated());
     setRestrictionBanner(!userAuthenticated());
+
+    //check if this is an allowed route
+    AllowedRoute();
 
     //If user is authenticated and they have no books in context, then we need to refresh context
     if (userAuthenticated() && !books) {

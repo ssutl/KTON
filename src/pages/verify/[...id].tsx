@@ -1,4 +1,5 @@
 import verifyUserApi from "@/api/Users/VerifyUser";
+import AllowedRoute from "@/helpers/AllowedRoute";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -6,6 +7,11 @@ const VerificationPage = () => {
   const router = useRouter();
   const id = router.query.id;
   const [verified, setVerified] = useState<boolean>(false);
+
+  useEffect(() => {
+    //check if this is an allowed route
+    AllowedRoute();
+  }, []);
 
   //On page load verify user with the id and token in the url
   useEffect(() => {

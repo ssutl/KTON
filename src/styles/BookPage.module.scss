@@ -24,27 +24,6 @@
       width: 50%;
     }
 
-    // .overlay {
-    //   position: absolute;
-    //   height: calc(95vh - 1px);
-    //   width: 100%;
-    //   top: calc(5vh + 1px-);
-    //   left: 0px;
-    //   // background-color: orange;
-    //   z-index: -100;
-    //   border-right: 0.5px solid black;
-    //   filter: opacity(0.4);
-    //   background: radial-gradient(var(--background-color) 5%, transparent 100%)
-    //     center no-repeat;
-    //   background-size: 150%;
-
-    //   @include breakpoint-mixin("laptop-small") {
-    //     top: 0px;
-    //     height: 100vh;
-    //     width: 50%;
-    //   }
-    // }
-
     //Height of book cover
     .imageSection {
       height: 65vh;
@@ -79,11 +58,26 @@
       width: calc(90% + 10px);
       display: flex;
       position: relative;
-      height: 5vh;
-      margin: 0px auto 0px auto;
+      // height: 5vh;
+      margin: 0px auto 30px auto;
+      flex-wrap: wrap;
 
-      p {
+      #addGenre {
+        margin-right: 20px;
         cursor: pointer;
+      }
+
+      .BannerTags {
+        margin-right: 20px;
+        height: fit-content;
+        padding: 2px 15px;
+        border: 0.5px solid var(--background-color);
+        margin-bottom: 15px;
+
+        span {
+          margin-left: 10px;
+          cursor: pointer;
+        }
       }
 
       .GenreModal {
@@ -119,33 +113,57 @@
         }
 
         .genreItem {
-          height: 4vh;
+          height: 5vh;
           display: flex;
-          justify-content: space-between;
           align-items: center;
           width: 95%;
           margin: 0px auto 0px auto;
           border-radius: 5px;
           margin-top: 15px;
+          padding: 0px 20px;
           cursor: pointer;
 
-          p {
-            margin-left: 20px;
-            padding: 2px 15px 2px 15px;
-            box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
-              rgba(0, 0, 0, 0.22) 0px 10px 10px;
-            border-right: 0.5px solid var(--background-color);
-            border-bottom: 0.5px solid var(--background-color);
+          .tag {
+            padding: 2px 15px;
+            border: 0.5px solid var(--background-color);
+            overflow-x: hidden;
+            box-sizing: border-box;
+            max-width: 85%;
+
+            @include breakpoint-mixin("laptop-small") {
+              max-width: 60%;
+            }
+
+            p {
+              overflow-x: hidden;
+              //force p to be one line
+              white-space: nowrap;
+              //give ellipsis
+              text-overflow: ellipsis;
+            }
+
+            &:hover {
+              opacity: 0.5;
+            }
           }
 
-          .dots {
-            margin-right: 20px;
+          #dotsIcon {
             font-size: 20px;
           }
 
-          &:hover {
-            background-color: #474343;
+          #createText {
+            border: none;
+            margin-right: 15px;
           }
+
+          @include breakpoint-mixin("laptop-small") {
+            &:hover {
+              background-color: #2c2c2c;
+            }
+          }
+        }
+        .spaceBetween {
+          justify-content: space-between;
         }
       }
 

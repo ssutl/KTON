@@ -1,4 +1,4 @@
-import { Book } from "@/api/Interface";
+import { Book, userInfo } from "@/api/Interface";
 import styles from "../../styles/BookPage.module.scss";
 import { useRouter } from "next/router";
 import React, { useState, useEffect, useContext, useRef } from "react";
@@ -11,10 +11,13 @@ import Tilt from "react-parallax-tilt";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import TextareaAutosize from "react-textarea-autosize";
 import summariseBookApi from "@/api/Books/Summary";
-import genreColors from "@/helpers/sortGenreColors";
+import genreColors, { colorMapKeys } from "@/helpers/sortGenreColors";
 import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 import HandleLoginModal from "@/components/HandleLoginModal";
 import cleanAuthor from "@/helpers/cleanAuthor";
+import addGenreToBookApi from "@/api/Books/AddGenreToBook";
+import { set } from "lodash";
+import addGenreToUserApi from "@/api/Users/AddGenre";
 
 const BookPage = () => {
   const router = useRouter();
@@ -23,7 +26,11 @@ const BookPage = () => {
   const { books, userinfo } = useContext(KTON_CONTEXT);
   const { InitialiseApp } = InitApi();
   const { colorConverter, randomColorGenerator, mapTable } = genreColors();
+  const [randomColor, setRandomColor] = useState(randomColorGenerator());
   const [mainBook, setMainBook] = useState<undefined | Book>(undefined);
+  const [mainUserinfo, setMainUserinfo] = useState<undefined | userInfo>(
+    undefined
+  );
   const [restrictions, setRestricitons] = useState<boolean>(true);
   const [displayGenreModal, setDisplayGenreModal] = useState(false);
   const { LoginModal, setModal } = HandleLoginModal();
@@ -77,6 +84,7 @@ const BookPage = () => {
   useEffect(() => {
     if (userAuthenticated() && books) {
       setMainBook(books.filter((book) => book._id === singleId)[0]);
+      setMainUserinfo(userinfo);
     }
   }, [books]);
 
@@ -105,61 +113,139 @@ const BookPage = () => {
     else null;
   };
 
-  const handleAddGenre = (genre: string) => {
+  const handleAddGenreToBook = ({
+    type,
+    genre,
+  }: {
+    type: "add" | "remove";
+    genre: string;
+  }) => {
     if (mainBook) {
-      //Sorting locally
-      if (!mainBook.genre.includes(genre)) {
-        const newState = { ...mainBook, genre: [...mainBook.genre, genre] };
-        setMainBook(newState);
+      let newState;
+      if (type === "add") {
+        newState = { ...mainBook, genre: [...mainBook.genre, genre] };
+      } else if (type === "remove") {
+        newState = {
+          ...mainBook,
+          genre: mainBook.genre.filter((eachGenre) => eachGenre !== genre),
+        };
       }
 
+      //Sorting locally
+      setMainBook(newState);
+
       //sorting on server
+      if (newState)
+        addGenreToBookApi({ book_id: mainBook._id, data: newState.genre });
+    }
+  };
+
+  const handleAddGenreToUser = ({
+    type,
+    genre,
+  }: {
+    type: "add" | "remove";
+    genre: string;
+  }) => {
+    if (mainUserinfo && mainBook) {
+      let newState = mainUserinfo;
+
+      if (type === "add") {
+        //Add the genre to the userinfo genres
+        newState = {
+          ...mainUserinfo,
+          genres: { ...mainUserinfo.genres, [genre]: randomColor.color },
+        };
+      } else if (type === "remove") {
+        //Filter the userinfo genres to remove the genre and add to newState
+        let ghost = mainUserinfo.genres;
+        delete ghost[genre];
+        newState = { ...mainUserinfo, genres: ghost };
+      }
+
+      //sorting locally
+      setMainUserinfo(newState);
+
+      //Sorting on server
+      if (newState) addGenreToUserApi({ data: newState.genres });
+
+      //We could be removing from user geres but it may not be on the highlight, so we need to check before removing and wasting a request
+      //When we add to user genres, we also need to add to book genres, so we can just add to book categories
+      if (
+        (type === "remove" && mainBook.genre.includes(genre)) ||
+        (type === "add" && !mainBook.genre.includes(genre))
+      ) {
+        handleAddGenreToBook({ type, genre });
+      }
     }
   };
 
   const genreModal = () => {
-    if (userinfo)
+    if (mainBook && mainUserinfo)
       return (
         <div className={styles.GenreModal} ref={multiRef}>
           <div className={styles.searchItem}>
             <input
               placeholder="Search for genres"
+              value={genreInput}
               onChange={(e) => setGenreInput(e.target.value)}
             />
           </div>
-          {Object.keys(userinfo.genres)
+          {Object.keys(mainUserinfo.genres)
             .filter((eachGenre) =>
               eachGenre.toLowerCase().includes(genreInput.toLowerCase())
             )
             .map((eachGenre, i) => (
-              <div key={i} className={styles.genreItem}>
-                <p
+              <div
+                key={i}
+                className={`${styles.genreItem} ${styles.spaceBetween}`}
+                onClick={() => {
+                  if (!mainBook.genre.includes(eachGenre)) {
+                    handleAddGenreToBook({ type: "add", genre: eachGenre });
+                  }
+                }}
+              >
+                <div
                   style={
                     {
                       "--background-color": colorConverter(
-                        userinfo.genres[eachGenre]
+                        mainUserinfo.genres[eachGenre]
                       ),
                     } as React.CSSProperties
                   }
-                  onClick={() => handleAddGenre(eachGenre)}
+                  className={styles.tag}
                 >
-                  {eachGenre}
-                </p>
+                  <p>{eachGenre}</p>
+                </div>
                 <MoreHorizIcon
-                  className={styles.dots}
+                  className={styles.dotsIcon}
                   onClick={() => {
                     setDisplayGenreDropdown(!displayGenreDropdown);
                   }}
                 />
               </div>
             ))}
-          {!Object.keys(userinfo.genres)
+          {!Object.keys(mainUserinfo.genres)
             .map((eachGenre) => eachGenre.toLowerCase())
             .includes(genreInput.toLowerCase()) &&
             genreInput !== "" && (
-              <div className={styles.genreItem}>
-                <p>{`Create ${genreInput}`}</p>
-                <MoreHorizIcon className={styles.dots} />
+              <div
+                className={styles.genreItem}
+                onClick={() =>
+                  handleAddGenreToUser({ type: "add", genre: genreInput })
+                }
+              >
+                <p id={styles.createText}>Create</p>
+                <div
+                  className={styles.tag}
+                  style={
+                    {
+                      "--background-color": randomColor.hex,
+                    } as React.CSSProperties
+                  }
+                >
+                  <p>{genreInput}</p>
+                </div>
               </div>
             )}
         </div>
@@ -186,7 +272,7 @@ const BookPage = () => {
     //Clear summary
   };
 
-  if (mainBook) {
+  if (mainBook && mainUserinfo) {
     return (
       <>
         {LoginModal()}
@@ -200,7 +286,7 @@ const BookPage = () => {
                 glarePosition="all"
                 glareBorderRadius="0px"
                 tiltAngleYInitial={screenWidth < 1024 ? 0 : -10}
-                tiltEnable={true}
+                tiltEnable={false}
                 className={styles.ImageContainer}
                 perspective={650}
               >
@@ -221,13 +307,36 @@ const BookPage = () => {
                     ? setModal()
                     : setDisplayGenreModal(!displayGenreModal);
                 }}
+                id={styles.addGenre}
               >
                 + Add genre
               </p>
               {mainBook.genre.map((eachGenre, i) => (
-                <p key={i}>{eachGenre}</p>
+                <p
+                  key={i}
+                  className={styles.BannerTags}
+                  style={
+                    {
+                      "--background-color": colorConverter(
+                        mainUserinfo.genres[eachGenre]
+                      ),
+                    } as React.CSSProperties
+                  }
+                >
+                  {eachGenre}{" "}
+                  <span
+                    onClick={() => {
+                      handleAddGenreToBook({
+                        type: "remove",
+                        genre: eachGenre,
+                      });
+                    }}
+                  >
+                    x
+                  </span>
+                </p>
               ))}
-              {displayGenreModal && userinfo && !restrictions
+              {displayGenreModal && mainUserinfo && !restrictions
                 ? genreModal()
                 : null}
             </div>

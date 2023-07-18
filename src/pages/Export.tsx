@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import styles from "../styles/Navbar.module.scss";
 import notionApi from "@/api/Notion/NotionApi";
 import Head from "next/head";
+import AllowedRoute from "@/helpers/AllowedRoute";
 
 const Export = () => {
   const router = useRouter();
@@ -24,6 +25,9 @@ const Export = () => {
     if (window.location.href.includes("code=")) {
       getCodeFromUrl();
     }
+
+    //check if this is an allowed route
+    AllowedRoute();
   }, []);
 
   return (
