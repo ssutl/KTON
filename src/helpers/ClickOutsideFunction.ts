@@ -6,6 +6,8 @@ function useOutsideAlerter(
 ) {
   useEffect(() => {
     function handleClickOutside(event: any) {
+      console.log("ref: ", ref.current);
+      console.log("event: ", event.target);
       if (ref.current && !ref.current.contains(event.target)) {
         modalState(false);
       }

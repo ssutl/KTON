@@ -311,6 +311,9 @@ const BookPage = () => {
               >
                 + Add genre
               </p>
+              {displayGenreModal && mainUserinfo && !restrictions
+                ? genreModal()
+                : null}
               {mainBook.genre.map((eachGenre, i) => (
                 <p
                   key={i}
@@ -336,9 +339,6 @@ const BookPage = () => {
                   </span>
                 </p>
               ))}
-              {displayGenreModal && mainUserinfo && !restrictions
-                ? genreModal()
-                : null}
             </div>
             {screenWidth < 1024 ? bookTitle() : null}
             <div className={styles.summarySection}>
