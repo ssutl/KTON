@@ -1,0 +1,228 @@
+@import "../styles/Breakpoints.module.scss";
+
+.Highlight {
+  padding: 30px 0px 20px 0px;
+  //Plus 10px for the width of the scroll bar
+  width: calc(90% + 10px);
+  border-top: 0.5px solid grey;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column-reverse;
+
+  @include breakpoint-mixin("laptop-small") {
+    flex-direction: row;
+  }
+
+  .mainHalf {
+    width: 100%;
+    text-align: justify;
+
+    @include breakpoint-mixin("laptop-small") {
+      height: 100%;
+      width: 70%;
+    }
+
+    h2 {
+      margin-bottom: 25px;
+    }
+
+    h3 {
+      margin-bottom: 40px;
+    }
+
+    .tagsHolder {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      width: 100%;
+      justify-content: flex-start;
+      align-items: center;
+
+      .tag {
+        padding: 2px 15px;
+        border: 0.5px solid white;
+        max-width: 60%;
+        overflow-x: hidden;
+        box-sizing: border-box;
+        margin-right: 20px;
+        margin-bottom: 20px;
+
+        p {
+          overflow-x: hidden;
+        }
+
+        span {
+          margin-left: 10px;
+          cursor: pointer;
+        }
+
+        @include breakpoint-mixin("laptop-small") {
+          &:hover {
+            opacity: 0.5;
+          }
+        }
+      }
+    }
+
+    .highlightOptions {
+      display: flex;
+      height: fit-content;
+      width: 100%;
+      justify-content: space-between;
+
+      p {
+        cursor: pointer;
+
+        @include breakpoint-mixin("laptop-small") {
+          &:hover {
+            opacity: 0.5;
+          }
+        }
+      }
+    }
+
+    .categoryDropdown {
+      padding: 20px 0px 20px 0px;
+
+      .searchItem {
+        height: 5vh;
+        width: 100%;
+        border-bottom: 0.5px solid white;
+        display: flex;
+        // justify-content: center;
+
+        input {
+          background-color: transparent;
+          height: 100%;
+          border: none;
+          outline: none;
+          color: white;
+          padding: 0px;
+          width: 95%;
+          margin-left: 10px;
+        }
+      }
+
+      .categoryScroll {
+        height: 40vh;
+        overflow-y: scroll;
+        // background-color: orange;
+
+        .categoryItem {
+          height: 4vh;
+          display: flex;
+          align-items: center;
+          width: 100%;
+          margin: 0px auto 0px auto;
+          border-radius: 5px;
+          margin-top: 15px;
+          cursor: pointer;
+          padding: 0px 20px;
+
+          .tag {
+            padding: 2px 15px;
+            border: 0.5px solid white;
+            overflow-x: hidden;
+            box-sizing: border-box;
+            max-width: 85%;
+
+            @include breakpoint-mixin("laptop-small") {
+              max-width: 60%;
+            }
+
+            p {
+              overflow-x: hidden;
+              //force p to be one line
+              white-space: nowrap;
+              //give ellipsis
+              text-overflow: ellipsis;
+            }
+
+            &:hover {
+              opacity: 0.5;
+            }
+          }
+
+          #trashIcon {
+            font-size: 20px;
+          }
+
+          #createText {
+            border: none;
+            margin-right: 15px;
+          }
+
+          @include breakpoint-mixin("laptop-small") {
+            &:hover {
+              background-color: #2c2c2c;
+            }
+          }
+        }
+
+        .spaceBetween {
+          justify-content: space-between;
+        }
+      }
+
+      .categoryScroll::-webkit-scrollbar {
+        height: 100%;
+        background-color: rgb(45, 41, 41);
+        width: 10px;
+      }
+
+      .categoryScroll::-webkit-scrollbar-thumb {
+        background-color: rgba(70, 68, 68, 0.428);
+        border: 1px solid transparent;
+        background-clip: content-box;
+        border-radius: 10px;
+        height: 40px;
+      }
+    }
+
+    .annotationDropdown {
+      padding: 20px 0px 20px 0px;
+
+      textarea {
+        min-height: 10vh;
+        width: 100%;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        resize: none;
+      }
+
+      .buttonsSection {
+        display: flex;
+        margin-top: 20px;
+
+        p {
+          padding: 5px 30px 5px 30px;
+          border: 0.5px solid white;
+          height: fit-content;
+          color: white;
+          cursor: pointer;
+
+          @include breakpoint-mixin("laptop-small") {
+            &:hover {
+              opacity: 0.5;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .metaHalf {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+
+    @include breakpoint-mixin("laptop-small") {
+      margin-bottom: 0px;
+      height: 100%;
+      width: 30%;
+    }
+  }
+}

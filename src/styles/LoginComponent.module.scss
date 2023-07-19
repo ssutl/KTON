@@ -1,0 +1,100 @@
+@import "../styles/Breakpoints.module.scss";
+
+.loginSect {
+  height: fit-content;
+  width: 100%;
+  margin-bottom: 10%;
+
+  @include breakpoint-mixin("laptop-small") {
+    margin-bottom: 0%;
+  }
+
+  .loginInfoSect {
+    height: 15vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    // background-color: red;
+
+    @include breakpoint-mixin("laptop-small") {
+      height: 17vh;
+    }
+
+    @include breakpoint-mixin("desktop") {
+      height: 15vh;
+    }
+
+    p {
+      width: 100%;
+    }
+
+    p:nth-of-type(2) {
+      cursor: pointer;
+    }
+
+    span {
+      color: #3fcdfc;
+    }
+  }
+
+  .loginFormSect {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 20vh;
+
+    @include breakpoint-mixin("desktop") {
+      height: 18vh;
+    }
+
+    input {
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid white;
+      outline: none;
+      padding-bottom: 10px;
+      border-radius: 0px;
+      width: 80%;
+
+      @include breakpoint-mixin("laptop-small") {
+        width: 100%;
+      }
+    }
+  }
+
+  .loginButtonSect {
+    height: 7vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @include breakpoint-mixin("laptop-small") {
+      height: 8vh;
+    }
+
+    @include breakpoint-mixin("desktop") {
+      height: 5vh;
+    }
+
+    input {
+      display: none;
+    }
+
+    .submitBtn {
+      padding: 5px 30px 5px 30px;
+      border: 0.5px solid white;
+      height: fit-content;
+      color: white;
+      cursor: pointer;
+
+      @include breakpoint-mixin("laptop-small") {
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}

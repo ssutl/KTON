@@ -1,0 +1,30 @@
+@import "../styles/Breakpoints.module.scss";
+.importSect {
+  height: 20vh;
+  width: fit-content;
+  margin-top: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @include breakpoint-mixin("laptop-small") {
+    margin-top: 0%;
+  }
+
+  @include breakpoint-mixin("desktop") {
+    height: 18vh;
+  }
+
+  .importInfoSect {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    // background-color: orange;
+
+    p {
+      width: 100%;
+    }
+  }
+}

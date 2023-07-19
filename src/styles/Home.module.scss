@@ -1,0 +1,15 @@
+@import "../styles/Breakpoints.module.scss";
+
+.Home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include breakpoint-mixin("laptop-small") {
+    height: 93vh;
+  }
+
+  @include breakpoint-mixin("desktop") {
+    height: 95vh;
+  }
+}
