@@ -1,30 +1,29 @@
 @import "../styles/Breakpoints.module.scss";
 
 .loginSect {
-  height: 48vh;
-  width: fit-content;
+  height: fit-content;
+  width: 100%;
   margin-bottom: 10%;
-  // background-color: orange;
 
   @include breakpoint-mixin("laptop-small") {
     margin-bottom: 0%;
-    height: 50%;
-  }
-
-  @include breakpoint-mixin("laptop-wide") {
-    height: 45%;
-  }
-
-  @include breakpoint-mixin("desktop") {
-    height: 40%;
   }
 
   .loginInfoSect {
-    height: 40%;
+    height: 15vh;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    // background-color: red;
+
+    @include breakpoint-mixin("laptop-small") {
+      height: 17vh;
+    }
+
+    @include breakpoint-mixin("desktop") {
+      height: 15vh;
+    }
 
     p {
       width: 100%;
@@ -40,11 +39,15 @@
   }
 
   .loginFormSect {
-    height: 40%;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    height: 20vh;
+
+    @include breakpoint-mixin("desktop") {
+      height: 18vh;
+    }
 
     input {
       background-color: transparent;
@@ -53,20 +56,28 @@
       outline: none;
       padding-bottom: 10px;
       border-radius: 0px;
-      width: 100%;
+      width: 80%;
 
-      // @include breakpoint-mixin("laptop-small") {
-      //   width: 100%;
-      // }
+      @include breakpoint-mixin("laptop-small") {
+        width: 100%;
+      }
     }
   }
 
   .loginButtonSect {
-    height: 20%;
+    height: 7vh;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @include breakpoint-mixin("laptop-small") {
+      height: 8vh;
+    }
+
+    @include breakpoint-mixin("desktop") {
+      height: 5vh;
+    }
 
     input {
       display: none;

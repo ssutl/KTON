@@ -1,3 +1,5 @@
+import ImportComponent from "@/components/ImportComponent";
+import styles from "../styles/ImportPage.module.scss";
 import AllowedRoute from "@/helpers/AllowedRoute";
 import React, { useEffect } from "react";
 
@@ -8,8 +10,8 @@ const ImportPage = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Import Page</h1>
+    <div className={styles.ImportPage}>
+      <ImportComponent />
     </div>
   );
 };

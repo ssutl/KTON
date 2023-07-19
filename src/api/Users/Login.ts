@@ -30,7 +30,7 @@ const LoginApi = async ({
     if (res.data.token) {
       localStorage.setItem("token", res.data.token);
       Router.push("/Home");
-    } else if (res.data === "An email has been sent to the user account") {
+    } else if (res.data.msg === "An email has been sent to the user account") {
       return "pending verification";
     } else {
       throw new Error("Unexpected error occurred");

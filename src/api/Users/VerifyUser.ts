@@ -1,5 +1,4 @@
 import axios from "axios";
-import Router from "next/router";
 
 const verifyUserApi = async ({ id, token }: { id: string; token: string }) => {
   //   Simple request to login user
@@ -10,13 +9,11 @@ const verifyUserApi = async ({ id, token }: { id: string; token: string }) => {
       headers: { "Content-Type": "application/json" },
     });
 
-    if (res.data.token) {
+    if (res.data.JWT_token) {
       //Add token to local storage
-      localStorage.setItem("token", res.data.token);
-      Router.push("/Import");
-
+      localStorage.setItem("token", res.data.JWT_token);
       //On success
-      return "User verified";
+      return "verified";
     }
   } catch (err) {
     console.log("err: ", err);

@@ -2,6 +2,7 @@ import verifyUserApi from "@/api/Users/VerifyUser";
 import AllowedRoute from "@/helpers/AllowedRoute";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Router from "next/router";
 
 const VerificationPage = () => {
   const router = useRouter();
@@ -21,7 +22,10 @@ const VerificationPage = () => {
           const status = await verifyUserApi({ id: id[0], token: id[1] });
 
           //Once verified, token would be in local storage and user would be redirected to import page
-          setVerified(true);
+          if (status === "verified") {
+            setVerified(true);
+            Router.push("/Import");
+          }
         } catch (err) {
           console.log(err);
         }

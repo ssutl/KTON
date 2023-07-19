@@ -9,20 +9,6 @@ const ImportComponent = () => {
         <p>Locate &#34;Clippings.txt&#34;</p>
       </div>
       <ImportButton />
-      {/* <div className={styles.importProgressSect}>
-        <p>
-          <span>Current Book </span>
-          <span>N/A</span>
-        </p>
-        <p>
-          <span>Progress </span>
-          <span>N/A</span>
-        </p>
-        <p>
-          <span>Estimated Time </span>
-          <span>N/A</span>
-        </p>
-      </div> */}
     </div>
   );
 };
