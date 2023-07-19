@@ -49,7 +49,7 @@ export default function Navbar() {
           >
             <p>Library</p>
           </div>
-          {restrictions ? null : (
+          {/* {restrictions ? null : (
             <>
               <div
                 className={styles.modal_item}
@@ -64,13 +64,7 @@ export default function Navbar() {
                 <p>Export</p>
               </div>
             </>
-          )}
-          <div
-            className={styles.modal_item}
-            onClick={() => router.push("/Library")}
-          >
-            <p>Settings</p>
-          </div>
+          )} */}
         </div>
       </div>
     );
