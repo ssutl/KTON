@@ -9,6 +9,7 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
 import cleanAuthor from "@/helpers/cleanAuthor";
 import imageValid from "@/helpers/ImageValidation";
+import rateBookApi from "@/api/Books/RateBook";
 
 interface BookProps {
   book: Book;
@@ -21,6 +22,7 @@ const BookComponent = ({ book, index }: BookProps) => {
   const [restrictions, setRestrictions] = useState(true);
   const [imageIsValid, setImageIsValid] = useState(false);
   const [isMouseInside, setIsMouseInside] = useState(false);
+  const [rating, setRating] = useState(book.rating);
   const router = useRouter();
 
   //Tracking the mouse position to make the hover effect
@@ -101,7 +103,7 @@ const BookComponent = ({ book, index }: BookProps) => {
           {restrictions ? null : (
             <p>
               {[...Array(5)].map((eachStar, i) => {
-                const isFilled = i < book.rating;
+                const isFilled = i < rating;
                 const starIcon = isFilled ? <StarIcon /> : <StarBorderIcon />;
 
                 return (
@@ -110,7 +112,9 @@ const BookComponent = ({ book, index }: BookProps) => {
                     id="star"
                     onClick={(e) => {
                       e.stopPropagation();
-                      const newRating = isFilled ? i + 1 : i + 1 + book.rating;
+                      const newRating = isFilled ? i : i + 1;
+                      setRating(newRating);
+                      rateBookApi({ book_id: book._id, data: newRating });
                     }}
                   >
                     {starIcon}

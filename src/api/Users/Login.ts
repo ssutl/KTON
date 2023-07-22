@@ -3,8 +3,7 @@ import Router from "next/router";
 
 export type LoginApiReturnType =
   | "pending verification"
-  | "Incorrect password"
-  | "Invalid email"
+  | "Invalid Credentials"
   | "Password must be at least 8 characters long"
   | undefined;
 
@@ -37,10 +36,11 @@ const LoginApi = async ({
     }
   } catch (err: any) {
     if (err.response && err.response.status === 400) {
-      if (err.response.data.msg === "invalid credentials") {
-        throw "Incorrect password";
-      } else if (err.response.data.msg === "user already exists") {
-        throw "User already exists";
+      if (
+        err.response.data.msg === "invalid credentials" ||
+        err.response.data.msg === "user already exists"
+      ) {
+        throw "Invalid Credentials";
       } else if (
         err.response.data.msg === "Please verify your email before logging in"
       ) {

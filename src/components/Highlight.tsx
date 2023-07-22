@@ -201,7 +201,7 @@ const Highlight = ({ highlight, setModal }: highlightProps) => {
         <div className={styles.categoryDropdown}>
           <div className={styles.searchItem}>
             <input
-              placeholder="Search for tags..."
+              placeholder="Search for tags, or type to create..."
               value={categoryInput}
               onChange={(e) => setCategoryInput(e.target.value)}
             />
