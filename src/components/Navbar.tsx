@@ -49,28 +49,6 @@ export default function Navbar() {
           >
             <p>Library</p>
           </div>
-          {restrictions ? null : (
-            <>
-              <div
-                className={styles.modal_item}
-                onClick={() => router.push("/Stats")}
-              >
-                <p>Stats</p>
-              </div>
-              <div
-                className={styles.modal_item}
-                onClick={() => router.push("/Export")}
-              >
-                <p>Export</p>
-              </div>
-            </>
-          )}
-          <div
-            className={styles.modal_item}
-            onClick={() => router.push("/Library")}
-          >
-            <p>Settings</p>
-          </div>
         </div>
       </div>
     );
