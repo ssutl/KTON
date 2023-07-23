@@ -9,7 +9,7 @@ import deleteHighlightApi from "@/api/Highlights/Delete";
 import cleanAuthor from "@/helpers/cleanAuthor";
 
 const QuoteBanner = () => {
-  const { highlights } = useContext(KTON_CONTEXT);
+  const { highlights, updateHighlights } = useContext(KTON_CONTEXT);
   const [restrictions, setRestrictions] = useState(true);
   const [index, setIndex] = useState<number>(0);
   //This is the main collection we are reading from, either authed user info or unauthed will go here

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "../styles/Book.module.scss";
 import { Book } from "@/api/Interface";
 import Tilt from "react-parallax-tilt";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import { usePalette } from "react-palette";
 import { useRouter } from "next/router";
+import { KTON_CONTEXT } from "../context/KTONContext";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
 import cleanAuthor from "@/helpers/cleanAuthor";
@@ -21,6 +22,10 @@ const BookComponent = ({ book, index }: BookProps) => {
   const [restrictions, setRestrictions] = useState(true);
   const [imageIsValid, setImageIsValid] = useState(false);
   const [isMouseInside, setIsMouseInside] = useState(false);
+<<<<<<< Updated upstream
+=======
+  const { updateBooks, books } = useContext(KTON_CONTEXT);
+>>>>>>> Stashed changes
   const router = useRouter();
 
   //Tracking the mouse position to make the hover effect
@@ -110,7 +115,19 @@ const BookComponent = ({ book, index }: BookProps) => {
                     id="star"
                     onClick={(e) => {
                       e.stopPropagation();
+<<<<<<< Updated upstream
                       const newRating = isFilled ? i + 1 : i + 1 + book.rating;
+=======
+                      const newRating = isFilled ? i : i + 1;
+                      const newState = books!.map((book_context) => {
+                        //If book has same ID change rating locally
+                        if (book._id === book_context._id) {
+                          return { ...book, rating: newRating };
+                        } else return book_context;
+                      });
+                      updateBooks(newState);
+                      rateBookApi({ book_id: book._id, data: newRating });
+>>>>>>> Stashed changes
                     }}
                   >
                     {starIcon}

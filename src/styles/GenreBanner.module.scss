@@ -1,0 +1,28 @@
+@import "../styles/Breakpoints.module.scss";
+
+.genreBanner {
+  width: calc(90% + 10px);
+  display: flex;
+  position: relative;
+  // height: 5vh;
+  margin: 0px auto 30px auto;
+  flex-wrap: wrap;
+
+  #addGenre {
+    margin-right: 20px;
+    cursor: pointer;
+  }
+
+  .BannerTags {
+    margin-right: 20px;
+    height: fit-content;
+    padding: 2px 15px;
+    border: 0.5px solid var(--background-color);
+    margin-bottom: 15px;
+
+    span {
+      margin-left: 10px;
+      cursor: pointer;
+    }
+  }
+}

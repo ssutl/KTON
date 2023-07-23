@@ -1,0 +1,35 @@
+@import "../styles/Breakpoints.module.scss";
+
+.summarySection {
+  width: calc(90% + 10px);
+  margin: 0px auto 0px auto;
+
+  textarea {
+    min-height: 10vh;
+    width: 100%;
+    height: 100%;
+    resize: none;
+    background-color: transparent;
+    border: none;
+    outline: none;
+  }
+
+  .buttonsSection {
+    display: flex;
+    margin: 20px 0px 20px 0px;
+
+    p {
+      padding: 5px 30px 5px 30px;
+      border: 0.5px solid white;
+      height: fit-content;
+      color: white;
+      cursor: pointer;
+
+      @include breakpoint-mixin("laptop-small") {
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}
