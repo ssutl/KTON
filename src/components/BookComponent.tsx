@@ -10,6 +10,7 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
 import cleanAuthor from "@/helpers/cleanAuthor";
 import imageValid from "@/helpers/ImageValidation";
+import rateBookApi from "@/api/Books/RateBookAPI";
 
 interface BookProps {
   book: Book;
@@ -22,10 +23,7 @@ const BookComponent = ({ book, index }: BookProps) => {
   const [restrictions, setRestrictions] = useState(true);
   const [imageIsValid, setImageIsValid] = useState(false);
   const [isMouseInside, setIsMouseInside] = useState(false);
-<<<<<<< Updated upstream
-=======
   const { updateBooks, books } = useContext(KTON_CONTEXT);
->>>>>>> Stashed changes
   const router = useRouter();
 
   //Tracking the mouse position to make the hover effect
@@ -115,9 +113,6 @@ const BookComponent = ({ book, index }: BookProps) => {
                     id="star"
                     onClick={(e) => {
                       e.stopPropagation();
-<<<<<<< Updated upstream
-                      const newRating = isFilled ? i + 1 : i + 1 + book.rating;
-=======
                       const newRating = isFilled ? i : i + 1;
                       const newState = books!.map((book_context) => {
                         //If book has same ID change rating locally
@@ -127,7 +122,6 @@ const BookComponent = ({ book, index }: BookProps) => {
                       });
                       updateBooks(newState);
                       rateBookApi({ book_id: book._id, data: newRating });
->>>>>>> Stashed changes
                     }}
                   >
                     {starIcon}
