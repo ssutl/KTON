@@ -12,9 +12,9 @@ export default function Navbar() {
   const isVerifyRoute = /^\/verify\/\d+$/.test(router.asPath);
 
   //On page load update screenwidth state && restrictions
-  useEffect(() => {
-    // setRestrictions(!userAuthenticated());
-  }, [router.pathname]);
+  // useEffect(() => {
+  //   // setRestrictions(!userAuthenticated());
+  // }, [router.pathname]);
 
   //The navigation modal
   const Modal = () => {
