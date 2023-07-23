@@ -1,6 +1,11 @@
 import axios from "axios";
 
-const verifyUserApi = async ({ id, token }: { id: string; token: string }) => {
+export interface verifyUserApiProps {
+  id: string;
+  token: string;
+}
+
+const verifyUserApi = async ({ id, token }: verifyUserApiProps) => {
   //   Simple request to login user
   try {
     const res = await axios({

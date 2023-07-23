@@ -7,15 +7,17 @@ export type LoginApiReturnType =
   | "Password must be at least 8 characters long"
   | undefined;
 
+export interface LoginApiProps {
+  type: "Login" | "SignUp";
+  email: string;
+  password: string;
+}
+
 const LoginApi = async ({
   type,
   email,
   password,
-}: {
-  type: "Login" | "SignUp";
-  email: string;
-  password: string;
-}): Promise<LoginApiReturnType> => {
+}: LoginApiProps): Promise<LoginApiReturnType> => {
   try {
     const res = await axios({
       method: "POST",

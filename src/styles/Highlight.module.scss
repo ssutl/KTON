@@ -31,7 +31,7 @@
       margin-bottom: 40px;
     }
 
-    .tagsHolder {
+    .tagsBanner {
       display: flex;
       flex-wrap: wrap;
       margin-bottom: 20px;
@@ -106,7 +106,7 @@
 
       .categoryScroll {
         max-height: 40vh;
-        overflow-y: scroll;
+        overflow-y: auto;
         // background-color: orange;
 
         .categoryItem {
@@ -177,38 +177,6 @@
         background-clip: content-box;
         border-radius: 10px;
         height: 40px;
-      }
-    }
-
-    .annotationDropdown {
-      padding: 20px 0px 20px 0px;
-
-      textarea {
-        min-height: 10vh;
-        width: 100%;
-        background-color: transparent;
-        border: none;
-        outline: none;
-        resize: none;
-      }
-
-      .buttonsSection {
-        display: flex;
-        margin-top: 20px;
-
-        p {
-          padding: 5px 30px 5px 30px;
-          border: 0.5px solid white;
-          height: fit-content;
-          color: white;
-          cursor: pointer;
-
-          @include breakpoint-mixin("laptop-small") {
-            &:hover {
-              opacity: 0.5;
-            }
-          }
-        }
       }
     }
   }

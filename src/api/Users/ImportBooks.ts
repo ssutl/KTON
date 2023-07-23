@@ -10,7 +10,6 @@ export type ImportBooksReturnType = "Started" | "Complete" | "None";
 const ImportBooksApi = async ({
   formData,
 }: uploadBooksProps): Promise<ImportBooksReturnType> => {
-  console.log("Uploading to server");
   //Get token
   const authToken = localStorage.getItem("token");
 

@@ -6,25 +6,14 @@ import userAuthenticated from "@/helpers/UserAuthenticated";
 
 export default function Navbar() {
   const { updateBooks } = useContext(KTON_CONTEXT);
-  const [screenWidth, setScreenWidth] = useState(0);
   const router = useRouter();
   const isIndexRoute = router.pathname === "/";
   const isImportRoute = router.pathname === "/Import";
   const isVerifyRoute = /^\/verify\/\d+$/.test(router.asPath);
-  const [restrictions, setRestrictions] = useState(false);
 
   //On page load update screenwidth state && restrictions
   useEffect(() => {
-    setScreenWidth(window.innerWidth);
-    window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
-
-    setRestrictions(!userAuthenticated());
-
-    return () => {
-      window.removeEventListener("resize", () =>
-        setScreenWidth(window.innerWidth)
-      );
-    };
+    // setRestrictions(!userAuthenticated());
   }, [router.pathname]);
 
   //The navigation modal
@@ -49,22 +38,6 @@ export default function Navbar() {
           >
             <p>Library</p>
           </div>
-          {/* {restrictions ? null : (
-            <>
-              <div
-                className={styles.modal_item}
-                onClick={() => router.push("/Stats")}
-              >
-                <p>Stats</p>
-              </div>
-              <div
-                className={styles.modal_item}
-                onClick={() => router.push("/Export")}
-              >
-                <p>Export</p>
-              </div>
-            </>
-          )} */}
         </div>
       </div>
     );

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const addUserCategoryApi = ({ data }: any) => {
+const addUserCategoryApi = ({ data }: { data: string[] }) => {
   //Get token
   const authToken = localStorage.getItem("token");
 
@@ -14,8 +14,12 @@ const addUserCategoryApi = ({ data }: any) => {
       "x-auth-token": authToken.replace(/\"/g, ""),
     },
     data: { categories: data },
-  }).then((res) => {
-    console.log(res.data);
-  });
+  })
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 export default addUserCategoryApi;

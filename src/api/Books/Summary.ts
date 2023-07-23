@@ -1,6 +1,11 @@
 import axios from "axios";
 
-const summariseBookApi = ({ book_id, data }: any) => {
+export interface summariseBookApiProps {
+  book_id: string;
+  data: string;
+}
+
+const summariseBookApi = ({ book_id, data }: summariseBookApiProps) => {
   //Get token
   const authToken = localStorage.getItem("token");
 
@@ -14,8 +19,12 @@ const summariseBookApi = ({ book_id, data }: any) => {
       "x-auth-token": authToken.replace(/\"/g, ""),
     },
     data: { summary: data },
-  }).then((res) => {
-    console.log(res.data);
-  });
+  })
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 export default summariseBookApi;

@@ -1,11 +1,11 @@
 import axios from "axios";
 
-export interface addGenreToBookApiProps {
+export interface rateBookApiProps {
   book_id: string;
-  data: string[];
+  data: number;
 }
 
-const addGenreToBookApi = ({ book_id, data }: addGenreToBookApiProps) => {
+const rateBookApi = ({ book_id, data }: rateBookApiProps) => {
   //Get token
   const authToken = localStorage.getItem("token");
 
@@ -18,9 +18,13 @@ const addGenreToBookApi = ({ book_id, data }: addGenreToBookApiProps) => {
     headers: {
       "x-auth-token": authToken.replace(/\"/g, ""),
     },
-    data: { genre: data },
-  }).then((res) => {
-    console.log(res.data);
-  });
+    data: { rating: data },
+  })
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
-export default addGenreToBookApi;
+export default rateBookApi;

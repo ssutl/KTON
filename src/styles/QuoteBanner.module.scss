@@ -41,28 +41,19 @@
       overflow: hidden;
       text-overflow: ellipsis;
       -webkit-line-clamp: 5;
+      cursor: pointer;
       //Code to trancuate text
 
       @include breakpoint-mixin("laptop-small") {
         -webkit-line-clamp: 4;
+
+        &:hover {
+          opacity: 0.5;
+        }
       }
     }
 
     .metaData1 {
-      position: absolute;
-      left: 0;
-      bottom: 10px;
-      cursor: pointer;
-
-      span {
-        @include breakpoint-mixin("laptop-small") {
-          &:hover {
-            opacity: 0.5;
-          }
-        }
-      }
-    }
-    .metaData2 {
       position: absolute;
       right: 0;
       bottom: 10px;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "../styles/Book.module.scss";
 import { Book } from "@/api/Interface";
 import Tilt from "react-parallax-tilt";
@@ -9,7 +9,7 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
 import cleanAuthor from "@/helpers/cleanAuthor";
 import imageValid from "@/helpers/ImageValidation";
-import rateBookApi from "@/api/Books/RateBook";
+import HandleChanges from "@/helpers/HandleChanges";
 
 interface BookProps {
   book: Book;
@@ -22,7 +22,7 @@ const BookComponent = ({ book, index }: BookProps) => {
   const [restrictions, setRestrictions] = useState(true);
   const [imageIsValid, setImageIsValid] = useState(false);
   const [isMouseInside, setIsMouseInside] = useState(false);
-  const [rating, setRating] = useState(book.rating);
+  const { addRating } = HandleChanges();
   const router = useRouter();
 
   //Tracking the mouse position to make the hover effect
@@ -103,9 +103,8 @@ const BookComponent = ({ book, index }: BookProps) => {
           {restrictions ? null : (
             <p>
               {[...Array(5)].map((eachStar, i) => {
-                const isFilled = i < rating;
+                const isFilled = i < book.rating;
                 const starIcon = isFilled ? <StarIcon /> : <StarBorderIcon />;
-
                 return (
                   <span
                     key={i}
@@ -113,8 +112,7 @@ const BookComponent = ({ book, index }: BookProps) => {
                     onClick={(e) => {
                       e.stopPropagation();
                       const newRating = isFilled ? i : i + 1;
-                      setRating(newRating);
-                      rateBookApi({ book_id: book._id, data: newRating });
+                      addRating({ data: newRating, book_id: book._id });
                     }}
                   >
                     {starIcon}
