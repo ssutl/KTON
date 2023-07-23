@@ -1,6 +1,11 @@
+import { colorMapKeys } from "@/helpers/sortGenreColors";
 import axios from "axios";
 
-const addGenreToUserApi = ({ data }: any) => {
+export interface addGenreToUserApiProps {
+  data: { [key: string]: colorMapKeys };
+}
+
+const addGenreToUserApi = ({ data }: addGenreToUserApiProps) => {
   //Get token
   const authToken = localStorage.getItem("token");
 

@@ -1,6 +1,11 @@
 import axios from "axios";
 
-const addGenreToBookApi = ({ book_id, data }: any) => {
+export interface addGenreToBookApiProps {
+  book_id: string;
+  data: string[];
+}
+
+const addGenreToBookApi = ({ book_id, data }: addGenreToBookApiProps) => {
   //Get token
   const authToken = localStorage.getItem("token");
 

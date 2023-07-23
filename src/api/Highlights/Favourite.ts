@@ -1,6 +1,16 @@
 import axios from "axios";
 
-const favouriteHighlightApi = ({ book_id, highlight_id, data }: any) => {
+export interface favouriteHighlightApiProps {
+  book_id: string;
+  highlight_id: string;
+  data: boolean;
+}
+
+const favouriteHighlightApi = ({
+  book_id,
+  highlight_id,
+  data,
+}: favouriteHighlightApiProps) => {
   //Get token
   const authToken = localStorage.getItem("token");
 
@@ -14,8 +24,12 @@ const favouriteHighlightApi = ({ book_id, highlight_id, data }: any) => {
       "x-auth-token": authToken.replace(/\"/g, ""),
     },
     data: { starred: data },
-  }).then((res) => {
-    console.log(res.data);
-  });
+  })
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 export default favouriteHighlightApi;

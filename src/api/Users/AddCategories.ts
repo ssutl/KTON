@@ -14,8 +14,12 @@ const addUserCategoryApi = ({ data }: { data: string[] }) => {
       "x-auth-token": authToken.replace(/\"/g, ""),
     },
     data: { categories: data },
-  }).then((res) => {
-    console.log(res.data);
-  });
+  })
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 export default addUserCategoryApi;

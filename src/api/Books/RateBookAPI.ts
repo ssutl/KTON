@@ -1,6 +1,11 @@
 import axios from "axios";
 
-const rateBookApi = ({ book_id, data }: any) => {
+export interface rateBookApiProps {
+  book_id: string;
+  data: number;
+}
+
+const rateBookApi = ({ book_id, data }: rateBookApiProps) => {
   //Get token
   const authToken = localStorage.getItem("token");
 
@@ -14,8 +19,12 @@ const rateBookApi = ({ book_id, data }: any) => {
       "x-auth-token": authToken.replace(/\"/g, ""),
     },
     data: { rating: data },
-  }).then((res) => {
-    console.log(res.data);
-  });
+  })
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 export default rateBookApi;

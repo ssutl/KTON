@@ -1,6 +1,14 @@
 import axios from "axios";
 
-const annotateHighlightApi = ({ book_id, highlight_id, data }: any) => {
+const annotateHighlightApi = ({
+  book_id,
+  highlight_id,
+  data,
+}: {
+  book_id: string;
+  highlight_id: string;
+  data: string;
+}) => {
   //Get token
   const authToken = localStorage.getItem("token");
 
