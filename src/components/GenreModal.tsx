@@ -9,16 +9,22 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import HandleChanges from "@/helpers/HandleChanges";
 
 const GenreModal: React.FC<{ refrence: any }> = ({ refrence }) => {
+  const { books, userinfo } = useContext(KTON_CONTEXT);
   const router = useRouter();
-  const { addGenreToBook, addGenreToUser } = HandleChanges();
-  const { books, userinfo, updateBooks, updateUserInfo } =
-    useContext(KTON_CONTEXT);
-  const [genreInput, setGenreInput] = useState<string>("");
   const id = router.query.id;
   const mainBook = books!.filter((book) => book._id === id)[0];
+  const { addGenreToBook, addGenreToUser } = HandleChanges();
+  const [genreInput, setGenreInput] = useState<string>("");
   const { colorConverter, randomColorGenerator, mapTable } = genreColors();
   const [randomColor, setRandomColor] = useState(randomColorGenerator());
   const [displayGenreDropdown, setDisplayGenreDropdown] = useState<boolean>();
+
+  //When the genreInput changes, we want to change the color of the randomColor
+  useEffect(() => {
+    if (genreInput === "") {
+      setRandomColor(randomColorGenerator());
+    }
+  }, [genreInput]);
 
   if (userinfo) {
     return (
@@ -30,6 +36,9 @@ const GenreModal: React.FC<{ refrence: any }> = ({ refrence }) => {
             onChange={(e) => setGenreInput(e.target.value)}
           />
         </div>
+        {
+          //List of the genres that the user has, and the color, when clicked, it will add the genre to the book
+        }
         {Object.keys(userinfo.genres)
           .filter((eachGenre) =>
             eachGenre.toLowerCase().includes(genreInput.toLowerCase())
@@ -68,6 +77,9 @@ const GenreModal: React.FC<{ refrence: any }> = ({ refrence }) => {
               />
             </div>
           ))}
+        {
+          //If the user has no genres, allow users to create a genre
+        }
         {!Object.keys(userinfo.genres)
           .map((eachGenre) => eachGenre.toLowerCase())
           .includes(genreInput.toLowerCase()) &&

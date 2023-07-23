@@ -18,6 +18,7 @@ const HighlightsList: React.FC<{ book: Book }> = ({ book }) => {
       <>
         {book.highlights
           .slice(0, restrictions ? 50 : book.highlights.length)
+          .filter((eachHighlight) => eachHighlight.deleted !== true)
           .map((eachHighlight, index) => (
             <Highlight
               highlight={eachHighlight}

@@ -20,6 +20,7 @@ interface highlightProps {
 }
 
 const Highlight = ({ highlight, setModal }: highlightProps) => {
+  const { userinfo } = useContext(KTON_CONTEXT);
   const [screenWidth, setScreenWidth] = useState(1024);
   const [restrictions, setRestrictions] = useState(true);
   const {
@@ -29,8 +30,6 @@ const Highlight = ({ highlight, setModal }: highlightProps) => {
     addCategoryToHighlight,
     addCategoryToUser,
   } = HandleChanges();
-  //Setting the state of the highlight from what is passed in from the context, i.e the db, allowing it to be locally updated
-  const { userinfo } = useContext(KTON_CONTEXT);
   const [dropdown, setDropdown] = useState<"Annotate" | "Categorise" | false>(
     false
   );
@@ -181,90 +180,90 @@ const Highlight = ({ highlight, setModal }: highlightProps) => {
   useOutsideAlerter(highlightRef, setDropdown);
 
   //If highlight is not deleted, display it
-  if (!highlight.deleted)
-    return (
-      <div className={styles.Highlight} ref={highlightRef}>
-        <div className={styles.mainHalf}>
-          <h2>{highlight.Text}</h2>
-          {restrictions ? null : <h3>{highlight.notes}</h3>}
-          {restrictions || !highlight.category.length
-            ? null
-            : highlight.category.length && (
-                <div className={styles.tagsHolder}>
-                  {highlight.category.map((eachCategory, i) => (
-                    <p key={i} className={styles.tag}>
-                      {eachCategory}{" "}
-                      <span
-                        onClick={() => {
-                          addCategoryToHighlight({
-                            type: "remove",
-                            data: eachCategory,
-                            book_id,
-                            highlight_id: highlight._id,
-                          });
-                        }}
-                      >
-                        x
-                      </span>
-                    </p>
-                  ))}
-                </div>
-              )}
-          <div className={styles.highlightOptions}>
-            <p
-              onClick={() =>
-                restrictions ? setModal() : setDropdown("Annotate")
-              }
-            >
-              <NotesIcon />
-            </p>
-            <p
-              onClick={() =>
-                restrictions ? setModal() : setDropdown("Categorise")
-              }
-            >
-              <TagIcon />
-            </p>
-            <p
-              onClick={() =>
-                restrictions
-                  ? setModal()
-                  : favouriteHighlight({
-                      data: !highlight.starred,
+  return (
+    <div className={styles.Highlight} ref={highlightRef}>
+      <div className={styles.mainHalf}>
+        <h2>{highlight.Text}</h2>
+        {restrictions ? null : <h3>{highlight.notes}</h3>}
+        {restrictions || !highlight.category.length ? null : (
+          //Displaying tags in tags holder
+          <div className={styles.tagsBanner}>
+            {highlight.category.map((eachCategory, i) => (
+              <p key={i} className={styles.tag}>
+                {eachCategory}{" "}
+                <span
+                  onClick={() => {
+                    addCategoryToHighlight({
+                      type: "remove",
+                      data: eachCategory,
                       book_id,
                       highlight_id: highlight._id,
-                    })
-              }
-            >
-              {highlight.starred ? <StarIcon /> : <StarBorderIcon />}
-            </p>
-            <p onClick={() => (restrictions ? setModal() : null)}>
-              <ShareIcon />
-            </p>
-            <p
-              onClick={() =>
-                restrictions
-                  ? setModal()
-                  : deleteHighlight({
-                      book_id,
-                      highlight_id: highlight._id,
-                    })
-              }
-            >
-              <DeleteOutlineIcon />
-            </p>
+                    });
+                  }}
+                >
+                  x
+                </span>
+              </p>
+            ))}
           </div>
-          {dropdown === "Annotate"
-            ? annotationSection()
-            : dropdown === "Categorise"
-            ? categorySection()
-            : null}
+        )}
+        {
+          //These are the options that appear at the bottom of each highlight, allowing you to edit it
+        }
+        <div className={styles.highlightOptions}>
+          <p
+            onClick={() =>
+              restrictions ? setModal() : setDropdown("Annotate")
+            }
+          >
+            <NotesIcon />
+          </p>
+          <p
+            onClick={() =>
+              restrictions ? setModal() : setDropdown("Categorise")
+            }
+          >
+            <TagIcon />
+          </p>
+          <p
+            onClick={() =>
+              restrictions
+                ? setModal()
+                : favouriteHighlight({
+                    data: !highlight.starred,
+                    book_id,
+                    highlight_id: highlight._id,
+                  })
+            }
+          >
+            {highlight.starred ? <StarIcon /> : <StarBorderIcon />}
+          </p>
+          <p onClick={() => (restrictions ? setModal() : null)}>
+            <ShareIcon />
+          </p>
+          <p
+            onClick={() =>
+              restrictions
+                ? setModal()
+                : deleteHighlight({
+                    book_id,
+                    highlight_id: highlight._id,
+                  })
+            }
+          >
+            <DeleteOutlineIcon />
+          </p>
         </div>
-        <div className={styles.metaHalf}>
-          <p>{new Date(highlight.Date).toDateString()}</p>
-        </div>
+        {dropdown === "Annotate"
+          ? annotationSection()
+          : dropdown === "Categorise"
+          ? categorySection()
+          : null}
       </div>
-    );
-  else return null;
+      <div className={styles.metaHalf}>
+        <p>{new Date(highlight.Date).toDateString()}</p>
+      </div>
+    </div>
+  );
 };
 export default Highlight;

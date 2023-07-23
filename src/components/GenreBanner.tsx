@@ -1,20 +1,20 @@
 import styles from "../styles/GenreBanner.module.scss";
-import React, { useState, useEffect, useContext, useRef } from "react";
-import HandleLoginModal from "./HandleLoginModal";
+import { useRouter } from "next/router";
+import React, { useState, useContext, useRef } from "react";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 import GenreModal from "./GenreModal";
 import genreColors from "@/helpers/sortGenreColors";
 import HandleChanges from "@/helpers/HandleChanges";
 
-const GenreBanner: React.FC<{
-  id: string | undefined;
-}> = ({ id }) => {
+const GenreBanner = () => {
   const { books, userinfo } = useContext(KTON_CONTEXT);
   const [displayGenreModal, setDisplayGenreModal] = useState(false);
   const { addGenreToBook } = HandleChanges();
   const { colorConverter } = genreColors();
   const multiRef = useRef(null);
+  const router = useRouter();
+  const id = router.query.id;
   const mainBook = books?.filter((book) => book._id === id)[0];
 
   // /**Custom hook which takes in a ref and a setState action which gets triggered when the user clicks outside of the ref */
@@ -32,6 +32,9 @@ const GenreBanner: React.FC<{
           + Add genre
         </p>
         {displayGenreModal ? <GenreModal refrence={multiRef} /> : null}
+        {
+          //Displaying the genre tags, should just be a display, and when cross is clicked, it should remove the genre from the book
+        }
         {userinfo &&
           mainBook.genre.map((eachGenre, i) => (
             <p

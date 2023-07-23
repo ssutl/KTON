@@ -8,15 +8,15 @@ const LoginComponent = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loginStatus, setLoginStatus] = useState<LoginApiReturnType>(undefined);
-  const router = useRouter();
-  const isIndexRoute = router.pathname === "/";
 
+  //Switch between login and signup
   const switchLoginState = () => {
     setLoginType((prevLoginType) =>
       prevLoginType === "Login" ? "SignUp" : "Login"
     );
   };
 
+  //Handle form submission
   const handleForm = async () => {
     try {
       if (password.length < 8) {
