@@ -70,6 +70,7 @@ const QuoteBanner = () => {
       favouriteHighlightApi({
         book_id: shuffledHighlights[index].book_id,
         highlight_id: shuffledHighlights[index].highlight._id,
+        data: !shuffledHighlights[index].highlight.starred,
       });
     }
   };

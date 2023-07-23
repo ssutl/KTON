@@ -3,13 +3,11 @@ import axios from "axios";
 export interface deleteHighlightApiProps {
   book_id: string;
   highlight_id: string;
-  data: boolean;
 }
 
 const deleteHighlightApi = ({
   book_id,
   highlight_id,
-  data,
 }: deleteHighlightApiProps) => {
   //Get token
   const authToken = localStorage.getItem("token");
@@ -23,7 +21,7 @@ const deleteHighlightApi = ({
     headers: {
       "x-auth-token": authToken.replace(/\"/g, ""),
     },
-    data: { deleted: data },
+    data: { deleted: true },
   })
     .then((res) => {
       console.log(res.data);
