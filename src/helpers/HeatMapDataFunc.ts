@@ -4,13 +4,6 @@ import userAuthenticated from "./UserAuthenticated";
 export default function HeatMapDataFunc(
   highlights: Meta_con_highlight[] | undefined
 ) {
-  //Function to get the the Meta_con_highlights[] into {
-  // date: string;
-  // count: number;
-  // }[] format
-
-  //Counting how many highlights were created on each day
-
   const data: { date: string; count: number }[] = [];
 
   if (highlights) {

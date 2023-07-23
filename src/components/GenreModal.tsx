@@ -5,12 +5,12 @@ import addGenreToBookApi from "@/api/Books/AddGenreToBook";
 import { useRouter } from "next/router";
 import styles from "@/styles/GenreModal.module.scss";
 import genreColors from "@/helpers/sortGenreColors";
-import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import addGenreToUserApi from "@/api/Users/AddGenre";
+import HandleChanges from "@/helpers/HandleChanges";
 
 const GenreModal: React.FC<{ refrence: any }> = ({ refrence }) => {
   const router = useRouter();
+  const { addGenreToBook, addGenreToUser } = HandleChanges();
   const { books, userinfo, updateBooks, updateUserInfo } =
     useContext(KTON_CONTEXT);
   const [genreInput, setGenreInput] = useState<string>("");
@@ -19,74 +19,6 @@ const GenreModal: React.FC<{ refrence: any }> = ({ refrence }) => {
   const { colorConverter, randomColorGenerator, mapTable } = genreColors();
   const [randomColor, setRandomColor] = useState(randomColorGenerator());
   const [displayGenreDropdown, setDisplayGenreDropdown] = useState<boolean>();
-
-  const handleAddGenreToBook = ({
-    type,
-    genre,
-  }: {
-    type: "add" | "remove";
-    genre: string;
-  }) => {
-    //Sorting on Context
-    const newState = books!.map((book_context) => {
-      if (book_context._id === id) {
-        return {
-          ...book_context,
-          genre:
-            type === "add"
-              ? [...book_context.genre, genre]
-              : book_context.genre.filter((eachGenre) => eachGenre !== genre),
-        };
-      } else return book_context;
-    });
-    updateBooks(newState);
-
-    //sorting on server
-    addGenreToBookApi({
-      book_id: id,
-      data: newState.filter((book) => book._id === id)[0].genre,
-    });
-  };
-
-  const handleAddGenreToUser = ({
-    type,
-    genre,
-  }: {
-    type: "add" | "remove";
-    genre: string;
-  }) => {
-    if (userinfo) {
-      let newState = userinfo;
-
-      if (type === "add") {
-        //Add the genre to the userinfo genres
-        newState = {
-          ...userinfo,
-          genres: { ...userinfo.genres, [genre]: randomColor.color },
-        };
-      } else if (type === "remove") {
-        //Filter the userinfo genres to remove the genre and add to newState
-        let ghost = userinfo.genres;
-        delete ghost[genre];
-        newState = { ...userinfo, genres: ghost };
-      }
-
-      //sorting locally
-      updateUserInfo(newState);
-
-      //Sorting on server
-      addGenreToUserApi({ data: newState.genres });
-
-      //We could be removing from user geres but it may not be on the highlight, so we need to check before removing and wasting a request
-      //When we add to user genres, we also need to add to book genres, so we can just add to book categories
-      if (
-        (mainBook && type === "remove" && mainBook.genre.includes(genre)) ||
-        (mainBook && type === "add" && !mainBook.genre.includes(genre))
-      ) {
-        handleAddGenreToBook({ type, genre });
-      }
-    }
-  };
 
   if (userinfo) {
     return (
@@ -108,9 +40,10 @@ const GenreModal: React.FC<{ refrence: any }> = ({ refrence }) => {
               className={`${styles.genreItem} ${styles.spaceBetween}`}
               onClick={() => {
                 if (!mainBook.genre.includes(eachGenre)) {
-                  handleAddGenreToBook({
+                  addGenreToBook({
                     type: "add",
-                    genre: eachGenre,
+                    data: eachGenre,
+                    book_id: id,
                   });
                 }
               }}
@@ -142,7 +75,12 @@ const GenreModal: React.FC<{ refrence: any }> = ({ refrence }) => {
             <div
               className={styles.genreItem}
               onClick={() =>
-                handleAddGenreToUser({ type: "add", genre: genreInput })
+                addGenreToUser({
+                  type: "add",
+                  data: genreInput,
+                  book_id: id,
+                  color: randomColor.color,
+                })
               }
             >
               <p id={styles.createText}>Create</p>

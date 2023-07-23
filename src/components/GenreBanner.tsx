@@ -5,47 +5,20 @@ import { KTON_CONTEXT } from "../context/KTONContext";
 import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 import GenreModal from "./GenreModal";
 import genreColors from "@/helpers/sortGenreColors";
-import addGenreToBookApi from "@/api/Books/AddGenreToBook";
+import HandleChanges from "@/helpers/HandleChanges";
 
 const GenreBanner: React.FC<{
   id: string | undefined;
 }> = ({ id }) => {
-  const { books, userinfo, updateBooks } = useContext(KTON_CONTEXT);
+  const { books, userinfo } = useContext(KTON_CONTEXT);
   const [displayGenreModal, setDisplayGenreModal] = useState(false);
+  const { addGenreToBook } = HandleChanges();
   const { colorConverter } = genreColors();
   const multiRef = useRef(null);
   const mainBook = books?.filter((book) => book._id === id)[0];
 
   // /**Custom hook which takes in a ref and a setState action which gets triggered when the user clicks outside of the ref */
   useOutsideAlerter(multiRef, setDisplayGenreModal);
-
-  const handleAddGenreToBook = ({
-    type,
-    genre,
-  }: {
-    type: "add" | "remove";
-    genre: string;
-  }) => {
-    //Sorting on Context
-    const newState = books!.map((book_context) => {
-      if (book_context._id === id) {
-        return {
-          ...book_context,
-          genre:
-            type === "add"
-              ? [...book_context.genre, genre]
-              : book_context.genre.filter((eachGenre) => eachGenre !== genre),
-        };
-      } else return book_context;
-    });
-    updateBooks(newState);
-
-    //sorting on server
-    addGenreToBookApi({
-      book_id: id,
-      data: newState.filter((book) => book._id === id)[0].genre,
-    });
-  };
 
   if (mainBook) {
     return (
@@ -75,9 +48,10 @@ const GenreBanner: React.FC<{
               {eachGenre}{" "}
               <span
                 onClick={() => {
-                  handleAddGenreToBook({
+                  addGenreToBook({
                     type: "remove",
-                    genre: eachGenre,
+                    book_id: id,
+                    data: eachGenre,
                   });
                 }}
               >

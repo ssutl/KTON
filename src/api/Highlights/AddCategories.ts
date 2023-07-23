@@ -1,6 +1,14 @@
 import axios from "axios";
 
-const addHighlightCategoryApi = ({ book_id, highlight_id, data }: any) => {
+const addHighlightCategoryApi = ({
+  book_id,
+  highlight_id,
+  data,
+}: {
+  book_id: any;
+  highlight_id: string;
+  data: string[];
+}) => {
   //Get token
   const authToken = localStorage.getItem("token");
 

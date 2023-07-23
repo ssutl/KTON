@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const addUserCategoryApi = ({ data }: any) => {
+const addUserCategoryApi = ({ data }: { data: string[] }) => {
   //Get token
   const authToken = localStorage.getItem("token");
 

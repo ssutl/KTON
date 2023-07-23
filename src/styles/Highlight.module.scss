@@ -105,8 +105,8 @@
       }
 
       .categoryScroll {
-        height: 40vh;
-        overflow-y: scroll;
+        max-height: 40vh;
+        overflow-y: auto;
         // background-color: orange;
 
         .categoryItem {

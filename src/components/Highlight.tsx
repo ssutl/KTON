@@ -10,13 +10,9 @@ import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import TextareaAutosize from "react-textarea-autosize";
-import favouriteHighlightApi from "@/api/Highlights/Favourite";
 import { useRouter } from "next/router";
-import deleteHighlightApi from "@/api/Highlights/Delete";
-import annotateHighlightApi from "@/api/Highlights/Annotate";
 import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
-import addHighlightCategoryApi from "@/api/Highlights/AddCategories";
-import addUserCategoryApi from "@/api/Users/AddCategories";
+import HandleChanges from "@/helpers/HandleChanges";
 
 interface highlightProps {
   highlight: Book_highlight;
@@ -26,22 +22,20 @@ interface highlightProps {
 const Highlight = ({ highlight, setModal }: highlightProps) => {
   const [screenWidth, setScreenWidth] = useState(1024);
   const [restrictions, setRestrictions] = useState(true);
+  const {
+    favouriteHighlight,
+    deleteHighlight,
+    annotateHighlight,
+    addCategoryToHighlight,
+    addCategoryToUser,
+  } = HandleChanges();
   //Setting the state of the highlight from what is passed in from the context, i.e the db, allowing it to be locally updated
   const { userinfo } = useContext(KTON_CONTEXT);
-  const [deleted, setDeleted] = useState(highlight.deleted);
-  const [favourited, setFavourited] = useState(highlight.starred);
-  const [userCategories, setUserCategories] = useState(
-    userinfo ? userinfo.categories : undefined
-  );
-  const [HighlightCategories, setHighlightCategories] = useState(
-    highlight.category
-  );
   const [dropdown, setDropdown] = useState<"Annotate" | "Categorise" | false>(
     false
   );
   const [hoveredOption, setHoveredOption] = useState("");
   const [inputAnnotation, setInputAnnotation] = useState(highlight.notes);
-  const [annotation, setAnnotation] = useState(highlight.notes);
   const [categoryInput, setCategoryInput] = useState("");
   const highlightRef = useRef(null);
   const router = useRouter();
@@ -56,117 +50,15 @@ const Highlight = ({ highlight, setModal }: highlightProps) => {
     window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
   }, []);
 
-  //Function to handle when the user clicks favourite button
-  const handleFavourite = () => {
-    //Handling request locally
-    setFavourited(!favourited);
-    //Handling request on server
-    favouriteHighlightApi({
-      book_id,
-      highlight_id: highlight._id,
-      data: !favourited,
-    });
-  };
-
-  //Function to handle when the user clicks delete button
-  const handleDelete = () => {
-    //Handling request locally
-    setDeleted(true);
-    //Handling request on server
-    deleteHighlightApi({
-      book_id,
-      highlight_id: highlight._id,
-      data: true,
-    });
-  };
-
-  //Function to handle when the user clicks annotate button
-  const handleAnnotate = () => {
-    //Handling request locally
-    setAnnotation(inputAnnotation);
-
-    //Handling request on server
-    annotateHighlightApi({
-      book_id,
-      highlight_id: highlight._id,
-      data: inputAnnotation,
-    });
-
-    //Clearing input
-    setInputAnnotation("");
-    setDropdown(false);
-  };
-
-  //Function to handle when the user clicks annotate button
-  const handleAddCategoryToHighlight = ({
-    type,
-    category,
-  }: {
-    type: "add" | "remove";
-    category: string;
-  }) => {
-    //Handling request locally
-    let data = [...HighlightCategories];
-
-    if (type === "add") {
-      data.push(category);
-    } else if (type === "remove") {
-      data = data.filter((eachCategory) => eachCategory !== category);
-    }
-
-    setHighlightCategories(data);
-
-    //Handling request on server
-    addHighlightCategoryApi({
-      book_id,
-      highlight_id: highlight._id,
-      data: data,
-    });
-  };
-
-  const handleAddCategoryToUser = ({
-    type,
-    category,
-  }: {
-    type: "add" | "remove";
-    category: string;
-  }) => {
-    //Handling request locally
-    if (userinfo) {
-      let data = [...userinfo.categories];
-
-      if (type === "add") {
-        data.push(category);
-      } else if (type === "remove") {
-        data = data.filter((eachCategory) => eachCategory !== category);
-      }
-
-      setUserCategories(data);
-
-      //Handling request on server
-      addUserCategoryApi({
-        book_id,
-        highlight_id: highlight._id,
-        data: data,
-      });
-
-      //Also need to add/remove to highlight
-      //We could be removing from user categories but it may not be on the highlight, so we need to check before removing and wasting a request
-      //When we add to user categories, we also need to add to highlight categories, so we can just add to highlight categories
-      if (
-        (type === "remove" && HighlightCategories.includes(category)) ||
-        (type === "add" && !HighlightCategories.includes(category))
-      ) {
-        handleAddCategoryToHighlight({ type, category });
-      }
-    }
-  };
-
   //Need to save highlight whenever the user clicks the enter key
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      handleAnnotate();
+      annotateHighlight({
+        data: inputAnnotation,
+        book_id,
+        highlight_id: highlight._id,
+      });
     }
   };
 
@@ -183,7 +75,11 @@ const Highlight = ({ highlight, setModal }: highlightProps) => {
         <div className={styles.buttonsSection}>
           <p
             onClick={() => {
-              handleAnnotate();
+              annotateHighlight({
+                data: inputAnnotation,
+                book_id,
+                highlight_id: highlight._id,
+              });
             }}
           >
             Save
@@ -196,7 +92,7 @@ const Highlight = ({ highlight, setModal }: highlightProps) => {
 
   //Drop down annotation section for each highlight
   const categorySection = () => {
-    if (userCategories) {
+    if (userinfo?.categories) {
       return (
         <div className={styles.categoryDropdown}>
           <div className={styles.searchItem}>
@@ -207,7 +103,7 @@ const Highlight = ({ highlight, setModal }: highlightProps) => {
             />
           </div>
           <div className={styles.categoryScroll}>
-            {userCategories
+            {userinfo?.categories
               .filter((eachHighlightCategory) =>
                 eachHighlightCategory
                   .toLowerCase()
@@ -225,9 +121,11 @@ const Highlight = ({ highlight, setModal }: highlightProps) => {
                     onClick={() => {
                       //Check if category is already in highlight
                       if (!highlight.category.includes(ExistingCategory)) {
-                        handleAddCategoryToHighlight({
+                        addCategoryToHighlight({
                           type: "add",
-                          category: ExistingCategory,
+                          data: ExistingCategory,
+                          book_id,
+                          highlight_id: highlight._id,
                         });
                       }
                     }}
@@ -239,9 +137,11 @@ const Highlight = ({ highlight, setModal }: highlightProps) => {
                       id={styles.trashIcon}
                       onClick={
                         () => {
-                          handleAddCategoryToUser({
+                          addCategoryToUser({
                             type: "remove",
-                            category: ExistingCategory,
+                            data: ExistingCategory,
+                            book_id,
+                            highlight_id: highlight._id,
                           });
                         }
                         //We need to delete from the userInfo history
@@ -250,16 +150,18 @@ const Highlight = ({ highlight, setModal }: highlightProps) => {
                   ) : null}
                 </div>
               ))}
-            {!userCategories
+            {!userinfo?.categories
               .map((eachGenre) => eachGenre.toLowerCase())
               .includes(categoryInput.toLowerCase()) &&
               categoryInput !== "" && (
                 <div
                   className={styles.categoryItem}
                   onClick={() => {
-                    handleAddCategoryToUser({
+                    addCategoryToUser({
                       type: "add",
-                      category: categoryInput,
+                      data: categoryInput,
+                      book_id,
+                      highlight_id: highlight._id,
                     });
                   }}
                 >
@@ -279,24 +181,26 @@ const Highlight = ({ highlight, setModal }: highlightProps) => {
   useOutsideAlerter(highlightRef, setDropdown);
 
   //If highlight is not deleted, display it
-  if (!deleted)
+  if (!highlight.deleted)
     return (
       <div className={styles.Highlight} ref={highlightRef}>
         <div className={styles.mainHalf}>
           <h2>{highlight.Text}</h2>
-          {restrictions ? null : <h3>{annotation}</h3>}
-          {restrictions || !HighlightCategories.length
+          {restrictions ? null : <h3>{highlight.notes}</h3>}
+          {restrictions || !highlight.category.length
             ? null
-            : HighlightCategories.length && (
+            : highlight.category.length && (
                 <div className={styles.tagsHolder}>
-                  {HighlightCategories.map((eachCategory, i) => (
+                  {highlight.category.map((eachCategory, i) => (
                     <p key={i} className={styles.tag}>
                       {eachCategory}{" "}
                       <span
                         onClick={() => {
-                          handleAddCategoryToHighlight({
+                          addCategoryToHighlight({
                             type: "remove",
-                            category: eachCategory,
+                            data: eachCategory,
+                            book_id,
+                            highlight_id: highlight._id,
                           });
                         }}
                       >
@@ -321,13 +225,32 @@ const Highlight = ({ highlight, setModal }: highlightProps) => {
             >
               <TagIcon />
             </p>
-            <p onClick={() => (restrictions ? setModal() : handleFavourite())}>
-              {favourited ? <StarIcon /> : <StarBorderIcon />}
+            <p
+              onClick={() =>
+                restrictions
+                  ? setModal()
+                  : favouriteHighlight({
+                      data: !highlight.starred,
+                      book_id,
+                      highlight_id: highlight._id,
+                    })
+              }
+            >
+              {highlight.starred ? <StarIcon /> : <StarBorderIcon />}
             </p>
             <p onClick={() => (restrictions ? setModal() : null)}>
               <ShareIcon />
             </p>
-            <p onClick={() => (restrictions ? setModal() : handleDelete())}>
+            <p
+              onClick={() =>
+                restrictions
+                  ? setModal()
+                  : deleteHighlight({
+                      book_id,
+                      highlight_id: highlight._id,
+                    })
+              }
+            >
               <DeleteOutlineIcon />
             </p>
           </div>
