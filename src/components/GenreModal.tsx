@@ -1,12 +1,11 @@
 import { userInfo } from "@/api/Interface";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import React, { useState, useEffect, useContext, useRef } from "react";
-import addGenreToBookApi from "@/api/Books/AddGenreToBook";
 import { useRouter } from "next/router";
 import styles from "@/styles/GenreModal.module.scss";
 import genreColors from "@/helpers/sortGenreColors";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import HandleChanges from "@/helpers/HandleChanges";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 const GenreModal: React.FC<{ refrence: any }> = ({ refrence }) => {
   const { books, userinfo } = useContext(KTON_CONTEXT);
@@ -69,10 +68,15 @@ const GenreModal: React.FC<{ refrence: any }> = ({ refrence }) => {
               >
                 <p>{eachGenre}</p>
               </div>
-              <MoreHorizIcon
-                className={styles.dotsIcon}
-                onClick={() => {
-                  setDisplayGenreDropdown(!displayGenreDropdown);
+              <DeleteOutlineIcon
+                id={styles.trashIcon}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  addGenreToUser({
+                    type: "remove",
+                    data: eachGenre,
+                    book_id: id,
+                  });
                 }}
               />
             </div>
