@@ -4,11 +4,11 @@ import { useContext } from "react";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import { useRouter } from "next/router";
+import Books_AllHighlights from "@/helpers/Books_AllHighlights";
 
 function InitAPI() {
   //Grabbing methods to update the applications context
-  const { updateBooks, updateUserInfo, updateHighlights } =
-    useContext(KTON_CONTEXT);
+  const { updateBooks, updateUserInfo } = useContext(KTON_CONTEXT);
   const router = useRouter();
 
   //Making a request to the db in order to grab users highlights
@@ -130,7 +130,6 @@ function InitAPI() {
           await Promise.all([getUserInfo(), getAllBooks(), getAllHighlights()]);
         updateUserInfo(userResponse);
         updateBooks(booksResponse);
-        updateHighlights(highlightsResponse);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

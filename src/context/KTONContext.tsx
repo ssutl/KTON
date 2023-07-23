@@ -1,5 +1,7 @@
 import React, { createContext, useState } from "react";
 import { Book, Meta_con_highlight, userInfo } from "../api/Interface";
+import { set } from "lodash";
+import Books_AllHighlights from "@/helpers/Books_AllHighlights";
 
 interface KTONContextProps {
   userinfo: userInfo | undefined;
@@ -7,7 +9,6 @@ interface KTONContextProps {
   highlights: Meta_con_highlight[] | undefined;
   updateUserInfo: (value: userInfo | undefined) => void;
   updateBooks: (value: Book[] | undefined) => void;
-  updateHighlights: (value: Meta_con_highlight[] | undefined) => void;
 }
 
 //The initial context of the app for authed users will have everything empty and undefined until InitAPI is called
@@ -17,7 +18,6 @@ const InitialContext: KTONContextProps = {
   highlights: undefined,
   updateBooks: () => {},
   updateUserInfo: () => {},
-  updateHighlights: () => {},
 };
 
 export const KTON_CONTEXT = createContext<KTONContextProps>(InitialContext);
@@ -39,10 +39,7 @@ export const KTON_Provider = ({ children }: any) => {
 
   const updateBooks = (value: Book[] | undefined) => {
     setBooks(value);
-  };
-
-  const updateHighlights = (value: Meta_con_highlight[] | undefined) => {
-    setHighlights(value);
+    setHighlights(Books_AllHighlights(value));
   };
 
   //Wrapping the app in the provider
@@ -54,7 +51,6 @@ export const KTON_Provider = ({ children }: any) => {
         highlights,
         updateUserInfo,
         updateBooks,
-        updateHighlights,
       }}
     >
       {children}

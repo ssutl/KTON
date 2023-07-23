@@ -68,7 +68,7 @@ function HandleChanges() {
   };
 
   const addGenreToBook = ({ data, book_id, type }: GenreProps) => {
-    if (books) {
+    if (books && typeof book_id === "string") {
       //Sorting on Context
       const newState = books.map((book_context) => {
         if (book_id === book_context._id) {
@@ -131,7 +131,7 @@ function HandleChanges() {
     book_id,
     highlight_id,
   }: favouriteHighlightProps) => {
-    if (books) {
+    if (books && typeof book_id === "string") {
       //Handling request locally
       const newState = books.map((book_context) => {
         if (book_id === book_context._id) {
@@ -180,8 +180,7 @@ function HandleChanges() {
     book_id,
     highlight_id,
   }: annotateHighlightProps) => {
-    console.log("Called");
-    if (books) {
+    if (books && typeof book_id === "string") {
       //Handling request locally
       const newState = books.map((book_context) => {
         if (book_id === book_context._id) {
@@ -212,8 +211,7 @@ function HandleChanges() {
     book_id,
     highlight_id,
   }: addCategoryToHighlightProps) => {
-    console.log("Called");
-    if (books) {
+    if (books && typeof book_id === "string") {
       //Handling request locally
       const newState = books.map((book_context) => {
         if (book_id === book_context._id) {
@@ -292,7 +290,7 @@ function HandleChanges() {
   };
 
   const addSummaryToBook = ({ data, book_id }: addSummaryToBookProps) => {
-    if (books && data) {
+    if (books && data && typeof book_id === "string") {
       const newState = books.map((book_context) => {
         //If book has same ID change rating locally
         if (book_id === book_context._id) {

@@ -94,9 +94,9 @@ const BookPage = () => {
                 )}
               </Tilt>
             </div>
-            {restrictions ? null : <GenreBanner id={singleId} />}
+            {restrictions ? null : <GenreBanner />}
             {bookTitle()}
-            {restrictions ? null : <SummarySection id={singleId} />}
+            {restrictions ? null : <SummarySection />}
             {screenWidth < 1024 ? <HighlightsList book={mainBook} /> : null}
           </div>
           <div className={styles.highlightHalf}>

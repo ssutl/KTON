@@ -2,16 +2,17 @@ import TextareaAutosize from "react-textarea-autosize";
 import styles from "../styles/SummarySection.module.scss";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import React, { useState, useEffect, useContext, useRef } from "react";
-import summariseBookApi from "@/api/Books/Summary";
+import { useRouter } from "next/router";
 import HandleLoginModal from "./HandleLoginModal";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import HandleChanges from "@/helpers/HandleChanges";
 //Random Change
 
-const SummarySection: React.FC<{ id: string | undefined }> = ({ id }) => {
-  const { books, userinfo, updateBooks, updateUserInfo } =
-    useContext(KTON_CONTEXT);
-  const { LoginModal, setModal } = HandleLoginModal();
+const SummarySection = () => {
+  const router = useRouter();
+  const id = router.query.id;
+  const { books } = useContext(KTON_CONTEXT);
+  const { setModal } = HandleLoginModal();
   const [inputSummary, setInputSummary] = useState<string | undefined>(
     books?.filter((book) => book._id === id)[0].summary
   );
