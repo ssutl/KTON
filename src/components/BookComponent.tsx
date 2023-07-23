@@ -85,13 +85,13 @@ const BookComponent = ({ book, index }: BookProps) => {
               to add your own.
             </h3>
           ) : !imageIsValid && !restrictions ? (
-            <h3>Cannot find image, feel free to add your own</h3>
+            <div className={styles.NoImage}></div>
           ) : !restrictions && imageIsValid ? (
             <img
               draggable="false"
               alt="ebook cover image"
               src={book.cover_image}
-              className="image"
+              className={styles.image}
             />
           ) : null}
         </Tilt>
