@@ -92,7 +92,7 @@ const LoginComponent = () => {
           }}
         />
       </div>
-      {loginStatus !== "pending verification" && loginStatus ? (
+      {loginStatus !== "Pending verification" && loginStatus ? (
         <div className={styles.loginStatusSect}>{loginStatus}</div>
       ) : null}
       <div className={styles.loginButtonSect}>
