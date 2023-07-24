@@ -238,9 +238,9 @@ const Highlight = ({ highlight, setModal }: highlightProps) => {
           >
             {highlight.starred ? <StarIcon /> : <StarBorderIcon />}
           </p>
-          <p onClick={() => (restrictions ? setModal() : null)}>
+          {/* <p onClick={() => (restrictions ? setModal() : null)}>
             <ShareIcon />
-          </p>
+          </p> */}
           <p
             onClick={() =>
               restrictions

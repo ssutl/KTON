@@ -2,7 +2,7 @@ import axios, { Axios, AxiosError } from "axios";
 import Router from "next/router";
 
 export type LoginApiReturnType =
-  | "pending verification"
+  | "Pending verification"
   | "Invalid Credentials"
   | "Password must be at least 8 characters long"
   | undefined;
@@ -32,7 +32,7 @@ const LoginApi = async ({
       localStorage.setItem("token", res.data.token);
       Router.push("/Home");
     } else if (res.data.msg === "An email has been sent to the user account") {
-      return "pending verification";
+      return "Pending verification";
     } else {
       throw new Error("Unexpected error occurred");
     }
@@ -40,18 +40,20 @@ const LoginApi = async ({
     if (err.response && err.response.status === 400) {
       if (
         err.response.data.msg === "invalid credentials" ||
-        err.response.data.msg === "user already exists"
+        err.response.data.msg === "user does not exist"
       ) {
         throw "Invalid Credentials";
+      } else if (err.response.data.msg === "user already exists") {
+        throw "User already exists";
       } else if (
         err.response.data.msg === "Please verify your email before logging in"
       ) {
         throw "Please verify your email before logging in";
       } else {
-        throw "Invalid email";
+        throw new Error("Unexpected error occurred");
       }
-    } else {
-      throw err;
+    } else if (err.response.data.msg === "user does not exist") {
+      throw new Error("Unexpected error occurred");
     }
   }
 };

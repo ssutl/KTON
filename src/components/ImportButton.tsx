@@ -5,21 +5,30 @@ import Router from "next/router";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import { io } from "socket.io-client";
 import ImportBooksApi from "@/api/Users/ImportBooks";
+import { set } from "lodash";
 
-const ImportButton = () => {
+interface ImportButtonProps {
+  setProgress?: React.Dispatch<
+    React.SetStateAction<"Started" | "None" | "Complete">
+  >;
+  setPercentage?: React.Dispatch<React.SetStateAction<number>>;
+  progress?: "Started" | "None" | "Complete";
+}
+
+const ImportButton = ({
+  setProgress,
+  setPercentage,
+  progress,
+}: ImportButtonProps) => {
   const [incomingFile, setIncomingFile] = useState<File | null>(null);
   const [LocalUploadStatus, setLocalUploadStatus] = useState<boolean>(false);
-  const [percentage, setPercentage] = useState<number>(0);
-  const [progress, setProgress] = useState<"Started" | "None" | "Complete">(
-    "None"
-  );
 
   //Function to handle the upload of the file
   const uploadFile = async () => {
     var file = incomingFile;
     var textType = /text.*/;
 
-    if (userAuthenticated() && file) {
+    if (userAuthenticated() && file && setProgress) {
       //This is the upload process for the user's library, so we can parse server side
       const formData = new FormData(); // needed for uploading a file
       formData.append("clippingsFile", file); // adds the uploaded file under the name "clippingsFile" to the formData variable
@@ -52,7 +61,7 @@ const ImportButton = () => {
 
   //Connecting to the sockets to see the progress of the upload
   useEffect(() => {
-    if (userAuthenticated() && progress === "Started") {
+    if (userAuthenticated() && progress === "Started" && setPercentage) {
       socket.on("connect", () => {
         socket.on("upload-progress", (data) => {
           setPercentage(Number(data));
@@ -69,7 +78,7 @@ const ImportButton = () => {
 
   //UseEffect to see what the progress is
   useEffect(() => {
-    if (progress === "Complete") {
+    if (progress === "Complete" && setPercentage) {
       setTimeout(() => {
         //After two seconds of completed being shown pass user to home page
         Router.push("Home");
@@ -94,6 +103,7 @@ const ImportButton = () => {
         type="file"
         id="input"
         className={styles.input}
+        disabled={progress === "Started" ? true : false}
         onChange={(event) => {
           if (event.target.files !== null) {
             if (
@@ -108,15 +118,24 @@ const ImportButton = () => {
           }
         }}
       ></input>
-      <label className={styles.button} htmlFor="input">
+      <label
+        className={`${styles.button} ${
+          progress === "Started" ? styles.active : null
+        }`}
+        htmlFor="input"
+      >
         {incomingFile ? <p>{incomingFile.name}</p> : <p>+ Import to KTON</p>}
       </label>
       {incomingFile ? (
-        <div className={styles.button} onClick={() => uploadFile()}>
+        <div
+          className={`${styles.button} ${
+            progress === "Started" ? styles.active : null
+          }`}
+          onClick={() => (progress === "Started" ? null : uploadFile())}
+        >
           <p>Upload</p>
         </div>
       ) : null}
-      {progress === "Started" ? <p>{percentage}</p> : null}
     </div>
   );
 };

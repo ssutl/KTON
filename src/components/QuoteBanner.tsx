@@ -58,7 +58,7 @@ const QuoteBanner = () => {
         </div>
       </div>
     );
-  } else return <h1>Component Loading </h1>;
+  } else return <div className={styles.loading}></div>;
 };
 
 export default QuoteBanner;

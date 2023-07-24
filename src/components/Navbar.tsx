@@ -20,24 +20,22 @@ export default function Navbar() {
   const Modal = () => {
     return (
       <div className={styles.modal}>
-        <div className={styles.modal_height}>
-          <div className={styles.modal_title}>
-            <p>Pages</p>
-          </div>
-          <div
-            className={styles.modal_item}
-            onClick={() =>
-              router.pathname === "/Home" ? null : router.push("/Home")
-            }
-          >
-            <p>Home</p>
-          </div>
-          <div
-            className={styles.modal_item}
-            onClick={() => router.push("/Library")}
-          >
-            <p>Library</p>
-          </div>
+        <div className={styles.modal_title}>
+          <p>Pages</p>
+        </div>
+        <div
+          className={styles.modal_item}
+          onClick={() =>
+            router.pathname === "/Home" ? null : router.push("/Home")
+          }
+        >
+          <p>Home</p>
+        </div>
+        <div
+          className={styles.modal_item}
+          onClick={() => router.push("/Library")}
+        >
+          <p>Library</p>
         </div>
       </div>
     );

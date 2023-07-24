@@ -108,7 +108,7 @@ const BookPage = () => {
                     alt="Book Cover"
                     draggable="false"
                     src={mainBook.cover_image}
-                    className="image"
+                    className={styles.image}
                   />
                 )}
               </Tilt>
