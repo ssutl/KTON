@@ -21,6 +21,14 @@
     display: flex;
     // justify-content: center;
 
+    @include breakpoint-mixin("laptop-small") {
+      height: 7vh;
+    }
+
+    @include breakpoint-mixin("desktop") {
+      height: 5vh;
+    }
+
     input {
       background-color: transparent;
       height: 100%;
@@ -43,6 +51,14 @@
     margin-top: 15px;
     padding: 0px 20px;
     cursor: pointer;
+
+    @include breakpoint-mixin("laptop-small") {
+      height: 7vh;
+    }
+
+    @include breakpoint-mixin("desktop") {
+      height: 5vh;
+    }
 
     .tag {
       padding: 2px 15px;
