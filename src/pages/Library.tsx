@@ -129,8 +129,9 @@ const Library = () => {
             .filter((eachGenre) =>
               eachGenre.toLowerCase().includes(filterInput.toLowerCase())
             )
-            .map((genre) => (
+            .map((genre, i) => (
               <div
+                key={i}
                 className={`${styles.genreItem} ${
                   selectedFilter === genre ? styles.selected : ""
                 }`}
