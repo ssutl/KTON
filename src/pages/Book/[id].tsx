@@ -12,6 +12,7 @@ import AllowedRoute from "@/helpers/AllowedRoute";
 import HighlightsList from "@/components/HighlightsList";
 import SummarySection from "@/components/SummaryComponent";
 import GenreBanner from "@/components/GenreBanner";
+import imageValid from "@/helpers/ImageValidation";
 
 const BookPage = () => {
   const router = useRouter();
@@ -23,6 +24,7 @@ const BookPage = () => {
   const [restrictions, setRestricitons] = useState<boolean>(true);
   const { LoginModal } = HandleLoginModal();
   const [screenWidth, setScreenWidth] = useState(0);
+  const [imageIsValid, setImageIsValid] = useState(false);
 
   //Initialising App by making data call on page load, this updates user context
   useEffect(() => {
@@ -39,6 +41,21 @@ const BookPage = () => {
       InitialiseApp();
     }
   }, []);
+
+  useEffect(() => {
+    const verifyImage = async () => {
+      if (mainBook)
+        try {
+          const imageIsValid = await imageValid(mainBook.cover_image);
+          console.log("url + valid", mainBook.cover_image, imageIsValid);
+          setImageIsValid(imageIsValid);
+        } catch (err) {
+          setImageIsValid(false);
+        }
+    };
+
+    verifyImage();
+  }, [mainBook]);
 
   //Condition to set mainbooks to either books or clippings, depending on user authentication
   useEffect(() => {
@@ -84,7 +101,9 @@ const BookPage = () => {
                 className={styles.ImageContainer}
                 perspective={650}
               >
-                {restrictions ? null : (
+                {restrictions || !imageIsValid ? (
+                  <div className={styles.NoImage}></div>
+                ) : (
                   <img
                     alt="Book Cover"
                     draggable="false"

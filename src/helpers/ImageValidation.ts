@@ -5,7 +5,10 @@ import exp from "constants";
 const imageValid = async (url: string) => {
   try {
     const response = await axios.head(url);
-    return response.status === 200;
+    return (
+      response.status === 200 &&
+      response.headers["content-type"].startsWith("image/")
+    );
   } catch (error) {
     return false;
   }

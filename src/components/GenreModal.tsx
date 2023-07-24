@@ -82,7 +82,15 @@ const GenreModal: React.FC<{ refrence: any }> = ({ refrence }) => {
             </div>
           ))}
         {
-          //If the user has no genres, allow users to create a genre
+          //If the user has no genres, display a little place holder to prompt them to type
+        }
+        {!Object.keys(userinfo.genres) && genreInput === "" && (
+          <div className={styles.genreItem}>
+            <p>Start typing to create</p>
+          </div>
+        )}
+        {
+          //If the user has no genres, display create a genre when typing
         }
         {!Object.keys(userinfo.genres)
           .map((eachGenre) => eachGenre.toLowerCase())
