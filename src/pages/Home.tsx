@@ -48,7 +48,11 @@ const Home = () => {
       </>
     );
   } else {
-    return <div>Home Loading</div>;
+    return (
+      <div className={styles.loading}>
+        <h1 className={styles.KTON_TEXT}>KTON</h1>
+      </div>
+    );
   }
 };
 
