@@ -123,41 +123,44 @@ const Library = () => {
           <div className={styles.modal_title}>
             <p>Genres</p>
           </div>
-          {books
-            .map((book) => book.genre)
-            .reduce((acc, curr) => acc.concat(curr), [])
-            .filter((eachGenre) =>
-              eachGenre.toLowerCase().includes(filterInput.toLowerCase())
-            )
-            .map((genre, i) => (
+          {[
+            ...new Set(
+              books
+                .map((book) => book.genre)
+                .reduce((acc, curr) => acc.concat(curr), [])
+                .filter((eachGenre) =>
+                  eachGenre.toLowerCase().includes(filterInput.toLowerCase())
+                )
+            ),
+          ].map((genre, i) => (
+            <div
+              key={i}
+              className={`${styles.genreItem} ${
+                selectedFilter === genre ? styles.selected : ""
+              }`}
+              onClick={() => {
+                //If the genre is already selected we need to clear selectedFilter, else set selectedFilter to genre
+                if (selectedFilter === genre) {
+                  setSelectedFilter(undefined);
+                } else {
+                  setSelectedFilter(genre);
+                }
+              }}
+            >
               <div
-                key={i}
-                className={`${styles.genreItem} ${
-                  selectedFilter === genre ? styles.selected : ""
-                }`}
-                onClick={() => {
-                  //If the genre is already selected we need to clear selectedFilter, else set selectedFilter to genre
-                  if (selectedFilter === genre) {
-                    setSelectedFilter(undefined);
-                  } else {
-                    setSelectedFilter(genre);
-                  }
-                }}
+                style={
+                  {
+                    "--background-color": colorConverter(
+                      userinfo.genres[genre]
+                    ),
+                  } as React.CSSProperties
+                }
+                className={styles.tag}
               >
-                <div
-                  style={
-                    {
-                      "--background-color": colorConverter(
-                        userinfo.genres[genre]
-                      ),
-                    } as React.CSSProperties
-                  }
-                  className={styles.tag}
-                >
-                  <p>{genre}</p>
-                </div>
+                <p>{genre}</p>
               </div>
-            ))}
+            </div>
+          ))}
         </div>
       );
     } else return null;
