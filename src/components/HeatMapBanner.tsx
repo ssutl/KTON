@@ -37,9 +37,9 @@ const HeatMapBanner = () => {
     }
   }, []);
 
-  if (heatMapData) {
-    return (
-      <div className={styles.HeatMapBanner}>
+  return (
+    <div className={styles.HeatMapBanner}>
+      {heatMapData ? (
         <div className={styles.HeatMapContainer}>
           <CalendarHeatmap
             startDate={shiftDate(
@@ -62,9 +62,11 @@ const HeatMapBanner = () => {
             showWeekdayLabels={false}
           />
         </div>
-      </div>
-    );
-  } else return <h1>Component Loading</h1>;
+      ) : (
+        <div className={styles.loading}></div>
+      )}
+    </div>
+  );
 };
 
 export default HeatMapBanner;

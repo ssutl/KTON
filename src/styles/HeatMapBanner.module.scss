@@ -31,13 +31,8 @@
       }
     }
 
-    // .color-empty-dark {
-    //   fill: $background-dark;
-    // }
-
     .color-empty-light {
       fill: #191919;
-      // fill: #343d46;
     }
 
     .color-scale-1 {
@@ -57,5 +52,26 @@
   text {
     font-size: 8px;
     fill: #aaa;
+  }
+
+  .loading {
+    height: 85%;
+    width: 100%;
+    background-color: #e3e3e36b;
+    animation: loading-animation 1s infinite linear;
+  }
+
+  @keyframes loading-animation {
+    0% {
+      opacity: 0.2;
+    }
+
+    50% {
+      opacity: 0.5;
+    }
+
+    100% {
+      opacity: 0.2;
+    }
   }
 }
