@@ -1,5 +1,11 @@
 import styles from "../styles/Highlight.module.scss";
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useContext,
+  useCallback,
+} from "react";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import { Book_highlight } from "@/api/Interface";
 import userAuthenticated from "@/helpers/UserAuthenticated";
@@ -8,10 +14,12 @@ import NotesIcon from "@mui/icons-material/Notes";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import ShareIcon from "@mui/icons-material/Share";
 import TextareaAutosize from "react-textarea-autosize";
 import { useRouter } from "next/router";
 import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 import HandleChanges from "@/helpers/HandleChanges";
+import ShareOverlay from "./ShareOverlay";
 
 interface highlightProps {
   highlight: Book_highlight;
@@ -35,6 +43,7 @@ const Highlight = ({ highlight, setModal }: highlightProps) => {
   const [hoveredOption, setHoveredOption] = useState("");
   const [inputAnnotation, setInputAnnotation] = useState(highlight.notes);
   const [categoryInput, setCategoryInput] = useState("");
+  const [displayShareOverlay, setDisplayShareOverlay] = useState(false);
   const highlightRef = useRef(null);
   const router = useRouter();
   const book_id = router.query.id;
@@ -58,6 +67,10 @@ const Highlight = ({ highlight, setModal }: highlightProps) => {
         highlight_id: highlight._id,
       });
     }
+  };
+
+  const closeModal = () => {
+    setDisplayShareOverlay(false);
   };
 
   //Drop down annotation section for each highlight
@@ -180,95 +193,106 @@ const Highlight = ({ highlight, setModal }: highlightProps) => {
 
   //If highlight is not deleted, display it
   return (
-    <div className={styles.Highlight} ref={highlightRef}>
-      <div className={styles.mainHalf}>
-        <h2>{highlight.Text}</h2>
-        {restrictions ? null : <h3>{highlight.notes}</h3>}
-        {restrictions || !highlight.category.length ? null : (
-          //Displaying tags in tags holder
-          <div className={styles.tagsBanner}>
-            {highlight.category.map((eachCategory, i) => (
-              <p key={i} className={styles.tag}>
-                {eachCategory}{" "}
-                <span
-                  onClick={() => {
-                    addCategoryToHighlight({
-                      type: "remove",
-                      data: eachCategory,
+    <>
+      {displayShareOverlay && (
+        <ShareOverlay closeModal={closeModal} highlightText={highlight.Text} />
+      )}
+      <div className={styles.Highlight} ref={highlightRef}>
+        <div className={styles.mainHalf}>
+          <h2>{highlight.Text}</h2>
+          {restrictions ? null : <h3>{highlight.notes}</h3>}
+          {restrictions || !highlight.category.length ? null : (
+            //Displaying tags in tags holder
+            <div className={styles.tagsBanner}>
+              {highlight.category.map((eachCategory, i) => (
+                <p key={i} className={styles.tag}>
+                  {eachCategory}{" "}
+                  <span
+                    onClick={() => {
+                      addCategoryToHighlight({
+                        type: "remove",
+                        data: eachCategory,
+                        book_id,
+                        highlight_id: highlight._id,
+                      });
+                    }}
+                  >
+                    x
+                  </span>
+                </p>
+              ))}
+            </div>
+          )}
+          {
+            //These are the options that appear at the bottom of each highlight, allowing you to edit it
+          }
+          <div className={styles.highlightOptions}>
+            <p
+              onMouseDown={() =>
+                //if the dropdown is already set to annotate, then we want to close it
+                restrictions
+                  ? setModal()
+                  : setDropdown(dropdown === "Annotate" ? false : "Annotate")
+              }
+            >
+              <NotesIcon />
+            </p>
+            <p
+              onMouseDown={() =>
+                //if dropdown is already set to categorise, then we want to close it
+                restrictions
+                  ? setModal()
+                  : setDropdown(
+                      dropdown === "Categorise" ? false : "Categorise"
+                    )
+              }
+            >
+              <TagIcon />
+            </p>
+            <p
+              onMouseDown={() =>
+                restrictions
+                  ? setModal()
+                  : favouriteHighlight({
+                      data: !highlight.starred,
                       book_id,
                       highlight_id: highlight._id,
-                    });
-                  }}
-                >
-                  x
-                </span>
-              </p>
-            ))}
+                    })
+              }
+            >
+              {highlight.starred ? <StarIcon /> : <StarBorderIcon />}
+            </p>
+            <p
+              onClick={() =>
+                restrictions ? setModal() : setDisplayShareOverlay(true)
+              }
+            >
+              <ShareIcon />
+            </p>
+            <p
+              onClick={() =>
+                restrictions
+                  ? setModal()
+                  : deleteHighlight({
+                      book_id,
+                      highlight_id: highlight._id,
+                    })
+              }
+            >
+              <DeleteOutlineIcon />
+            </p>
           </div>
-        )}
-        {
-          //These are the options that appear at the bottom of each highlight, allowing you to edit it
-        }
-        <div className={styles.highlightOptions}>
-          <p
-            onMouseDown={() =>
-              //if the dropdown is already set to annotate, then we want to close it
-              restrictions
-                ? setModal()
-                : setDropdown(dropdown === "Annotate" ? false : "Annotate")
-            }
-          >
-            <NotesIcon />
-          </p>
-          <p
-            onMouseDown={() =>
-              //if dropdown is already set to categorise, then we want to close it
-              restrictions
-                ? setModal()
-                : setDropdown(dropdown === "Categorise" ? false : "Categorise")
-            }
-          >
-            <TagIcon />
-          </p>
-          <p
-            onMouseDown={() =>
-              restrictions
-                ? setModal()
-                : favouriteHighlight({
-                    data: !highlight.starred,
-                    book_id,
-                    highlight_id: highlight._id,
-                  })
-            }
-          >
-            {highlight.starred ? <StarIcon /> : <StarBorderIcon />}
-          </p>
-          {/* <p onClick={() => (restrictions ? setModal() : null)}>
-            <ShareIcon />
-          </p> */}
-          <p
-            onClick={() =>
-              restrictions
-                ? setModal()
-                : deleteHighlight({
-                    book_id,
-                    highlight_id: highlight._id,
-                  })
-            }
-          >
-            <DeleteOutlineIcon />
-          </p>
+          {dropdown === "Annotate"
+            ? annotationSection()
+            : dropdown === "Categorise"
+            ? categorySection()
+            : null}
         </div>
-        {dropdown === "Annotate"
-          ? annotationSection()
-          : dropdown === "Categorise"
-          ? categorySection()
-          : null}
+        <div className={styles.metaHalf}>
+          <p>{new Date(highlight.Date).toDateString()}</p>
+        </div>
       </div>
-      <div className={styles.metaHalf}>
-        <p>{new Date(highlight.Date).toDateString()}</p>
-      </div>
-    </div>
+    </>
   );
 };
 export default Highlight;
