@@ -5,10 +5,12 @@ import { KTON_CONTEXT } from "../context/KTONContext";
 import { streakRanges } from "date-streaks";
 import { Meta_con_highlight } from "@/api/Interface";
 import clippings_AllHighlights from "../helpers/Clippings_AllHighlights";
+import { useRouter } from "next/router";
 
 export default function HomeStatBanner() {
   //These are the highlights in context, which only authenticated users will have
   //We'll conditionally push either local clippings or context highlights to this state
+  const router = useRouter();
   const { highlights } = useContext(KTON_CONTEXT);
   const [main_highlights, setMain_highlights] = useState<
     Meta_con_highlight[] | undefined
@@ -55,7 +57,10 @@ export default function HomeStatBanner() {
                 : `${getLongestStreak()?.start.toDateString()} - ${getLongestStreak()?.end?.toDateString()}`}
             </p>
           </div>
-          <div className={`${styles.statsBox} ${styles.statsBoxLong}`}>
+          <div
+            className={`${styles.statsBox} ${styles.statsBoxLong}`}
+            onClick={() => router.push(`/Book/${main_highlights[0].book_id}`)}
+          >
             <p>Current Read</p>
             <h1>{main_highlights[0].title}</h1>
             <p>

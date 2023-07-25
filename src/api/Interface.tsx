@@ -56,4 +56,5 @@ export interface userInfo {
   dark_mode: boolean;
   column_count: number;
   __v: number;
+  last_upload: string;
 }

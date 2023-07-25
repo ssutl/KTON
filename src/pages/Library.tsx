@@ -22,6 +22,7 @@ const Library = () => {
   const [selectedFilter, setSelectedFilter] = useState<string | undefined>(
     undefined
   );
+
   //Initialising App by making data call on page load, this updates user context
   useEffect(() => {
     setRestricitons(!userAuthenticated());
@@ -54,11 +55,11 @@ const Library = () => {
 
   //Code to for search bar
   const SearchBanner = () => {
-    if (mainBooks)
+    if (mainBooks && userinfo)
       return (
         <div className={styles.searchBanner}>
           <div className={styles.searchBannerWidth}>
-            <p>Last Import 16-4-23</p>
+            <p>Last Import {new Date(userinfo.last_upload).toDateString()}</p>
             <span className={styles.hoverMenu}>
               <SearchIcon />
               <div className={styles.SearchFieldModal}>

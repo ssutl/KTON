@@ -16,7 +16,6 @@ const GenreModal: React.FC<{ refrence: any }> = ({ refrence }) => {
   const [genreInput, setGenreInput] = useState<string>("");
   const { colorConverter, randomColorGenerator, mapTable } = genreColors();
   const [randomColor, setRandomColor] = useState(randomColorGenerator());
-  const [displayGenreDropdown, setDisplayGenreDropdown] = useState<boolean>();
 
   //When the genreInput changes, we want to change the color of the randomColor
   useEffect(() => {

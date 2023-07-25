@@ -30,6 +30,7 @@ const LoginApi = async ({
 
     if (res.data.token) {
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user.username));
       Router.push("/Home");
     } else if (res.data.msg === "An email has been sent to the user account") {
       return "Pending verification";

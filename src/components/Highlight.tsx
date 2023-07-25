@@ -3,7 +3,6 @@ import React, { useEffect, useState, useRef, useContext } from "react";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import { Book_highlight } from "@/api/Interface";
 import userAuthenticated from "@/helpers/UserAuthenticated";
-import ShareIcon from "@mui/icons-material/Share";
 import TagIcon from "@mui/icons-material/Tag";
 import NotesIcon from "@mui/icons-material/Notes";
 import StarIcon from "@mui/icons-material/Star";
@@ -212,21 +211,27 @@ const Highlight = ({ highlight, setModal }: highlightProps) => {
         }
         <div className={styles.highlightOptions}>
           <p
-            onClick={() =>
-              restrictions ? setModal() : setDropdown("Annotate")
+            onMouseDown={() =>
+              //if the dropdown is already set to annotate, then we want to close it
+              restrictions
+                ? setModal()
+                : setDropdown(dropdown === "Annotate" ? false : "Annotate")
             }
           >
             <NotesIcon />
           </p>
           <p
-            onClick={() =>
-              restrictions ? setModal() : setDropdown("Categorise")
+            onMouseDown={() =>
+              //if dropdown is already set to categorise, then we want to close it
+              restrictions
+                ? setModal()
+                : setDropdown(dropdown === "Categorise" ? false : "Categorise")
             }
           >
             <TagIcon />
           </p>
           <p
-            onClick={() =>
+            onMouseDown={() =>
               restrictions
                 ? setModal()
                 : favouriteHighlight({

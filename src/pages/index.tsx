@@ -10,14 +10,7 @@ import ImportComponent from "@/components/ImportComponent";
 import KindleOverlay from "@/components/KindleOverlay";
 
 export default function LoginPage() {
-  const [screenWidth, setScreenWidth] = useState(1024);
-
-  useEffect(() => {
-    //Have to set screenwidth to conditionally change size of heat map
-    setScreenWidth(window.innerWidth);
-    window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
-  }, []);
-
+  const [feedbackModal, setFeedbackModal] = useState(false);
   //UseEffect to check if there's already an authToken
   useEffect(() => {
     const authToken = localStorage.getItem("token");
