@@ -1,8 +1,10 @@
 import { toPng } from "html-to-image";
-import React, { useRef, useCallback, useState } from "react";
+import React, { useRef, useCallback, useState, useContext } from "react";
 import styles from "../styles/ShareOverlay.module.scss";
 import PhotoSharpIcon from "@mui/icons-material/PhotoSharp";
 import { HexColorPicker } from "react-colorful";
+import { useRouter } from "next/router";
+import { KTON_CONTEXT } from "../context/KTONContext";
 import FormatAlignLeftOutlinedIcon from "@mui/icons-material/FormatAlignLeftOutlined";
 import FormatAlignRightOutlinedIcon from "@mui/icons-material/FormatAlignRightOutlined";
 import FormatAlignCenterOutlinedIcon from "@mui/icons-material/FormatAlignCenterOutlined";
@@ -14,9 +16,18 @@ import VerticalAlignTopOutlinedIcon from "@mui/icons-material/VerticalAlignTopOu
 export interface ShareOverlayProps {
   closeModal: () => void;
   highlightText: string;
+  index: number;
 }
 
-const ShareOverlay = ({ closeModal, highlightText }: ShareOverlayProps) => {
+const ShareOverlay = ({
+  closeModal,
+  highlightText,
+  index,
+}: ShareOverlayProps) => {
+  const { books } = useContext(KTON_CONTEXT);
+  const router = useRouter();
+  const book_id = router.query.id;
+  const book = books?.find((book) => book._id === book_id);
   const ref = useRef<HTMLDivElement>(null);
   const [color, setColor] = useState("#aabbcc");
   const [text, setText] = useState(highlightText);
@@ -60,7 +71,7 @@ const ShareOverlay = ({ closeModal, highlightText }: ShareOverlayProps) => {
     toPng(ref.current, { cacheBust: false })
       .then((dataUrl) => {
         const link = document.createElement("a");
-        link.download = "my-image-name.png";
+        link.download = `${book?.title}-${index}`;
         link.href = dataUrl;
         console.log(dataUrl);
         link.click();

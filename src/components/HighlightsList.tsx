@@ -24,6 +24,7 @@ const HighlightsList: React.FC<{ book: Book }> = ({ book }) => {
               highlight={eachHighlight}
               key={index}
               setModal={setModal}
+              index={index}
             />
           ))}
         {restrictions && book.highlights.length > 50 ? (

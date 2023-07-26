@@ -24,9 +24,10 @@ import ShareOverlay from "./ShareOverlay";
 interface highlightProps {
   highlight: Book_highlight;
   setModal: () => void;
+  index: number;
 }
 
-const Highlight = ({ highlight, setModal }: highlightProps) => {
+const Highlight = ({ highlight, setModal, index }: highlightProps) => {
   const { userinfo } = useContext(KTON_CONTEXT);
   const [screenWidth, setScreenWidth] = useState(1024);
   const [restrictions, setRestrictions] = useState(true);
@@ -195,7 +196,11 @@ const Highlight = ({ highlight, setModal }: highlightProps) => {
   return (
     <>
       {displayShareOverlay && (
-        <ShareOverlay closeModal={closeModal} highlightText={highlight.Text} />
+        <ShareOverlay
+          closeModal={closeModal}
+          highlightText={highlight.Text}
+          index={index}
+        />
       )}
       <div className={styles.Highlight} ref={highlightRef}>
         <div className={styles.mainHalf}>
