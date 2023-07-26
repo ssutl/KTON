@@ -1,7 +1,13 @@
 const userAuthenticated = () => {
   //Quick check to see if the user is authenticated or not
-  const authToken = localStorage.getItem("token");
-  const clippings = localStorage.getItem("clippings");
+
+  let authToken;
+  let clippings;
+
+  if (typeof window !== "undefined") {
+    authToken = localStorage.getItem("token");
+    clippings = localStorage.getItem("clippings");
+  }
 
   if (authToken) {
     //Pass user into the app without restrictions

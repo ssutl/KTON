@@ -11,7 +11,7 @@ interface ImportButtonProps {
   setProgress?: React.Dispatch<
     React.SetStateAction<"Started" | "None" | "Complete">
   >;
-  setPercentage?: React.Dispatch<React.SetStateAction<number>>;
+  setPercentage?: (value: number) => void;
   progress?: "Started" | "None" | "Complete";
 }
 

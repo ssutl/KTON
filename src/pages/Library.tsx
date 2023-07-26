@@ -18,6 +18,7 @@ const Library = () => {
   const [searchValue, setSearchValue] = useState("");
   const [restrictions, setRestricitons] = useState<boolean>(true);
   const [restrictionBanner, setRestrictionBanner] = useState(false);
+  const [sortBy, setSortBy] = useState<"Recent" | "Rating" | "">("Recent");
   const [filterInput, setFilterInput] = useState<string>("");
   const [selectedFilter, setSelectedFilter] = useState<string | undefined>(
     undefined
@@ -110,7 +111,38 @@ const Library = () => {
       );
   };
 
-  //The Filter and sort modal
+  //The Sort modal
+  const SortModal = () => {
+    return (
+      <div className={styles.SortModal}>
+        <div className={styles.modal_title}>
+          <p>Types</p>
+        </div>
+        <div
+          className={`${styles.sortItem} ${
+            sortBy === "Rating" ? styles.selected : ""
+          }`}
+          onClick={() =>
+            sortBy === "Rating" ? setSortBy("") : setSortBy("Rating")
+          }
+        >
+          <p>Rating</p>
+        </div>
+        <div
+          className={`${styles.sortItem} ${
+            sortBy === "Recent" ? styles.selected : ""
+          }`}
+          onClick={() =>
+            sortBy === "Recent" ? setSortBy("") : setSortBy("Recent")
+          }
+        >
+          <p>Recent</p>
+        </div>
+      </div>
+    );
+  };
+
+  //The Filter modal
   const FilterModal = () => {
     if (books && userinfo) {
       return (
@@ -199,15 +231,15 @@ const Library = () => {
             books
               .map((book) => book.genre)
               .reduce((acc, curr) => acc.concat(curr), []).length ? (
-              <span className={styles.hoverMenu}>
+              <span className={styles.filterHoverMenu}>
                 <h3>Filters +</h3>
                 {FilterModal()}
               </span>
             ) : null}
-            {/* <span className={styles.hoverMenu}>
+            <span className={styles.sortHoverMenu}>
               <h3>Sort</h3>
-              <Modal type={"Sort"} />
-            </span> */}
+              {SortModal()}
+            </span>
           </div>
           <div className={styles.descriptionSection}>
             <h3>
@@ -236,6 +268,16 @@ const Library = () => {
               .filter((eachBook) =>
                 eachBook.title.toLowerCase().includes(searchValue)
               )
+              .sort((a: Book, b: Book) => {
+                if (sortBy === "Rating") {
+                  return b.rating - a.rating;
+                } else if (sortBy === "") {
+                  return (
+                    new Date(a.upload_date).getTime() -
+                    new Date(b.upload_date).getTime()
+                  );
+                } else return 0;
+              })
               .filter((eachBook) =>
                 selectedFilter
                   ? eachBook.genre.includes(selectedFilter)
