@@ -19,6 +19,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 94vh;
 
   @include breakpoint-mixin("laptop-small") {
     height: 93vh;
