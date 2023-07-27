@@ -3,7 +3,7 @@
 .GenreModal {
   position: absolute;
   bottom: calc(100% + 10px);
-  min-height: 9vh;
+  min-height: 10vh;
   max-height: 40vh;
   width: 300px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
@@ -20,6 +20,14 @@
     border-bottom: 1px solid black;
     display: flex;
     // justify-content: center;
+
+    @include breakpoint-mixin("laptop-small") {
+      height: 7vh;
+    }
+
+    @include breakpoint-mixin("desktop") {
+      height: 5vh;
+    }
 
     input {
       background-color: transparent;
@@ -43,6 +51,14 @@
     margin-top: 15px;
     padding: 0px 20px;
     cursor: pointer;
+
+    @include breakpoint-mixin("laptop-small") {
+      height: 7vh;
+    }
+
+    @include breakpoint-mixin("desktop") {
+      height: 5vh;
+    }
 
     .tag {
       padding: 2px 15px;
@@ -68,7 +84,7 @@
       }
     }
 
-    #dotsIcon {
+    #trashIcon {
       font-size: 20px;
     }
 

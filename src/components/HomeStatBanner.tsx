@@ -5,10 +5,12 @@ import { KTON_CONTEXT } from "../context/KTONContext";
 import { streakRanges } from "date-streaks";
 import { Meta_con_highlight } from "@/api/Interface";
 import clippings_AllHighlights from "../helpers/Clippings_AllHighlights";
+import { useRouter } from "next/router";
 
 export default function HomeStatBanner() {
   //These are the highlights in context, which only authenticated users will have
   //We'll conditionally push either local clippings or context highlights to this state
+  const router = useRouter();
   const { highlights } = useContext(KTON_CONTEXT);
   const [main_highlights, setMain_highlights] = useState<
     Meta_con_highlight[] | undefined
@@ -42,39 +44,49 @@ export default function HomeStatBanner() {
   }
 
   //Once we have the highlights, we can render the component
-  if (main_highlights) {
-    return (
-      <div className={styles.HomeStatBanner}>
-        <div className={styles.statsBox}>
-          <p>Longest Streak</p>
-          <h1>{getLongestStreak()?.duration}</h1>
-          <p>
-            {getLongestStreak()?.end === null
-              ? `${getLongestStreak()?.start.toDateString()} - todays date lol`
-              : `${getLongestStreak()?.start.toDateString()} - ${getLongestStreak()?.end?.toDateString()}`}
-          </p>
-        </div>
-        <div className={`${styles.statsBox} ${styles.statsBoxLong}`}>
-          <p>Current Read</p>
-          <h1>{main_highlights[0].title}</h1>
-          <p>
-            Started:{" "}
-            {new Date(main_highlights[0].highlight.Date).toDateString()}
-          </p>
-        </div>
-        <div className={styles.statsBox}>
-          <p>Total Highlights</p>
-          <h1>{main_highlights.length}</h1>
-          <p>
-            {`${new Date(
-              main_highlights[main_highlights.length - 1].highlight.Date
-            ).toDateString()} - ${new Date(
-              main_highlights[0].highlight.Date
-            ).toDateString()}`}
-          </p>
-          <p></p>
-        </div>
-      </div>
-    );
-  } else return <h1>Component Loading </h1>;
+  return (
+    <div className={styles.HomeStatBanner}>
+      {main_highlights ? (
+        <>
+          <div className={styles.statsBox}>
+            <p>Longest Streak</p>
+            <h1>{getLongestStreak()?.duration}</h1>
+            <p>
+              {getLongestStreak()?.end === null
+                ? `${getLongestStreak()?.start.toDateString()} - todays date lol`
+                : `${getLongestStreak()?.start.toDateString()} - ${getLongestStreak()?.end?.toDateString()}`}
+            </p>
+          </div>
+          <div
+            className={`${styles.statsBox} ${styles.statsBoxLong}`}
+            onClick={() => router.push(`/Book/${main_highlights[0].book_id}`)}
+          >
+            <p>Current Read</p>
+            <h1>{main_highlights[0].title}</h1>
+            <p>
+              Started:{" "}
+              {new Date(main_highlights[0].highlight.Date).toDateString()}
+            </p>
+          </div>
+          <div className={styles.statsBox}>
+            <p>Total Highlights</p>
+            <h1>{main_highlights.length}</h1>
+            <p>
+              {`${new Date(
+                main_highlights[main_highlights.length - 1].highlight.Date
+              ).toDateString()} - ${new Date(
+                main_highlights[0].highlight.Date
+              ).toDateString()}`}
+            </p>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className={styles.loading}></div>
+          <div className={styles.loading}></div>
+          <div className={styles.loading}></div>
+        </>
+      )}
+    </div>
+  );
 }

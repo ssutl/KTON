@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "../styles/LoginComponent.module.scss";
 import LoginApi, { LoginApiReturnType } from "@/api/Users/Login";
 import { useRouter } from "next/router";
+import { set } from "lodash";
 
 const LoginComponent = () => {
   const [loginType, setLoginType] = useState<"Login" | "SignUp">("Login");
@@ -14,6 +15,7 @@ const LoginComponent = () => {
     setLoginType((prevLoginType) =>
       prevLoginType === "Login" ? "SignUp" : "Login"
     );
+    setLoginStatus(undefined);
   };
 
   //Handle form submission
@@ -28,8 +30,9 @@ const LoginComponent = () => {
           password: password,
         });
 
-        if (status === "pending verification") {
+        if (status === "Pending verification") {
           alert("Please verify your email");
+          setLoginStatus(status);
         }
       }
     } catch (error: any) {
@@ -89,7 +92,7 @@ const LoginComponent = () => {
           }}
         />
       </div>
-      {loginStatus !== "pending verification" && loginStatus ? (
+      {loginStatus !== "Pending verification" && loginStatus ? (
         <div className={styles.loginStatusSect}>{loginStatus}</div>
       ) : null}
       <div className={styles.loginButtonSect}>

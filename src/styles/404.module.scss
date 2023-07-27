@@ -1,0 +1,40 @@
+@import "../styles/Breakpoints.module.scss";
+
+.page {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  //   background-image: url("/NoBookCover.svg");
+  /* Make the background image repeat both horizontally and vertically */
+  background-repeat: repeat;
+  /* Set the size of the background image */
+  background-size: 250px; /* Adjust this value to control the size of the image */
+  /* Set the width and height of the container to fill the available space */
+  justify-content: center;
+  align-items: center;
+
+  .text_container {
+    width: 30%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+      font-size: 180px;
+    }
+
+    h2 {
+      font-size: 80px;
+    }
+
+    p {
+      padding: 10px 20px;
+      border: 0.5px solid white;
+      width: fit-content;
+      cursor: pointer;
+    }
+  }
+}

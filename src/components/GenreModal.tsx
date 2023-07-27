@@ -1,12 +1,11 @@
 import { userInfo } from "@/api/Interface";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import React, { useState, useEffect, useContext, useRef } from "react";
-import addGenreToBookApi from "@/api/Books/AddGenreToBook";
 import { useRouter } from "next/router";
 import styles from "@/styles/GenreModal.module.scss";
 import genreColors from "@/helpers/sortGenreColors";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import HandleChanges from "@/helpers/HandleChanges";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 const GenreModal: React.FC<{ refrence: any }> = ({ refrence }) => {
   const { books, userinfo } = useContext(KTON_CONTEXT);
@@ -17,7 +16,6 @@ const GenreModal: React.FC<{ refrence: any }> = ({ refrence }) => {
   const [genreInput, setGenreInput] = useState<string>("");
   const { colorConverter, randomColorGenerator, mapTable } = genreColors();
   const [randomColor, setRandomColor] = useState(randomColorGenerator());
-  const [displayGenreDropdown, setDisplayGenreDropdown] = useState<boolean>();
 
   //When the genreInput changes, we want to change the color of the randomColor
   useEffect(() => {
@@ -69,16 +67,29 @@ const GenreModal: React.FC<{ refrence: any }> = ({ refrence }) => {
               >
                 <p>{eachGenre}</p>
               </div>
-              <MoreHorizIcon
-                className={styles.dotsIcon}
-                onClick={() => {
-                  setDisplayGenreDropdown(!displayGenreDropdown);
+              <DeleteOutlineIcon
+                id={styles.trashIcon}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  addGenreToUser({
+                    type: "remove",
+                    data: eachGenre,
+                    book_id: id,
+                  });
                 }}
               />
             </div>
           ))}
         {
-          //If the user has no genres, allow users to create a genre
+          //If the user has no genres, display a little place holder to prompt them to type
+        }
+        {!Object.keys(userinfo.genres) && genreInput === "" && (
+          <div className={styles.genreItem}>
+            <p>Start typing to create</p>
+          </div>
+        )}
+        {
+          //If the user has no genres, display create a genre when typing
         }
         {!Object.keys(userinfo.genres)
           .map((eachGenre) => eachGenre.toLowerCase())

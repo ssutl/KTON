@@ -11,10 +11,10 @@ function useOutsideAlerter(
       }
     }
     // Bind the event listener
-    document.addEventListener("mouseup", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       // Unbind the event listener on clean up
-      document.removeEventListener("mouseup", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [ref]);
 }

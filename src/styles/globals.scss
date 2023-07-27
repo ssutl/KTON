@@ -14,6 +14,14 @@ body {
   color: white;
   font-weight: 100;
 
+  .react-colorful__saturation {
+    border-radius: 0px;
+  }
+  /* Round bottom corners of the last element: `Hue` for `ColorPicker` or `Alpha` for `AlphaColorPicker` */
+  .react-colorful__last-control {
+    border-radius: 0px;
+  }
+
   h1 {
     margin: 0px;
     padding: 0px;

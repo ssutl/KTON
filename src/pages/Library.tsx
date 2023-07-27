@@ -8,18 +8,21 @@ import InitApi from "../api/InitAPI";
 import BookComponent from "@/components/BookComponent";
 import Head from "next/head";
 import AllowedRoute from "@/helpers/AllowedRoute";
-
-interface ModalProps {
-  type: "Filter" | "Sort";
-}
+import genreColors from "@/helpers/sortGenreColors";
 
 const Library = () => {
   const { InitialiseApp } = InitApi();
-  const { books } = useContext(KTON_CONTEXT);
+  const { books, userinfo } = useContext(KTON_CONTEXT);
+  const { colorConverter, randomColorGenerator, mapTable } = genreColors();
   const [mainBooks, setMainBooks] = useState<Book[] | undefined>(undefined);
   const [searchValue, setSearchValue] = useState("");
   const [restrictions, setRestricitons] = useState<boolean>(true);
   const [restrictionBanner, setRestrictionBanner] = useState(false);
+  const [sortBy, setSortBy] = useState<"Recent" | "Rating" | "">("Recent");
+  const [filterInput, setFilterInput] = useState<string>("");
+  const [selectedFilter, setSelectedFilter] = useState<string | undefined>(
+    undefined
+  );
 
   //Initialising App by making data call on page load, this updates user context
   useEffect(() => {
@@ -53,11 +56,11 @@ const Library = () => {
 
   //Code to for search bar
   const SearchBanner = () => {
-    if (mainBooks)
+    if (mainBooks && userinfo)
       return (
         <div className={styles.searchBanner}>
           <div className={styles.searchBannerWidth}>
-            <p>Last Import 16-4-23</p>
+            <p>Last Import {new Date(userinfo.last_upload).toDateString()}</p>
             <span className={styles.hoverMenu}>
               <SearchIcon />
               <div className={styles.SearchFieldModal}>
@@ -108,31 +111,92 @@ const Library = () => {
       );
   };
 
-  //The Filter and sort modal
-  const Modal: React.FC<ModalProps> = ({ type }) => {
+  //The Sort modal
+  const SortModal = () => {
     return (
-      <div className={styles.modal}>
-        <div className={styles.modal_height}>
-          <div className={styles.modal_title}>
-            <p>{type}</p>
-          </div>
-          {type === "Filter" ? (
-            <div className={styles.modal_item}>
-              <p>Home</p>
-            </div>
-          ) : (
-            <>
-              <div className={styles.modal_item}>
-                <p>Recent</p>
-              </div>
-              <div className={styles.modal_item}>
-                <p>Starred</p>
-              </div>
-            </>
-          )}
+      <div className={styles.SortModal}>
+        <div className={styles.modal_title}>
+          <p>Types</p>
+        </div>
+        <div
+          className={`${styles.sortItem} ${
+            sortBy === "Rating" ? styles.selected : ""
+          }`}
+          onClick={() =>
+            sortBy === "Rating" ? setSortBy("") : setSortBy("Rating")
+          }
+        >
+          <p>Rating</p>
+        </div>
+        <div
+          className={`${styles.sortItem} ${
+            sortBy === "Recent" ? styles.selected : ""
+          }`}
+          onClick={() =>
+            sortBy === "Recent" ? setSortBy("") : setSortBy("Recent")
+          }
+        >
+          <p>Recent</p>
         </div>
       </div>
     );
+  };
+
+  //The Filter modal
+  const FilterModal = () => {
+    if (books && userinfo) {
+      return (
+        <div className={styles.FilterModal}>
+          <div className={styles.searchItem}>
+            <input
+              placeholder="Filter by genre"
+              onChange={(e) => setFilterInput(e.target.value)}
+            />
+          </div>
+          <div className={styles.modal_title}>
+            <p>Genres</p>
+          </div>
+          {[
+            ...new Set(
+              books
+                .map((book) => book.genre)
+                .reduce((acc, curr) => acc.concat(curr), [])
+                .filter((eachGenre) =>
+                  eachGenre.toLowerCase().includes(filterInput.toLowerCase())
+                )
+            ),
+          ].map((genre, i) => (
+            <div
+              key={i}
+              className={`${styles.genreItem} ${
+                selectedFilter === genre ? styles.selected : ""
+              }`}
+              onClick={() => {
+                //If the genre is already selected we need to clear selectedFilter, else set selectedFilter to genre
+                if (selectedFilter === genre) {
+                  setSelectedFilter(undefined);
+                } else {
+                  setSelectedFilter(genre);
+                }
+              }}
+            >
+              <div
+                style={
+                  {
+                    "--background-color": colorConverter(
+                      userinfo.genres[genre]
+                    ),
+                  } as React.CSSProperties
+                }
+                className={styles.tag}
+              >
+                <p>{genre}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    } else return null;
   };
 
   //Banner shown when user is not authenticated
@@ -160,13 +224,21 @@ const Library = () => {
       <div className={styles.filterBanner}>
         <div className={styles.filterBannerWidth}>
           <div className={styles.filterSection}>
-            <span className={styles.hoverMenu}>
-              <h3>Filters +</h3>
-              <Modal type={"Filter"} />
-            </span>
-            <span className={styles.hoverMenu}>
+            {
+              //Only show filter option if user has genres added
+            }
+            {books &&
+            books
+              .map((book) => book.genre)
+              .reduce((acc, curr) => acc.concat(curr), []).length ? (
+              <span className={styles.filterHoverMenu}>
+                <h3>Filters +</h3>
+                {FilterModal()}
+              </span>
+            ) : null}
+            <span className={styles.sortHoverMenu}>
               <h3>Sort</h3>
-              <Modal type={"Sort"} />
+              {SortModal()}
             </span>
           </div>
           <div className={styles.descriptionSection}>
@@ -195,6 +267,21 @@ const Library = () => {
             {mainBooks
               .filter((eachBook) =>
                 eachBook.title.toLowerCase().includes(searchValue)
+              )
+              .sort((a: Book, b: Book) => {
+                if (sortBy === "Rating") {
+                  return b.rating - a.rating;
+                } else if (sortBy === "") {
+                  return (
+                    new Date(a.upload_date).getTime() -
+                    new Date(b.upload_date).getTime()
+                  );
+                } else return 0;
+              })
+              .filter((eachBook) =>
+                selectedFilter
+                  ? eachBook.genre.includes(selectedFilter)
+                  : eachBook
               )
               .slice(
                 0,

@@ -73,7 +73,18 @@
         width: 55%;
       }
 
-      img {
+      .NoImage {
+        background-image: url("/NoBookCover.svg");
+        /* Make the background image repeat both horizontally and vertically */
+        background-repeat: repeat;
+        /* Set the size of the background image */
+        background-size: 150px; /* Adjust this value to control the size of the image */
+        /* Set the width and height of the container to fill the available space */
+        width: 100%;
+        height: 100%;
+      }
+
+      .image {
         height: 100%;
         width: 100%;
         border: none;

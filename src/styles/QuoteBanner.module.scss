@@ -67,3 +67,28 @@
     }
   }
 }
+
+.loading {
+  height: 45vh;
+  width: 100%;
+  background-color: #e3e3e36b;
+  animation: loading-animation 1s infinite linear;
+
+  @include breakpoint-mixin("laptop-small") {
+    height: 35vh;
+  }
+}
+
+@keyframes loading-animation {
+  0% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0.2;
+  }
+}

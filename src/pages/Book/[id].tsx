@@ -12,6 +12,8 @@ import AllowedRoute from "@/helpers/AllowedRoute";
 import HighlightsList from "@/components/HighlightsList";
 import SummarySection from "@/components/SummaryComponent";
 import GenreBanner from "@/components/GenreBanner";
+import HandleChanges from "@/helpers/HandleChanges";
+import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 
 const BookPage = () => {
   const router = useRouter();
@@ -23,6 +25,13 @@ const BookPage = () => {
   const [restrictions, setRestricitons] = useState<boolean>(true);
   const { LoginModal } = HandleLoginModal();
   const [screenWidth, setScreenWidth] = useState(0);
+  const [showEditImageModal, setShowEditImageModal] = useState(false);
+  const [coverIsValid, setCoverIsValid] = useState(true);
+  const [inputtedImageUrl, setInputtedImageUrl] = useState("");
+  const { updateBookCover } = HandleChanges();
+  const ref = React.useRef(null);
+
+  useOutsideAlerter(ref, setShowEditImageModal);
 
   //Initialising App by making data call on page load, this updates user context
   useEffect(() => {
@@ -84,15 +93,57 @@ const BookPage = () => {
                 className={styles.ImageContainer}
                 perspective={650}
               >
-                {restrictions ? null : (
-                  <img
-                    alt="Book Cover"
-                    draggable="false"
-                    src={mainBook.cover_image}
-                    className="image"
-                  />
+                {restrictions || !coverIsValid ? (
+                  <div className={styles.NoImage}></div>
+                ) : (
+                  <>
+                    <img
+                      alt="Book Cover"
+                      draggable="false"
+                      src={mainBook.cover_image}
+                      className={styles.image}
+                      onError={({ currentTarget }) => {
+                        setCoverIsValid(false);
+                      }}
+                    />
+                    <p
+                      className={styles.editURLMenu}
+                      onClick={() => setShowEditImageModal(!showEditImageModal)}
+                    >
+                      Edit cover
+                    </p>
+                  </>
                 )}
               </Tilt>
+              {showEditImageModal ? (
+                <div className={styles.editURLModal} ref={ref}>
+                  <div className={styles.searchBar}>
+                    <input
+                      type="text"
+                      value={inputtedImageUrl}
+                      onChange={(e) =>
+                        setInputtedImageUrl(e.target.value.replace(/\s/g, ""))
+                      }
+                      placeholder="Update Image URL"
+                    />
+                  </div>
+                  <p
+                    className={styles.button}
+                    onClick={() => {
+                      if (inputtedImageUrl.length) {
+                        updateBookCover({
+                          book_id: mainBook._id,
+                          data: inputtedImageUrl,
+                        });
+                      } else {
+                        alert("Invalid image URL");
+                      }
+                    }}
+                  >
+                    Save
+                  </p>
+                </div>
+              ) : null}
             </div>
             {restrictions ? null : <GenreBanner />}
             {bookTitle()}
