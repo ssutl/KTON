@@ -109,10 +109,10 @@ const ShareOverlay = ({
         className={styles.highlightImage}
         onMouseDown={(e) => {
           e.stopPropagation();
-          handleImageDownload();
         }}
         ref={ref}
         style={componentStyle}
+        contentEditable="true"
       >
         <h1
           style={{
@@ -266,6 +266,17 @@ const ShareOverlay = ({
               onChange={(e) => setImageHeight(Number(e.target.value))}
             />
           </div>
+        </div>
+        <div className={styles.header}>
+          <p>Export Image</p>
+        </div>
+        <div className={styles.exportSection}>
+          <p
+            className={styles.exportButton}
+            onClick={() => handleImageDownload()}
+          >
+            Export as .png
+          </p>
         </div>
       </div>
     </div>
