@@ -240,7 +240,7 @@
           }
         }
 
-        .hoverMenu {
+        .filterHoverMenu {
           width: fit-content;
           position: relative;
           margin-right: 30px;
@@ -380,12 +380,75 @@
             border-radius: 10px;
             height: 40px;
           }
+
+          &:hover {
+            .FilterModal {
+              visibility: visible;
+              opacity: 1;
+            }
+          }
         }
 
-        &:hover {
-          .FilterModal {
-            visibility: visible;
-            opacity: 1;
+        //Sort hover menu
+        .sortHoverMenu {
+          width: fit-content;
+          position: relative;
+
+          .SortModal {
+            position: absolute;
+            left: 0%;
+            top: 120%;
+            width: 120px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 300ms, visibility 600ms;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            // border-radius: 10px;
+            padding: 10px 0px 10px 0px;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+              rgba(0, 0, 0, 0.22) 0px 10px 10px;
+            border: 1px solid black;
+            background-color: #202020;
+
+            .modal_title {
+              height: 30px;
+              width: 100%;
+              opacity: 0.7;
+              display: flex;
+              align-items: center;
+
+              p {
+                margin-left: 10px;
+              }
+            }
+
+            .sortItem {
+              height: 40px;
+              border-radius: 5px;
+              display: flex;
+              // justify-content: center;
+              align-items: center;
+              width: 90%;
+              cursor: pointer;
+
+              p {
+                margin-left: 20px;
+              }
+            }
+
+            .selected {
+              background-color: #2c2c2c;
+            }
+          }
+
+          &:hover {
+            .SortModal {
+              visibility: visible;
+              opacity: 1;
+            }
           }
         }
       }

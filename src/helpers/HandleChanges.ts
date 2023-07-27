@@ -9,6 +9,7 @@ import addHighlightCategoryApi from "@/api/Highlights/AddCategories";
 import addUserCategoryApi from "@/api/Users/AddCategories";
 import summariseBookApi from "@/api/Books/Summary";
 import annotateHighlightApi from "@/api/Highlights/Annotate";
+import changeBookImageApi from "@/api/Books/ChangeBookImage";
 
 export interface RatingProps {
   data: number;
@@ -46,6 +47,11 @@ export interface addCategoryToHighlightProps {
 }
 
 export interface addSummaryToBookProps {
+  data: string | undefined;
+  book_id: string | undefined | string[];
+}
+
+export interface updateBookCoverProps {
   data: string | undefined;
   book_id: string | undefined | string[];
 }
@@ -302,6 +308,19 @@ function HandleChanges() {
     }
   };
 
+  const updateBookCover = ({ data, book_id }: updateBookCoverProps) => {
+    if (books && data && typeof book_id === "string") {
+      const newState = books.map((book_context) => {
+        //If book has same ID change rating locally
+        if (book_id === book_context._id) {
+          return { ...book_context, cover_image: data };
+        } else return book_context;
+      });
+      updateBooks(newState);
+      changeBookImageApi({ book_id: book_id, data: data });
+    }
+  };
+
   return {
     addRating,
     addGenreToBook,
@@ -312,6 +331,7 @@ function HandleChanges() {
     addCategoryToHighlight,
     addCategoryToUser,
     addSummaryToBook,
+    updateBookCover,
   };
 }
 

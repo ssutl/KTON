@@ -8,7 +8,7 @@ export default function Document() {
         <meta name="KTON" content="Organise your kindle highlights" />
         <meta name="keywords" content="Organisation tools" />
 
-        <link rel="icon" href="%PUBLIC_URL%/book-icon.png" />
+        <link rel="icon" href="/images/book-icon.png" />
         <meta
           name="viewport"
           content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover, shrink-to-fit=no"

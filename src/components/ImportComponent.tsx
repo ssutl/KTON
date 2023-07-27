@@ -1,12 +1,20 @@
 import styles from "../styles/ImportComponent.module.scss";
 import React, { useState, useEffect } from "react";
 import ImportButton from "./ImportButton";
+import { set, update } from "lodash";
 
 const ImportComponent = () => {
   const [progress, setProgress] = useState<"Started" | "None" | "Complete">(
     "None"
   );
-  const [percentage, setPercentage] = useState<number>(0);
+  const [percentage, setPercentage] = useState<number>(5);
+
+  const updatePercentage = (value: number) => {
+    //In order to prevent the progress bar from going backwards, because of the way the socket works
+    if (percentage < value) {
+      setPercentage(value);
+    }
+  };
 
   return (
     <div className={styles.importSect}>
@@ -28,7 +36,7 @@ const ImportComponent = () => {
       </div>
       <ImportButton
         setProgress={setProgress}
-        setPercentage={setPercentage}
+        setPercentage={updatePercentage}
         progress={progress}
       />
       {progress === "Started" ? (

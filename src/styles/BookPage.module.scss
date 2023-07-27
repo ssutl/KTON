@@ -49,6 +49,7 @@
       width: 100%;
       display: flex;
       justify-content: center;
+      position: relative;
 
       .ImageContainer {
         height: 75%;
@@ -79,6 +80,93 @@
           border: none;
           outline: none;
           object-fit: cover;
+        }
+
+        .editURLMenu {
+          position: absolute;
+          bottom: 10px;
+          right: 10px;
+          padding: 5px 10px 5px 10px;
+          background-color: #202020;
+          border: 0.5px solid black;
+          cursor: pointer;
+          opacity: 0.7;
+
+          @include breakpoint-mixin("laptop-small") {
+            display: none;
+            opacity: 1;
+          }
+        }
+
+        @include breakpoint-mixin("laptop-small") {
+          &:hover {
+            .editURLMenu {
+              display: block;
+            }
+          }
+        }
+      }
+
+      .editURLModal {
+        position: absolute;
+        background-color: #202020;
+        border: 0.5px solid black;
+        cursor: pointer;
+        width: 250px;
+        bottom: 5%;
+        right: 5%;
+        z-index: 100;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+          rgba(0, 0, 0, 0.22) 0px 10px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-bottom: 15px;
+        height: 14vh;
+
+        @include breakpoint-mixin("laptop-small") {
+          height: 11vh;
+          width: 300px;
+          bottom: 0px;
+        }
+
+        .searchBar {
+          height: 5vh;
+          width: 100%;
+          display: flex;
+          // justify-content: center;
+
+          @include breakpoint-mixin("laptop-small") {
+            height: 7vh;
+          }
+
+          @include breakpoint-mixin("desktop") {
+            height: 5vh;
+          }
+
+          input {
+            background-color: transparent;
+            height: 100%;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 0px;
+            width: 95%;
+            margin-left: 10px;
+          }
+        }
+
+        .button {
+          padding: 2px 30px 2px 30px;
+          border: 0.5px solid white;
+          color: white;
+          cursor: pointer;
+          margin-left: 10px;
+          width: fit-content;
+
+          &:hover {
+            opacity: 0.5;
+          }
         }
       }
     }
