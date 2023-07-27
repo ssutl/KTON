@@ -1,6 +1,6 @@
 @import "../styles/Breakpoints.module.scss";
 .QuoteBanner {
-  height: 45vh;
+  height: 45dvh;
   width: 100%;
   border-bottom: 0.5px solid black;
   display: flex;
@@ -11,7 +11,7 @@
   color: white;
 
   @include breakpoint-mixin("laptop-small") {
-    height: 35vh;
+    height: 35dvh;
     background-position: center center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-position: 0 -250px; /* Center the image */
@@ -69,13 +69,13 @@
 }
 
 .loading {
-  height: 45vh;
+  height: 45dvh;
   width: 100%;
   background-color: #e3e3e36b;
   animation: loading-animation 1s infinite linear;
 
   @include breakpoint-mixin("laptop-small") {
-    height: 35vh;
+    height: 35dvh;
   }
 }
 

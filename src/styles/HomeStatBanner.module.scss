@@ -6,7 +6,7 @@
   flex-direction: column;
 
   @include breakpoint-mixin("laptop-small") {
-    height: 25vh;
+    height: 25dvh;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -15,8 +15,8 @@
   // color: white;
 
   .statsBox {
-    height: calc(25vh * 0.85);
-    margin-bottom: calc((25vh - (25vh * 0.85)) / 2);
+    height: calc(25dvh * 0.85);
+    margin-bottom: calc((25dvh - (25dvh * 0.85)) / 2);
     width: 100%;
     border: 0.5px solid black;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -54,8 +54,8 @@
   }
 
   .loading {
-    height: calc(25vh * 0.85);
-    margin-bottom: calc((25vh - (25vh * 0.85)) / 2);
+    height: calc(25dvh * 0.85);
+    margin-bottom: calc((25dvh - (25dvh * 0.85)) / 2);
     width: 100%;
     background-color: #e3e3e36b;
     animation: loading-animation 1s infinite linear;

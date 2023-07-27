@@ -10,7 +10,7 @@
   @include breakpoint-mixin("laptop-small") {
     display: flex;
     flex-direction: column;
-    height: 40vh;
+    height: 40dvh;
     width: 210px;
     background-color: black;
     // border-radius: 20px;
@@ -26,17 +26,17 @@
 
   @include breakpoint-mixin("laptop-wide") {
     width: 230px;
-    height: 39vh;
+    height: 39dvh;
   }
 
   @include breakpoint-mixin("laptop-wide-desktop") {
     width: 275px;
-    height: 40vh;
+    height: 40dvh;
   }
 
   @include breakpoint-mixin("desktop") {
     width: 290px;
-    height: 39vh;
+    height: 39dvh;
   }
 
   .screen {

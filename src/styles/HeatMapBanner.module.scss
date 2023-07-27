@@ -4,11 +4,11 @@
   width: 95%;
   display: flex;
   align-items: center;
-  height: 25vh;
+  height: 25dvh;
   // background-color: orange;
 
   @include breakpoint-mixin("laptop-small") {
-    height: 35vh;
+    height: 35dvh;
   }
 
   .HeatMapContainer {
