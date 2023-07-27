@@ -95,8 +95,10 @@
       height: fit-content;
       color: white;
       cursor: pointer;
+      margin-left: 0.5px;
 
       @include breakpoint-mixin("laptop-small") {
+        margin-left: 0px;
         &:hover {
           opacity: 0.5;
         }
