@@ -6,7 +6,7 @@ export interface favouriteHighlightApiProps {
   data: boolean;
 }
 
-const favouriteHighlightApi = ({
+const favouriteHighlightApi = async ({
   book_id,
   highlight_id,
   data,
@@ -14,22 +14,20 @@ const favouriteHighlightApi = ({
   //Get token
   const authToken = localStorage.getItem("token");
 
-  if (authToken === null) return console.log("No auth token found");
+  if (authToken === null) throw new Error("No token found");
 
   //Simple request to favourite highlight
-  axios({
-    method: "PUT",
-    url: `${process.env.NEXT_PUBLIC_BACKENDURL}/books/${book_id}/${highlight_id}`,
-    headers: {
-      "x-auth-token": authToken.replace(/\"/g, ""),
-    },
-    data: { starred: data },
-  })
-    .then((res) => {
-      console.log(res.data);
-    })
-    .catch((err) => {
-      console.log(err);
+  try {
+    axios({
+      method: "PUT",
+      url: `${process.env.NEXT_PUBLIC_BACKENDURL}/books/${book_id}/${highlight_id}`,
+      headers: {
+        "x-auth-token": authToken.replace(/\"/g, ""),
+      },
+      data: { starred: data },
     });
+  } catch (err) {
+    throw new Error("Failed favouriting highlight");
+  }
 };
 export default favouriteHighlightApi;

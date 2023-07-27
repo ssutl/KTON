@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import styles from "../styles/Library.module.scss";
+import styles from "../../styles/Library.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
-import { KTON_CONTEXT } from "../context/KTONContext";
+import { KTON_CONTEXT } from "../../context/KTONContext";
 import { Book } from "@/api/Interface";
 import userAuthenticated from "@/helpers/UserAuthenticated";
-import InitApi from "../api/InitAPI";
+import InitApi from "../../api/InitAPI";
 import BookComponent from "@/components/BookComponent";
 import Head from "next/head";
 import AllowedRoute from "@/helpers/AllowedRoute";
@@ -30,7 +30,8 @@ const Library = () => {
     setRestrictionBanner(!userAuthenticated());
 
     //check if this is an allowed route
-    AllowedRoute();
+    if (!AllowedRoute())
+      throw new Error("Unauthed users cannot access this route");
 
     //If user is authenticated and they have no books in context, then we need to refresh context
     if (userAuthenticated() && !books) {

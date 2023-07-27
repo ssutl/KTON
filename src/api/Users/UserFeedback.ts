@@ -10,7 +10,7 @@ const userFeedbackApi = async (data: userFeedbackApiProps) => {
   //Get token
   const authToken = localStorage.getItem("token");
 
-  if (authToken === null) return console.log("No auth token found");
+  if (authToken === null) throw new Error("No token found");
 
   //Simple request to update summaries
   try {
@@ -25,7 +25,7 @@ const userFeedbackApi = async (data: userFeedbackApiProps) => {
 
     return "Feedback sent";
   } catch (err) {
-    console.log(err);
+    throw new Error("Failed sending feedback");
   }
 };
 export default userFeedbackApi;

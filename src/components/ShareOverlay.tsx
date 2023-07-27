@@ -47,7 +47,7 @@ const ShareOverlay = ({
     "flex-start" | "center" | "flex-end"
   >("center");
 
-  const handleImageDownload = useCallback(() => {
+  const handleImageDownload = useCallback(async () => {
     if (ref.current === null) {
       return;
     }
@@ -70,18 +70,17 @@ const ShareOverlay = ({
     // Append the watermark h2 element to the div
     ref.current.appendChild(watermarkElement);
 
-    toPng(ref.current, { cacheBust: false })
-      .then((dataUrl) => {
-        const link = document.createElement("a");
-        link.download = `${book?.title}-${index}`;
-        link.href = dataUrl;
-        console.log(dataUrl);
-        link.click();
-        if (ref.current) ref.current.removeChild(watermarkElement);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    try {
+      const dataUrl = await toPng(ref.current, { cacheBust: false });
+
+      const link = document.createElement("a");
+      link.download = `${book?.title}-${index}`;
+      link.href = dataUrl;
+      link.click();
+      if (ref.current) ref.current.removeChild(watermarkElement);
+    } catch (err) {
+      console.log(err);
+    }
 
     // Remove the watermark element from the div
   }, [ref]);

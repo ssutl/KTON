@@ -1,5 +1,5 @@
 import ImportComponent from "@/components/ImportComponent";
-import styles from "../styles/ImportPage.module.scss";
+import styles from "../../styles/ImportPage.module.scss";
 import AllowedRoute from "@/helpers/AllowedRoute";
 import React, { useEffect } from "react";
 
