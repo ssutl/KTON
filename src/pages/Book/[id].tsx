@@ -12,7 +12,6 @@ import AllowedRoute from "@/helpers/AllowedRoute";
 import HighlightsList from "@/components/HighlightsList";
 import SummarySection from "@/components/SummaryComponent";
 import GenreBanner from "@/components/GenreBanner";
-import imageValid from "@/helpers/ImageValidation";
 import HandleChanges from "@/helpers/HandleChanges";
 import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 
