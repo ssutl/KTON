@@ -4,10 +4,10 @@ const userAuthenticated = () => {
   let authToken;
   let clippings;
 
-  if (typeof window !== "undefined") {
-    authToken = localStorage.getItem("token");
-    clippings = localStorage.getItem("clippings");
-  }
+  // if (typeof window !== "undefined") {
+  authToken = localStorage.getItem("token");
+  clippings = localStorage.getItem("clippings");
+  // }
 
   if (authToken) {
     //Pass user into the app without restrictions

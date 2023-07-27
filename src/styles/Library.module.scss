@@ -28,17 +28,20 @@
     }
 
     .searchBannerWidth {
-      //   background-color: aqua;
+      // background-color: aqua;
       display: flex;
       align-items: center;
       justify-content: space-between;
       height: 100%;
+      width: 95%;
 
-      //To account for the scrollbar
-      width: calc(95% + 10px);
-      margin-left: 10px;
-      //To account for the scrollbar
-      // background-color: orange;
+      @include breakpoint-mixin("laptop-small") {
+        //To account for the scrollbar
+        width: calc(95% + 10px);
+        margin-left: 10px;
+        //To account for the scrollbar
+      }
+
       .hoverMenu {
         //To increase the range user can hover over
         padding-left: 30px;
@@ -49,8 +52,8 @@
         .SearchFieldModal {
           position: absolute;
           width: 320px;
-          right: 0px;
           opacity: 0;
+          right: 10px;
           visibility: hidden;
           transition: opacity 300ms, visibility 600ms;
           z-index: 1000;
@@ -63,6 +66,7 @@
           overflow-y: scroll;
 
           @include breakpoint-mixin("laptop-small") {
+            right: 0px;
             width: 600px;
           }
 
@@ -71,7 +75,7 @@
             width: 100%;
             border-bottom: 1px solid black;
             display: flex;
-            // justify-content: center;
+            justify-content: center;
 
             @include breakpoint-mixin("laptop-small") {
               height: 7dvh;
@@ -89,7 +93,11 @@
               color: white;
               padding: 0px;
               width: 95%;
-              margin-left: 10px;
+
+              @include breakpoint-mixin("laptop-small") {
+                //Because scroll bar gives margin right 10px
+                margin-left: 10px;
+              }
             }
           }
 
