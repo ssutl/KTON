@@ -55,13 +55,15 @@ const ShareOverlay = ({
     const watermarkText = "KTON"; // Set your watermark text here
     const watermarkStyles = {
       position: "absolute",
-      bottom: "10px",
-      right: "10px",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%) rotate(-45deg)", // Rotate the element by -45 degrees
       color: "black", // Adjust the color and opacity as needed
-      fontSize: "20px",
+      fontSize: fontSize,
+      opacity: 0.2,
     };
 
-    const watermarkElement = document.createElement("h2");
+    const watermarkElement = document.createElement("h1");
     watermarkElement.textContent = watermarkText;
     Object.assign(watermarkElement.style, watermarkStyles);
 
@@ -75,10 +77,13 @@ const ShareOverlay = ({
         link.href = dataUrl;
         console.log(dataUrl);
         link.click();
+        if (ref.current) ref.current.removeChild(watermarkElement);
       })
       .catch((err) => {
         console.log(err);
       });
+
+    // Remove the watermark element from the div
   }, [ref]);
 
   const ImageStyles = {
