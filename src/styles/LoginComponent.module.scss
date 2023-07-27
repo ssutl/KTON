@@ -96,6 +96,9 @@
       height: fit-content;
       color: white;
       cursor: pointer;
+      box-sizing: border-box; /* add this */
+      -moz-box-sizing: border-box; /* Firefox */
+      -webkit-box-sizing: border-box; /* Older Webkit browsers */
 
       @include breakpoint-mixin("laptop-small") {
         &:hover {
