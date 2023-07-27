@@ -14,9 +14,8 @@
   cursor: pointer;
   text-overflow: ellipsis;
   white-space: nowrap;
-  -moz-box-sizing: border-box; /* Firefox */
-  -webkit-box-sizing: border-box; /* Older Webkit browsers */
-  box-sizing: border-box; /* add this */
+  box-sizing: border-box;
+  // margin-left: 0.5px;
 
   @include breakpoint-mixin("laptop-small") {
     &:hover {
