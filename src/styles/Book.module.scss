@@ -1,7 +1,7 @@
 @import "../styles/Breakpoints.module.scss";
 
 .Book {
-  height: 80dvh;
+  height: 85dvh;
   width: 100%;
   border-bottom: 0.5px solid black;
   box-sizing: border-box; /* Include the border in the item's total width */
@@ -16,11 +16,11 @@
   }
 
   @include breakpoint-mixin("desktop") {
-    height: 55dvh;
+    height: 60dvh;
   }
 
   .ImageSection {
-    height: 70%;
+    height: 75%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -30,7 +30,7 @@
     position: relative;
 
     @include breakpoint-mixin("desktop") {
-      height: 75%;
+      height: 73%;
     }
 
     .blurEffect {
@@ -59,18 +59,22 @@
     }
 
     .ImageHolder {
-      height: 70%;
+      height: 80%;
       width: 60%;
       box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
         rgba(0, 0, 0, 0.22) 0px 10px 10px;
 
-      &:hover {
-        transition: all 0.5s ease;
-        transform: scale(1.025);
+      @include breakpoint-mixin("laptop-small") {
+        height: 70%;
       }
 
       @include breakpoint-mixin("desktop") {
-        width: 55%;
+        width: 60%;
+      }
+
+      &:hover {
+        transition: all 0.5s ease;
+        transform: scale(1.025);
       }
 
       .NoImage {
@@ -103,7 +107,7 @@
     text-align: justify;
 
     @include breakpoint-mixin("desktop") {
-      height: 25%;
+      height: 27%;
     }
 
     .Meta_center {
@@ -112,6 +116,25 @@
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
+
+      h2 {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
+      }
+
+      .star {
+        font-size: 27px;
+
+        @include breakpoint-mixin("laptop-small") {
+          font-size: 26px;
+        }
+        @include breakpoint-mixin("desktop") {
+          font-size: 25px;
+        }
+      }
     }
   }
 }
