@@ -4,6 +4,7 @@ import FeedbackModal from "./FeedbackModal";
 import styles from "../styles/Layout.module.scss";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import React, { useState } from "react";
+import userAuthenticated from "@/helpers/UserAuthenticated";
 
 const Layout = ({ children }: any) => {
   const [feedbackModal, setFeedbackModal] = useState(false);
@@ -18,16 +19,20 @@ const Layout = ({ children }: any) => {
       <Navbar />
       <Header />
       {children}
-      {feedbackModal ? <FeedbackModal closeModal={closeModal} /> : null}
-      <div
-        className={styles.feedbackPopup}
-        onClick={(e) => {
-          e.stopPropagation();
-          setFeedbackModal(!feedbackModal);
-        }}
-      >
-        <RateReviewIcon />
-      </div>
+      {feedbackModal && userAuthenticated() ? (
+        <FeedbackModal closeModal={closeModal} />
+      ) : null}
+      {userAuthenticated() ? (
+        <div
+          className={styles.feedbackPopup}
+          onClick={(e) => {
+            e.stopPropagation();
+            setFeedbackModal(!feedbackModal);
+          }}
+        >
+          <RateReviewIcon />
+        </div>
+      ) : null}
     </>
   );
 };
