@@ -10,7 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #202020ce;
+  background-color: $cd-bg;
   z-index: 100;
 
   .feedbackModal {
@@ -19,7 +19,7 @@
     right: 30px;
     width: 300px;
     border: 0.5px solid black;
-    background-color: #202020;
+    background-color: $cd-bg;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
       rgba(0, 0, 0, 0.22) 0px 10px 10px;
     display: flex;

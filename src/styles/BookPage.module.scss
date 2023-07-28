@@ -87,7 +87,7 @@
           bottom: 10px;
           right: 10px;
           padding: 5px 10px 5px 10px;
-          background-color: #202020;
+          background-color: $cd-bg;
           border: 0.5px solid black;
           cursor: pointer;
           opacity: 0.7;
@@ -109,7 +109,7 @@
 
       .editURLModal {
         position: absolute;
-        background-color: #202020;
+        background-color: $cd-bg;
         border: 0.5px solid black;
         cursor: pointer;
         width: 250px;
@@ -204,7 +204,7 @@
       //   width: 300px;
       //   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
       //     rgba(0, 0, 0, 0.22) 0px 10px 10px;
-      //   background-color: #202020;
+      //   background-color: $cd-bg;
       //   z-index: 100;
       // }
     }
@@ -227,7 +227,7 @@
   .highlightHalf {
     overflow-y: auto;
     width: 50%;
-    background-color: #202020;
+    background-color: $cd-bg;
 
     .bookTitle {
       display: none;

@@ -34,7 +34,14 @@ export default function Header() {
         </div>
       </div>
     );
-  } else {
-    return null;
+  } else if (router.pathname === "/Library" && restrictionHeader) {
+    return (
+      <div className={styles.header}>
+        <div className={styles.headerWidth}>
+          <p>Login to view all books</p>
+          <span onClick={() => setRestrictionHeader(false)}>x</span>
+        </div>
+      </div>
+    );
   }
 }
