@@ -73,7 +73,7 @@ const Library = () => {
                 specific_type="Book_Search"
                 closeModal={() => setDisplaySearchModal(false)}
                 mainBooks={mainBooks}
-                position={{ x: 0, y: 120 }}
+                position={{ x: 0, y: -620 }}
               />
             )}
           </div>
@@ -100,7 +100,7 @@ const Library = () => {
                 specific_type="Filter_Search"
                 closeModal={() => setDisplayFilterModal(false)}
                 mainBooks={mainBooks!}
-                position={{ x: -140, y: 200 }}
+                position={{ x: -140, y: -1400 }}
                 onItemClick={(genre: string) => setSelectedFilter(genre)}
               />
             )}
@@ -109,7 +109,7 @@ const Library = () => {
               <Modal
                 specific_type="Select"
                 closeModal={() => setDisplaySortModal(false)}
-                position={{ x: -140, y: 200 }}
+                position={{ x: -140, y: -500 }}
                 onItemClick={(selectedSort: "Recent" | "Rating" | "Oldest") =>
                   setSelectedSort(selectedSort)
                 }

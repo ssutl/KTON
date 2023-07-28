@@ -53,6 +53,7 @@
     .tag {
       padding: 1px 10px;
       border: 0.5px solid var(--background-color);
+      // border-right: 0.5px solid var(--background-color);
       overflow-x: hidden;
       box-sizing: border-box;
       max-width: 85%;
@@ -99,6 +100,22 @@
     &:hover {
       background-color: $hover;
     }
+  }
+}
+
+.Add_Genre {
+  .listItem {
+    &:hover {
+      background-color: $hover;
+    }
+
+    #createText {
+      margin-right: 15px;
+    }
+  }
+
+  .spaceBetween {
+    justify-content: space-between;
   }
 }
 

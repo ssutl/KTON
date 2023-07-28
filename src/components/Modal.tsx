@@ -12,14 +12,18 @@ import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import genreColors from "@/helpers/sortGenreColors";
+import HandleChanges from "@/helpers/HandleChanges";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { each } from "lodash";
 
 interface ModalProps {
-  specific_type: "Book_Search" | "Filter_Search" | "Select";
+  specific_type: "Book_Search" | "Filter_Search" | "Select" | "Add_Genre";
   closeModal: () => void;
   mainBooks: Book[];
   onItemClick?: (item: any) => void;
   position: { x: number; y: number };
   data?: string[];
+  mainBook?: Book;
 }
 
 const Modal = ({
@@ -29,6 +33,7 @@ const Modal = ({
   position,
   specific_type,
   data,
+  mainBook,
 }: ModalProps) => {
   const router = useRouter();
   const modalRef = useRef(null);
@@ -38,9 +43,18 @@ const Modal = ({
   const [searchValue, setSearchValue] = useState("");
   const [restrictions, setRestricitons] = useState<boolean>(true);
   const [selectedFilter, setSelectedFilter] = useState<string | undefined>();
+  const { addGenreToBook, addGenreToUser } = HandleChanges();
+  const [randomColor, setRandomColor] = useState(randomColorGenerator());
   const [selectedSort, setSelectedSort] = useState<
     "Recent" | "Rating" | "Oldest"
   >("Recent");
+
+  //When the genreInput changes, we want to change the color of the randomColor
+  useEffect(() => {
+    if (searchValue === "") {
+      setRandomColor(randomColorGenerator());
+    }
+  }, [searchValue]);
 
   //Initialising App by making data call on page load, this updates user context
   useEffect(() => {
@@ -68,16 +82,21 @@ const Modal = ({
               )
           ),
         ]
+      : specific_type === "Add_Genre" && userinfo
+      ? Object.keys(userinfo.genres).filter((eachGenre) =>
+          eachGenre.toLowerCase().includes(searchValue.toLowerCase())
+        )
       : data!;
 
   return (
     <div
-      className={`${styles.modal} ${styles[specific_type]} `}
+      className={`${styles.modal} ${styles[specific_type]}`}
       ref={modalRef}
-      style={{ top: `${position.y}%`, right: `${position.x}%` }}
+      style={{ bottom: `${position.y}%`, right: `${position.x}%` }}
     >
       {(specific_type === "Book_Search" ||
-        specific_type === "Filter_Search") && (
+        specific_type === "Filter_Search" ||
+        specific_type === "Add_Genre") && (
         <div className={styles.searchSection}>
           <input
             type="text"
@@ -93,11 +112,19 @@ const Modal = ({
             selectedFilter === eachItem || selectedSort === eachItem
               ? styles.selectedItem
               : ""
-          }`}
+          } ${styles.spaceBetween}`}
           onClick={() => {
-            if (typeof eachItem !== "string") {
+            if (
+              typeof eachItem !== "string" &&
+              specific_type === "Book_Search"
+            ) {
+              //If type is book search, then redirect to book page
               router.push(`/Book/${eachItem._id}`);
-            } else if (specific_type === "Filter_Search") {
+            } else if (
+              specific_type === "Filter_Search" &&
+              typeof eachItem === "string"
+            ) {
+              //If type is filter search, then set the filter
               if (selectedFilter === eachItem) {
                 setSelectedFilter(undefined);
                 onItemClick!(undefined);
@@ -105,7 +132,10 @@ const Modal = ({
                 setSelectedFilter(eachItem);
                 onItemClick!(eachItem);
               }
-            } else if (specific_type === "Select") {
+            } else if (
+              specific_type === "Select" &&
+              typeof eachItem === "string"
+            ) {
               if (selectedSort === eachItem && selectedSort !== "Recent") {
                 setSelectedSort("Recent");
                 onItemClick!("Recent");
@@ -121,29 +151,89 @@ const Modal = ({
                 );
                 onItemClick!(eachItem);
               }
+            } else if (
+              specific_type === "Add_Genre" &&
+              typeof eachItem === "string" &&
+              mainBook
+            ) {
+              if (!mainBook.genre.includes(eachItem)) {
+                addGenreToBook({
+                  type: "add",
+                  data: eachItem,
+                  book_id: mainBook._id,
+                });
+              }
             }
           }}
         >
-          {specific_type === "Filter_Search" &&
+          {(specific_type === "Filter_Search" ||
+            specific_type === "Add_Genre") &&
           typeof eachItem === "string" &&
           userinfo ? (
-            <div
-              style={
-                {
-                  "--background-color": colorConverter(
-                    userinfo.genres[eachItem]
-                  ),
-                } as React.CSSProperties
-              }
-              className={styles.tag}
-            >
-              <p>{eachItem}</p>
-            </div>
+            <>
+              <div
+                style={
+                  {
+                    "--background-color": colorConverter(
+                      userinfo.genres[eachItem]
+                    ),
+                  } as React.CSSProperties
+                }
+                className={styles.tag}
+              >
+                <p>{eachItem}</p>
+              </div>
+              {specific_type === "Add_Genre" && mainBook && (
+                <DeleteOutlineIcon
+                  id={styles.trashIcon}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    addGenreToUser({
+                      type: "remove",
+                      data: eachItem,
+                      book_id: mainBook._id,
+                    });
+                  }}
+                />
+              )}
+            </>
           ) : (
             <p>{typeof eachItem !== "string" ? eachItem.title : eachItem}</p>
           )}
         </div>
       ))}
+      {userinfo &&
+        mainBook &&
+        specific_type === "Add_Genre" &&
+        !Object.keys(userinfo.genres)
+          .map((eachGenre) => eachGenre.toLowerCase())
+          .includes(searchValue.toLowerCase()) &&
+        searchValue !== "" && (
+          <div
+            className={styles.listItem}
+            onClick={() => {
+              console.log("Adding genre to user", searchValue, mainBook._id);
+              addGenreToUser({
+                type: "add",
+                data: searchValue,
+                book_id: mainBook._id,
+                color: randomColor.color,
+              });
+            }}
+          >
+            <p id={styles.createText}>Create</p>
+            <div
+              className={styles.tag}
+              style={
+                {
+                  "--background-color": randomColor.hex,
+                } as React.CSSProperties
+              }
+            >
+              <p>{searchValue}</p>
+            </div>
+          </div>
+        )}
     </div>
   );
 };
