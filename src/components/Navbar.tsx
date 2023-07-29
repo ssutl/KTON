@@ -36,19 +36,19 @@ export default function Navbar() {
   };
 
   //Display the navbar
+  if (router.pathname === "/verify/[...id]") return null;
   return (
     <div className={styles.navbar}>
       <div className={styles.navbarWidth}>
         <h3 onClick={() => router.push("/Home")}>KTON</h3>
         <div className={styles.navigationButtons}>
           {isIndexRoute || isImportRoute || isVerifyRoute ? null : (
-            <span className={styles.hoverMenu}>
-              <h3>Menu</h3>
-              <Modal />
-            </span>
+            <>
+              <p>Library</p>
+            </>
           )}
           {!isIndexRoute ? (
-            <h3
+            <p
               onClick={() => {
                 router.push("/");
                 localStorage.removeItem("token");
@@ -57,7 +57,7 @@ export default function Navbar() {
               }}
             >
               Logout
-            </h3>
+            </p>
           ) : null}
         </div>
       </div>
