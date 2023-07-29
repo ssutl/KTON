@@ -7,7 +7,6 @@ import HandleLoginModal from "./HandleLoginModal";
 export default function Header() {
   const router = useRouter();
   const [restrictionHeader, setRestrictionHeader] = useState(false);
-  const { LoginModal, setLoginModal } = HandleLoginModal();
 
   useEffect(() => {
     //Setting restrictionHeader to true if user not authenticated
@@ -32,16 +31,6 @@ export default function Header() {
             Welcome to KTON your account has restrictions, login to ensure you
             can access all features!
           </p>
-          <span onClick={() => setRestrictionHeader(false)}>x</span>
-        </div>
-      </div>
-    );
-  } else if (router.pathname === "/Library" && restrictionHeader) {
-    return (
-      <div className={styles.header}>
-        {LoginModal()}
-        <div className={styles.headerWidth}>
-          <p onClick={() => setLoginModal()}>Sign up to view all books</p>
           <span onClick={() => setRestrictionHeader(false)}>x</span>
         </div>
       </div>

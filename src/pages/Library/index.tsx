@@ -9,11 +9,16 @@ import Head from "next/head";
 import AllowedRoute from "@/helpers/AllowedRoute";
 import Modal from "@/components/Modal";
 import BooksList from "@/components/BooksList";
+import HandleLoginModal from "@/components/HandleLoginModal";
+// import headerStyles from "../../styles/Header.module.scss";
 
 const Library = () => {
   const { InitialiseApp } = InitApi();
   const { books, userinfo } = useContext(KTON_CONTEXT);
   const [mainBooks, setMainBooks] = useState<Book[] | undefined>(undefined);
+  const [restrictions, setRestrictions] = useState<boolean>(false);
+  const [restrictionHeader, setRestrictionHeader] = useState(false);
+  const { LoginModal, setLoginModal } = HandleLoginModal();
   const [selectedSort, setSelectedSort] = useState<
     "Recent" | "Rating" | "Oldest"
   >("Recent");
@@ -41,6 +46,9 @@ const Library = () => {
     if (userAuthenticated() && !books) {
       InitialiseApp();
     }
+
+    setRestrictions(!userAuthenticated());
+    setRestrictionHeader(!userAuthenticated());
   }, []);
 
   //Condition to set mainbooks to either books or clippings, depending on user authentication
@@ -66,21 +74,35 @@ const Library = () => {
         <div className={styles.searchBanner}>
           <div className={styles.searchBannerWidth}>
             <p>Last Import {new Date(userinfo.last_upload).toDateString()}</p>
-            <SearchIcon
-              onClick={() => setDisplaySearchModal(!displaySearchModal)}
-              id={styles.searchIcon}
-            />
-            {displaySearchModal && (
-              <Modal
-                specific_type="Book_Search"
-                closeModal={() => setDisplaySearchModal(false)}
-                mainBooks={mainBooks}
+            <span>
+              <SearchIcon
+                onClick={() => setDisplaySearchModal(!displaySearchModal)}
+                id={styles.searchIcon}
               />
-            )}
+              {displaySearchModal && (
+                <Modal
+                  specific_type="Book_Search"
+                  closeModal={() => setDisplaySearchModal(false)}
+                  mainBooks={mainBooks}
+                />
+              )}
+            </span>
           </div>
         </div>
       );
   };
+
+  // const RestrictionBanner = () => {
+  //   return (
+  //     <div className={headerStyles.header}>
+  //       {LoginModal()}
+  //       <div className={headerStyles.headerWidth}>
+  //         <p onClick={() => setLoginModal()}>Sign up to view all books</p>
+  //         <span onClick={() => setRestrictionHeader(false)}>x</span>
+  //       </div>
+  //     </div>
+  //   );
+  // };
 
   //Banner shown to allow user to filter and sort their books
   const filterBanner = () => {
@@ -88,43 +110,54 @@ const Library = () => {
       <div className={styles.filterBanner}>
         <div className={styles.filterBannerWidth}>
           <div className={styles.filterSection}>
-            {
-              //Only show filter option if user has genres added
-            }
-            {showFilterH3 ? (
-              <p
-                id={styles.buttons}
-                onClick={() => setDisplayFilterModal(!displayFilterModal)}
-              >
-                Filters +
-              </p>
-            ) : null}
-            {displayFilterModal && (
-              <Modal
-                specific_type="Filter_Search"
-                closeModal={() => setDisplayFilterModal(false)}
-                mainBooks={mainBooks!}
-                onItemClick={(genre: string) => setSelectedFilter(genre)}
-                selectedFilter={selectedFilter}
-              />
-            )}
-            <p
-              id={styles.buttons}
-              onClick={() => setDisplaySortModal(!displaySortModal)}
-            >
-              Sort
-            </p>
-            {displaySortModal && (
-              <Modal
-                specific_type="Select"
-                closeModal={() => setDisplaySortModal(false)}
-                onItemClick={(selectedSort: "Recent" | "Rating" | "Oldest") =>
-                  setSelectedSort(selectedSort)
-                }
-                mainBooks={mainBooks!}
-                data={userAuthenticated() ? ["Recent", "Rating"] : ["Recent"]}
-                selectedSort={selectedSort}
-              />
+            {restrictions ? (
+              <p>Sign up to view all books</p>
+            ) : (
+              <>
+                {showFilterH3 ? (
+                  <span>
+                    <p
+                      id={styles.buttons}
+                      onClick={() => setDisplayFilterModal(!displayFilterModal)}
+                    >
+                      Filters +
+                    </p>
+                    {displayFilterModal && (
+                      <Modal
+                        specific_type="Filter_Search"
+                        closeModal={() => setDisplayFilterModal(false)}
+                        mainBooks={mainBooks!}
+                        onItemClick={(genre: string) =>
+                          setSelectedFilter(genre)
+                        }
+                        selectedFilter={selectedFilter}
+                      />
+                    )}
+                  </span>
+                ) : null}
+                <span>
+                  <p
+                    id={styles.buttons}
+                    onClick={() => setDisplaySortModal(!displaySortModal)}
+                  >
+                    Sort
+                  </p>
+                  {displaySortModal && (
+                    <Modal
+                      specific_type="Select"
+                      closeModal={() => setDisplaySortModal(false)}
+                      onItemClick={(
+                        selectedSort: "Recent" | "Rating" | "Oldest"
+                      ) => setSelectedSort(selectedSort)}
+                      mainBooks={mainBooks!}
+                      data={
+                        userAuthenticated() ? ["Recent", "Rating"] : ["Recent"]
+                      }
+                      selectedSort={selectedSort}
+                    />
+                  )}
+                </span>
+              </>
             )}
           </div>
           <div className={styles.descriptionSection}>
@@ -145,11 +178,13 @@ const Library = () => {
         <Head>
           <title>Library</title>
         </Head>
+
         <div
           className={`${styles.Library} ${
             modalDisplayed ? styles.noScroll : ""
           }`}
         >
+          {/* {restrictionHeader && RestrictionBanner()} */}
           {SearchBanner()}
           {filterBanner()}
           <div className={styles.bookContainer}>

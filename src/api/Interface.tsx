@@ -45,16 +45,19 @@ export interface users {
 }
 
 export interface userInfo {
-  book_count: number;
+  password: string;
+  registration_date: Date;
   profile_picture: string;
-  following: users[];
-  bookRecomDate: string;
-  username: string;
-  registration_date: string;
-  genres: { [key: string]: colorMapKeys };
-  categories: string[];
+  book_count: number;
   dark_mode: boolean;
   column_count: number;
-  __v: number;
+  genres: { [key: string]: colorMapKeys };
+  categories: string[];
   last_upload: string;
+  notion_auth: string;
+  verified_email: boolean;
+  subscription: boolean;
+  stripe_customer_id: string;
+  has_trial_period: boolean;
+  subscription_end: Date;
 }

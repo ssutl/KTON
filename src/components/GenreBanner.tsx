@@ -19,14 +19,24 @@ const GenreBanner = () => {
   if (mainBook) {
     return (
       <div className={styles.genreBanner}>
-        <p
-          onClick={() => {
-            setDisplayGenreModal(!displayGenreModal);
-          }}
-          id={styles.addGenre}
-        >
-          + Add genre
-        </p>
+        <span>
+          <p
+            onClick={() => {
+              setDisplayGenreModal(!displayGenreModal);
+            }}
+            id={styles.addGenre}
+          >
+            + Add genre
+          </p>
+          {displayGenreModal ? (
+            <Modal
+              specific_type="Add_Genre"
+              closeModal={() => setDisplayGenreModal(false)}
+              mainBooks={books!}
+              mainBook={mainBook}
+            />
+          ) : null}
+        </span>
         {
           //Displaying the genre tags, should just be a display, and when cross is clicked, it should remove the genre from the book
         }
@@ -57,14 +67,6 @@ const GenreBanner = () => {
               </span>
             </p>
           ))}
-        {displayGenreModal ? (
-          <Modal
-            specific_type="Add_Genre"
-            closeModal={() => setDisplayGenreModal(false)}
-            mainBooks={books!}
-            mainBook={mainBook}
-          />
-        ) : null}
       </div>
     );
   } else return null;
