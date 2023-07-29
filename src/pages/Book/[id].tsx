@@ -14,6 +14,7 @@ import SummarySection from "@/components/SummaryComponent";
 import GenreBanner from "@/components/GenreBanner";
 import HandleChanges from "@/helpers/HandleChanges";
 import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
+import Modal from "@/components/Modal";
 
 const BookPage = () => {
   const router = useRouter();
@@ -27,8 +28,6 @@ const BookPage = () => {
   const [screenWidth, setScreenWidth] = useState(0);
   const [showEditImageModal, setShowEditImageModal] = useState(false);
   const [coverIsValid, setCoverIsValid] = useState(true);
-  const [inputtedImageUrl, setInputtedImageUrl] = useState("");
-  const { updateBookCover } = HandleChanges();
   const ref = React.useRef(null);
 
   useOutsideAlerter(ref, setShowEditImageModal);
@@ -116,35 +115,13 @@ const BookPage = () => {
                   </>
                 )}
               </Tilt>
-              {showEditImageModal ? (
-                <div className={styles.editURLModal} ref={ref}>
-                  <div className={styles.searchBar}>
-                    <input
-                      type="text"
-                      value={inputtedImageUrl}
-                      onChange={(e) =>
-                        setInputtedImageUrl(e.target.value.replace(/\s/g, ""))
-                      }
-                      placeholder="Update Image URL"
-                    />
-                  </div>
-                  <p
-                    className={styles.button}
-                    onClick={() => {
-                      if (inputtedImageUrl.length) {
-                        updateBookCover({
-                          book_id: mainBook._id,
-                          data: inputtedImageUrl,
-                        });
-                      } else {
-                        alert("Invalid image URL");
-                      }
-                    }}
-                  >
-                    Save
-                  </p>
-                </div>
-              ) : null}
+              {showEditImageModal && (
+                <Modal
+                  specific_type="Type_Save"
+                  closeModal={() => setShowEditImageModal(false)}
+                  mainBook={mainBook}
+                />
+              )}
             </div>
             {restrictions ? null : <GenreBanner />}
             {bookTitle()}
