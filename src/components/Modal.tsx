@@ -13,6 +13,7 @@ import { KTON_CONTEXT } from "../context/KTONContext";
 import genreColors from "@/helpers/sortGenreColors";
 import HandleChanges from "@/helpers/HandleChanges";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { spec } from "node:test/reporters";
 
 interface ModalProps {
   specific_type:
@@ -99,7 +100,15 @@ const Modal = ({
           <div className={styles.searchSection}>
             <input
               type="text"
-              placeholder="Search..."
+              placeholder={
+                specific_type === "Type_Save"
+                  ? "Input an image URL"
+                  : specific_type === "Filter_Search"
+                  ? "Search for a genre"
+                  : specific_type === "Add_Genre"
+                  ? "Search for a genre, or type in your own"
+                  : "Search for a book"
+              }
               onChange={(e) => setSearchValue(e.target.value)}
             />
           </div>
