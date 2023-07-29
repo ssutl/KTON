@@ -14,14 +14,12 @@ import { KTON_CONTEXT } from "../context/KTONContext";
 import genreColors from "@/helpers/sortGenreColors";
 import HandleChanges from "@/helpers/HandleChanges";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { each } from "lodash";
 
 interface ModalProps {
   specific_type: "Book_Search" | "Filter_Search" | "Select" | "Add_Genre";
   closeModal: () => void;
   mainBooks: Book[];
   onItemClick?: (item: any) => void;
-  position: { x: number; y: number };
   data?: string[];
   mainBook?: Book;
 }
@@ -30,7 +28,6 @@ const Modal = ({
   closeModal,
   mainBooks,
   onItemClick,
-  position,
   specific_type,
   data,
   mainBook,
@@ -89,11 +86,7 @@ const Modal = ({
       : data!;
 
   return (
-    <div
-      className={`${styles.modal} ${styles[specific_type]}`}
-      ref={modalRef}
-      style={{ bottom: `${position.y}%`, right: `${position.x}%` }}
-    >
+    <div className={`${styles.modal} ${styles[specific_type]}`} ref={modalRef}>
       {(specific_type === "Book_Search" ||
         specific_type === "Filter_Search" ||
         specific_type === "Add_Genre") && (

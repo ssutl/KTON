@@ -62,7 +62,6 @@ const GenreBanner = () => {
             closeModal={() => setDisplayGenreModal(false)}
             mainBooks={books!}
             mainBook={mainBook}
-            position={{ x: 50, y: 150 }}
           />
         ) : null}
       </div>

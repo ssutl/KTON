@@ -85,6 +85,8 @@
 
 .Book_Search {
   width: 500px;
+  right: 0%;
+  top: 120%;
 
   //Give hover to specific modals
   .listItem {
@@ -95,6 +97,8 @@
 }
 
 .Filter_Search {
+  right: -140%;
+  top: 180%;
   //Give hover to specific modals
   .listItem {
     &:hover {
@@ -103,7 +107,21 @@
   }
 }
 
+.Select {
+  right: -140%;
+  top: 180%;
+}
+
 .Add_Genre {
+  @include breakpoint-mixin("laptop-small") {
+    right: 35%;
+    bottom: 170%;
+  }
+  @include breakpoint-mixin("desktop") {
+    right: 52%;
+    bottom: 150%;
+  }
+
   .listItem {
     &:hover {
       background-color: $hover;
