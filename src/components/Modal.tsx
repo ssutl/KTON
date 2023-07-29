@@ -27,6 +27,8 @@ interface ModalProps {
   onItemClick?: (item: any) => void;
   data?: string[];
   mainBook?: Book;
+  selectedFilter?: string;
+  selectedSort?: "Recent" | "Rating" | "Oldest";
 }
 
 const Modal = ({
@@ -36,6 +38,8 @@ const Modal = ({
   specific_type,
   data,
   mainBook,
+  selectedFilter,
+  selectedSort,
 }: ModalProps) => {
   const router = useRouter();
   const modalRef = useRef(null);
@@ -43,12 +47,8 @@ const Modal = ({
   const { userinfo } = useContext(KTON_CONTEXT);
   const [searchValue, setSearchValue] = useState("");
   const [restrictions, setRestricitons] = useState<boolean>(true);
-  const [selectedFilter, setSelectedFilter] = useState<string | undefined>();
   const { addGenreToBook, addGenreToUser, updateBookCover } = HandleChanges();
   const [randomColor, setRandomColor] = useState(randomColorGenerator());
-  const [selectedSort, setSelectedSort] = useState<
-    "Recent" | "Rating" | "Oldest"
-  >("Recent");
 
   //When the genreInput changes, we want to change the color of the randomColor
   useEffect(() => {
@@ -136,10 +136,8 @@ const Modal = ({
                 ) {
                   //If type is filter search, then set the filter
                   if (selectedFilter === eachItem) {
-                    setSelectedFilter(undefined);
                     onItemClick!(undefined);
                   } else {
-                    setSelectedFilter(eachItem);
                     onItemClick!(eachItem);
                   }
                 } else if (
@@ -147,18 +145,13 @@ const Modal = ({
                   typeof eachItem === "string"
                 ) {
                   if (selectedSort === eachItem && selectedSort !== "Recent") {
-                    setSelectedSort("Recent");
                     onItemClick!("Recent");
                   } else if (
                     selectedSort === eachItem &&
                     selectedSort === "Recent"
                   ) {
-                    setSelectedSort("Oldest");
                     onItemClick!("Oldest");
                   } else {
-                    setSelectedSort(
-                      eachItem as SetStateAction<"Recent" | "Rating" | "Oldest">
-                    );
                     onItemClick!(eachItem);
                   }
                 } else if (

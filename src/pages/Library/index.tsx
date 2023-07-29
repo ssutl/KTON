@@ -103,6 +103,7 @@ const Library = () => {
                 closeModal={() => setDisplayFilterModal(false)}
                 mainBooks={mainBooks!}
                 onItemClick={(genre: string) => setSelectedFilter(genre)}
+                selectedFilter={selectedFilter}
               />
             )}
             <p
@@ -120,6 +121,7 @@ const Library = () => {
                 }
                 mainBooks={mainBooks!}
                 data={["Recent", "Rating"]}
+                selectedSort={selectedSort}
               />
             )}
           </div>
