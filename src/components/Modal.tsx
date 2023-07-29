@@ -96,6 +96,22 @@ const Modal = ({
         className={`${styles.modal} ${styles[specific_type]}`}
         ref={modalRef}
       >
+        {
+          //Just header for phone modals
+        }
+        <div className={styles.header}>
+          <h3>
+            {specific_type === "Filter_Search"
+              ? "Filter by.."
+              : specific_type === "Add_Genre"
+              ? "Select or create genre"
+              : specific_type === "Book_Search"
+              ? "Find book"
+              : specific_type === "Type_Save"
+              ? "Update image"
+              : null}
+          </h3>
+        </div>
         {specific_type !== "Select" && (
           <div className={styles.searchSection}>
             <input
