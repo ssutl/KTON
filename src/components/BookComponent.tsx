@@ -61,7 +61,6 @@ const BookComponent = ({ book, index }: BookProps) => {
           tiltEnable={true}
           // trackOnWindow={true}
           className={styles.ImageHolder}
-          gyroscope={true}
           perspective={850}
         >
           {!restrictions && imageIsValid ? (
