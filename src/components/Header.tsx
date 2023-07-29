@@ -39,8 +39,9 @@ export default function Header() {
   } else if (router.pathname === "/Library" && restrictionHeader) {
     return (
       <div className={styles.header}>
+        {LoginModal()}
         <div className={styles.headerWidth}>
-          <p>Sign up to view all books</p>
+          <p onClick={() => setLoginModal()}>Sign up to view all books</p>
           <span onClick={() => setRestrictionHeader(false)}>x</span>
         </div>
       </div>
