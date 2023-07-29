@@ -109,7 +109,9 @@ const Modal = ({
               ? "Find book"
               : specific_type === "Type_Save"
               ? "Update image"
-              : null}
+              : specific_type === "Select"
+              ? "Sort by"
+              : ""}
           </h3>
         </div>
         {specific_type !== "Select" && (
