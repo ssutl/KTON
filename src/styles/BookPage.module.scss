@@ -108,69 +108,6 @@
           }
         }
       }
-
-      .editURLModal {
-        position: absolute;
-        background-color: $cd-bg;
-        border: 0.5px solid black;
-        cursor: pointer;
-        width: 250px;
-        bottom: 5%;
-        right: 5%;
-        z-index: 100;
-        box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
-          rgba(0, 0, 0, 0.22) 0px 10px 10px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding-bottom: 15px;
-        height: 14dvh;
-
-        @include breakpoint-mixin("laptop-small") {
-          height: 11dvh;
-          width: 300px;
-          bottom: 0px;
-        }
-
-        .searchBar {
-          height: 5dvh;
-          width: 100%;
-          display: flex;
-          // justify-content: center;
-
-          @include breakpoint-mixin("laptop-small") {
-            height: 7dvh;
-          }
-
-          @include breakpoint-mixin("desktop") {
-            height: 5dvh;
-          }
-
-          input {
-            background-color: transparent;
-            height: 100%;
-            border: none;
-            outline: none;
-            color: white;
-            padding: 0px;
-            width: 95%;
-            margin-left: 10px;
-          }
-        }
-
-        .button {
-          padding: 2px 30px 2px 30px;
-          border: 0.5px solid white;
-          color: white;
-          cursor: pointer;
-          margin-left: 10px;
-          width: fit-content;
-
-          &:hover {
-            opacity: 0.5;
-          }
-        }
-      }
     }
 
     .genreBanner {
@@ -198,17 +135,6 @@
           cursor: pointer;
         }
       }
-
-      // .editModal {
-      //   position: absolute;
-      //   height: 20dvh;
-      //   left: 30%;
-      //   width: 300px;
-      //   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
-      //     rgba(0, 0, 0, 0.22) 0px 10px 10px;
-      //   background-color: $cd-bg;
-      //   z-index: 100;
-      // }
     }
   }
 

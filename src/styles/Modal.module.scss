@@ -90,6 +90,28 @@
   .selectedItem {
     background-color: $hover;
   }
+
+  .buttonSection {
+    width: 100%;
+    .button {
+      padding: 2px 30px 2px 30px;
+      border: 0.5px solid white;
+      color: white;
+      cursor: pointer;
+      margin-left: 10px;
+      width: fit-content;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
+}
+
+.Type_Save {
+  @include breakpoint-mixin("laptop-small") {
+    right: 10%;
+  }
 }
 
 .Book_Search {
