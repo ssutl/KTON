@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styles from "../styles/Navbar.module.scss";
 import Head from "next/head";
 import AllowedRoute from "@/helpers/AllowedRoute";
 
@@ -14,7 +13,7 @@ const Stats = () => {
   return (
     <>
       <Head>
-        <title>Export</title>
+        <title>Statistics</title>
       </Head>
       <div>Stats</div>;
     </>

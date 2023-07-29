@@ -27,7 +27,7 @@ const VerificationPage = () => {
             Router.push("/Import");
           }
         } catch (err) {
-          console.log(err);
+          throw err;
         }
       }
     };

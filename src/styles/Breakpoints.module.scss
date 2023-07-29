@@ -11,6 +11,16 @@ $breakpoints: (
   "desktop-wide": 2560px,
 );
 
+//Dark Theme
+$bg: #191919;
+$cd-bg: #262626;
+$modal-bg: #252525;
+$hover: #313131;
+$blur-bg: #1919196b;
+
+//Positive & Negative
+$kton-blue: #3fcdfc;
+
 @mixin breakpoint-mixin($width, $type: min) {
   @if map_has_key($breakpoints, $width) {
     $width: map_get($breakpoints, $width);

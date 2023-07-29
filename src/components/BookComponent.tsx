@@ -62,6 +62,7 @@ const BookComponent = ({ book, index }: BookProps) => {
           tiltEnable={true}
           // trackOnWindow={true}
           className={styles.ImageHolder}
+          gyroscope={true}
           perspective={850}
         >
           {!restrictions && imageIsValid ? (
@@ -81,17 +82,20 @@ const BookComponent = ({ book, index }: BookProps) => {
       </div>
       <div className={styles.Book_Meta_Section}>
         <div className={styles.Meta_center}>
-          <h3>{book.title}</h3>
+          <h2>{book.title}</h2>
           <p>{cleanAuthor(book.author)}</p>
           {restrictions ? null : (
             <p>
               {[...Array(5)].map((eachStar, i) => {
                 const isFilled = i < book.rating;
-                const starIcon = isFilled ? <StarIcon /> : <StarBorderIcon />;
+                const starIcon = isFilled ? (
+                  <StarIcon className={styles.star} />
+                ) : (
+                  <StarBorderIcon className={styles.star} />
+                );
                 return (
                   <span
                     key={i}
-                    id="star"
                     onClick={(e) => {
                       e.stopPropagation();
                       const newRating = isFilled ? i : i + 1;

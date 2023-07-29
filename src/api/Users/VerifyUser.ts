@@ -15,7 +15,6 @@ const verifyUserApi = async ({ id, token }: verifyUserApiProps) => {
     });
 
     if (res.data.JWT_token) {
-      console.log("res.data: ", res.data);
       //Add token to local storage
       localStorage.setItem("token", res.data.JWT_token);
       localStorage.setItem("user", JSON.stringify(res.data.user.username));
@@ -23,8 +22,7 @@ const verifyUserApi = async ({ id, token }: verifyUserApiProps) => {
       return "verified";
     }
   } catch (err) {
-    console.log("err: ", err);
-    throw err;
+    throw new Error("Failed verifying user");
   }
 };
 export default verifyUserApi;

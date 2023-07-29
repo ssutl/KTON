@@ -14,9 +14,10 @@
   cursor: pointer;
   text-overflow: ellipsis;
   white-space: nowrap;
-  box-sizing: border-box;
+  margin-left: 0.5px;
 
   @include breakpoint-mixin("laptop-small") {
+    margin-left: 0px;
     &:hover {
       opacity: 0.5;
     }

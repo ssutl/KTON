@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-import styles from "../styles/Home.module.scss";
-import { KTON_CONTEXT } from "../context/KTONContext";
+import styles from "../../styles/Home.module.scss";
+import { KTON_CONTEXT } from "../../context/KTONContext";
 import QuoteBanner from "@/components/QuoteBanner";
 import userAuthenticated from "@/helpers/UserAuthenticated";
-import InitApi from "../api/InitAPI";
+import InitApi from "../../api/InitAPI";
 import HomeStatBanner from "@/components/HomeStatBanner";
 import HeatMapBanner from "@/components/HeatMapBanner";
 import Head from "next/head";
@@ -19,7 +19,8 @@ const Home = () => {
     setRestrictions(!userAuthenticated());
 
     //check if this is an allowed route
-    AllowedRoute();
+    if (!AllowedRoute())
+      throw new Error("Unauthed users cannot access this route");
 
     //If the user is logged in but the book data is empty then we gotta refresh context, this way we can keep initial load fast by not loading books off of navigation
     if (userAuthenticated() && !books) {

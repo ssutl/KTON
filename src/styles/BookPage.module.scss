@@ -2,16 +2,16 @@
 
 .BookPage {
   display: flex;
-  height: 94vh;
+  height: 94dvh;
   flex-direction: column;
 
   @include breakpoint-mixin("laptop-small") {
     flex-direction: row;
-    height: 93vh;
+    height: 93dvh;
   }
 
   @include breakpoint-mixin("desktop") {
-    height: 95vh;
+    height: 95dvh;
   }
 
   .bookHalf {
@@ -28,7 +28,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      margin: 5vh auto 5vh auto;
+      margin: 5dvh auto 5dvh auto;
       //Aligning title with highlights below
       width: calc((90% + 10px));
 
@@ -45,7 +45,7 @@
 
     //Height of book cover
     .imageSection {
-      height: 65vh;
+      height: 65dvh;
       width: 100%;
       display: flex;
       justify-content: center;
@@ -55,9 +55,11 @@
         height: 75%;
         width: 65%;
         //To align with title of book on other side
-        margin-top: 5vh;
+        margin-top: 5dvh;
         box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
           rgba(0, 0, 0, 0.22) 0px 10px 10px;
+        border-radius: 3px;
+        overflow: hidden;
 
         @include breakpoint-mixin("laptop-small") {
           height: 80%;
@@ -87,7 +89,7 @@
           bottom: 10px;
           right: 10px;
           padding: 5px 10px 5px 10px;
-          background-color: #202020;
+          background-color: $cd-bg;
           border: 0.5px solid black;
           cursor: pointer;
           opacity: 0.7;
@@ -109,7 +111,7 @@
 
       .editURLModal {
         position: absolute;
-        background-color: #202020;
+        background-color: $cd-bg;
         border: 0.5px solid black;
         cursor: pointer;
         width: 250px;
@@ -122,26 +124,26 @@
         flex-direction: column;
         justify-content: space-between;
         padding-bottom: 15px;
-        height: 14vh;
+        height: 14dvh;
 
         @include breakpoint-mixin("laptop-small") {
-          height: 11vh;
+          height: 11dvh;
           width: 300px;
           bottom: 0px;
         }
 
         .searchBar {
-          height: 5vh;
+          height: 5dvh;
           width: 100%;
           display: flex;
           // justify-content: center;
 
           @include breakpoint-mixin("laptop-small") {
-            height: 7vh;
+            height: 7dvh;
           }
 
           @include breakpoint-mixin("desktop") {
-            height: 5vh;
+            height: 5dvh;
           }
 
           input {
@@ -175,7 +177,7 @@
       width: calc(90% + 10px);
       display: flex;
       position: relative;
-      // height: 5vh;
+      // height: 5dvh;
       margin: 0px auto 30px auto;
       flex-wrap: wrap;
 
@@ -199,12 +201,12 @@
 
       // .editModal {
       //   position: absolute;
-      //   height: 20vh;
+      //   height: 20dvh;
       //   left: 30%;
       //   width: 300px;
       //   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
       //     rgba(0, 0, 0, 0.22) 0px 10px 10px;
-      //   background-color: #202020;
+      //   background-color: $cd-bg;
       //   z-index: 100;
       // }
     }
@@ -227,7 +229,7 @@
   .highlightHalf {
     overflow-y: auto;
     width: 50%;
-    background-color: #202020;
+    background-color: $cd-bg;
 
     .bookTitle {
       display: none;
@@ -235,7 +237,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        margin: 5vh auto 5vh auto;
+        margin: 5dvh auto 5dvh auto;
         //Aligning title with highlights below
         width: calc((90% + 10px));
 
@@ -267,14 +269,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 5vh auto 5vh auto;
+  margin: 5dvh auto 5dvh auto;
 
   h1 {
     margin-bottom: 40px;
   }
 
   @include breakpoint-mixin("laptop-small") {
-    // height: 15vh;
+    // height: 15dvh;
   }
 
   //Aligning title with highlights below

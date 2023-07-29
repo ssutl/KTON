@@ -2,7 +2,7 @@
 
 .LoginModal {
   position: fixed;
-  height: 100vh;
+  height: 100dvh;
   width: 100%;
   top: 0px;
   left: 0px;
@@ -10,6 +10,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #202020ce;
+  background-color: $blur-bg;
   z-index: 100;
 }

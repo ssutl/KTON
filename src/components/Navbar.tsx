@@ -11,12 +11,6 @@ export default function Navbar() {
   const isImportRoute = router.pathname === "/Import";
   const isVerifyRoute = /^\/verify\/\d+$/.test(router.asPath);
 
-  //On page load update screenwidth state && restrictions
-  // useEffect(() => {
-  //   // setRestrictions(!userAuthenticated());
-  // }, [router.pathname]);
-
-  //The navigation modal
   const Modal = () => {
     return (
       <div className={styles.modal}>

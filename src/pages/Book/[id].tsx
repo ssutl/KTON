@@ -41,7 +41,8 @@ const BookPage = () => {
     setRestricitons(!userAuthenticated());
 
     //check if this is an allowed route
-    AllowedRoute();
+    if (!AllowedRoute())
+      throw new Error("Unauthed users cannot access this route");
 
     //If user is authenticated and they have no books in context, then we need to refresh context
     if (userAuthenticated() && !books) {

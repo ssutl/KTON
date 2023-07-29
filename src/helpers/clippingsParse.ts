@@ -17,7 +17,7 @@ async function uploadedTxtHelper(Contents: string) {
     collateHighlights(parsedContents); //parse & collate
     return true;
   } catch (error) {
-    console.log("error with text file: ", error);
+    throw new Error("Failed parsing txt file");
     return false;
   }
 }

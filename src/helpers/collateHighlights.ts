@@ -112,7 +112,6 @@ export function collateHighlights(
   incomingData: parsedClippingsEntry[] | undefined
 ) {
   if (incomingData == null || incomingData.length == 0) {
-    console.log("error with results array");
     return;
   }
   const result = prepBookForDB(incomingData, "Title");

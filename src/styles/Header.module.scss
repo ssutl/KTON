@@ -7,15 +7,15 @@
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  height: 6vh;
+  height: 6dvh;
 
   @include breakpoint-mixin("laptop-small") {
     padding: 0px;
-    height: 7vh;
+    height: 7dvh;
   }
 
   @include breakpoint-mixin("desktop") {
-    height: 5vh;
+    height: 5dvh;
   }
 
   .headerWidth {
