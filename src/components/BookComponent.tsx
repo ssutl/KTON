@@ -9,7 +9,6 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
 import cleanAuthor from "@/helpers/cleanAuthor";
 import HandleChanges from "@/helpers/HandleChanges";
-import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 
 interface BookProps {
   book: Book;

@@ -2,17 +2,11 @@ import { useEffect } from "react";
 
 function useOutsideAlerter(
   modalRef: any,
-  buttonRef: any,
   modalState: React.Dispatch<React.SetStateAction<any>>
 ) {
   useEffect(() => {
     function handleClickOutside(event: any) {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target) &&
-        buttonRef.current &&
-        !buttonRef.current.contains(event.target)
-      ) {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
         modalState(false);
       }
     }
@@ -22,7 +16,7 @@ function useOutsideAlerter(
       // Unbind the event listener on clean up
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [modalRef, buttonRef]);
+  }, [modalRef]);
 }
 
 export default useOutsideAlerter;
