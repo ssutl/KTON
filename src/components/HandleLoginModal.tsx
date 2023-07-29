@@ -5,7 +5,7 @@ import { useState } from "react";
 const HandleLoginModal = () => {
   const [display, setDisplay] = useState(false);
 
-  const setModal = () => {
+  const setLoginModal = () => {
     setDisplay(true);
   };
 
@@ -21,7 +21,7 @@ const HandleLoginModal = () => {
   };
 
   return {
-    setModal,
+    setLoginModal,
     LoginModal,
   };
 };

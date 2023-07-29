@@ -23,11 +23,11 @@ import ShareOverlay from "./ShareOverlay";
 
 interface highlightProps {
   highlight: Book_highlight;
-  setModal: () => void;
+  setLoginModal: () => void;
   index: number;
 }
 
-const Highlight = ({ highlight, setModal, index }: highlightProps) => {
+const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
   const { userinfo } = useContext(KTON_CONTEXT);
   const [screenWidth, setScreenWidth] = useState(1024);
   const [restrictions, setRestrictions] = useState(true);
@@ -236,7 +236,7 @@ const Highlight = ({ highlight, setModal, index }: highlightProps) => {
               onMouseDown={() =>
                 //if the dropdown is already set to annotate, then we want to close it
                 restrictions
-                  ? setModal()
+                  ? setLoginModal()
                   : setDropdown(dropdown === "Annotate" ? false : "Annotate")
               }
             >
@@ -246,7 +246,7 @@ const Highlight = ({ highlight, setModal, index }: highlightProps) => {
               onMouseDown={() =>
                 //if dropdown is already set to categorise, then we want to close it
                 restrictions
-                  ? setModal()
+                  ? setLoginModal()
                   : setDropdown(
                       dropdown === "Categorise" ? false : "Categorise"
                     )
@@ -257,7 +257,7 @@ const Highlight = ({ highlight, setModal, index }: highlightProps) => {
             <p
               onMouseDown={() =>
                 restrictions
-                  ? setModal()
+                  ? setLoginModal()
                   : favouriteHighlight({
                       data: !highlight.starred,
                       book_id,
@@ -269,7 +269,7 @@ const Highlight = ({ highlight, setModal, index }: highlightProps) => {
             </p>
             <p
               onClick={() =>
-                restrictions ? setModal() : setDisplayShareOverlay(true)
+                restrictions ? setLoginModal() : setDisplayShareOverlay(true)
               }
             >
               <ShareIcon />
@@ -277,7 +277,7 @@ const Highlight = ({ highlight, setModal, index }: highlightProps) => {
             <p
               onClick={() =>
                 restrictions
-                  ? setModal()
+                  ? setLoginModal()
                   : deleteHighlight({
                       book_id,
                       highlight_id: highlight._id,

@@ -120,7 +120,7 @@ const Library = () => {
                   setSelectedSort(selectedSort)
                 }
                 mainBooks={mainBooks!}
-                data={["Recent", "Rating"]}
+                data={userAuthenticated() ? ["Recent", "Rating"] : ["Recent"]}
                 selectedSort={selectedSort}
               />
             )}

@@ -4,6 +4,8 @@
   height: fit-content;
   width: 100%;
   margin-bottom: 10%;
+  width: fit-content;
+  // background-color: orange;
 
   @include breakpoint-mixin("laptop-small") {
     margin-bottom: 0%;
@@ -56,11 +58,7 @@
       outline: none;
       padding-bottom: 10px;
       border-radius: 0px;
-      width: 80%;
-
-      @include breakpoint-mixin("laptop-small") {
-        width: 100%;
-      }
+      width: 100%;
     }
   }
 

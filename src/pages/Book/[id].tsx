@@ -106,14 +106,14 @@ const BookPage = () => {
                         setCoverIsValid(false);
                       }}
                     />
-                    <p
-                      className={styles.editURLMenu}
-                      onClick={() => setShowEditImageModal(!showEditImageModal)}
-                    >
-                      Edit cover
-                    </p>
                   </>
                 )}
+                <p
+                  className={styles.editURLMenu}
+                  onClick={() => setShowEditImageModal(!showEditImageModal)}
+                >
+                  Edit cover
+                </p>
               </Tilt>
               {showEditImageModal && (
                 <Modal

@@ -2,10 +2,12 @@ import styles from "../styles/Header.module.scss";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import userAuthenticated from "@/helpers/UserAuthenticated";
+import HandleLoginModal from "./HandleLoginModal";
 
 export default function Header() {
   const router = useRouter();
   const [restrictionHeader, setRestrictionHeader] = useState(false);
+  const { LoginModal, setLoginModal } = HandleLoginModal();
 
   useEffect(() => {
     //Setting restrictionHeader to true if user not authenticated
@@ -38,7 +40,7 @@ export default function Header() {
     return (
       <div className={styles.header}>
         <div className={styles.headerWidth}>
-          <p>Login to view all books</p>
+          <p>Sign up to view all books</p>
           <span onClick={() => setRestrictionHeader(false)}>x</span>
         </div>
       </div>

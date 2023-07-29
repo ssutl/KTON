@@ -7,7 +7,7 @@ import styles from "../styles/HighlightsList.module.scss";
 
 const HighlightsList: React.FC<{ book: Book }> = ({ book }) => {
   const [restrictions, setRestricitons] = useState<boolean>(true);
-  const { LoginModal, setModal } = HandleLoginModal();
+  const { LoginModal, setLoginModal } = HandleLoginModal();
 
   useEffect(() => {
     setRestricitons(!userAuthenticated());
@@ -16,6 +16,7 @@ const HighlightsList: React.FC<{ book: Book }> = ({ book }) => {
   if (book)
     return (
       <>
+        {LoginModal()}
         {book.highlights
           .slice(0, restrictions ? 50 : book.highlights.length)
           .filter((eachHighlight) => eachHighlight.deleted !== true)
@@ -23,7 +24,7 @@ const HighlightsList: React.FC<{ book: Book }> = ({ book }) => {
             <Highlight
               highlight={eachHighlight}
               key={index}
-              setModal={setModal}
+              setLoginModal={setLoginModal}
               index={index}
             />
           ))}
