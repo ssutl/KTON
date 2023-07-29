@@ -6,11 +6,11 @@
   width: 100%;
   top: 0px;
   left: 0px;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(5px);
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: $cd-bg;
+  background-color: $blur-bg;
   z-index: 100;
 
   .feedbackModal {
@@ -27,6 +27,7 @@
     z-index: 100;
     cursor: pointer;
     padding: 0px 15px;
+    border-radius: 3px;
 
     @include breakpoint-mixin("laptop-small") {
       width: 400px;

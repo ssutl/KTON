@@ -21,7 +21,11 @@
     margin-bottom: 40px;
 
     @include breakpoint-mixin("laptop-small") {
-      height: 7dvh;
+      height: 10dvh;
+    }
+
+    @include breakpoint-mixin("desktop") {
+      height: 8vh;
     }
 
     p {

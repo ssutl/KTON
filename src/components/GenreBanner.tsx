@@ -1,6 +1,6 @@
 import styles from "../styles/GenreBanner.module.scss";
 import { useRouter } from "next/router";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import genreColors from "@/helpers/sortGenreColors";
 import HandleChanges from "@/helpers/HandleChanges";
@@ -14,6 +14,7 @@ const GenreBanner = () => {
   const router = useRouter();
   const id = router.query.id;
   let mainBook = books?.filter((book) => book._id === id)[0];
+  //Ref for the add genre button
 
   if (mainBook) {
     return (

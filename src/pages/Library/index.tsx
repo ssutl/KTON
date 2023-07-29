@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import styles from "../../styles/Library.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
 import { KTON_CONTEXT } from "../../context/KTONContext";
 import { Book } from "@/api/Interface";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import InitApi from "../../api/InitAPI";
-import BookComponent from "@/components/BookComponent";
 import Head from "next/head";
 import AllowedRoute from "@/helpers/AllowedRoute";
 import Modal from "@/components/Modal";
@@ -24,6 +23,7 @@ const Library = () => {
   const [displaySearchModal, setDisplaySearchModal] = useState(false);
   const [displaySortModal, setDisplaySortModal] = useState(false);
   const [displayFilterModal, setDisplayFilterModal] = useState(false);
+
   const showFilterH3 =
     books &&
     books.map((book) => book.genre).reduce((acc, curr) => acc.concat(curr), [])
@@ -90,9 +90,12 @@ const Library = () => {
               //Only show filter option if user has genres added
             }
             {showFilterH3 ? (
-              <h3 onClick={() => setDisplayFilterModal(!displayFilterModal)}>
+              <p
+                id={styles.buttons}
+                onClick={() => setDisplayFilterModal(!displayFilterModal)}
+              >
                 Filters +
-              </h3>
+              </p>
             ) : null}
             {displayFilterModal && (
               <Modal
@@ -102,7 +105,12 @@ const Library = () => {
                 onItemClick={(genre: string) => setSelectedFilter(genre)}
               />
             )}
-            <h3 onClick={() => setDisplaySortModal(!displaySortModal)}>Sort</h3>
+            <p
+              id={styles.buttons}
+              onClick={() => setDisplaySortModal(!displaySortModal)}
+            >
+              Sort
+            </p>
             {displaySortModal && (
               <Modal
                 specific_type="Select"
