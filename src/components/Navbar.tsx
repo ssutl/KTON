@@ -11,30 +11,6 @@ export default function Navbar() {
   const isImportRoute = router.pathname === "/Import";
   const isVerifyRoute = /^\/verify\/\d+$/.test(router.asPath);
 
-  const Modal = () => {
-    return (
-      <div className={styles.modal}>
-        <div className={styles.modal_title}>
-          <p>Pages</p>
-        </div>
-        <div
-          className={styles.modal_item}
-          onClick={() =>
-            router.pathname === "/Home" ? null : router.push("/Home")
-          }
-        >
-          <p>Home</p>
-        </div>
-        <div
-          className={styles.modal_item}
-          onClick={() => router.push("/Library")}
-        >
-          <p>Library</p>
-        </div>
-      </div>
-    );
-  };
-
   //Display the navbar
   if (router.pathname === "/verify/[...id]") return null;
   return (
@@ -44,7 +20,7 @@ export default function Navbar() {
         <div className={styles.navigationButtons}>
           {isIndexRoute || isImportRoute || isVerifyRoute ? null : (
             <>
-              <p>Library</p>
+              <p onClick={() => router.push("/Library")}>Library</p>
             </>
           )}
           {!isIndexRoute ? (
