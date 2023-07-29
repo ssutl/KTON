@@ -249,6 +249,7 @@ const Modal = ({
                     book_id: mainBook!._id,
                     data: searchValue,
                   });
+                  closeModal();
                 } else {
                   alert("Invalid image URL");
                 }

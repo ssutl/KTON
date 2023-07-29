@@ -16,7 +16,7 @@
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
 
   @include breakpoint-mixin("laptop-small") {
-    border: 0.5px solid black;
+    border: 0.5px solid $border;
     width: 300px;
     height: fit-content;
     position: absolute;
@@ -131,15 +131,18 @@
 
 .Filter_Search {
   @include breakpoint-mixin("laptop-small") {
-    right: -130%;
     top: 180%;
-
+    right: -160%;
     //Give hover to specific modals
     .listItem {
       &:hover {
         background-color: $hover;
       }
     }
+  }
+
+  @include breakpoint-mixin("desktop") {
+    right: -130%;
   }
 }
 

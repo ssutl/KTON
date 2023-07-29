@@ -3,7 +3,7 @@
 .Book {
   height: 85dvh;
   width: 100%;
-  border-bottom: 0.5px solid black;
+  border-bottom: 0.5px solid $border;
   box-sizing: border-box; /* Include the border in the item's total width */
   display: flex;
   flex-direction: column;
@@ -11,8 +11,8 @@
 
   @include breakpoint-mixin("laptop-small") {
     height: 75dvh;
-    border-right: 0.5px solid black;
-    border-bottom: 0.5px solid black;
+    border-right: 0.5px solid $border;
+    border-bottom: 0.5px solid $border;
   }
 
   @include breakpoint-mixin("desktop") {
@@ -25,7 +25,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 0.5px solid black;
+    border-bottom: 0.5px solid $border;
     cursor: pointer;
     position: relative;
 

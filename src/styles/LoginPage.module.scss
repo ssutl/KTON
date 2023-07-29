@@ -16,7 +16,7 @@
   .main_left {
     height: 100%;
     width: 50%;
-    border-right: 0.5px solid black;
+    border-right: 0.5px solid $border;
     display: none;
 
     @include breakpoint-mixin("laptop-small") {
