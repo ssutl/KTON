@@ -23,6 +23,7 @@
       width: 50%;
     }
 
+    //For mobile
     .bookTitle {
       display: flex;
       flex-direction: column;
@@ -49,6 +50,14 @@
       display: flex;
       justify-content: center;
       position: relative;
+
+      @include breakpoint-mixin("laptop-small") {
+        height: 62dvh;
+      }
+
+      @include breakpoint-mixin("desktop") {
+        height: 65dvh;
+      }
 
       .ImageContainer {
         height: 75%;

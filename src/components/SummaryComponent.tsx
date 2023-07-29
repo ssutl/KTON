@@ -12,7 +12,6 @@ const SummarySection = () => {
   const router = useRouter();
   const id = router.query.id;
   const { books } = useContext(KTON_CONTEXT);
-  const { setModal } = HandleLoginModal();
   const [inputSummary, setInputSummary] = useState<string | undefined>(
     books?.filter((book) => book._id === id)[0].summary
   );
@@ -42,9 +41,7 @@ const SummarySection = () => {
       <div className={styles.buttonsSection}>
         <p
           onClick={() => {
-            restrictions
-              ? setModal()
-              : addSummaryToBook({ data: inputSummary, book_id: id });
+            addSummaryToBook({ data: inputSummary, book_id: id });
           }}
         >
           Save
