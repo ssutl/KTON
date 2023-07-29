@@ -2,11 +2,7 @@
 
 .Library {
   overflow-y: scroll;
-  height: 94dvh;
-
-  @include breakpoint-mixin("laptop-small") {
-    height: 93dvh;
-  }
+  height: 93dvh;
 
   @include breakpoint-mixin("desktop") {
     height: 95dvh;

@@ -2,12 +2,11 @@
 
 .BookPage {
   display: flex;
-  height: 94dvh;
+  height: 93dvh;
   flex-direction: column;
 
   @include breakpoint-mixin("laptop-small") {
     flex-direction: row;
-    height: 93dvh;
   }
 
   @include breakpoint-mixin("desktop") {
