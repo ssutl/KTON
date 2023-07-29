@@ -15,6 +15,7 @@ import GenreBanner from "@/components/GenreBanner";
 import HandleChanges from "@/helpers/HandleChanges";
 import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 import Modal from "@/components/Modal";
+import LoadingPage from "@/components/LoadingPage";
 
 const BookPage = () => {
   const router = useRouter();
@@ -135,7 +136,9 @@ const BookPage = () => {
         </div>
       </>
     );
-  } else return <h1>Component Loading</h1>;
+  } else {
+    return <LoadingPage Text="Book Loading" />;
+  }
 };
 
 export default BookPage;

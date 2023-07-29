@@ -8,6 +8,7 @@ import HomeStatBanner from "@/components/HomeStatBanner";
 import HeatMapBanner from "@/components/HeatMapBanner";
 import Head from "next/head";
 import AllowedRoute from "@/helpers/AllowedRoute";
+import LoadingPage from "@/components/LoadingPage";
 
 const Home = () => {
   const { userinfo, books, highlights } = useContext(KTON_CONTEXT);
@@ -49,11 +50,7 @@ const Home = () => {
       </>
     );
   } else {
-    return (
-      <div className={styles.loading}>
-        <h1 className={styles.KTON_TEXT}>KTON</h1>
-      </div>
-    );
+    return <LoadingPage Text="KTON" />;
   }
 };
 

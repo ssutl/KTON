@@ -10,6 +10,7 @@ import AllowedRoute from "@/helpers/AllowedRoute";
 import Modal from "@/components/Modal";
 import BooksList from "@/components/BooksList";
 import HandleLoginModal from "@/components/HandleLoginModal";
+import LoadingPage from "@/components/LoadingPage";
 // import headerStyles from "../../styles/Header.module.scss";
 
 const Library = () => {
@@ -197,7 +198,7 @@ const Library = () => {
         </div>
       </>
     );
-  } else return <h1>Component Loading</h1>;
+  } else return <LoadingPage Text="Loading" />;
 };
 
 export default Library;
