@@ -74,10 +74,12 @@ function HandleChanges() {
   };
 
   const addGenreToBook = ({ data, book_id, type }: GenreProps) => {
-    if (books && typeof book_id === "string") {
-      //Sorting on Context
+    if (books && book_id) {
+      // Create an array containing the book ids, even if 'book_id' is a single string
+      const bookIds = Array.isArray(book_id) ? book_id : [book_id];
+
       const newState = books.map((book_context) => {
-        if (book_id === book_context._id) {
+        if (bookIds.includes(book_context._id)) {
           return {
             ...book_context,
             genre:
@@ -85,14 +87,19 @@ function HandleChanges() {
                 ? [...book_context.genre, data]
                 : book_context.genre.filter((eachGenre) => eachGenre !== data),
           };
-        } else return book_context;
+        } else {
+          return book_context;
+        }
       });
+
       updateBooks(newState);
 
-      //sorting on server
-      addGenreToBookApi({
-        book_id: book_id,
-        data: newState.filter((book) => book._id === book_id)[0].genre,
+      bookIds.forEach((id) => {
+        // Sorting on server for each book using the API
+        addGenreToBookApi({
+          book_id: id,
+          data: newState.filter((book) => book._id === book_id)[0].genre, // Pass the genre data for the current book to the API
+        });
       });
     }
   };
@@ -121,13 +128,25 @@ function HandleChanges() {
       //Sorting on server
       addGenreToUserApi({ data: newState.genres });
 
-      //We could be removing from user geres but it may not be on the highlight, so we need to check before removing and wasting a request
-      //When we add to user genres, we also need to add to book genres, so we can just add to book categories
-      if (
-        (book && type === "remove" && book.genre.includes(data)) ||
-        (book && type === "add" && !book.genre.includes(data))
-      ) {
+      //Adding it to the book that it was created from
+      if (book && type === "add" && !book.genre.includes(data)) {
         addGenreToBook({ type, data, book_id });
+      }
+
+      //Removing it from all books
+
+      if (books && type === "remove") {
+        //When we run this in a loop, it is getting the old state of books and mapping through that, so we need to allow it to update the state before we run it again
+
+        //I want an array of ids of books that have the genre that we are removing
+        const arrayOfIds = books.reduce((acc, book) => {
+          if (book.genre.includes(data)) {
+            acc.push(book._id);
+          }
+          return acc;
+        }, [] as string[]);
+
+        addGenreToBook({ type, data, book_id: arrayOfIds });
       }
     }
   };
