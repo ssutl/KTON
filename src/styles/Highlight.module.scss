@@ -73,10 +73,14 @@
 
       p {
         cursor: pointer;
-
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        padding: 2px;
         @include breakpoint-mixin("laptop-small") {
           &:hover {
             opacity: 0.5;
+            background-color: $hover;
           }
         }
       }
