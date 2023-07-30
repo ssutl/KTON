@@ -22,6 +22,8 @@
     justify-content: center;
     padding: 10px 0px;
     position: relative;
+    background-size: cover; /* Resize the background image to cover the entire container */
+    background-position: center center; /* Center the image */
 
     .watermark {
       position: absolute;
@@ -54,171 +56,11 @@
     }
   }
 
-  .editModal {
-    height: fit-content;
-    width: 300px;
-    background-color: $cd-bg;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
-      rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  .ImageSection {
+    height: 100%;
+    width: 85%;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    position: absolute;
-    top: 40px;
-    right: 40px;
-    overflow: hidden;
-
-    .header {
-      height: 5dvh;
-      width: 100%;
-      border-bottom: 0.5px solid $border;
-      display: flex;
-      align-items: center;
-      padding: 0px 20px;
-    }
-
-    .backgroundOptionsSection {
-      height: 4dvh;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      padding: 0px 20px;
-
-      #gradientBox {
-        height: 20px;
-        width: 20px;
-        margin-right: 20px;
-        //Give it a gradient background from bottom left to top right, white gradient to grey
-        background: linear-gradient(
-          135deg,
-          rgba(255, 255, 255, 1) 0%,
-          rgba(128, 128, 128, 1) 100%
-        );
-        &:hover {
-          cursor: pointer;
-          opacity: 0.5;
-        }
-      }
-
-      #imageIcon {
-        height: 24px;
-        width: 24px;
-
-        &:hover {
-          cursor: pointer;
-          opacity: 0.5;
-        }
-      }
-
-      .selectedIcon {
-        opacity: 0.5;
-      }
-    }
-
-    .backgroundSection {
-      height: 30dvh;
-      width: 100%;
-
-      #colorPicker {
-        height: 100%;
-        width: 100%;
-      }
-    }
-
-    .textSection {
-      height: fit-content;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      padding: 0px 20px;
-      flex-direction: column;
-      border-bottom: 0.5px solid $border;
-
-      .textSectionRow {
-        height: 6dvh;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        .textInputContainer {
-          height: 45%;
-          width: 45%;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-
-          input {
-            width: 45%;
-            height: 100%;
-            border: none;
-            outline: none;
-            background-color: transparent;
-          }
-        }
-
-        .textInputIconContainer {
-          height: fit-content;
-
-          .alignIcon {
-            height: 22px;
-            width: 22px;
-            cursor: pointer;
-            padding: 5px;
-            margin-bottom: 0px;
-            box-sizing: content-box;
-            border-radius: 2px;
-          }
-
-          .selectedIcon {
-            background-color: #565555;
-          }
-        }
-      }
-    }
-
-    .imageSizeSection {
-      height: 6dvh;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      padding: 0px 20px;
-      border-bottom: 0.5px solid $border;
-
-      .imageSizeInputContainer {
-        height: 45%;
-        width: 50%;
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-
-        input {
-          width: 70%;
-          height: 100%;
-          border: none;
-          outline: none;
-          background-color: transparent;
-        }
-      }
-    }
-
-    .exportSection {
-      height: 7dvh;
-      width: 100%;
-      padding: 0px 20px;
-      display: flex;
-      align-items: center;
-
-      p {
-        border: 0.5px solid white;
-        padding: 5px 10px;
-        width: fit-content;
-
-        &:hover {
-          cursor: pointer;
-          opacity: 0.5;
-        }
-      }
-    }
   }
 }
