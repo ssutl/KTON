@@ -269,7 +269,13 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
             </p>
             <p
               onClick={() =>
-                restrictions ? setLoginModal() : setDisplayShareOverlay(true)
+                restrictions
+                  ? setLoginModal()
+                  : screenWidth < 1024
+                  ? alert(
+                      "This feature is not available on mobile yet (I'm working on it loool, shi not easy). Please use a desktop device."
+                    )
+                  : setDisplayShareOverlay(true)
               }
             >
               <ShareIcon />

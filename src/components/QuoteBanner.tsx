@@ -16,7 +16,7 @@ const QuoteBanner = () => {
   //On page load, we'll set the restrictions and decide where to get highlights from
   useEffect(() => {
     //Setting restrictions
-    let clippings = localStorage.getItem("clippings");
+    let clippings = sessionStorage.getItem("clippings");
 
     if (userAuthenticated() && highlights) {
       //Setting the main collection

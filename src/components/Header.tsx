@@ -27,8 +27,8 @@ export default function Header() {
       <div className={`${styles.header} ${styles.headerExpand}`}>
         <div className={styles.headerWidth}>
           <p>
-            Welcome to KTON your account has restrictions, login to ensure you
-            can access all features!
+            Welcome to KTON, this is a demo of the site, login to ensure you can
+            access all features!
           </p>
           <span onClick={() => setRestrictionHeader(false)}>x</span>
         </div>

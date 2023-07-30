@@ -21,7 +21,7 @@ export default function HomeStatBanner() {
     if (userAuthenticated()) {
       setMain_highlights(highlights);
     } else {
-      const clippings = localStorage.getItem("clippings");
+      const clippings = sessionStorage.getItem("clippings");
       setMain_highlights(clippings_AllHighlights(clippings));
     }
   }, []);

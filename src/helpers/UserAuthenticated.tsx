@@ -6,7 +6,7 @@ const userAuthenticated = () => {
 
   // if (typeof window !== "undefined") {
   authToken = localStorage.getItem("token");
-  clippings = localStorage.getItem("clippings");
+  clippings = sessionStorage.getItem("clippings");
   // }
 
   if (authToken) {

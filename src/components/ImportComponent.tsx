@@ -1,13 +1,15 @@
 import styles from "../styles/ImportComponent.module.scss";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ImportButton from "./ImportButton";
-import { set, update } from "lodash";
+import { useRouter } from "next/router";
 
 const ImportComponent = () => {
   const [progress, setProgress] = useState<"Started" | "None" | "Complete">(
     "None"
   );
   const [percentage, setPercentage] = useState<number>(5);
+  const router = useRouter();
+  const isIndexRoute = router.pathname === "/";
 
   const updatePercentage = (value: number) => {
     //In order to prevent the progress bar from going backwards, because of the way the socket works
@@ -20,8 +22,10 @@ const ImportComponent = () => {
     <div className={styles.importSect}>
       <div className={styles.importInfoSect}>
         <h2>
-          {progress === "None"
-            ? `IMPORT YOUR CLIPPINGS`
+          {isIndexRoute
+            ? `Demo KTON, no login required!`
+            : progress === "None"
+            ? `Import your clippings`
             : progress === "Started"
             ? `Importing Clippings`
             : `Upload Complete!`}

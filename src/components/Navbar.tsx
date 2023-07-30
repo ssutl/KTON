@@ -6,10 +6,23 @@ import userAuthenticated from "@/helpers/UserAuthenticated";
 
 export default function Navbar() {
   const { updateBooks } = useContext(KTON_CONTEXT);
+  const [hasClippings, setHasClippings] = useState(false);
+  const [hasAuthenticated, setHasAuthenticated] = useState(false);
   const router = useRouter();
   const isIndexRoute = router.pathname === "/";
   const isImportRoute = router.pathname === "/Import";
   const isVerifyRoute = /^\/verify\/\d+$/.test(router.asPath);
+  const isMembershipRoute = router.pathname === "/Membership";
+  const demoUser = hasClippings && !hasAuthenticated;
+
+  useEffect(() => {
+    if (sessionStorage.getItem("clippings")) {
+      setHasClippings(true);
+    }
+    if (userAuthenticated()) {
+      setHasAuthenticated(true);
+    }
+  }, []);
 
   //Display the navbar
   if (router.pathname === "/verify/[...id]") return null;
@@ -18,12 +31,17 @@ export default function Navbar() {
       <div className={styles.navbarWidth}>
         <h3 onClick={() => router.push("/Home")}>KTON</h3>
         <div className={styles.navigationButtons}>
-          {isIndexRoute || isImportRoute || isVerifyRoute ? null : (
+          {isIndexRoute ||
+          isImportRoute ||
+          isVerifyRoute ||
+          (isMembershipRoute && (!hasAuthenticated || !hasClippings)) ? null : (
             <>
               <p onClick={() => router.push("/Library")}>Library</p>
             </>
           )}
-          <p onClick={() => router.push("/Membership")}>Pricing</p>
+          {/* {isImportRoute ? null : (
+            <p onClick={() => router.push("/Membership")}>Pricing</p>
+          )} */}
           {!isIndexRoute ? (
             <p
               onClick={() => {
@@ -33,7 +51,7 @@ export default function Navbar() {
                 updateBooks(undefined);
               }}
             >
-              Logout
+              {hasAuthenticated ? "Logout" : "Landing"}
             </p>
           ) : null}
         </div>

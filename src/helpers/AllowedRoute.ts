@@ -3,7 +3,7 @@ import Router from "next/router";
 const AllowedRoute = () => {
   //Quick check to see what data user has
   const authToken = localStorage.getItem("token");
-  const clippings = localStorage.getItem("clippings");
+  const clippings = sessionStorage.getItem("clippings");
 
   if (authToken || clippings) {
     //Pass user into the app without restrictions

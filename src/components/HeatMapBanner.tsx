@@ -32,7 +32,7 @@ const HeatMapBanner = () => {
       setHeatMapData(HeatMapDataFunc(highlights));
     } else {
       //Doing same with local user, first have to convert clippings to the highlight format
-      const clippings = localStorage.getItem("clippings");
+      const clippings = sessionStorage.getItem("clippings");
       setHeatMapData(HeatMapDataFunc(clippings_AllHighlights(clippings)));
     }
   }, []);

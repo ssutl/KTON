@@ -89,7 +89,7 @@ const ImportButton = ({
 
   //UseEffect to see what the local storage state is after upload
   useEffect(() => {
-    const clippings = localStorage.getItem("clippings");
+    const clippings = sessionStorage.getItem("clippings");
 
     //If the local storage has clippings we can send unauthed user to home page
     if (clippings && LocalUploadStatus) {

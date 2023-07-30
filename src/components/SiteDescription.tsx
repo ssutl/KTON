@@ -13,42 +13,27 @@ const SiteDescription = () => {
   return (
     <div className={styles.siteDescSect}>
       <p>
-        KTON is an innovative platform designed to streamline the organization
-        and management of all Kindle imports. With KTON, users can effortlessly
-        annotate, view, export, and analyze their reading habits.
+        For us, there was was no point in highlighting and growing our digital
+        library, if we couldn&#39;t easily search, edit and annotate specific
+        parts of it.
       </p>
       <p>
-        For both non-logged in users and logged in users, KTON offers a
-        convenient way to access and view their Kindle statistics and reading
-        data, however users who are yet to login cannot edit or annotate or save
-        any of their imported highlights.
+        We wanted more control and ease of refrence to the quotes we wanted to
+        quote, so we built KTON.
       </p>
       <p>
-        If you&#39;re enjoying the platform and want to make the most of your
-        digital library, ensure to log in so that all your books can be
-        organized in one place. By logging in, you unlock the full potential of
-        KTON&#39;s features, allowing you to seamlessly manage and access your
-        Kindle imports. With a personalized account, you can create custom
-        collections, categorize your books, and easily search for specific
-        titles or authors.
+        For everyone KTON will provide the free tools to manage your digital
+        library, the goal is to be the only tool you needed for your kindle
+        highlights.
       </p>
-      {screenWidth < 1024 ? null : (
-        <>
-          <p>
-            KTON provides detailed reading insights and analytics to help you
-            understand your reading habits and patterns. Gain insights into your
-            reading speed, the number of books read per month, popular genres,
-            and more. These analytics can assist you in setting reading goals,
-            tracking your progress, and improving your reading efficiency.
-          </p>
-          <p>
-            KTON is committed to enhancing the user experience by regularly
-            updating and improving its features. As the platform evolves, you
-            can expect to benefit from new functionalities, enhanced
-            performance, and an overall better ebook management experience.
-          </p>
-        </>
-      )}
+      <p>
+        Embrace the pleasure of effortless organization, comprehensive
+        annotation, and seamless access to your Kindle imports. Join us today
+        and embark on a new chapter in your reading journey. With KTON, you can
+        efficiently manage your digital library, easily annotate your favorite
+        passages, and enjoy a seamless reading experience with all your Kindle
+        imports at your fingertips. Happy reading with KTON!
+      </p>
     </div>
   );
 };

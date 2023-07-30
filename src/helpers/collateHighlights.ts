@@ -118,7 +118,7 @@ export function collateHighlights(
   //calls the function "groupBy" passing in the object as the first parameter and the object property or key that we want to group by
   const organisedResults = organiseResults(result);
 
-  localStorage.setItem("clippings", JSON.stringify(organisedResults));
+  sessionStorage.setItem("clippings", JSON.stringify(organisedResults));
 }
 
 export default collateHighlights;

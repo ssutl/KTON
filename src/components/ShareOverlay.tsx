@@ -52,7 +52,7 @@ const ShareOverlay = ({
       return;
     }
 
-    const watermarkText = "KTON"; // Set your watermark text here
+    const watermarkText = "KTON.XYZ"; // Set your watermark text here
     const watermarkStyles = {
       position: "absolute",
       top: "50%",

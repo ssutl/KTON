@@ -14,7 +14,7 @@ export default function LoginPage() {
   //UseEffect to check if there's already an authToken
   useEffect(() => {
     const authToken = localStorage.getItem("token");
-    const clippings = localStorage.getItem("clippings");
+    const clippings = sessionStorage.getItem("clippings");
 
     if (authToken || clippings) {
       // Pass user into the app

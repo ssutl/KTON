@@ -66,10 +66,7 @@ const Modal = ({
     specific_type === "Book_Search"
       ? mainBooks &&
         mainBooks
-          .slice(
-            0,
-            restrictions ? Math.round(mainBooks.length / 2) : mainBooks.length
-          )
+          .slice(0, restrictions ? 10 : mainBooks.length)
           .filter((book) =>
             book.title.toLowerCase().includes(searchValue.toLowerCase())
           )

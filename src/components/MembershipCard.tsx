@@ -43,17 +43,20 @@ const MembershipCard = ({ type, setLoginModal }: MembershipCardProps) => {
   const previewFeatures = [
     "Import & view kindle highlights",
     "Share highlights as image (watermarked)",
-    "Easily browse & search your entire highlight library",
+    "Easily browse & search your entire book & highlight library",
+    "Limit of 10 books & 50 highlights per book",
   ];
 
   const freeFeatures = [
-    "Everything in preview plan",
-    "Categorise books",
-    "Organise your highlights with tags & notes",
+    "Everything in preview plan, without book or highlight limits",
+    "Categorise books using genre tags",
+    "Organise your highlights by favouriting, tagging & adding notes",
+    "Add custom book covers",
   ];
 
   const premiumFeatures = [
     "Everything in free plan",
+    "No image watermarks",
     "Various integrations including Notion & Anki",
     "Detailed analytics & insights in the form of charts & graphs",
   ];

@@ -57,7 +57,7 @@ const BookPage = () => {
         setMainBook(books.filter((book) => book._id === singleId)[0]);
       }
     } else {
-      const clippings = localStorage.getItem("clippings");
+      const clippings = sessionStorage.getItem("clippings");
 
       if (clippings && singleId) {
         const parsedClippings: Book[] = JSON.parse(clippings);
@@ -109,14 +109,16 @@ const BookPage = () => {
                     />
                   </>
                 )}
-                <p
-                  className={styles.editURLMenu}
-                  onClick={() => setShowEditImageModal(!showEditImageModal)}
-                >
-                  Edit cover
-                </p>
+                {restrictions ? null : (
+                  <p
+                    className={styles.editURLMenu}
+                    onClick={() => setShowEditImageModal(!showEditImageModal)}
+                  >
+                    Edit cover
+                  </p>
+                )}
               </Tilt>
-              {showEditImageModal && (
+              {showEditImageModal && !restrictions && (
                 <Modal
                   specific_type="Type_Save"
                   closeModal={() => setShowEditImageModal(false)}

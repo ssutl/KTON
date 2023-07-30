@@ -38,7 +38,7 @@ const BooksList: React.FC<{
           .filter((eachBook) =>
             selectedFilter ? eachBook.genre.includes(selectedFilter) : eachBook
           )
-          .slice(0, restrictions ? Math.round(books.length / 2) : books.length)
+          .slice(0, restrictions ? 10 : books.length)
           .map((eachBook, i) => (
             <BookComponent book={eachBook} index={i} key={i} />
           ))}

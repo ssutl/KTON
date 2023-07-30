@@ -18,14 +18,13 @@ const Library = () => {
   const { books, userinfo } = useContext(KTON_CONTEXT);
   const [mainBooks, setMainBooks] = useState<Book[] | undefined>(undefined);
   const [restrictions, setRestrictions] = useState<boolean>(false);
-  const [restrictionHeader, setRestrictionHeader] = useState(false);
-  const { LoginModal, setLoginModal } = HandleLoginModal();
   const [selectedSort, setSelectedSort] = useState<
     "Recent" | "Rating" | "Oldest"
   >("Recent");
   const [selectedFilter, setSelectedFilter] = useState<string | undefined>(
     undefined
   );
+  const [screenWidth, setScreenWidth] = useState(0);
   const [displaySearchModal, setDisplaySearchModal] = useState(false);
   const [displaySortModal, setDisplaySortModal] = useState(false);
   const [displayFilterModal, setDisplayFilterModal] = useState(false);
@@ -48,8 +47,11 @@ const Library = () => {
       InitialiseApp();
     }
 
+    //Controlling screenwidth
+    setScreenWidth(window.innerWidth);
+    window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
+
     setRestrictions(!userAuthenticated());
-    setRestrictionHeader(!userAuthenticated());
   }, []);
 
   //Condition to set mainbooks to either books or clippings, depending on user authentication
@@ -59,7 +61,7 @@ const Library = () => {
         setMainBooks(books);
       }
     } else {
-      const clippings = localStorage.getItem("clippings");
+      const clippings = sessionStorage.getItem("clippings");
 
       if (clippings) {
         const parsedClippings: Book[] = JSON.parse(clippings);
@@ -92,18 +94,6 @@ const Library = () => {
         </div>
       );
   };
-
-  // const RestrictionBanner = () => {
-  //   return (
-  //     <div className={headerStyles.header}>
-  //       {LoginModal()}
-  //       <div className={headerStyles.headerWidth}>
-  //         <p onClick={() => setLoginModal()}>Sign up to view all books</p>
-  //         <span onClick={() => setRestrictionHeader(false)}>x</span>
-  //       </div>
-  //     </div>
-  //   );
-  // };
 
   //Banner shown to allow user to filter and sort their books
   const filterBanner = () => {
@@ -149,7 +139,14 @@ const Library = () => {
                       closeModal={() => setDisplaySortModal(false)}
                       onItemClick={(
                         selectedSort: "Recent" | "Rating" | "Oldest"
-                      ) => setSelectedSort(selectedSort)}
+                      ) => {
+                        setSelectedSort(selectedSort);
+
+                        //If on mobile automatically close this modal auto
+                        if (screenWidth < 1024) {
+                          setDisplaySortModal(false);
+                        }
+                      }}
                       mainBooks={mainBooks!}
                       data={
                         userAuthenticated() ? ["Recent", "Rating"] : ["Recent"]
@@ -179,13 +176,11 @@ const Library = () => {
         <Head>
           <title>Library</title>
         </Head>
-
         <div
           className={`${styles.Library} ${
             modalDisplayed ? styles.noScroll : ""
           }`}
         >
-          {/* {restrictionHeader && RestrictionBanner()} */}
           {SearchBanner()}
           {filterBanner()}
           <div className={styles.bookContainer}>
