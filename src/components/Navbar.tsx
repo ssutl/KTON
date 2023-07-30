@@ -47,7 +47,7 @@ export default function Navbar() {
               onClick={() => {
                 router.push("/");
                 localStorage.removeItem("token");
-                localStorage.removeItem("clippings");
+                sessionStorage.removeItem("clippings");
                 updateBooks(undefined);
               }}
             >

@@ -45,6 +45,13 @@
         rgba(0, 0, 0, 0.5) 40px
       ); /* Adjust the gradient colors, stop positions, and distance as needed */
     }
+
+    .imageMetaData {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      text-align: right;
+    }
   }
 
   .editModal {

@@ -12,6 +12,7 @@ import FormatAlignJustifyOutlinedIcon from "@mui/icons-material/FormatAlignJusti
 import VerticalAlignCenterOutlinedIcon from "@mui/icons-material/VerticalAlignCenterOutlined";
 import VerticalAlignBottomOutlinedIcon from "@mui/icons-material/VerticalAlignBottomOutlined";
 import VerticalAlignTopOutlinedIcon from "@mui/icons-material/VerticalAlignTopOutlined";
+import cleanAuthor from "@/helpers/cleanAuthor";
 
 export interface ShareOverlayProps {
   closeModal: () => void;
@@ -121,8 +122,26 @@ const ShareOverlay = ({
             textAlign: textAlign,
           }}
         >
-          {text}
+          &quot;{text}&quot;
         </h1>
+        <div className={styles.imageMetaData}>
+          <p
+            style={{
+              fontWeight: fontWeight,
+              fontSize: fontSize * 0.65,
+            }}
+          >
+            {book?.title}
+          </p>
+          <p
+            style={{
+              fontWeight: fontWeight,
+              fontSize: fontSize * 0.65,
+            }}
+          >
+            {book?.author ? cleanAuthor(book.author) : book?.author}
+          </p>
+        </div>
       </div>
       <div
         className={styles.editModal}
