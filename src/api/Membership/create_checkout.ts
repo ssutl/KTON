@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 export interface createCheckoutProps {
   price_id: string;
@@ -6,25 +6,21 @@ export interface createCheckoutProps {
   cancel_url: string;
 }
 
-// export type c =
-//   | "Pending verification"
-//   | "Invalid Credentials"
-//   | "Password must be at least 8 characters long"
-//   | undefined;
+export type createCheckoutReturnTypes = Promise<string>;
 
 const createCheckout = async ({
   price_id,
   success_url,
   cancel_url,
-}: createCheckoutProps) => {
+}: createCheckoutProps): createCheckoutReturnTypes => {
   //Get token
   const authToken = localStorage.getItem("token");
 
   if (authToken === null) throw new Error("No token found");
 
-  //Simple request to update highlight annotations
+  // Simple request to update highlight annotations
   try {
-    const url = axios({
+    const response: AxiosResponse<any> = await axios({
       method: "POST",
       url: `${process.env.NEXT_PUBLIC_BACKENDURL}/create-checkout-session`,
       headers: {
@@ -34,10 +30,16 @@ const createCheckout = async ({
       data: { priceId: price_id, success_url, cancel_url },
     });
 
+    //console.log
+    console.log("response: ", response.data);
+
+    // Assuming the response contains a "url" property, extract it and return
+    const url: string = response.data;
     return url;
   } catch (err) {
     console.log("err: ", err);
     throw new Error("Failed to create checkout session");
   }
 };
+
 export default createCheckout;

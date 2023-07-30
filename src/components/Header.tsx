@@ -2,7 +2,6 @@ import styles from "../styles/Header.module.scss";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import userAuthenticated from "@/helpers/UserAuthenticated";
-import HandleLoginModal from "./HandleLoginModal";
 
 export default function Header() {
   const router = useRouter();

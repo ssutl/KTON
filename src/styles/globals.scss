@@ -52,6 +52,14 @@ body {
     padding: 0px;
     font-weight: 200;
     font-size: 18px;
+
+    @include breakpoint-mixin("laptop-small") {
+      font-size: 19px;
+    }
+
+    @include breakpoint-mixin("desktop") {
+      font-size: 20px;
+    }
   }
 
   p {
