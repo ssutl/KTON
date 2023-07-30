@@ -76,7 +76,7 @@ const MembershipCard = ({ type, setLoginModal }: MembershipCardProps) => {
           } catch (err) {
             console.log(err);
           }
-        } else if (type === "Free") {
+        } else if (type === "Free" && currentPlan !== "Free") {
           //Open login modal
           setLoginModal();
         }
