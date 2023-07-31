@@ -14,7 +14,9 @@ const HandleLoginModal = () => {
     if (display) {
       return (
         <div className={styles.LoginModal} onClick={() => setDisplay(false)}>
-          <LoginComponent />
+          <div className={styles.width}>
+            <LoginComponent />
+          </div>
         </div>
       );
     } else return null;

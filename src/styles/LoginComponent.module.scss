@@ -4,7 +4,6 @@
   height: fit-content;
   width: 100%;
   margin-bottom: 10%;
-  width: fit-content;
   // background-color: orange;
 
   @include breakpoint-mixin("laptop-small") {
@@ -52,13 +51,26 @@
     }
 
     input {
-      background-color: transparent;
+      background-color: $hover;
+      border-radius: 4px;
       border: none;
-      border-bottom: 1px solid white;
-      outline: none;
-      padding-bottom: 10px;
-      border-radius: 0px;
+      padding: 5px;
+      height: 40px;
       width: 100%;
+
+      @include breakpoint-mixin("laptop-small") {
+        width: 85%;
+      }
+
+      @include breakpoint-mixin("desktop") {
+        width: 70%;
+      }
+    }
+
+    input:focus {
+      outline: none !important;
+      border: 1px solid $kton-blue;
+      box-shadow: 0 0 3px;
     }
   }
 
