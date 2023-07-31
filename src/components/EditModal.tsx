@@ -15,7 +15,7 @@ import { Book } from "@/api/Interface";
 import TextColorModal from "./TextColorModal";
 
 interface EditModalProps {
-  ref: React.RefObject<HTMLDivElement>;
+  refrence: React.RefObject<HTMLDivElement>;
   book: Book;
   index: number;
   setImageStyles: (styles: ImageStyles) => void;
@@ -27,7 +27,7 @@ export type textAlignTypes = "left" | "right" | "center" | "justify";
 export type verticalAlignTypes = "flex-start" | "center" | "flex-end";
 
 const EditModal = ({
-  ref,
+  refrence,
   book,
   index,
   setImageStyles,
@@ -53,7 +53,7 @@ const EditModal = ({
   const [inputtedImageUrl, setInputtedImageurl] = useState<string | null>(null);
 
   const handleImageDownload = useCallback(async () => {
-    if (ref.current === null) {
+    if (refrence.current === null) {
       return;
     }
 
@@ -73,22 +73,22 @@ const EditModal = ({
     Object.assign(watermarkElement.style, watermarkStyles);
 
     // Append the watermark h2 element to the div
-    ref.current.appendChild(watermarkElement);
+    refrence.current.appendChild(watermarkElement);
 
     try {
-      const dataUrl = await toPng(ref.current, { cacheBust: false });
+      const dataUrl = await toPng(refrence.current, { cacheBust: false });
 
       const link = document.createElement("a");
       link.download = `${book?.title}-${index}`;
       link.href = dataUrl;
       link.click();
-      if (ref.current) ref.current.removeChild(watermarkElement);
+      if (refrence.current) refrence.current.removeChild(watermarkElement);
     } catch (err) {
       console.log(err);
     }
 
     // Remove the watermark element from the div
-  }, [ref]);
+  }, [refrence]);
 
   const BaseStyle = {
     width: `${imageWidth}px`,
@@ -126,7 +126,19 @@ const EditModal = ({
     setImageStyles(ImageStyle);
     setTextStyles(TextStyles);
     setMetaDataStyles(MetaDataStyles);
-  }, [ImageStyle, TextStyles]);
+  }, [
+    color,
+    fontSize,
+    fontWeight,
+    imageHeight,
+    imageWidth,
+    textAlign,
+    textVerticalAlign,
+    textWidth,
+    textColor,
+    backgroundType,
+    backgroundImage,
+  ]);
 
   return (
     <div
@@ -143,15 +155,17 @@ const EditModal = ({
       </div>
       <div className={styles.backgroundOptionsSection}>
         <div
-          id={styles.gradientBox}
           onClick={() => setBackgroundType("gradient")}
-          className={`${backgroundType === "gradient" && styles.selectedIcon}`}
+          className={`${styles.gradientBox} ${
+            backgroundType === "gradient" && styles.selectedIcon
+          }`}
         ></div>
-        <PhotoSharpIcon
-          id={styles.imageIcon}
+        {/* <PhotoSharpIcon
           onClick={() => setBackgroundType("image")}
-          className={`${backgroundType === "image" && styles.selectedIcon}`}
-        />
+          className={`${styles.imageIcon} ${
+            backgroundType === "image" && styles.selectedIcon
+          }`}
+        /> */}
       </div>
       <div className={styles.backgroundSection}>
         {backgroundType === "image" ? (

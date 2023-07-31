@@ -53,6 +53,7 @@ const ShareOverlay = ({
         <div className={styles.ImageSection}>
           <div
             className={styles.highlightImage}
+            id="ss_image"
             onMouseDown={(e) => {
               e.stopPropagation();
             }}
@@ -70,7 +71,7 @@ const ShareOverlay = ({
           </div>
         </div>
         <EditModal
-          ref={ref}
+          refrence={ref}
           book={book}
           index={index}
           setImageStyles={(value) => setImageStyles(value)}
