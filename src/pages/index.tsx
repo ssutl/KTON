@@ -8,9 +8,14 @@ import SiteDescription from "@/components/SiteDescription";
 import LoginComponent from "@/components/LoginComponent";
 import ImportComponent from "@/components/ImportComponent";
 import KindleOverlay from "@/components/KindleOverlay";
+// import totalHighlightsApi from "@/api/Highlights/TotalHighlights";
 
-export default function LoginPage() {
-  const [feedbackModal, setFeedbackModal] = useState(false);
+export default function LoginPage({
+  TotalHighlights,
+}: {
+  TotalHighlights: number;
+}) {
+  console.log("TotalHighlights: ", TotalHighlights);
   //UseEffect to check if there's already an authToken
   useEffect(() => {
     const authToken = localStorage.getItem("token");
@@ -46,3 +51,15 @@ export default function LoginPage() {
     </>
   );
 }
+
+// export async function getStaticProps() {
+//   // Fetch data from an API or any data source
+//   const TotalHighlights = await totalHighlightsApi();
+
+//   // Return the fetched data as props
+//   return {
+//     props: {
+//       TotalHighlights,
+//     },
+//   };
+// }

@@ -12,7 +12,6 @@ import LoadingPage from "@/components/LoadingPage";
 
 const Home = () => {
   const { userinfo, books, highlights } = useContext(KTON_CONTEXT);
-  console.log("user subscribed", userinfo?.subscription);
   const { InitialiseApp } = InitApi();
   const [restrictions, setRestrictions] = useState<boolean>(true);
 

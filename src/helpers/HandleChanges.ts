@@ -43,7 +43,7 @@ export interface addCategoryToHighlightProps {
   type: "add" | "remove";
   data: string;
   book_id: string | undefined | string[];
-  highlight_id: string;
+  highlight_id: string | string[];
 }
 
 export interface addSummaryToBookProps {
@@ -236,14 +236,21 @@ function HandleChanges() {
     book_id,
     highlight_id,
   }: addCategoryToHighlightProps) => {
-    if (books && typeof book_id === "string") {
+    if (books && book_id) {
+      const bookIds = Array.isArray(book_id) ? book_id : [book_id];
+      const highlightIds = Array.isArray(highlight_id)
+        ? highlight_id
+        : [highlight_id];
+
       //Handling request locally
       const newState = books.map((book_context) => {
-        if (book_id === book_context._id) {
+        //gonna map through the books and select the book that id is included in the array of book ids
+        if (bookIds.includes(book_context._id)) {
           return {
             ...book_context,
+            //gonna map through the highlights and select the highlight that id is included in the array of highlight ids
             highlights: book_context.highlights.map((highlight) => {
-              if (highlight._id === highlight_id) {
+              if (highlightIds.includes(highlight._id)) {
                 return {
                   ...highlight,
                   category:
@@ -258,17 +265,31 @@ function HandleChanges() {
           };
         } else return book_context;
       });
+
       updateBooks(newState);
 
-      //Handling request on server
-      addHighlightCategoryApi({
-        book_id,
-        highlight_id: highlight_id,
-        data: newState
-          .filter((book) => book._id === book_id)[0]
-          .highlights.filter((highlight) => highlight._id === highlight_id)[0]
-          .category,
+      books.map((book) => {
+        if (bookIds.includes(book._id)) {
+          book.highlights.map((highlight) => {
+            if (highlightIds.includes(highlight._id)) {
+              addHighlightCategoryApi({
+                book_id: book._id,
+                highlight_id: highlight._id,
+                data: newState
+                  .filter(
+                    (bookFromNewState) => bookFromNewState._id === book._id
+                  )[0]
+                  .highlights.filter(
+                    (highlightFromNewState) =>
+                      highlightFromNewState._id === highlight._id
+                  )[0].category,
+              });
+            }
+          });
+        }
       });
+
+      //Handling request on server
     }
   };
 
@@ -302,14 +323,39 @@ function HandleChanges() {
         data: updatedCategories,
       });
 
-      //Also need to add/remove to highlight
-      //We could be removing from user categories but it may not be on the highlight, so we need to check before removing and wasting a request
-      //When we add to user categories, we also need to add to highlight categories, so we can just add to highlight categories
-      if (
-        (type === "remove" && HighlightCategories.includes(data)) ||
-        (type === "add" && !HighlightCategories.includes(data))
-      ) {
+      //Adding it to the higlight it was created from
+      if (type === "add" && !HighlightCategories.includes(data)) {
         addCategoryToHighlight({ type, data, book_id, highlight_id });
+      }
+
+      if (type === "remove" && HighlightCategories.includes(data)) {
+        //Removing it from all highlights
+        const arrayOfBookIds = books.reduce((acc, book) => {
+          if (
+            book.highlights.some((highlight) =>
+              highlight.category.includes(data)
+            )
+          ) {
+            acc.push(book._id);
+          }
+          return acc;
+        }, [] as string[]);
+
+        const arrayOfHighlightIds = books.reduce((acc, book) => {
+          book.highlights.map((highlight) => {
+            if (highlight.category.includes(data)) {
+              acc.push(highlight._id);
+            }
+          });
+          return acc;
+        }, [] as string[]);
+
+        addCategoryToHighlight({
+          type,
+          data,
+          book_id: arrayOfBookIds,
+          highlight_id: arrayOfHighlightIds,
+        });
       }
     }
   };

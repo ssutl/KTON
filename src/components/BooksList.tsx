@@ -8,8 +8,6 @@ const BooksList: React.FC<{
   selectedSort: "Recent" | "Rating" | "Oldest";
   selectedFilter: string | undefined;
 }> = ({ books, selectedSort, selectedFilter }) => {
-  console.log("books", books);
-  console.log("selectedSort: ", selectedSort);
   const [restrictions, setRestricitons] = useState<boolean>(true);
 
   useEffect(() => {
