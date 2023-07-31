@@ -120,21 +120,23 @@
       padding: 20px 0px 20px 0px;
 
       .searchItem {
-        height: 5dvh;
+        padding: 15px 10px;
         width: 100%;
-        border-bottom: 0.5px solid white;
         display: flex;
         // justify-content: center;
 
         input {
-          background-color: transparent;
-          height: 100%;
+          background-color: $hover;
+          border-radius: 4px;
+          width: 100%;
           border: none;
-          outline: none;
-          color: white;
-          padding: 0px;
-          width: 95%;
-          margin-left: 10px;
+          padding: 8px;
+        }
+
+        input:focus {
+          outline: none !important;
+          border: 1px solid $kton-blue;
+          box-shadow: 0 0 3px;
         }
       }
 
