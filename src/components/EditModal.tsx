@@ -13,6 +13,7 @@ import styles from "../styles/EditModal.module.scss";
 import { ImageStyles, MetaDataStyles, TextStyles } from "./ShareOverlay";
 import { Book } from "@/api/Interface";
 import TextColorModal from "./TextColorModal";
+import { X } from "lucide-react";
 
 interface EditModalProps {
   refrence: React.RefObject<HTMLDivElement>;
@@ -64,8 +65,8 @@ const EditModal = ({
       left: "50%",
       transform: "translate(-50%, -50%) rotate(-45deg)", // Rotate the element by -45 degrees
       color: "black", // Adjust the color and opacity as needed
-      fontSize: fontSize,
-      opacity: 0.2,
+      fontSize: `${imageWidth * 0.25}px`,
+      opacity: 0.1,
     };
 
     const watermarkElement = document.createElement("h1");

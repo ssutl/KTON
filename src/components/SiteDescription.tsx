@@ -23,7 +23,7 @@ const SiteDescription = () => {
       </p>
       <p>
         For everyone KTON will provide the free tools to manage your digital
-        library, the goal is to be the only tool you needed for your kindle
+        library, the goal is to be the only tool you need for your kindle
         highlights.
       </p>
       <p>
@@ -32,8 +32,9 @@ const SiteDescription = () => {
         and embark on a new chapter in your reading journey. With KTON, you can
         efficiently manage your digital library, easily annotate your favorite
         passages, and enjoy a seamless reading experience with all your Kindle
-        imports at your fingertips. Happy reading with KTON!
+        imports at your fingertips.
       </p>
+      <p>Finding your highlights made easy, happy reading with KTON!</p>
     </div>
   );
 };
