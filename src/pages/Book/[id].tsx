@@ -16,6 +16,7 @@ import HandleChanges from "@/helpers/HandleChanges";
 import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 import Modal from "@/components/Modal";
 import LoadingPage from "@/components/LoadingPage";
+import { Tooltip } from "react-tooltip";
 
 const BookPage = () => {
   const router = useRouter();
@@ -95,7 +96,15 @@ const BookPage = () => {
                 perspective={650}
               >
                 {restrictions || !coverIsValid ? (
-                  <div className={styles.NoImage}></div>
+                  <div
+                    className={styles.NoImage}
+                    data-tooltip-id={`my-tooltip-${id}`}
+                    data-tooltip-content={
+                      restrictions
+                        ? `You can sign in to add your own cover image`
+                        : `Add an image through the button above ⬆️`
+                    }
+                  ></div>
                 ) : (
                   <>
                     <img
@@ -135,6 +144,12 @@ const BookPage = () => {
             {bookTitle()}
             {screenWidth > 1024 ? <HighlightsList book={mainBook} /> : null}
           </div>
+          <Tooltip
+            id={`my-tooltip-${id}`}
+            className="toolTip"
+            noArrow
+            place="bottom-end"
+          />
         </div>
       </>
     );

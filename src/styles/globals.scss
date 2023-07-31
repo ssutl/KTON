@@ -14,7 +14,7 @@ a {
 }
 
 body {
-  background-color: #191919;
+  background-color: $bg;
   margin: 0px;
   padding: 0px;
   font-family: "Urbanist", sans-serif;
@@ -27,6 +27,12 @@ body {
   /* Round bottom corners of the last element: `Hue` for `ColorPicker` or `Alpha` for `AlphaColorPicker` */
   .react-colorful__last-control {
     border-radius: 0px;
+  }
+
+  .toolTip {
+    background-color: #393939;
+    font-weight: 550;
+    padding: 5px 10px;
   }
 
   h1 {

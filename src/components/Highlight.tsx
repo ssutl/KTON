@@ -20,6 +20,7 @@ import { useRouter } from "next/router";
 import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 import HandleChanges from "@/helpers/HandleChanges";
 import ShareOverlay from "./ShareOverlay";
+import { Tooltip } from "react-tooltip";
 
 interface highlightProps {
   highlight: Book_highlight;
@@ -239,6 +240,8 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
                   ? setLoginModal()
                   : setDropdown(dropdown === "Annotate" ? false : "Annotate")
               }
+              data-tooltip-id={`my-tooltip-${index}`}
+              data-tooltip-content="Annotate"
             >
               <NotesIcon />
             </p>
@@ -251,6 +254,8 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
                       dropdown === "Categorise" ? false : "Categorise"
                     )
               }
+              data-tooltip-id={`my-tooltip-${index}`}
+              data-tooltip-content="Categorise"
             >
               <TagIcon />
             </p>
@@ -264,6 +269,8 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
                       highlight_id: highlight._id,
                     })
               }
+              data-tooltip-id={`my-tooltip-${index}`}
+              data-tooltip-content="Favourite"
             >
               {highlight.starred ? <StarIcon /> : <StarBorderIcon />}
             </p>
@@ -277,6 +284,8 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
                     )
                   : setDisplayShareOverlay(true)
               }
+              data-tooltip-id={`my-tooltip-${index}`}
+              data-tooltip-content="Share"
             >
               <ShareIcon />
             </p>
@@ -289,6 +298,8 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
                       highlight_id: highlight._id,
                     })
               }
+              data-tooltip-id={`my-tooltip-${index}`}
+              data-tooltip-content="Delete"
             >
               <DeleteOutlineIcon />
             </p>
@@ -302,6 +313,7 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
         <div className={styles.metaHalf}>
           <p>{new Date(highlight.Date).toDateString()}</p>
         </div>
+        <Tooltip id={`my-tooltip-${index}`} className="toolTip" noArrow />
       </div>
     </>
   );
