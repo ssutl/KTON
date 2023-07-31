@@ -9,6 +9,7 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
 import cleanAuthor from "@/helpers/cleanAuthor";
 import HandleChanges from "@/helpers/HandleChanges";
+import { Tooltip } from "react-tooltip";
 
 interface BookProps {
   book: Book;
@@ -59,11 +60,20 @@ const BookComponent = ({ book, index }: BookProps) => {
           glareReverse={true}
           glareBorderRadius="0px"
           tiltEnable={true}
-          // trackOnWindow={true}
           className={styles.ImageHolder}
           perspective={850}
         >
-          {!restrictions && imageIsValid ? (
+          {restrictions || !imageIsValid ? (
+            <div
+              className={styles.NoImage}
+              data-tooltip-id={`my-tooltip-${index}`}
+              data-tooltip-content={
+                restrictions
+                  ? `You can sign in to add your own cover image`
+                  : `Add an image through the book page ⬇️`
+              }
+            ></div>
+          ) : (
             <img
               draggable="false"
               alt="ebook cover image"
@@ -73,8 +83,6 @@ const BookComponent = ({ book, index }: BookProps) => {
                 setImageIsValid(false);
               }}
             />
-          ) : (
-            <div className={styles.NoImage}></div>
           )}
         </Tilt>
       </div>
@@ -108,6 +116,7 @@ const BookComponent = ({ book, index }: BookProps) => {
           )}
         </div>
       </div>
+      <Tooltip id={`my-tooltip-${index}`} className="toolTip" noArrow />
     </div>
   );
 };
