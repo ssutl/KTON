@@ -95,6 +95,14 @@ const Library = () => {
       );
   };
 
+  //Set sort to whatever is in local storage
+  useEffect(() => {
+    const selectedSort = localStorage.getItem("selectedSort");
+    if (selectedSort) {
+      setSelectedSort(selectedSort as "Recent" | "Rating" | "Oldest");
+    }
+  }, []);
+
   //Banner shown to allow user to filter and sort their books
   const filterBanner = () => {
     return (
@@ -140,6 +148,7 @@ const Library = () => {
                       onItemClick={(
                         selectedSort: "Recent" | "Rating" | "Oldest"
                       ) => {
+                        localStorage.setItem("selectedSort", selectedSort);
                         setSelectedSort(selectedSort);
 
                         //If on mobile automatically close this modal auto
