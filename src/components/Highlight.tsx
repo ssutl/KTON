@@ -46,7 +46,10 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
   const [inputAnnotation, setInputAnnotation] = useState(highlight.notes);
   const [categoryInput, setCategoryInput] = useState("");
   const [displayShareOverlay, setDisplayShareOverlay] = useState(false);
-  const highlightRef = useRef(null);
+  const tagDropDownRef = useRef(null);
+  const tagButtonRef = useRef(null);
+  const notesDropDownRef = useRef(null);
+  const notesButtonRef = useRef(null);
   const router = useRouter();
   const book_id = router.query.id;
 
@@ -78,7 +81,7 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
   //Drop down annotation section for each highlight
   const annotationSection = () => {
     return (
-      <div className={styles.annotationDropdown}>
+      <div className={styles.annotationDropdown} ref={notesDropDownRef}>
         <TextareaAutosize
           value={inputAnnotation}
           placeholder="Add a quick summary here"
@@ -107,7 +110,7 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
   const categorySection = () => {
     if (userinfo?.categories) {
       return (
-        <div className={styles.categoryDropdown}>
+        <div className={styles.categoryDropdown} ref={tagDropDownRef}>
           <div className={styles.searchItem}>
             <input
               placeholder="Search for tags, or type to create..."
@@ -191,7 +194,8 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
   };
 
   //Attaching click outside function to highlight
-  useOutsideAlerter(highlightRef, setDropdown);
+  useOutsideAlerter(notesDropDownRef, setDropdown, notesButtonRef);
+  useOutsideAlerter(tagDropDownRef, setDropdown, tagButtonRef);
 
   //If highlight is not deleted, display it
   return (
@@ -203,7 +207,7 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
           index={index}
         />
       )}
-      <div className={styles.Highlight} ref={highlightRef}>
+      <div className={styles.Highlight}>
         <div className={styles.mainHalf}>
           <h2>{highlight.Text}</h2>
           {restrictions ? null : <h3>{highlight.notes}</h3>}
@@ -243,7 +247,7 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
               data-tooltip-id={`my-tooltip-${index}`}
               data-tooltip-content="Annotate"
             >
-              <NotesIcon />
+              <NotesIcon ref={notesButtonRef} />
             </p>
             <p
               onMouseDown={() =>
@@ -257,7 +261,7 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
               data-tooltip-id={`my-tooltip-${index}`}
               data-tooltip-content="Categorise"
             >
-              <TagIcon />
+              <TagIcon ref={tagButtonRef} />
             </p>
             <p
               onMouseDown={() =>
