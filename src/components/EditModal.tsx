@@ -8,12 +8,11 @@ import VerticalAlignTopOutlinedIcon from "@mui/icons-material/VerticalAlignTopOu
 import PhotoSharpIcon from "@mui/icons-material/PhotoSharp";
 import { HexColorPicker } from "react-colorful";
 import React, { useCallback, useEffect, useState } from "react";
-import { toPng } from "html-to-image";
+import { toPng, toJpeg } from "html-to-image";
 import styles from "../styles/EditModal.module.scss";
 import { ImageStyles, MetaDataStyles, TextStyles } from "./ShareOverlay";
 import { Book } from "@/api/Interface";
 import TextColorModal from "./TextColorModal";
-import { X } from "lucide-react";
 
 interface EditModalProps {
   refrence: React.RefObject<HTMLDivElement>;
@@ -121,6 +120,45 @@ const EditModal = ({
     fontSize: fontSize * 0.65,
     color: textColor,
   };
+
+  //This is for sharing images natively
+  const dataURLtoFile = (dataurl: any, filename: any) => {
+    var arr = dataurl.split(","),
+      mimeType = arr[0].match(/:(.*?);/)[1],
+      decodedData = atob(arr[1]),
+      lengthOfDecodedData = decodedData.length,
+      u8array = new Uint8Array(lengthOfDecodedData);
+    while (lengthOfDecodedData--) {
+      u8array[lengthOfDecodedData] =
+        decodedData.charCodeAt(lengthOfDecodedData);
+    }
+    return new File([u8array], filename, { type: mimeType });
+  };
+
+  const shareFile = (file: any, title: any, text: any) => {
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator
+        .share({
+          files: [file],
+          title,
+          text,
+        })
+        .then(() => console.log("Share was successful."))
+        .catch((error) => console.log("Sharing failed", error));
+    } else {
+      console.log(`Your system doesn't support sharing files.`);
+    }
+  };
+
+  const createImage = () => {
+    toJpeg(document.getElementById("ss_image")!, { quality: 0.95 }).then(
+      (dataUrl: string) => {
+        const file = dataURLtoFile(dataUrl, "thanku_poster.png");
+        shareFile(file, "Title", "https://co-aid.in");
+      }
+    );
+  };
+  //This is for sharing images natively
 
   //When anything changes we want to update the styles and send to parent
   useEffect(() => {
@@ -324,6 +362,18 @@ const EditModal = ({
           onClick={() => handleImageDownload()}
         >
           Export as .png
+        </p>
+        <p
+          className={styles.exportButton}
+          onClick={async () => {
+            try {
+              createImage();
+            } catch (err) {
+              navigator.clipboard.writeText(window.location.href);
+            }
+          }}
+        >
+          Share
         </p>
       </div>
     </div>
