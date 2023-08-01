@@ -313,7 +313,12 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
         <div className={styles.metaHalf}>
           <p>{new Date(highlight.Date).toDateString()}</p>
         </div>
-        <Tooltip id={`my-tooltip-${index}`} className="toolTip" noArrow />
+        <Tooltip
+          id={`my-tooltip-${index}`}
+          className="toolTip"
+          noArrow
+          hidden={screenWidth < 1024}
+        />
       </div>
     </>
   );

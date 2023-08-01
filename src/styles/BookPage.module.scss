@@ -100,7 +100,7 @@
           background-color: $cd-bg;
           border: 0.5px solid $border;
           cursor: pointer;
-          opacity: 0.7;
+          opacity: 0.85;
 
           @include breakpoint-mixin("laptop-small") {
             display: none;
