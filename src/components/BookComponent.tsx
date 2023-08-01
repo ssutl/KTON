@@ -17,6 +17,7 @@ interface BookProps {
 }
 
 const BookComponent = ({ book, index }: BookProps) => {
+  console.log("book: ", book.cover_image);
   //Getting the most vibrant color
   const { data } = usePalette(book.cover_image);
   const [restrictions, setRestrictions] = useState(true);
@@ -63,7 +64,7 @@ const BookComponent = ({ book, index }: BookProps) => {
           className={styles.ImageHolder}
           perspective={850}
         >
-          {restrictions || !imageIsValid ? (
+          {restrictions || !imageIsValid || book.cover_image === null ? (
             <div
               className={styles.NoImage}
               data-tooltip-id={`my-tooltip-${index}`}
@@ -79,7 +80,8 @@ const BookComponent = ({ book, index }: BookProps) => {
               alt="ebook cover image"
               src={book.cover_image}
               className={styles.image}
-              onError={({ currentTarget }) => {
+              onError={() => {
+                console.log("error");
                 setImageIsValid(false);
               }}
             />

@@ -1,13 +1,15 @@
 import styles from "../styles/ImportComponent.module.scss";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ImportButton from "./ImportButton";
 import { useRouter } from "next/router";
+import { io } from "socket.io-client";
+import userAuthenticated from "@/helpers/UserAuthenticated";
 
 const ImportComponent = () => {
   const [progress, setProgress] = useState<"Started" | "None" | "Complete">(
     "None"
   );
-  const [percentage, setPercentage] = useState<number>(5);
+  const [percentage, setPercentage] = useState<number>(2);
   const router = useRouter();
   const isIndexRoute = router.pathname === "/";
 
@@ -17,6 +19,36 @@ const ImportComponent = () => {
       setPercentage(value);
     }
   };
+
+  const socket = io(`${process.env.NEXT_PUBLIC_BACKENDURL}`);
+
+  //Connecting to the sockets to see the progress of the upload
+  useEffect(() => {
+    if (userAuthenticated() && progress === "Started") {
+      socket.on("connect", () => {
+        socket.on("upload-progress", (data) => {
+          updatePercentage(Number(data));
+        });
+      });
+    }
+
+    return () => {
+      socket.off("connect");
+      socket.off("upload-progress");
+      socket.disconnect();
+    };
+  }, [progress, socket]);
+
+  //UseEffect to see what the progress is
+  useEffect(() => {
+    if (progress === "Complete" && setPercentage) {
+      setTimeout(() => {
+        //After two seconds of completed being shown pass user to home page
+        router.push("Home");
+        setPercentage(0);
+      }, 2000);
+    }
+  }, [progress]);
 
   return (
     <div className={styles.importSect}>
@@ -38,11 +70,7 @@ const ImportComponent = () => {
             : `Happy reading!`}
         </p>
       </div>
-      <ImportButton
-        setProgress={setProgress}
-        setPercentage={updatePercentage}
-        progress={progress}
-      />
+      <ImportButton setProgress={setProgress} progress={progress} />
       {progress === "Started" ? (
         <div className={styles.progressSect}>
           <div className={styles.progress_bar}>

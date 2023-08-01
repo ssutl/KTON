@@ -95,7 +95,9 @@ const BookPage = () => {
                 className={styles.ImageContainer}
                 perspective={650}
               >
-                {restrictions || !coverIsValid ? (
+                {restrictions ||
+                !coverIsValid ||
+                mainBook.cover_image === null ? (
                   <div
                     className={styles.NoImage}
                     data-tooltip-id={`my-tooltip-${id}`}
@@ -106,17 +108,15 @@ const BookPage = () => {
                     }
                   ></div>
                 ) : (
-                  <>
-                    <img
-                      alt="Book Cover"
-                      draggable="false"
-                      src={mainBook.cover_image}
-                      className={styles.image}
-                      onError={({ currentTarget }) => {
-                        setCoverIsValid(false);
-                      }}
-                    />
-                  </>
+                  <img
+                    alt="Book Cover"
+                    draggable="false"
+                    src={mainBook.cover_image}
+                    className={styles.image}
+                    onError={({ currentTarget }) => {
+                      setCoverIsValid(false);
+                    }}
+                  />
                 )}
                 {restrictions ? null : (
                   <p

@@ -3,9 +3,7 @@ import styles from "../styles/ImportButton.module.scss";
 import uploadedTxtHelper from "@/helpers/clippingsParse";
 import Router from "next/router";
 import userAuthenticated from "@/helpers/UserAuthenticated";
-import { io } from "socket.io-client";
 import ImportBooksApi from "@/api/Users/ImportBooks";
-import { set } from "lodash";
 
 interface ImportButtonProps {
   setProgress?: React.Dispatch<
@@ -15,11 +13,7 @@ interface ImportButtonProps {
   progress?: "Started" | "None" | "Complete";
 }
 
-const ImportButton = ({
-  setProgress,
-  setPercentage,
-  progress,
-}: ImportButtonProps) => {
+const ImportButton = ({ setProgress, progress }: ImportButtonProps) => {
   const [incomingFile, setIncomingFile] = useState<File | null>(null);
   const [LocalUploadStatus, setLocalUploadStatus] = useState<boolean>(false);
 
@@ -56,36 +50,6 @@ const ImportButton = ({
       }
     }
   };
-
-  const socket = io(`${process.env.NEXT_PUBLIC_BACKENDURL}`);
-
-  //Connecting to the sockets to see the progress of the upload
-  useEffect(() => {
-    if (userAuthenticated() && progress === "Started" && setPercentage) {
-      socket.on("connect", () => {
-        socket.on("upload-progress", (data) => {
-          setPercentage(Number(data));
-        });
-      });
-    }
-
-    return () => {
-      socket.off("connect");
-      socket.off("upload-progress");
-      socket.disconnect();
-    };
-  }, [progress, socket]);
-
-  //UseEffect to see what the progress is
-  useEffect(() => {
-    if (progress === "Complete" && setPercentage) {
-      setTimeout(() => {
-        //After two seconds of completed being shown pass user to home page
-        Router.push("Home");
-        setPercentage(0);
-      }, 2000);
-    }
-  }, [progress]);
 
   //UseEffect to see what the local storage state is after upload
   useEffect(() => {
