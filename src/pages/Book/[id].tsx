@@ -31,8 +31,9 @@ const BookPage = () => {
   const [showEditImageModal, setShowEditImageModal] = useState(false);
   const [coverIsValid, setCoverIsValid] = useState(true);
   const ref = React.useRef(null);
+  const editImageButtonRef = React.useRef(null);
 
-  useOutsideAlerter(ref, setShowEditImageModal);
+  useOutsideAlerter(ref, setShowEditImageModal, editImageButtonRef);
 
   //Initialising App by making data call on page load, this updates user context
   useEffect(() => {
@@ -122,6 +123,7 @@ const BookPage = () => {
                   <p
                     className={styles.editURLMenu}
                     onClick={() => setShowEditImageModal(!showEditImageModal)}
+                    ref={editImageButtonRef}
                   >
                     Edit cover
                   </p>

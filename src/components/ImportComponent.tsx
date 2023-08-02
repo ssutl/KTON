@@ -46,7 +46,7 @@ const ImportComponent = () => {
         //After two seconds of completed being shown pass user to home page
         router.push("Home");
         setPercentage(0);
-      }, 2000);
+      }, 1000);
     }
   }, [progress]);
 
