@@ -13,16 +13,7 @@ export default function Header() {
   }, [router.pathname]);
 
   //If on landing page we display default header
-  if (router.pathname === "/") {
-    return (
-      <div className={styles.header}>
-        <div className={styles.headerWidth}>
-          <p>OVER 10,000 IMPORTED HIGHLIGHTS</p>
-        </div>
-      </div>
-    );
-    //If on home page we need to display the restriction ting
-  } else if (router.pathname === "/Home" && restrictionHeader) {
+  if (router.pathname === "/Home" && restrictionHeader) {
     return (
       <div className={`${styles.header} ${styles.headerExpand}`}>
         <div className={styles.headerWidth}>
