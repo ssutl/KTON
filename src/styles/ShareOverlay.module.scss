@@ -58,9 +58,13 @@
 
   .ImageSection {
     height: 100%;
-    width: 85%;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 75%;
+
+    @include breakpoint-mixin("laptop-small") {
+      width: 85%;
+    }
   }
 }
