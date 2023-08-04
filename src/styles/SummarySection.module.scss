@@ -12,6 +12,10 @@
     background-color: transparent;
     border: none;
     outline: none;
+
+    @include portrait-min-width-mixin("Vertical_Display") {
+      min-height: 7vh;
+    }
   }
 
   .buttonsSection {

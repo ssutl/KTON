@@ -26,6 +26,10 @@
     height: 45%;
   }
 
+  @include portrait-min-width-mixin("Vertical_Display") {
+    height: 40%;
+  }
+
   .QuoteBannerWidth {
     height: 100%;
     width: 90%;
@@ -83,7 +87,15 @@
   animation: loading-animation 1s infinite linear;
 
   @include breakpoint-mixin("Laptop") {
-    height: 35dvh;
+    height: 40%;
+  }
+
+  @include breakpoint-mixin("Desktop_L") {
+    height: 45%;
+  }
+
+  @include portrait-min-width-mixin("Vertical_Display") {
+    height: 40%;
   }
 }
 

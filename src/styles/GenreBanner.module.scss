@@ -7,8 +7,8 @@
   flex-wrap: wrap;
   // background-color: orange;
 
-  @include breakpoint-mixin("Laptop") {
-    margin-bottom: 30px;
+  @include portrait-min-width-mixin("Vertical_Display") {
+    margin-bottom: 0px;
   }
 
   span {

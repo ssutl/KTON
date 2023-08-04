@@ -4,6 +4,7 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import Highlight from "./Highlight";
 import HandleLoginModal from "./HandleLoginModal";
 import styles from "../styles/HighlightsList.module.scss";
+import bookPageStyles from "../styles/BookPage.module.scss";
 
 const HighlightsList: React.FC<{ book: Book }> = ({ book }) => {
   const [restrictions, setRestricitons] = useState<boolean>(true);
@@ -15,7 +16,7 @@ const HighlightsList: React.FC<{ book: Book }> = ({ book }) => {
 
   if (book)
     return (
-      <>
+      <div className={bookPageStyles.highlightList}>
         {LoginModal()}
         {book.highlights
           .slice(0, restrictions ? 50 : book.highlights.length)
@@ -36,7 +37,7 @@ const HighlightsList: React.FC<{ book: Book }> = ({ book }) => {
             </h2>
           </div>
         ) : null}
-      </>
+      </div>
     );
   else null;
 };

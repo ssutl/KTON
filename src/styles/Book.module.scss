@@ -31,6 +31,10 @@
     height: 55dvh;
   }
 
+  @include portrait-min-width-mixin("Vertical_Display") {
+    height: 38dvh;
+  }
+
   .ImageSection {
     height: 75%;
     width: 100%;
@@ -89,6 +93,10 @@
       @include breakpoint-mixin("Desktop") {
         height: 75%;
         width: 55%;
+      }
+
+      @include portrait-min-width-mixin("Vertical_Display") {
+        width: 50%;
       }
 
       &:hover {

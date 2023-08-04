@@ -17,6 +17,10 @@
     height: 7dvh;
   }
 
+  @include portrait-min-width-mixin("Vertical_Display") {
+    height: 3dvh;
+  }
+
   @include breakpoint-mixin("Desktop") {
     height: 5dvh;
   }
@@ -29,7 +33,7 @@
     justify-content: space-between;
     font-weight: 500;
 
-    @include breakpoint-mixin("Laptop") {
+    @include breakpoint-mixin("Tablet") {
       width: 95%;
     }
 

@@ -37,6 +37,10 @@
       width: 400px;
     }
 
+    @include portrait-min-width-mixin("Vertical_Display") {
+      width: 600px;
+    }
+
     .feedbackModalHeader {
       height: 7dvh;
       width: 100%;
@@ -47,6 +51,10 @@
 
       @include breakpoint-mixin("Tablet") {
         height: 5dvh;
+      }
+
+      @include portrait-min-width-mixin("Vertical_Display") {
+        height: 3dvh;
       }
 
       #closeIcon {
@@ -67,6 +75,10 @@
 
       @include breakpoint-mixin("Tablet") {
         height: 4dvh;
+      }
+
+      @include portrait-min-width-mixin("Vertical_Display") {
+        height: 3dvh;
       }
 
       .faceIcon {
@@ -100,6 +112,10 @@
         @include breakpoint-mixin("Tablet") {
           min-height: 10dvh;
         }
+
+        @include portrait-min-width-mixin("Vertical_Display") {
+          min-height: 5dvh;
+        }
       }
     }
 
@@ -111,6 +127,10 @@
 
       @include breakpoint-mixin("Laptop") {
         height: 7dvh;
+      }
+
+      @include portrait-min-width-mixin("Vertical_Display") {
+        height: 3dvh;
       }
 
       p {

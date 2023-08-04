@@ -19,6 +19,15 @@ const HeatMapBanner = () => {
     { date: string; count: number }[] | undefined
   >(undefined);
   const [screenWidth, setScreenWidth] = useState(0);
+  const [displayMode, setDisplayMode] = useState<"portrait" | "landscape">(
+    "landscape"
+  );
+
+  useEffect(() => {
+    if (window.matchMedia("(orientation: portrait)").matches) {
+      setDisplayMode("portrait");
+    }
+  }, []);
 
   useEffect(() => {
     //Have to set screenwidth to conditionally change size of heat map
@@ -44,7 +53,9 @@ const HeatMapBanner = () => {
           <CalendarHeatmap
             startDate={shiftDate(
               today,
-              screenWidth < 425
+              displayMode === "portrait" && screenWidth >= 1080
+                ? -270
+                : screenWidth < 425
                 ? -155
                 : screenWidth < 1024
                 ? -200

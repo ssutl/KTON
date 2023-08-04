@@ -15,6 +15,10 @@
     height: 95dvh;
   }
 
+  @include portrait-min-width-mixin("Vertical_Display") {
+    height: 97dvh;
+  }
+
   .searchBanner {
     height: 7dvh;
     width: 100%;
@@ -28,6 +32,10 @@
 
     @include breakpoint-mixin("Laptop") {
       height: 7dvh;
+    }
+
+    @include portrait-min-width-mixin("Vertical_Display") {
+      height: 3dvh;
     }
 
     @include breakpoint-mixin("Desktop") {
@@ -140,6 +148,13 @@
     @include breakpoint-mixin("Laptop") {
       grid-template-columns: repeat(
         4,
+        1fr
+      ); /* Adjust the number of columns as needed */
+    }
+
+    @include portrait-min-width-mixin("Vertical_Display") {
+      grid-template-columns: repeat(
+        2,
         1fr
       ); /* Adjust the number of columns as needed */
     }

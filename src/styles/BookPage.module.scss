@@ -18,41 +18,31 @@
     height: 95dvh;
   }
 
+  @include portrait-min-width-mixin("Vertical_Display") {
+    height: 97dvh;
+  }
+
   .bookHalf {
     width: 100%;
     overflow-y: auto;
     border-right: 0.5px solid $border;
     display: inline-block;
 
-    @include breakpoint-mixin("Laptop") {
-      width: 50%;
+    .highlightList {
+      display: block;
     }
 
-    //For mobile
-    .bookTitle {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      margin: 5dvh auto 5dvh auto;
-      //Aligning title with highlights below
-      width: calc((90% + 10px));
-      // background-color: orange;
+    @include breakpoint-mixin("Laptop") {
+      width: 50%;
 
-      @include breakpoint-mixin("Tablet") {
-        margin: 4dvh auto 4dvh auto;
-      }
-
-      h1 {
-        margin-bottom: 40px;
-        max-width: 70%;
-        text-align: justify;
-      }
-
-      @include breakpoint-mixin("Laptop") {
+      .highlightList {
         display: none;
       }
     }
-    //For mobile
+
+    @include portrait-min-width-mixin("Vertical_Display") {
+      width: 100%;
+    }
 
     //Height of book cover
     .imageSection {
@@ -68,6 +58,10 @@
 
       @include breakpoint-mixin("Laptop") {
         height: 62dvh;
+      }
+
+      @include portrait-min-width-mixin("Vertical_Display") {
+        height: 43vh;
       }
 
       @include breakpoint-mixin("Desktop") {
@@ -108,6 +102,7 @@
           width: 100%;
           height: 100%;
         }
+
         .image {
           height: 100%;
           width: 100%;
@@ -159,28 +154,20 @@
     }
   }
 
-  //For laptop and Desktop
   .highlightHalf {
-    overflow-y: auto;
-    width: 50%;
-    background-color: $cd-bg;
+    //dont display on mobile
+    display: none;
 
-    .bookTitle {
+    //For laptop and Desktop
+    @include breakpoint-mixin("Laptop") {
+      display: block;
+      overflow-y: auto;
+      width: 50%;
+      background-color: $cd-bg;
+    }
+
+    @include portrait-min-width-mixin("Vertical_Display") {
       display: none;
-      @include breakpoint-mixin("Laptop") {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        margin: 5dvh auto 5dvh auto;
-        //Aligning title with highlights below
-        width: calc((90% + 10px));
-
-        h1 {
-          margin-bottom: 40px;
-          max-width: 70%;
-          text-align: justify;
-        }
-      }
     }
   }
 
@@ -206,20 +193,20 @@
   flex-direction: column;
   justify-content: space-between;
   margin: 5dvh auto 5dvh auto;
-
-  h1 {
-    margin-bottom: 40px;
-  }
-
-  @include breakpoint-mixin("Laptop") {
-    // height: 15dvh;
-  }
-
   //Aligning title with highlights below
   width: calc((90% + 10px));
   // background-color: orange;
 
+  @include breakpoint-mixin("Tablet") {
+    margin: 4dvh auto 4dvh auto;
+  }
+
+  @include portrait-min-width-mixin("Vertical_Display") {
+    margin: 2dvh auto 2dvh auto;
+  }
+
   h1 {
+    margin-bottom: 40px;
     max-width: 70%;
     text-align: justify;
   }

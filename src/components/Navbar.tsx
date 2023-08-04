@@ -39,7 +39,13 @@ export default function Navbar() {
   return (
     <div className={styles.navbar}>
       <div className={styles.navbarWidth}>
-        <h3 onClick={() => router.push("https://kton.xyz")}>KTON</h3>
+        <h3
+          onClick={() =>
+            router.push(`${isIndexRoute ? "https://kton.xyz" : "/Home"}`)
+          }
+        >
+          KTON
+        </h3>
         <div className={styles.navigationButtons}>
           {isIndexRoute ||
           isImportRoute ||

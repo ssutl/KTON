@@ -140,11 +140,13 @@ const BookPage = () => {
             {restrictions ? null : <GenreBanner />}
             {bookTitle()}
             {restrictions ? null : <SummarySection />}
-            {screenWidth < 1024 ? <HighlightsList book={mainBook} /> : null}
+            {/*Highlights is only shown in this half on mobile, hidden on desktop */}
+            <HighlightsList book={mainBook} />
           </div>
+          {/* Highlight Section, this is hidden on mobile*/}
           <div className={styles.highlightHalf}>
             {bookTitle()}
-            {screenWidth > 1024 ? <HighlightsList book={mainBook} /> : null}
+            <HighlightsList book={mainBook} />
           </div>
           <Tooltip
             id={`my-tooltip-${id}`}

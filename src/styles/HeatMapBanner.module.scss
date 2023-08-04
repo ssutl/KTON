@@ -13,6 +13,10 @@
     height: 35%;
   }
 
+  @include portrait-min-width-mixin("Vertical_Display") {
+    height: 20%;
+  }
+
   .HeatMapContainer {
     height: 85%;
     width: 100%;

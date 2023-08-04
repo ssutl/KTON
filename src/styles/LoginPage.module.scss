@@ -18,4 +18,8 @@
   @include breakpoint-mixin("Desktop") {
     height: 95dvh;
   }
+
+  @include portrait-min-width-mixin("Vertical_Display") {
+    height: 97dvh;
+  }
 }
