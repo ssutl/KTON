@@ -7,7 +7,7 @@
 
   cursor: pointer;
 
-  @include breakpoint-mixin("laptop-small") {
+  @include breakpoint-mixin("Laptop") {
     display: flex;
     flex-direction: column;
     height: 40dvh;

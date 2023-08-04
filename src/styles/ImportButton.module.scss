@@ -16,7 +16,7 @@
   white-space: nowrap;
   margin-left: 0.5px;
 
-  @include breakpoint-mixin("laptop-small") {
+  @include breakpoint-mixin("Laptop") {
     margin-left: 0px;
     &:hover {
       opacity: 0.5;

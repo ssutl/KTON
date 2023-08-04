@@ -25,7 +25,7 @@
       color: white;
       cursor: pointer;
 
-      @include breakpoint-mixin("laptop-small") {
+      @include breakpoint-mixin("Laptop") {
         &:hover {
           opacity: 0.5;
         }

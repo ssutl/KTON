@@ -9,7 +9,15 @@
   box-sizing: border-box;
   // color: white;
 
-  @include breakpoint-mixin("desktop") {
+  @include breakpoint-mixin("Tablet") {
+    height: 5dvh;
+  }
+
+  @include breakpoint-mixin("Laptop") {
+    height: 7dvh;
+  }
+
+  @include breakpoint-mixin("Desktop") {
     height: 5dvh;
   }
 
@@ -21,7 +29,7 @@
     justify-content: space-between;
     font-weight: 500;
 
-    @include breakpoint-mixin("laptop-small") {
+    @include breakpoint-mixin("Laptop") {
       width: 95%;
     }
 
@@ -36,7 +44,7 @@
       p {
         margin-left: 20px;
 
-        @include breakpoint-mixin("laptop-small") {
+        @include breakpoint-mixin("Laptop") {
           cursor: pointer;
           margin-left: 0px;
           border-radius: 4px;

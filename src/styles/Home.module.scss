@@ -1,11 +1,11 @@
 @import "../styles/Breakpoints.module.scss";
 
 .Home {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include breakpoint-mixin("Tablet") {
+    height: 95dvh;
+  }
 
-  @include breakpoint-mixin("laptop-small") {
+  @include breakpoint-mixin("Laptop") {
     height: 93dvh;
   }
 

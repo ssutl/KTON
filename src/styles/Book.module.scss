@@ -9,10 +9,14 @@
   flex-direction: column;
   align-items: center;
 
-  @include breakpoint-mixin("laptop-small") {
-    height: 75dvh;
+  @include breakpoint-mixin("Tablet") {
+    height: 60dvh;
     border-right: 0.5px solid $border;
     border-bottom: 0.5px solid $border;
+  }
+
+  @include breakpoint-mixin("Laptop") {
+    height: 75dvh;
   }
 
   @include breakpoint-mixin("desktop") {
@@ -66,7 +70,7 @@
       border-radius: 3px;
       overflow: hidden;
 
-      @include breakpoint-mixin("laptop-small") {
+      @include breakpoint-mixin("Laptop") {
         height: 70%;
       }
 
@@ -130,7 +134,7 @@
       .star {
         font-size: 27px;
 
-        @include breakpoint-mixin("laptop-small") {
+        @include breakpoint-mixin("Laptop") {
           font-size: 26px;
         }
         @include breakpoint-mixin("desktop") {

@@ -41,7 +41,7 @@ body {
     font-weight: 400;
     font-size: 30px;
 
-    @include breakpoint-mixin("laptop-small") {
+    @include breakpoint-mixin("Laptop") {
       font-size: 38px;
     }
   }
@@ -59,11 +59,11 @@ body {
     font-weight: 200;
     font-size: 18px;
 
-    @include breakpoint-mixin("laptop-small") {
+    @include breakpoint-mixin("Laptop") {
       font-size: 19px;
     }
 
-    @include breakpoint-mixin("desktop") {
+    @include breakpoint-mixin("Desktop") {
       font-size: 20px;
     }
   }
@@ -75,11 +75,11 @@ body {
     font-size: 16px;
     // line-height: 30px;
 
-    @include breakpoint-mixin("laptop-small") {
+    @include breakpoint-mixin("Laptop") {
       font-size: 15px;
     }
 
-    @include breakpoint-mixin("desktop") {
+    @include breakpoint-mixin("Desktop") {
       font-size: 18px;
     }
   }

@@ -10,8 +10,12 @@
   background-position: center center; /* Center the image */
   color: white;
 
-  @include breakpoint-mixin("laptop-small") {
-    height: 35dvh;
+  // @include breakpoint-mixin("Tablet") {
+  //   height: 85dvh;
+  // }
+
+  @include breakpoint-mixin("Laptop") {
+    height: 40%;
     background-position: center center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-position: 0 -250px; /* Center the image */
@@ -28,7 +32,7 @@
     // background-color: orange;
     position: relative;
 
-    @include breakpoint-mixin("laptop-small") {
+    @include breakpoint-mixin("Laptop") {
       width: 95%;
     }
 
@@ -44,7 +48,7 @@
       cursor: pointer;
       //Code to trancuate text
 
-      @include breakpoint-mixin("laptop-small") {
+      @include breakpoint-mixin("Laptop") {
         -webkit-line-clamp: 4;
 
         &:hover {
@@ -59,7 +63,7 @@
       bottom: 10px;
       cursor: pointer;
 
-      @include breakpoint-mixin("laptop-small") {
+      @include breakpoint-mixin("Laptop") {
         &:hover {
           opacity: 0.5;
         }
@@ -74,7 +78,7 @@
   background-color: #e3e3e36b;
   animation: loading-animation 1s infinite linear;
 
-  @include breakpoint-mixin("laptop-small") {
+  @include breakpoint-mixin("Laptop") {
     height: 35dvh;
   }
 }

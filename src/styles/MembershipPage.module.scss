@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: space-evenly;
 
-  @include breakpoint-mixin("laptop-small") {
+  @include breakpoint-mixin("Laptop") {
     flex-direction: row;
     height: 93dvh;
   }

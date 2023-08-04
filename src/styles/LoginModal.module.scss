@@ -20,7 +20,7 @@
     align-items: center;
     // background-color: orange;
 
-    @include breakpoint-mixin("laptop-small") {
+    @include breakpoint-mixin("Laptop") {
       width: 20%;
     }
   }

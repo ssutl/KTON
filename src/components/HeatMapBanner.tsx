@@ -44,7 +44,13 @@ const HeatMapBanner = () => {
           <CalendarHeatmap
             startDate={shiftDate(
               today,
-              screenWidth < 1024 ? -155 : screenWidth < 2560 ? -425 : -450
+              screenWidth < 425
+                ? -155
+                : screenWidth < 1024
+                ? -200
+                : screenWidth < 2560
+                ? -425
+                : -450
             )}
             endDate={today}
             values={heatMapData}

@@ -63,7 +63,7 @@
     align-items: center;
     width: 75%;
 
-    @include breakpoint-mixin("laptop-small") {
+    @include breakpoint-mixin("Laptop") {
       width: 85%;
     }
   }

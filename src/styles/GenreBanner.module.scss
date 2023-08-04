@@ -3,8 +3,13 @@
 .genreBanner {
   width: calc(90% + 10px);
   display: flex;
-  margin: 0px auto 30px auto;
+  margin: 0px auto 0px auto;
   flex-wrap: wrap;
+  // background-color: orange;
+
+  @include breakpoint-mixin("Laptop") {
+    margin-bottom: 30px;
+  }
 
   span {
     position: relative;
@@ -13,7 +18,7 @@
       margin-right: 20px;
       cursor: pointer;
 
-      @include breakpoint-mixin("laptop-small") {
+      @include breakpoint-mixin("Laptop") {
         cursor: pointer;
         margin-left: 0px;
         border-radius: 4px;

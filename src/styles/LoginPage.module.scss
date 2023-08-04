@@ -7,6 +7,14 @@
   justify-content: center;
   align-items: center;
 
+  @include breakpoint-mixin("Tablet") {
+    height: 95dvh;
+  }
+
+  @include breakpoint-mixin("Laptop") {
+    height: 93dvh;
+  }
+
   @include breakpoint-mixin("desktop") {
     height: 95dvh;
   }
