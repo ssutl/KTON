@@ -24,6 +24,16 @@ export default function Navbar() {
     }
   }, []);
 
+  useEffect(() => {
+    //Setting restrictionHeader to true if user not authenticated
+    if (sessionStorage.getItem("clippings")) {
+      setHasClippings(true);
+    }
+    if (userAuthenticated()) {
+      setHasAuthenticated(true);
+    }
+  }, [router.pathname]);
+
   //Display the navbar
   if (router.pathname === "/verify/[...id]") return null;
   return (
@@ -47,6 +57,7 @@ export default function Navbar() {
               onClick={() => {
                 router.push("/");
                 localStorage.removeItem("token");
+                localStorage.removeItem("username");
                 sessionStorage.removeItem("clippings");
                 updateBooks(undefined);
               }}

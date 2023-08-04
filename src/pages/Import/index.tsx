@@ -1,6 +1,7 @@
 import ImportComponent from "@/components/ImportComponent";
 import styles from "../../styles/ImportPage.module.scss";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+import userAuthenticated from "@/helpers/UserAuthenticated";
 
 const ImportPage = () => {
   return (

@@ -1,5 +1,5 @@
 import styles from "../styles/ImportComponent.module.scss";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ImportButton from "./ImportButton";
 import { useRouter } from "next/router";
 import { io } from "socket.io-client";
@@ -11,7 +11,16 @@ const ImportComponent = () => {
   );
   const [percentage, setPercentage] = useState<number>(2);
   const router = useRouter();
-  const isIndexRoute = router.pathname === "/";
+  const [demo, setDemo] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>("");
+
+  useEffect(() => {
+    setDemo(!userAuthenticated());
+
+    if (userAuthenticated()) {
+      setUsername(localStorage.getItem("username") as string);
+    }
+  }, []);
 
   const updatePercentage = (value: number) => {
     //In order to prevent the progress bar from going backwards, because of the way the socket works
@@ -54,10 +63,10 @@ const ImportComponent = () => {
     <div className={styles.importSect}>
       <div className={styles.importInfoSect}>
         <h2>
-          {isIndexRoute
-            ? `Demo KTON, no login required!`
-            : progress === "None"
-            ? `Import your clippings`
+          {progress === "None"
+            ? `Import your clippings to ${
+                !demo && username ? JSON.parse(username) : "demo site!"
+              }`
             : progress === "Started"
             ? `Importing Clippings`
             : `Upload Complete!`}

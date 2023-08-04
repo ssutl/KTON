@@ -33,20 +33,11 @@ export default function LoginPage({
         <title>Login</title>
       </Head>
       <div className={styles.main}>
-        <div className={styles.main_left}>
-          <ul>
-            <li>A website designed to organise your kindle highlights</li>
-          </ul>
-          <SiteDescription />
-        </div>
-        <div className={styles.main_right}>
-          <div className={styles.widthContainer}>
-            <LoginComponent />
-            <p id={styles.or}>or</p>
-            <ImportComponent />
-          </div>
-        </div>
-        <KindleOverlay />
+        {/* <div className={styles.main_left}></div> */}
+        {/* <div className={styles.main_right}> */}
+        <LoginComponent />
+        {/* </div> */}
+        {/* <KindleOverlay /> */}
       </div>
     </>
   );

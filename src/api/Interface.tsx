@@ -47,6 +47,7 @@ export interface users {
 export interface userInfo {
   password: string;
   registration_date: Date;
+  username: string;
   profile_picture: string;
   book_count: number;
   dark_mode: boolean;
