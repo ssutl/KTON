@@ -11,7 +11,7 @@ const AllowedRoute = () => {
     //If they dont have both and there not on verify page send them to login.
     //Use regex to check if they are on verify page as it has a dynamic route
   } else if (!clippings && !authToken) {
-    Router.push("/login");
+    Router.push("/");
     return false;
   }
 };
