@@ -114,8 +114,12 @@
           width: 35%;
         }
 
-        @include breakpoint-mixin("desktop") {
+        @include breakpoint-mixin("Desktop") {
           width: 25%;
+        }
+
+        @include breakpoint-mixin("Desktop_L") {
+          width: 20%;
         }
       }
     }
@@ -147,7 +151,7 @@
       ); /* Adjust the number of columns as needed */
     }
 
-    @include breakpoint-mixin("desktop-wide") {
+    @include breakpoint-mixin("Desktop-wide") {
       grid-template-columns: repeat(
         6,
         1fr

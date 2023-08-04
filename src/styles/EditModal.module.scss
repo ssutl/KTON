@@ -12,7 +12,7 @@
   position: relative;
   width: 25%;
 
-  @include breakpoint-mixin("desktop") {
+  @include breakpoint-mixin("Desktop") {
     width: 15%;
   }
 

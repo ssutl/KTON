@@ -14,7 +14,7 @@
     width: 30%;
   }
 
-  @include breakpoint-mixin("desktop") {
+  @include breakpoint-mixin("Desktop") {
     height: 65dvh;
     width: 25%;
   }

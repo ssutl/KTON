@@ -9,7 +9,7 @@
   box-sizing: border-box;
   height: 7dvh;
 
-  @include breakpoint-mixin("desktop") {
+  @include breakpoint-mixin("Desktop") {
     height: 5dvh;
   }
 

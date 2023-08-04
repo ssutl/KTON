@@ -14,7 +14,7 @@
     flex-direction: row;
   }
 
-  @include breakpoint-mixin("desktop") {
+  @include breakpoint-mixin("Desktop") {
     height: 95dvh;
   }
 
@@ -70,8 +70,12 @@
         height: 62dvh;
       }
 
-      @include breakpoint-mixin("desktop") {
+      @include breakpoint-mixin("Desktop") {
         height: 65dvh;
+      }
+
+      @include breakpoint-mixin("Desktop_L") {
+        height: 60dvh;
       }
 
       .ImageContainer {
@@ -155,7 +159,7 @@
     }
   }
 
-  //For laptop and desktop
+  //For laptop and Desktop
   .highlightHalf {
     overflow-y: auto;
     width: 50%;
@@ -232,7 +236,7 @@
     height: 93dvh;
   }
 
-  @include breakpoint-mixin("desktop") {
+  @include breakpoint-mixin("Desktop") {
     height: 95dvh;
   }
 }

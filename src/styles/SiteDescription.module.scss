@@ -23,7 +23,7 @@
       max-width: 60%;
     }
 
-    @include breakpoint-mixin("desktop") {
+    @include breakpoint-mixin("Desktop") {
       font-size: 20px;
     }
   }

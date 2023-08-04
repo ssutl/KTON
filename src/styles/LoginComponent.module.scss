@@ -52,6 +52,10 @@
       margin-bottom: 0px;
     }
 
+    @include breakpoint-mixin("Desktop_L") {
+      margin-bottom: 5px;
+    }
+
     input {
       background-color: $hover;
       border-radius: 4px;

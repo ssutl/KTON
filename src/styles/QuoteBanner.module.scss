@@ -22,6 +22,10 @@
     background-attachment: fixed;
   }
 
+  @include breakpoint-mixin("Desktop_L") {
+    height: 45%;
+  }
+
   .QuoteBannerWidth {
     height: 100%;
     width: 90%;
