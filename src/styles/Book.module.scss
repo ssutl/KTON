@@ -19,8 +19,12 @@
     height: 75dvh;
   }
 
-  @include breakpoint-mixin("desktop") {
-    height: 60dvh;
+  @include breakpoint-mixin("Laptop_L") {
+    height: 70dvh;
+  }
+
+  @include breakpoint-mixin("Desktop") {
+    height: 65dvh;
   }
 
   .ImageSection {
@@ -33,7 +37,7 @@
     cursor: pointer;
     position: relative;
 
-    @include breakpoint-mixin("desktop") {
+    @include breakpoint-mixin("Desktop") {
       height: 73%;
     }
 
@@ -74,8 +78,9 @@
         height: 70%;
       }
 
-      @include breakpoint-mixin("desktop") {
-        width: 60%;
+      @include breakpoint-mixin("Desktop") {
+        height: 75%;
+        width: 55%;
       }
 
       &:hover {
@@ -112,7 +117,7 @@
     align-items: center;
     text-align: justify;
 
-    @include breakpoint-mixin("desktop") {
+    @include breakpoint-mixin("Desktop") {
       height: 27%;
     }
 
@@ -137,7 +142,7 @@
         @include breakpoint-mixin("Laptop") {
           font-size: 26px;
         }
-        @include breakpoint-mixin("desktop") {
+        @include breakpoint-mixin("Desktop") {
           font-size: 25px;
         }
       }

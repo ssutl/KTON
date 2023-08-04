@@ -9,7 +9,7 @@
     height: 93dvh;
   }
 
-  @include breakpoint-mixin("desktop") {
+  @include breakpoint-mixin("Desktop") {
     height: 95dvh;
   }
 }
