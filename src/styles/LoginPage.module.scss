@@ -42,12 +42,12 @@
   .main_right {
     height: 100%;
     width: 100%;
-    background-color: $cd-bg;
     display: flex;
     flex-direction: column;
     align-items: center;
 
     @include breakpoint-mixin("laptop-small") {
+      background-color: $cd-bg;
       align-items: flex-start;
       height: 100%;
       width: 50%;
