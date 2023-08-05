@@ -42,6 +42,10 @@
 
     @include portrait-min-width-mixin("Vertical_Display") {
       width: 100%;
+
+      .highlightList {
+      display: block;
+    }
     }
 
     //Height of book cover
