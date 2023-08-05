@@ -17,7 +17,7 @@ const verifyUserApi = async ({ id, token }: verifyUserApiProps) => {
     if (res.data.JWT_token) {
       //Add token to local storage
       localStorage.setItem("token", res.data.JWT_token);
-      localStorage.setItem("user", JSON.stringify(res.data.user.username));
+      localStorage.setItem("username", JSON.stringify(res.data.user.username));
       //On success
       return "verified";
     }
