@@ -5,10 +5,13 @@ export interface addGenreToBookApiProps {
   data: string[];
 }
 
+//API TO ADD GENRE TO BOOK
+
 const addGenreToBookApi = async ({ book_id, data }: addGenreToBookApiProps) => {
   //Get token
   const authToken = localStorage.getItem("token");
 
+  //If token is null, throw error
   if (authToken === null) throw new Error("No token found");
 
   //Simple request to update summaries

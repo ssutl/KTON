@@ -5,6 +5,8 @@ export interface changeBookImageApiProps {
   data: string;
 }
 
+//API TO CHANGE BOOK IMAGE
+
 const changeBookImageApi = async ({
   book_id,
   data,
@@ -12,9 +14,10 @@ const changeBookImageApi = async ({
   //Get token
   const authToken = localStorage.getItem("token");
 
+  //If token is null, throw error
   if (authToken === null) throw new Error("No token found");
 
-  //Simple request to update summaries
+  //Simple request to update cover image
   try {
     axios({
       method: "PUT",

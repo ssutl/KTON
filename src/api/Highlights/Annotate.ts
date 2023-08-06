@@ -1,5 +1,7 @@
 import axios from "axios";
 
+//API TO ANNOTATE HIGHLIGHT
+
 const annotateHighlightApi = async ({
   book_id,
   highlight_id,
@@ -12,9 +14,10 @@ const annotateHighlightApi = async ({
   //Get token
   const authToken = localStorage.getItem("token");
 
+  //If token is null, throw error
   if (authToken === null) throw new Error("No token found");
 
-  //Simple request to update highlight annotations
+  //Simple request to add note to highlight
   try {
     axios({
       method: "PUT",

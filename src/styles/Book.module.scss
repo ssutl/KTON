@@ -157,6 +157,7 @@
       }
 
       .star {
+        cursor: pointer;
         font-size: 27px;
 
         @include breakpoint-mixin("Laptop") {

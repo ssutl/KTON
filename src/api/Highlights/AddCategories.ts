@@ -1,22 +1,25 @@
 import axios from "axios";
 
-export interface addHighlightApiProps {
+export interface addHighlightCategoryApiProps {
   book_id: string;
   highlight_id: string;
   data: string[];
 }
 
+//API TO ADD CATEGORY TO HIGHLIGHT
+
 const addHighlightCategoryApi = async ({
   book_id,
   highlight_id,
   data,
-}: addHighlightApiProps) => {
+}: addHighlightCategoryApiProps) => {
   //Get token
   const authToken = localStorage.getItem("token");
 
+  //If token is null, throw error
   if (authToken === null) throw new Error("No token found");
 
-  //Simple request to update highlight annotations
+  //Simple request to add update category field of highlights
   try {
     axios({
       method: "PUT",

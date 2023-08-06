@@ -13,11 +13,14 @@ export interface LoginApiProps {
   password: string;
 }
 
+//API TO LOGIN OR SIGNUP
+
 const LoginApi = async ({
   type,
   email,
   password,
 }: LoginApiProps): Promise<LoginApiReturnType> => {
+  //Try to login user
   try {
     const res = await axios({
       method: "POST",
@@ -28,16 +31,22 @@ const LoginApi = async ({
       data: { username: email, password: password },
     });
 
+    //On success for login and signup there are 2 possible responses, for login: User exists well done heres a token pass into app. For signup: User created, please verify email.
+
+    //If token is returned, store it in local storage and redirect to home page
     if (res.data.token) {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("username", JSON.stringify(res.data.user.username));
       Router.push("/Home");
+      //If user is not verified, return "Pending verification"
     } else if (res.data.msg === "An email has been sent to the user account") {
       return "Pending verification";
     } else {
       throw new Error("Unexpected error occurred");
     }
   } catch (err: any) {
+    //On failure for login and signup there are 4 possible responses, for login: Invalid credentials, user does not exist or email not verified. For signup: User already exists.
+
     if (err.response && err.response.status === 400) {
       if (
         err.response.data.msg === "invalid credentials" ||
@@ -53,7 +62,7 @@ const LoginApi = async ({
       } else {
         throw new Error("Unexpected error occurred");
       }
-    } else if (err.response.data.msg === "user does not exist") {
+    } else {
       throw new Error("Unexpected error occurred");
     }
   }

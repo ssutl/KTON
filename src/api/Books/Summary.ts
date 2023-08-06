@@ -5,6 +5,8 @@ export interface summariseBookApiProps {
   data: string;
 }
 
+//Simple API to summarise book
+
 const summariseBookApi = async ({ book_id, data }: summariseBookApiProps) => {
   //Get token
   const authToken = localStorage.getItem("token");

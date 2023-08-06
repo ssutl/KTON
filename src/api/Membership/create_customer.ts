@@ -8,6 +8,8 @@ export interface createCustomerProps {
 
 export type createCustomerReturnTypes = Promise<string>;
 
+//API TO CREATE CHECKOUT SESSION FOR STRIPE
+
 const createCustomer = async ({
   price_id,
   success_url,
@@ -16,9 +18,10 @@ const createCustomer = async ({
   //Get token
   const authToken = localStorage.getItem("token");
 
+  //If token is null, throw error, only authed users can upgrade to premium
   if (authToken === null) throw new Error("No token found");
 
-  // Simple request to update highlight annotations
+  // Simple request to call create customer endpoint
   try {
     const response: AxiosResponse<any> = await axios({
       method: "POST",
@@ -30,15 +33,12 @@ const createCustomer = async ({
       data: { priceId: price_id, success_url, cancel_url },
     });
 
-    //console.log
-    console.log("response: ", response.data);
-
-    // Assuming the response contains a "url" property, extract it and return
+    // The checkout session url is returned, which the user is redirected to
     const url: string = response.data;
     return url;
   } catch (err) {
     console.log("err: ", err);
-    throw new Error("Failed to create checkout session");
+    throw new Error("Failed to create customer");
   }
 };
 

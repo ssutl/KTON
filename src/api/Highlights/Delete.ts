@@ -5,6 +5,7 @@ export interface deleteHighlightApiProps {
   highlight_id: string;
 }
 
+//API TO DELETE HIGHLIGHT
 const deleteHighlightApi = async ({
   book_id,
   highlight_id,
@@ -12,6 +13,7 @@ const deleteHighlightApi = async ({
   //Get token
   const authToken = localStorage.getItem("token");
 
+  //If token is null, throw error
   if (authToken === null) throw new Error("No token found");
 
   //Simple request to delete highlight

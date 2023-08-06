@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { KTON_CONTEXT } from "../context/KTONContext";
-import rateBookApi from "@/api/Books/RateBookAPI";
+import rateBookApi from "@/api/Books/RateBook";
 import addGenreToBookApi from "@/api/Books/AddGenreToBook";
 import { colorMapKeys } from "./sortGenreColors";
 import addGenreToUserApi from "@/api/Users/AddGenre";

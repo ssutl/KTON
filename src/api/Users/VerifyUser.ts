@@ -4,9 +4,9 @@ export interface verifyUserApiProps {
   id: string;
   token: string;
 }
-
+//API TO VERIFY USER
 const verifyUserApi = async ({ id, token }: verifyUserApiProps) => {
-  //   Simple request to login user
+  //Simple to verify user
   try {
     const res = await axios({
       method: "GET",

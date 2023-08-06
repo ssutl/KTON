@@ -6,6 +6,7 @@ export interface favouriteHighlightApiProps {
   data: boolean;
 }
 
+//API TO FAVOURITE HIGHLIGHT
 const favouriteHighlightApi = async ({
   book_id,
   highlight_id,
@@ -14,6 +15,7 @@ const favouriteHighlightApi = async ({
   //Get token
   const authToken = localStorage.getItem("token");
 
+  //If token is null, throw error
   if (authToken === null) throw new Error("No token found");
 
   //Simple request to favourite highlight
