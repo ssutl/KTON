@@ -7,7 +7,7 @@ export type colorMapKeys =
   | "yellow"
   | "orange"
   | "brown";
-export type ColorMap = Record<colorMapKeys, string>; //A Record<K, T> is an object type: property keys are K and property T
+export type ColorMap = Record<colorMapKeys, string>;
 
 function genreColors() {
   const mapTable: ColorMap = {
@@ -21,11 +21,13 @@ function genreColors() {
     brown: "#9E6240",
   };
 
+  //Quick lil function to convert color names to hex
   const colorConverter = (name: colorMapKeys) => {
     const hex = mapTable[name];
     return hex;
   };
 
+  //Quick lil function to generate random colors
   const randomColorGenerator = () => {
     const array: colorMapKeys[] = Object.keys(mapTable) as colorMapKeys[];
     const randomColor = array[(array.length * Math.random()) << 0];

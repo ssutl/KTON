@@ -9,12 +9,13 @@ export default function Navbar() {
   const [hasClippings, setHasClippings] = useState(false);
   const [hasAuthenticated, setHasAuthenticated] = useState(false);
   const router = useRouter();
+  // getting the current route
   const isIndexRoute = router.pathname === "/";
   const isImportRoute = router.pathname === "/Import";
   const isVerifyRoute = /^\/verify\/\d+$/.test(router.asPath);
   const isMembershipRoute = router.pathname === "/Membership";
-  const demoUser = hasClippings && !hasAuthenticated;
 
+  //on page load, check if user has clippings
   useEffect(() => {
     if (sessionStorage.getItem("clippings")) {
       setHasClippings(true);

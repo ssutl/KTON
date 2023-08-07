@@ -61,6 +61,13 @@ const MembershipCard = ({ type, setLoginModal }: MembershipCardProps) => {
     "Detailed analytics & insights in the form of charts & graphs",
   ];
 
+  const features =
+    type === "Preview"
+      ? previewFeatures
+      : type === "Free"
+      ? freeFeatures
+      : premiumFeatures;
+
   return (
     <div
       className={`${styles.membershipCard} ${
@@ -108,24 +115,11 @@ const MembershipCard = ({ type, setLoginModal }: MembershipCardProps) => {
         <h2>/{billing_type}</h2>
       </div>
       <div className={styles.membershipCardFeatures}>
-        {type === "Preview" &&
-          previewFeatures.map((feature, index) => (
-            <div key={index} className={styles.featureItem}>
-              <h3>✅ {feature}</h3>
-            </div>
-          ))}
-        {type === "Free" &&
-          freeFeatures.map((feature, index) => (
-            <div key={index} className={styles.featureItem}>
-              <h3>✅ {feature}</h3>
-            </div>
-          ))}
-        {type === "Premium" &&
-          premiumFeatures.map((feature, index) => (
-            <div key={index} className={styles.featureItem}>
-              <h3>✅ {feature}</h3>
-            </div>
-          ))}
+        {features.map((feature, index) => (
+          <div key={index} className={styles.featureItem}>
+            <h3>✅ {feature}</h3>
+          </div>
+        ))}
       </div>
       {(type === "Preview" && currentPlan !== "Preview") ||
       (type === "Premium" && currentPlan === "Preview") ? null : (

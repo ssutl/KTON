@@ -12,7 +12,6 @@ import AllowedRoute from "@/helpers/AllowedRoute";
 import HighlightsList from "@/components/HighlightsList";
 import SummarySection from "@/components/SummaryComponent";
 import GenreBanner from "@/components/GenreBanner";
-import HandleChanges from "@/helpers/HandleChanges";
 import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 import Modal from "@/components/Modal";
 import LoadingPage from "@/components/LoadingPage";
@@ -30,10 +29,6 @@ const BookPage = () => {
   const [screenWidth, setScreenWidth] = useState(0);
   const [showEditImageModal, setShowEditImageModal] = useState(false);
   const [coverIsValid, setCoverIsValid] = useState(true);
-  const ref = React.useRef(null);
-  const editImageButtonRef = React.useRef(null);
-
-  useOutsideAlerter(ref, setShowEditImageModal, editImageButtonRef);
 
   //Initialising App by making data call on page load, this updates user context
   useEffect(() => {
@@ -78,88 +73,85 @@ const BookPage = () => {
     );
   };
 
-  if (mainBook) {
-    return (
-      <>
-        {LoginModal()}
-        <div className={styles.BookPage}>
-          <div className={styles.bookHalf}>
-            <div className={styles.overlay}></div>
-            <div className={styles.imageSection}>
-              <Tilt
-                glareEnable={true}
-                glareMaxOpacity={0.1}
-                glarePosition="all"
-                glareBorderRadius="0px"
-                tiltAngleYInitial={screenWidth < 1024 ? 0 : -10}
-                tiltEnable={false}
-                className={styles.ImageContainer}
-                perspective={650}
-              >
-                {restrictions ||
-                !coverIsValid ||
-                mainBook.cover_image === null ? (
-                  <div
-                    className={styles.NoImage}
-                    data-tooltip-id={`my-tooltip-${id}`}
-                    data-tooltip-content={
-                      restrictions
-                        ? `You can sign in to add your own cover image`
-                        : `Add an image through the button above ⬆️`
-                    }
-                  ></div>
-                ) : (
-                  <img
-                    alt="Book Cover"
-                    draggable="false"
-                    src={mainBook.cover_image}
-                    className={styles.image}
-                    onError={({ currentTarget }) => {
-                      setCoverIsValid(false);
-                    }}
-                  />
-                )}
-                {restrictions ? null : (
-                  <p
-                    className={styles.editURLMenu}
-                    onClick={() => setShowEditImageModal(!showEditImageModal)}
-                    ref={editImageButtonRef}
-                  >
-                    Edit cover
-                  </p>
-                )}
-              </Tilt>
-              {showEditImageModal && !restrictions && (
-                <Modal
-                  specific_type="Type_Save"
-                  closeModal={() => setShowEditImageModal(false)}
-                  mainBook={mainBook}
+  if (!mainBook) return <LoadingPage Text="Book Loading" />;
+
+  return (
+    <>
+      {LoginModal()}
+      <div className={styles.BookPage}>
+        <div className={styles.bookHalf}>
+          <div className={styles.overlay}></div>
+          <div className={styles.imageSection}>
+            <Tilt
+              glareEnable={true}
+              glareMaxOpacity={0.1}
+              glarePosition="all"
+              glareBorderRadius="0px"
+              tiltAngleYInitial={screenWidth < 1024 ? 0 : -10}
+              tiltEnable={false}
+              className={styles.ImageContainer}
+              perspective={650}
+            >
+              {restrictions ||
+              !coverIsValid ||
+              mainBook.cover_image === null ? (
+                <div
+                  className={styles.NoImage}
+                  data-tooltip-id={`my-tooltip-${id}`}
+                  data-tooltip-content={
+                    restrictions
+                      ? `You can sign in to add your own cover image`
+                      : `Add an image through the button above ⬆️`
+                  }
+                ></div>
+              ) : (
+                <img
+                  alt="Book Cover"
+                  draggable="false"
+                  src={mainBook.cover_image}
+                  className={styles.image}
+                  onError={({ currentTarget }) => {
+                    setCoverIsValid(false);
+                  }}
                 />
               )}
-            </div>
-            {restrictions ? null : <GenreBanner />}
-            {bookTitle()}
-            {restrictions ? null : <SummarySection />}
-            {/*Highlights is only shown in this half on mobile, hidden on desktop */}
-            <HighlightsList book={mainBook} />
+              {restrictions ? null : (
+                <p
+                  className={styles.editURLMenu}
+                  onClick={() => setShowEditImageModal(!showEditImageModal)}
+                >
+                  Edit cover
+                </p>
+              )}
+            </Tilt>
+            {showEditImageModal && !restrictions && (
+              <Modal
+                specific_type="Type_Save"
+                closeModal={() => setShowEditImageModal(false)}
+                mainBook={mainBook}
+              />
+            )}
           </div>
-          {/* Highlight Section, this is hidden on mobile*/}
-          <div className={styles.highlightHalf}>
-            {bookTitle()}
-            <HighlightsList book={mainBook} />
-          </div>
-          <Tooltip
-            id={`my-tooltip-${id}`}
-            className="toolTip"
-            noArrow
-            place="bottom-end"
-          />
+          {restrictions ? null : <GenreBanner />}
+          {bookTitle()}
+          {restrictions ? null : <SummarySection />}
+          {/*Highlights is only shown in this half on mobile, hidden on desktop */}
+          <HighlightsList book={mainBook} />
         </div>
-      </>
-    );
-  } else {
-    return <LoadingPage Text="Book Loading" />;
-  }
+        {/* Highlight Section, this is hidden on mobile*/}
+        <div className={styles.highlightHalf}>
+          {bookTitle()}
+          <HighlightsList book={mainBook} />
+        </div>
+        <Tooltip
+          id={`my-tooltip-${id}`}
+          className="toolTip"
+          noArrow
+          place="bottom-end"
+        />
+      </div>
+    </>
+  );
 };
 
 export default BookPage;

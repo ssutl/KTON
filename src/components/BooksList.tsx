@@ -3,6 +3,7 @@ import userAuthenticated from "@/helpers/UserAuthenticated";
 import React, { useState, useEffect, useContext, useRef } from "react";
 import BookComponent from "./BookComponent";
 
+//Books passed from library
 const BooksList: React.FC<{
   books: Book[];
   selectedSort: "Recent" | "Rating" | "Oldest";
@@ -10,39 +11,40 @@ const BooksList: React.FC<{
 }> = ({ books, selectedSort, selectedFilter }) => {
   const [restrictions, setRestricitons] = useState<boolean>(true);
 
+  //Setting restrictions on page load
   useEffect(() => {
     setRestricitons(!userAuthenticated());
   }, []);
 
-  if (books) {
-    return (
-      <>
-        {books
-          .sort((a: Book, b: Book) => {
-            if (selectedSort === "Rating") {
-              return b.rating - a.rating;
-            } else if (selectedSort === "Recent") {
-              return (
-                new Date(b.upload_date).getTime() -
-                new Date(a.upload_date).getTime()
-              );
-            } else if (selectedSort === "Oldest") {
-              return (
-                new Date(a.upload_date).getTime() -
-                new Date(b.upload_date).getTime()
-              );
-            } else return 0;
-          })
-          .filter((eachBook) =>
-            selectedFilter ? eachBook.genre.includes(selectedFilter) : eachBook
-          )
-          .slice(0, restrictions ? 10 : books.length)
-          .map((eachBook, i) => (
-            <BookComponent book={eachBook} index={i} key={i} />
-          ))}
-      </>
-    );
-  }
+  if (!books) return null;
+
+  return (
+    <>
+      {books
+        .sort((a: Book, b: Book) => {
+          if (selectedSort === "Rating") {
+            return b.rating - a.rating;
+          } else if (selectedSort === "Recent") {
+            return (
+              new Date(b.upload_date).getTime() -
+              new Date(a.upload_date).getTime()
+            );
+          } else if (selectedSort === "Oldest") {
+            return (
+              new Date(a.upload_date).getTime() -
+              new Date(b.upload_date).getTime()
+            );
+          } else return 0;
+        })
+        .filter((eachBook) =>
+          selectedFilter ? eachBook.genre.includes(selectedFilter) : eachBook
+        )
+        .slice(0, restrictions ? 10 : books.length)
+        .map((eachBook, i) => (
+          <BookComponent book={eachBook} index={i} key={i} />
+        ))}
+    </>
+  );
 };
 
 export default BooksList;

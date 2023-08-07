@@ -6,6 +6,7 @@ interface TextColorModalProps {
   setTextColor: React.Dispatch<React.SetStateAction<string>>;
 }
 
+//Modal for changing the text color, within edit modal. Pass text colour back up to edit modal.
 const TextColorModal = ({ textColor, setTextColor }: TextColorModalProps) => {
   return (
     <>

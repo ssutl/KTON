@@ -5,14 +5,14 @@ import FormatAlignJustifyOutlinedIcon from "@mui/icons-material/FormatAlignJusti
 import VerticalAlignCenterOutlinedIcon from "@mui/icons-material/VerticalAlignCenterOutlined";
 import VerticalAlignBottomOutlinedIcon from "@mui/icons-material/VerticalAlignBottomOutlined";
 import VerticalAlignTopOutlinedIcon from "@mui/icons-material/VerticalAlignTopOutlined";
-import PhotoSharpIcon from "@mui/icons-material/PhotoSharp";
 import { HexColorPicker } from "react-colorful";
 import React, { useCallback, useEffect, useState } from "react";
-import { toPng, toJpeg } from "html-to-image";
 import styles from "../styles/EditModal.module.scss";
 import { ImageStyles, MetaDataStyles, TextStyles } from "./ShareOverlay";
 import { Book } from "@/api/Interface";
 import TextColorModal from "./TextColorModal";
+import ShareImageNatively from "@/helpers/ShareImageNatively";
+import ImageDownload from "@/helpers/ImageDownload";
 
 interface EditModalProps {
   refrence: React.RefObject<HTMLDivElement>;
@@ -34,6 +34,7 @@ const EditModal = ({
   setTextStyles,
   setMetaDataStyles,
 }: EditModalProps) => {
+  //Collecting props to edit the picture, such as text color, font size, etc.
   const [color, setColor] = useState("#aabbcc");
   const [fontSize, setFontSize] = useState<number>(30);
   const [fontWeight, setFontWeight] = useState<number>(400);
@@ -50,62 +51,22 @@ const EditModal = ({
   const [textColor, setTextColor] = useState<string>("#000000");
   const [displayTextColorModal, setDisplayTextColorModal] =
     useState<boolean>(false);
-  const [inputtedImageUrl, setInputtedImageurl] = useState<string | null>(null);
+  //Collecting props to edit the picture, such as text color, font size, etc.
 
-  const handleImageDownload = useCallback(async () => {
-    if (refrence.current === null) {
-      return;
-    }
+  //This is to download the image to users device
+  const { handleImageDownload } = ImageDownload({
+    refrence,
+    title: `${book.title}-${index}.png`,
+    imageWidth,
+  });
 
-    const watermarkText = "KTON.XYZ"; // Set your watermark text here
-    const watermarkStyles = {
-      position: "absolute",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%) rotate(-45deg)", // Rotate the element by -45 degrees
-      color: "black", // Adjust the color and opacity as needed
-      fontSize: `${imageWidth * 0.25}px`,
-      opacity: 0.1,
-    };
-
-    const watermarkElement = document.createElement("h1");
-    watermarkElement.textContent = watermarkText;
-    Object.assign(watermarkElement.style, watermarkStyles);
-
-    // Append the watermark h2 element to the div
-    refrence.current.appendChild(watermarkElement);
-
-    try {
-      const dataUrl = await toPng(refrence.current, { cacheBust: false });
-
-      const link = document.createElement("a");
-      link.download = `${book?.title}-${index}`;
-      link.href = dataUrl;
-      link.click();
-      if (refrence.current) refrence.current.removeChild(watermarkElement);
-    } catch (err) {
-      console.log(err);
-    }
-
-    // Remove the watermark element from the div
-  }, [refrence]);
-
-  const BaseStyle = {
+  //Styles to pass up to parent image and render
+  const ImageStyle = {
     width: `${imageWidth}px`,
     height: `${imageHeight}px`,
     alignItems: textVerticalAlign,
+    backgroundColor: color,
   };
-
-  const ImageStyle =
-    backgroundType === "image"
-      ? {
-          ...BaseStyle,
-          backgroundImage: `url(${backgroundImage})`,
-        }
-      : {
-          ...BaseStyle,
-          backgroundColor: color,
-        };
 
   const TextStyles = {
     fontWeight: fontWeight,
@@ -120,45 +81,6 @@ const EditModal = ({
     fontSize: fontSize * 0.65,
     color: textColor,
   };
-
-  //This is for sharing images natively
-  const dataURLtoFile = (dataurl: any, filename: any) => {
-    var arr = dataurl.split(","),
-      mimeType = arr[0].match(/:(.*?);/)[1],
-      decodedData = atob(arr[1]),
-      lengthOfDecodedData = decodedData.length,
-      u8array = new Uint8Array(lengthOfDecodedData);
-    while (lengthOfDecodedData--) {
-      u8array[lengthOfDecodedData] =
-        decodedData.charCodeAt(lengthOfDecodedData);
-    }
-    return new File([u8array], filename, { type: mimeType });
-  };
-
-  const shareFile = (file: any, title: any, text: any) => {
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      navigator
-        .share({
-          files: [file],
-          title,
-          text,
-        })
-        .then(() => console.log("Share was successful."))
-        .catch((error) => console.log("Sharing failed", error));
-    } else {
-      console.log(`Your system doesn't support sharing files.`);
-    }
-  };
-
-  const createImage = () => {
-    toJpeg(document.getElementById("ss_image")!, { quality: 0.95 }).then(
-      (dataUrl: string) => {
-        const file = dataURLtoFile(dataUrl, "thanku_poster.png");
-        shareFile(file, "Title", "https://co-aid.in");
-      }
-    );
-  };
-  //This is for sharing images natively
 
   //When anything changes we want to update the styles and send to parent
   useEffect(() => {
@@ -189,54 +111,25 @@ const EditModal = ({
       {displayTextColorModal && (
         <TextColorModal textColor={textColor} setTextColor={setTextColor} />
       )}
+      {
+        //Section to edit the background colour of the image
+      }
       <div className={styles.header}>
         <p>Background</p>
       </div>
       <div className={styles.backgroundOptionsSection}>
-        <div
-          onClick={() => setBackgroundType("gradient")}
-          className={`${styles.gradientBox} ${
-            backgroundType === "gradient" && styles.selectedIcon
-          }`}
-        ></div>
-        {/* <PhotoSharpIcon
-          onClick={() => setBackgroundType("image")}
-          className={`${styles.imageIcon} ${
-            backgroundType === "image" && styles.selectedIcon
-          }`}
-        /> */}
+        <div className={styles.gradientBox}></div>
       </div>
       <div className={styles.backgroundSection}>
-        {backgroundType === "image" ? (
-          <>
-            <div className={styles.searchSection}>
-              <input
-                type="text"
-                placeholder="Search for an image"
-                onChange={(e) => setInputtedImageurl(e.target.value)}
-              />
-            </div>
-            <div className={styles.buttonSection}>
-              <p
-                className={styles.button}
-                onClick={() => {
-                  if (inputtedImageUrl) {
-                    setBackgroundImage(inputtedImageUrl);
-                  }
-                }}
-              >
-                Save
-              </p>
-            </div>
-          </>
-        ) : (
-          <HexColorPicker
-            color={color}
-            onChange={setColor}
-            id={styles.colorPicker}
-          />
-        )}
+        <HexColorPicker
+          color={color}
+          onChange={setColor}
+          id={styles.colorPicker}
+        />
       </div>
+      {
+        //Section to edit the text of the image
+      }
       <div className={styles.header}>
         <p>Text</p>
       </div>
@@ -332,6 +225,9 @@ const EditModal = ({
           </div>
         </div>
       </div>
+      {
+        //Section to edit the size of the image
+      }
       <div className={styles.header}>
         <p>Image Size</p>
       </div>
@@ -353,6 +249,9 @@ const EditModal = ({
           />
         </div>
       </div>
+      {
+        //Section to export image
+      }
       <div className={styles.header}>
         <p>Export Image</p>
       </div>
@@ -367,7 +266,7 @@ const EditModal = ({
           className={styles.exportButton}
           onClick={async () => {
             try {
-              createImage();
+              ShareImageNatively(`${book?.title}-${index}.jpeg`);
             } catch (err) {
               navigator.clipboard.writeText(window.location.href);
             }

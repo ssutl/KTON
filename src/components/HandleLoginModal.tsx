@@ -14,14 +14,13 @@ const HandleLoginModal = () => {
     if (display) {
       return (
         <div className={styles.LoginModal} onClick={() => setDisplay(false)}>
-          <div className={styles.width}>
-            <LoginComponent />
-          </div>
+          <LoginComponent />
         </div>
       );
     } else return null;
   };
 
+  //Returning the function to set the modal and the modal itself
   return {
     setLoginModal,
     LoginModal,

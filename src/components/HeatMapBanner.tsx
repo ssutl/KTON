@@ -23,6 +23,7 @@ const HeatMapBanner = () => {
     "landscape"
   );
 
+  //Setting display mode on load, because the heatmap is dead and not responsive
   useEffect(() => {
     if (window.matchMedia("(orientation: portrait)").matches) {
       setDisplayMode("portrait");

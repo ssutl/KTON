@@ -30,7 +30,7 @@ const ImportButton = ({ setProgress, progress }: ImportButtonProps) => {
       const status = await ImportBooksApi({ formData });
       setProgress(status);
     } else {
-      //This upload process is for the landing page, therefore user isn't logged in and we can parse client side
+      //This is for the demo so we can parse client side
       if (file && file.type.match(textType)) {
         var reader = new FileReader();
 
