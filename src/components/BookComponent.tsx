@@ -109,4 +109,4 @@ const BookComponent = ({ book, index }: BookProps) => {
   );
 };
 
-export default BookComponent;
+export default React.memo(BookComponent);

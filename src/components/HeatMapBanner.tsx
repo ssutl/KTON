@@ -32,9 +32,11 @@ const HeatMapBanner = () => {
   }, []);
 
   if (!highlights)
-    <div className={styles.HeatMapBanner}>
-      <div className={styles.loading}></div>
-    </div>;
+    return (
+      <div className={styles.HeatMapBanner}>
+        <div className={styles.loading}></div>
+      </div>
+    );
 
   const heatMapData = HeatMapDataFunc(highlights);
 
@@ -74,4 +76,4 @@ const HeatMapBanner = () => {
   );
 };
 
-export default HeatMapBanner;
+export default React.memo(HeatMapBanner);
