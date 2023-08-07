@@ -111,6 +111,9 @@ const Modal = ({
               : ""}
           </h3>
         </div>
+        {
+          //Search bar for all modals except type_save
+        }
         {specific_type !== "Select" && (
           <div className={styles.searchSection}>
             <input
@@ -128,6 +131,9 @@ const Modal = ({
             />
           </div>
         )}
+        {
+          //List of items for all modals except type_save
+        }
         {specific_type !== "Type_Save" &&
           filteredData &&
           filteredData.map((eachItem, i) => (
@@ -222,6 +228,9 @@ const Modal = ({
               )}
             </div>
           ))}
+        {
+          //Create genre button for add_genre modal
+        }
         {userinfo &&
           mainBook &&
           specific_type === "Add_Genre" &&
@@ -254,6 +263,9 @@ const Modal = ({
               </div>
             </div>
           )}
+        {
+          //Save button for type_save modal
+        }
         {specific_type === "Type_Save" && (
           <div className={styles.buttonSection}>
             <p
@@ -275,7 +287,6 @@ const Modal = ({
           </div>
         )}
       </div>
-
       <div className={styles.modalBackground} onClick={() => closeModal()} />
     </>
   );

@@ -16,10 +16,11 @@ const Layout = ({ children }: any) => {
     setAuthed(userAuthenticated());
   }, [router.pathname]);
 
-  //Quick default layout in order to persist navbar and header on every page
   const closeModal = () => {
     setFeedbackModal(false);
   };
+
+  //Quick default layout in order to persist navbar and header on every page
 
   return (
     <>

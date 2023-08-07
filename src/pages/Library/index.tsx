@@ -179,30 +179,28 @@ const Library = () => {
     );
   };
 
-  if (mainBooks) {
-    return (
-      <>
-        <Head>
-          <title>Library</title>
-        </Head>
-        <div
-          className={`${styles.Library} ${
-            modalDisplayed ? styles.noScroll : ""
-          }`}
-        >
-          {SearchBanner()}
-          {filterBanner()}
-          <div className={styles.bookContainer}>
-            <BooksList
-              selectedSort={selectedSort}
-              books={mainBooks}
-              selectedFilter={selectedFilter}
-            />
-          </div>
+  if (!mainBooks) return <LoadingPage Text="Loading Library" />;
+
+  return (
+    <>
+      <Head>
+        <title>Library</title>
+      </Head>
+      <div
+        className={`${styles.Library} ${modalDisplayed ? styles.noScroll : ""}`}
+      >
+        {SearchBanner()}
+        {filterBanner()}
+        <div className={styles.bookContainer}>
+          <BooksList
+            selectedSort={selectedSort}
+            books={mainBooks}
+            selectedFilter={selectedFilter}
+          />
         </div>
-      </>
-    );
-  } else return <LoadingPage Text="Loading" />;
+      </div>
+    </>
+  );
 };
 
 export default Library;

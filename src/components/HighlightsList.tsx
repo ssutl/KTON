@@ -10,6 +10,7 @@ const HighlightsList: React.FC<{ book: Book }> = ({ book }) => {
   const [restrictions, setRestricitons] = useState<boolean>(true);
   const { LoginModal, setLoginModal } = HandleLoginModal();
 
+  //Setting restrictions on page load to be annoying
   useEffect(() => {
     setRestricitons(!userAuthenticated());
   }, []);

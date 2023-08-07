@@ -46,6 +46,8 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
   const [inputAnnotation, setInputAnnotation] = useState(highlight.notes);
   const [categoryInput, setCategoryInput] = useState("");
   const [displayShareOverlay, setDisplayShareOverlay] = useState(false);
+
+  //Refrence to the dropdowns and their buttons
   const tagDropDownRef = useRef(null);
   const tagButtonRef = useRef(null);
   const notesDropDownRef = useRef(null);
@@ -237,6 +239,9 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
             //These are the options that appear at the bottom of each highlight, allowing you to edit it
           }
           <div className={styles.highlightOptions}>
+            {
+              //Annotate option
+            }
             <p
               onMouseDown={() =>
                 //if the dropdown is already set to annotate, then we want to close it
@@ -249,6 +254,9 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
             >
               <NotesIcon ref={notesButtonRef} />
             </p>
+            {
+              //Tag option
+            }
             <p
               onMouseDown={() =>
                 //if dropdown is already set to categorise, then we want to close it
@@ -263,6 +271,9 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
             >
               <TagIcon ref={tagButtonRef} />
             </p>
+            {
+              //Favourite option
+            }
             <p
               onMouseDown={() =>
                 restrictions
@@ -278,6 +289,9 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
             >
               {highlight.starred ? <StarIcon /> : <StarBorderIcon />}
             </p>
+            {
+              //Share option
+            }
             <p
               onClick={() =>
                 restrictions
@@ -293,6 +307,9 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
             >
               <ShareIcon />
             </p>
+            {
+              //Delete option
+            }
             <p
               onClick={() =>
                 restrictions
@@ -308,6 +325,9 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
               <DeleteOutlineIcon />
             </p>
           </div>
+          {
+            //Dropdowns for annotate and categorise
+          }
           {dropdown === "Annotate"
             ? annotationSection()
             : dropdown === "Categorise"

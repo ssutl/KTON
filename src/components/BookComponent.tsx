@@ -17,7 +17,6 @@ interface BookProps {
 }
 
 const BookComponent = ({ book, index }: BookProps) => {
-  console.log("book: ", book.cover_image);
   //Getting the most vibrant color
   const { data } = usePalette(book.cover_image);
   const [restrictions, setRestrictions] = useState(true);
