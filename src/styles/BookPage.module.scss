@@ -9,12 +9,12 @@
     height: 95dvh;
   }
 
-  @include breakpoint-mixin("Laptop") {
+  @include breakpoint-mixin("Laptop_s") {
     height: 93dvh;
     flex-direction: row;
   }
 
-  @include breakpoint-mixin("Desktop") {
+  @include breakpoint-mixin("Desktop_M") {
     height: 95dvh;
   }
 
@@ -44,8 +44,8 @@
       width: 100%;
 
       .highlightList {
-      display: block;
-    }
+        display: block;
+      }
     }
 
     //Height of book cover

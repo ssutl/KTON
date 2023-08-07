@@ -79,7 +79,7 @@ const BookComponent = ({ book, index }: BookProps) => {
       <div className={styles.Book_Meta_Section}>
         <div className={styles.Meta_center}>
           <h2>{book.title}</h2>
-          <p>{cleanAuthor(book.author)}</p>
+          <p id={styles.author}>{cleanAuthor(book.author)}</p>
           <p>
             {[...Array(5)].map((eachStar, i) => {
               const isFilled = i < book.rating;
