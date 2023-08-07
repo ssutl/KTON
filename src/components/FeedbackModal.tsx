@@ -1,4 +1,3 @@
-//Create a react component called FeedbackModal
 import styles from "../styles/FeedbackModal.module.scss";
 import React, { useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
@@ -7,17 +6,21 @@ import SentimentDissatisfiedOutlinedIcon from "@mui/icons-material/SentimentDiss
 import SentimentNeutralOutlinedIcon from "@mui/icons-material/SentimentNeutralOutlined";
 import SentimentVerySatisfiedOutlinedIcon from "@mui/icons-material/SentimentVerySatisfiedOutlined";
 import userFeedbackApi from "@/api/Users/UserFeedback";
-//Want to take the state changer as a prop
+
 export interface FeedbackModalProps {
   closeModal: () => void;
 }
+
+//Grabbing function to close modal from parent component
 const FeedbackModal = ({ closeModal }: FeedbackModalProps) => {
+  //Grabbing the feedback from the user
   const [feedbackInput, setFeedbackInput] = useState("");
   const [feedbackMood, setFeedbackMood] = useState<
     "Sad" | "Neutral" | "Happy" | undefined
   >(undefined);
-  const feedbackUser = localStorage.getItem("user");
+  const feedbackUser = localStorage.getItem("username");
 
+  //If the user has selected a mood and left some feedback, send it to the backend
   const handleSendFeedback = async () => {
     if (feedbackMood && feedbackInput) {
       const response = await userFeedbackApi({

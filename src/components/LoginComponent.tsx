@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import styles from "../styles/LoginComponent.module.scss";
 import LoginApi, { LoginApiReturnType } from "@/api/Users/Login";
-import { useRouter } from "next/router";
-import { set } from "lodash";
 
 const LoginComponent = () => {
+  //Collecting information from the user
   const [loginType, setLoginType] = useState<"Login" | "SignUp">("Login");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
