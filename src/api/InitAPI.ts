@@ -2,7 +2,6 @@ import { Book, Meta_con_highlight } from "./Interface";
 import axios, { AxiosResponse } from "axios";
 import { useContext } from "react";
 import { KTON_CONTEXT } from "../context/KTONContext";
-import userAuthenticated from "@/helpers/UserAuthenticated";
 import { useRouter } from "next/router";
 
 //This function is called on page load and fills the context with the users books and highlights
@@ -116,6 +115,7 @@ function InitAPI() {
 
   //Creating a function which calls all the above APIs in order to populate the App context
   function InitialiseApp() {
+    console.log("called");
     // Fetch data from your database and update the context state variables
     const fetchData = async () => {
       try {
@@ -128,9 +128,7 @@ function InitAPI() {
       }
     };
 
-    if (userAuthenticated()) {
-      fetchData();
-    }
+    fetchData();
   }
 
   return {

@@ -3,7 +3,6 @@ import React, { useState, useEffect, useContext } from "react";
 import ImportButton from "./ImportButton";
 import { useRouter } from "next/router";
 import { io } from "socket.io-client";
-import userAuthenticated from "@/helpers/UserAuthenticated";
 
 const ImportComponent = () => {
   const [progress, setProgress] = useState<"Started" | "None" | "Complete">(
@@ -11,15 +10,10 @@ const ImportComponent = () => {
   );
   const [percentage, setPercentage] = useState<number>(2);
   const router = useRouter();
-  const [demo, setDemo] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
 
   useEffect(() => {
-    setDemo(!userAuthenticated());
-
-    if (userAuthenticated()) {
-      setUsername(localStorage.getItem("username") as string);
-    }
+    setUsername(localStorage.getItem("username") as string);
   }, []);
 
   const updatePercentage = (value: number) => {
@@ -33,7 +27,7 @@ const ImportComponent = () => {
 
   //Connecting to the sockets to see the progress of the upload
   useEffect(() => {
-    if (userAuthenticated() && progress === "Started") {
+    if (progress === "Started") {
       socket.on("connect", () => {
         socket.on("upload-progress", (data) => {
           updatePercentage(Number(data));
@@ -64,9 +58,7 @@ const ImportComponent = () => {
       <div className={styles.importInfoSect}>
         <h2>
           {progress === "None"
-            ? `Import your clippings to ${
-                !demo && username ? JSON.parse(username) : "demo site!"
-              }`
+            ? `Import your clippings to ${JSON.parse(username)}`
             : progress === "Started"
             ? `Importing Clippings`
             : `Upload Complete!`}

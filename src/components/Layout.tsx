@@ -25,7 +25,7 @@ const Layout = ({ children }: any) => {
   return (
     <>
       <Navbar />
-      <Header />
+      {/* <Header /> */}
       {children}
       {feedbackModal && authed ? (
         <FeedbackModal closeModal={closeModal} />

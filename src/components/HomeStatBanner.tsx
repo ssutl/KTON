@@ -1,10 +1,7 @@
 import styles from "../styles/HomeStatBanner.module.scss";
 import React, { useState, useEffect, useContext } from "react";
-import userAuthenticated from "@/helpers/UserAuthenticated";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import { streakRanges } from "date-streaks";
-import { Meta_con_highlight } from "@/api/Interface";
-import clippings_AllHighlights from "../helpers/Clippings_AllHighlights";
 import { useRouter } from "next/router";
 
 export default function HomeStatBanner() {
@@ -12,41 +9,28 @@ export default function HomeStatBanner() {
   //We'll conditionally push either local clippings or context highlights to this state
   const router = useRouter();
   const { highlights } = useContext(KTON_CONTEXT);
-  const [main_highlights, setMain_highlights] = useState<
-    Meta_con_highlight[] | undefined
-  >();
-
-  //Conditon on page load, if user is authenticated, push context else push local clippings
-  useEffect(() => {
-    if (userAuthenticated()) {
-      setMain_highlights(highlights);
-    } else {
-      const clippings = sessionStorage.getItem("clippings");
-      setMain_highlights(clippings_AllHighlights(clippings));
-    }
-  }, []);
 
   //Getting the longest streak of days read
   function getLongestStreak() {
-    if (main_highlights) {
-      //Creating an array of all the dates read
-      const arrayOfDates = main_highlights.map(
-        (eachHighlight) => eachHighlight.highlight.Date
-      );
+    if (!highlights) return null;
 
-      //Finding the longest consecutive streak of dates
-      const streakInfo = streakRanges({ dates: arrayOfDates });
+    //Creating an array of all the dates read
+    const arrayOfDates = highlights.map(
+      (eachHighlight) => eachHighlight.highlight.Date
+    );
 
-      const sortedArr = streakInfo.sort((a, b) => b.duration - a.duration);
+    //Finding the longest consecutive streak of dates
+    const streakInfo = streakRanges({ dates: arrayOfDates });
 
-      return sortedArr[0];
-    }
+    const sortedArr = streakInfo.sort((a, b) => b.duration - a.duration);
+
+    return sortedArr[0];
   }
 
   //Once we have the highlights, we can render the component
   return (
     <div className={styles.HomeStatBanner}>
-      {main_highlights ? (
+      {highlights ? (
         <>
           <div className={styles.statsBox}>
             <p>Longest Streak</p>
@@ -59,23 +43,22 @@ export default function HomeStatBanner() {
           </div>
           <div
             className={`${styles.statsBox} ${styles.statsBoxLong}`}
-            onClick={() => router.push(`/Book/${main_highlights[0].book_id}`)}
+            onClick={() => router.push(`/Book/${highlights[0].book_id}`)}
           >
             <p>Current Read</p>
-            <h1>{main_highlights[0].title}</h1>
+            <h1>{highlights[0].title}</h1>
             <p>
-              Started:{" "}
-              {new Date(main_highlights[0].highlight.Date).toDateString()}
+              Started: {new Date(highlights[0].highlight.Date).toDateString()}
             </p>
           </div>
           <div className={styles.statsBox}>
             <p>Total Highlights</p>
-            <h1>{main_highlights.length}</h1>
+            <h1>{highlights.length}</h1>
             <p>
               {`${new Date(
-                main_highlights[main_highlights.length - 1].highlight.Date
+                highlights[highlights.length - 1].highlight.Date
               ).toDateString()} - ${new Date(
-                main_highlights[0].highlight.Date
+                highlights[0].highlight.Date
               ).toDateString()}`}
             </p>
           </div>

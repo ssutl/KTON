@@ -2,7 +2,6 @@ import { Book } from "@/api/Interface";
 import styles from "../../styles/BookPage.module.scss";
 import { useRouter } from "next/router";
 import React, { useState, useEffect, useContext, useRef } from "react";
-import userAuthenticated from "@/helpers/UserAuthenticated";
 import { KTON_CONTEXT } from "../../context/KTONContext";
 import InitApi from "../../api/InitAPI";
 import Tilt from "react-parallax-tilt";
@@ -12,7 +11,6 @@ import AllowedRoute from "@/helpers/AllowedRoute";
 import HighlightsList from "@/components/HighlightsList";
 import SummarySection from "@/components/SummaryComponent";
 import GenreBanner from "@/components/GenreBanner";
-import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 import Modal from "@/components/Modal";
 import LoadingPage from "@/components/LoadingPage";
 import { Tooltip } from "react-tooltip";
@@ -24,7 +22,6 @@ const BookPage = () => {
   const { books } = useContext(KTON_CONTEXT);
   const { InitialiseApp } = InitApi();
   const [mainBook, setMainBook] = useState<undefined | Book>(undefined);
-  const [restrictions, setRestricitons] = useState<boolean>(true);
   const { LoginModal } = HandleLoginModal();
   const [screenWidth, setScreenWidth] = useState(0);
   const [showEditImageModal, setShowEditImageModal] = useState(false);
@@ -35,32 +32,20 @@ const BookPage = () => {
     setScreenWidth(window.innerWidth);
     window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
 
-    setRestricitons(!userAuthenticated());
-
     //check if this is an allowed route
     if (!AllowedRoute())
       throw new Error("Unauthed users cannot access this route");
 
     //If user is authenticated and they have no books in context, then we need to refresh context
-    if (userAuthenticated() && !books) {
+    if (!books) {
       InitialiseApp();
     }
   }, []);
 
   //Condition to set mainbooks to either books or clippings, depending on user authentication
   useEffect(() => {
-    if (userAuthenticated()) {
-      if (books) {
-        setMainBook(books.filter((book) => book._id === singleId)[0]);
-      }
-    } else {
-      const clippings = sessionStorage.getItem("clippings");
-
-      if (clippings && singleId) {
-        const parsedClippings: Book[] = JSON.parse(clippings);
-        setMainBook(parsedClippings[parseInt(singleId)]);
-      }
-    }
+    if (!books) return;
+    setMainBook(books.filter((book) => book._id === singleId)[0]);
   }, [books, singleId]);
 
   const bookTitle = () => {
@@ -92,17 +77,11 @@ const BookPage = () => {
               className={styles.ImageContainer}
               perspective={650}
             >
-              {restrictions ||
-              !coverIsValid ||
-              mainBook.cover_image === null ? (
+              {!coverIsValid || mainBook.cover_image === null ? (
                 <div
                   className={styles.NoImage}
                   data-tooltip-id={`my-tooltip-${id}`}
-                  data-tooltip-content={
-                    restrictions
-                      ? `You can sign in to add your own cover image`
-                      : `Add an image through the button above ⬆️`
-                  }
+                  data-tooltip-content={`Add an image through the button above ⬆️`}
                 ></div>
               ) : (
                 <img
@@ -115,16 +94,15 @@ const BookPage = () => {
                   }}
                 />
               )}
-              {restrictions ? null : (
-                <p
-                  className={styles.editURLMenu}
-                  onClick={() => setShowEditImageModal(!showEditImageModal)}
-                >
-                  Edit cover
-                </p>
-              )}
+
+              <p
+                className={styles.editURLMenu}
+                onClick={() => setShowEditImageModal(!showEditImageModal)}
+              >
+                Edit cover
+              </p>
             </Tilt>
-            {showEditImageModal && !restrictions && (
+            {showEditImageModal && (
               <Modal
                 specific_type="Type_Save"
                 closeModal={() => setShowEditImageModal(false)}
@@ -132,9 +110,9 @@ const BookPage = () => {
               />
             )}
           </div>
-          {restrictions ? null : <GenreBanner />}
+          <GenreBanner />
           {bookTitle()}
-          {restrictions ? null : <SummarySection />}
+          <SummarySection />
           {/*Highlights is only shown in this half on mobile, hidden on desktop */}
           <HighlightsList book={mainBook} />
         </div>

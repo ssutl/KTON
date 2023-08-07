@@ -1,5 +1,4 @@
 import { Meta_con_highlight } from "@/api/Interface";
-import userAuthenticated from "./UserAuthenticated";
 
 export default function HeatMapDataFunc(
   highlights: Meta_con_highlight[] | undefined

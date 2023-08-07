@@ -3,22 +3,16 @@ import styles from "../styles/HeatMapBanner.module.scss";
 import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 import CalenderFunctions from "../helpers/CalanderFunctions";
-import userAuthenticated from "@/helpers/UserAuthenticated";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import HeatMapDataFunc from "@/helpers/HeatMapDataFunc";
-import clippings_AllHighlights from "../helpers/Clippings_AllHighlights";
 
 //interface HeatMapBannerProps {}
 
 const HeatMapBanner = () => {
   const { highlights } = useContext(KTON_CONTEXT);
-  //These are the highlights in context, which only authenticated users will have
   const today = new Date();
   const { shiftDate } = CalenderFunctions();
-  const [heatMapData, setHeatMapData] = useState<
-    { date: string; count: number }[] | undefined
-  >(undefined);
-  const [screenWidth, setScreenWidth] = useState(0);
+  const [screenWidth, setScreenWidth] = useState(1024);
   const [displayMode, setDisplayMode] = useState<"portrait" | "landscape">(
     "landscape"
   );
@@ -34,55 +28,48 @@ const HeatMapBanner = () => {
     //Have to set screenwidth to conditionally change size of heat map
     setScreenWidth(window.innerWidth);
     window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
-
-    //Getting grouped data
-    //Checking if the user is authenticated
-    if (userAuthenticated() && highlights) {
-      //Helper function to get heatmap data in desired format
-      setHeatMapData(HeatMapDataFunc(highlights));
-    } else {
-      //Doing same with local user, first have to convert clippings to the highlight format
-      const clippings = sessionStorage.getItem("clippings");
-      setHeatMapData(HeatMapDataFunc(clippings_AllHighlights(clippings)));
-    }
+    //Helper function to get heatmap data in desired format
   }, []);
+
+  if (!highlights)
+    <div className={styles.HeatMapBanner}>
+      <div className={styles.loading}></div>
+    </div>;
+
+  const heatMapData = HeatMapDataFunc(highlights);
 
   return (
     <div className={styles.HeatMapBanner}>
-      {heatMapData ? (
-        <div className={styles.HeatMapContainer}>
-          <CalendarHeatmap
-            startDate={shiftDate(
-              today,
-              displayMode === "portrait" && screenWidth >= 1080
-                ? -270
-                : screenWidth < 425
-                ? -155
-                : screenWidth < 1024
-                ? -200
-                : screenWidth < 2560
-                ? -425
-                : -450
-            )}
-            endDate={today}
-            values={heatMapData}
-            classForValue={(value) => {
-              if (!value) {
-                return styles["color-empty-light"];
-              }
-              const count = Math.ceil(
-                value.count
-                  .toExponential()
-                  .substring(0, value.count.toExponential().indexOf("e"))
-              );
-              return styles[`color-scale-${count > 3 ? 4 : count}`];
-            }}
-            showWeekdayLabels={false}
-          />
-        </div>
-      ) : (
-        <div className={styles.loading}></div>
-      )}
+      <div className={styles.HeatMapContainer}>
+        <CalendarHeatmap
+          startDate={shiftDate(
+            today,
+            displayMode === "portrait" && screenWidth >= 1080
+              ? -270
+              : screenWidth < 425
+              ? -155
+              : screenWidth < 1024
+              ? -200
+              : screenWidth < 2560
+              ? -425
+              : -450
+          )}
+          endDate={today}
+          values={heatMapData}
+          classForValue={(value) => {
+            if (!value) {
+              return styles["color-empty-light"];
+            }
+            const count = Math.ceil(
+              value.count
+                .toExponential()
+                .substring(0, value.count.toExponential().indexOf("e"))
+            );
+            return styles[`color-scale-${count > 3 ? 4 : count}`];
+          }}
+          showWeekdayLabels={false}
+        />
+      </div>
     </div>
   );
 };

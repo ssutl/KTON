@@ -1,5 +1,4 @@
 import { Book } from "@/api/Interface";
-import userAuthenticated from "@/helpers/UserAuthenticated";
 import React, { useState, useEffect, useContext, useRef } from "react";
 import BookComponent from "./BookComponent";
 
@@ -9,13 +8,6 @@ const BooksList: React.FC<{
   selectedSort: "Recent" | "Rating" | "Oldest";
   selectedFilter: string | undefined;
 }> = ({ books, selectedSort, selectedFilter }) => {
-  const [restrictions, setRestricitons] = useState<boolean>(true);
-
-  //Setting restrictions on page load
-  useEffect(() => {
-    setRestricitons(!userAuthenticated());
-  }, []);
-
   if (!books) return null;
 
   return (
@@ -39,7 +31,6 @@ const BooksList: React.FC<{
         .filter((eachBook) =>
           selectedFilter ? eachBook.genre.includes(selectedFilter) : eachBook
         )
-        .slice(0, restrictions ? 10 : books.length)
         .map((eachBook, i) => (
           <BookComponent book={eachBook} index={i} key={i} />
         ))}
