@@ -1,7 +1,6 @@
 @import "../styles/Breakpoints.module.scss";
 
 .Book {
-  height: 85dvh;
   width: 100%;
   border-bottom: 0.5px solid $border;
   box-sizing: border-box; /* Include the border in the item's total width */
@@ -10,33 +9,11 @@
   align-items: center;
 
   @include breakpoint-mixin("Tablet") {
-    height: 60dvh;
     border-right: 0.5px solid $border;
     border-bottom: 0.5px solid $border;
   }
 
-  @include breakpoint-mixin("Laptop") {
-    height: 75dvh;
-  }
-
-  @include breakpoint-mixin("Laptop_L") {
-    height: 70dvh;
-  }
-
-  @include breakpoint-mixin("Desktop") {
-    height: 65dvh;
-  }
-
-  @include breakpoint-mixin("Desktop_L") {
-    height: 55dvh;
-  }
-
-  @include portrait-min-width-mixin("Vertical_Display") {
-    height: 38dvh;
-  }
-
   .ImageSection {
-    height: 75%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -44,13 +21,18 @@
     border-bottom: 0.5px solid $border;
     cursor: pointer;
     position: relative;
+    padding: 25px 0px;
 
-    @include breakpoint-mixin("Desktop") {
-      height: 73%;
+    @include breakpoint-mixin("Laptop_S") {
+      padding: 40px 0px;
     }
 
-    @include breakpoint-mixin("Desktop_L") {
-      height: 75%;
+    @include breakpoint-mixin("Desktop_S") {
+      padding: 45px 0px;
+    }
+
+    @include portrait-min-width-mixin("Vertical_Display") {
+      padding: 50px 0px;
     }
 
     .blurEffect {
@@ -79,23 +61,57 @@
     }
 
     .ImageHolder {
-      height: 80%;
+      height: 270px;
       width: 60%;
       box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
         rgba(0, 0, 0, 0.22) 0px 10px 10px;
       border-radius: 3px;
       overflow: hidden;
 
-      @include breakpoint-mixin("Laptop") {
-        height: 70%;
+      @include breakpoint-mixin("Mobile_M") {
+        width: 65%;
+        height: 370px;
       }
 
-      @include breakpoint-mixin("Desktop") {
-        height: 75%;
-        width: 55%;
+      @include breakpoint-mixin("Mobile_L") {
+        width: 60%;
+        height: 380px;
+      }
+
+      @include breakpoint-mixin("Tablet") {
+        height: 315px;
+      }
+
+      @include breakpoint-mixin("Laptop_S") {
+        width: 65%;
+        height: 220px;
+      }
+
+      @include breakpoint-mixin("Laptop_M") {
+        height: 270px;
+      }
+
+      @include breakpoint-mixin("Laptop_L") {
+        height: 300px;
+      }
+
+      @include breakpoint-mixin("Desktop_S") {
+        height: 320px;
+        width: 60%;
+      }
+
+      @include breakpoint-mixin("Desktop_M") {
+        height: 325px;
+        width: 52%;
+      }
+
+      @include breakpoint-mixin("Desktop_L") {
+        height: 445px;
+        width: 54%;
       }
 
       @include portrait-min-width-mixin("Vertical_Display") {
+        height: 345px;
         width: 50%;
       }
 
@@ -126,29 +142,22 @@
   }
 
   .Book_Meta_Section {
-    height: 30%;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: justify;
-
-    @include breakpoint-mixin("Desktop") {
-      height: 27%;
-    }
-
-    @include breakpoint-mixin("Desktop_L") {
-      height: 25%;
-    }
+    // text-align: justify;
+    padding: 15px 0px;
 
     .Meta_center {
       width: 85%;
-      height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
 
+      #author,
       h2 {
+        margin-bottom: 20px;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         overflow: hidden;
@@ -160,10 +169,10 @@
         cursor: pointer;
         font-size: 27px;
 
-        @include breakpoint-mixin("Laptop") {
+        @include breakpoint-mixin("Laptop_S") {
           font-size: 26px;
         }
-        @include breakpoint-mixin("Desktop") {
+        @include breakpoint-mixin("Desktop_M") {
           font-size: 25px;
         }
       }

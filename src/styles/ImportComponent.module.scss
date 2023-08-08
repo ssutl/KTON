@@ -7,7 +7,7 @@
   flex-direction: column;
   justify-content: space-between;
 
-  @include breakpoint-mixin("Laptop") {
+  @include breakpoint-mixin("Laptop_S") {
     margin-top: 0%;
   }
 
@@ -20,11 +20,11 @@
     justify-content: space-between;
     margin-bottom: 40px;
 
-    @include breakpoint-mixin("Laptop") {
+    @include breakpoint-mixin("Laptop_S") {
       height: 10dvh;
     }
 
-    @include breakpoint-mixin("Desktop") {
+    @include breakpoint-mixin("Desktop_M") {
       height: 8vh;
     }
 

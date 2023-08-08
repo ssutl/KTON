@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import styles from "../styles/Book.module.scss";
 import { Book } from "@/api/Interface";
 import Tilt from "react-parallax-tilt";
-import userAuthenticated from "@/helpers/UserAuthenticated";
 import { usePalette } from "react-palette";
 import { useRouter } from "next/router";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
@@ -19,7 +18,6 @@ interface BookProps {
 const BookComponent = ({ book, index }: BookProps) => {
   //Getting the most vibrant color
   const { data } = usePalette(book.cover_image);
-  const [restrictions, setRestrictions] = useState(true);
   const [imageIsValid, setImageIsValid] = useState(true);
   const [isMouseInside, setIsMouseInside] = useState(false);
   const { addRating } = HandleChanges();
@@ -34,15 +32,10 @@ const BookComponent = ({ book, index }: BookProps) => {
   };
   //Tracking the mouse position to make the hover effect
 
-  //Setting restrictions on page load
-  useEffect(() => {
-    setRestrictions(!userAuthenticated());
-  }, []);
-
   return (
     <div
       className={styles.Book}
-      onClick={() => router.push(`Book/${restrictions ? index : book._id}`)}
+      onClick={() => router.push(`Book/${book._id}`)}
     >
       <div
         className={styles.ImageSection}
@@ -63,15 +56,11 @@ const BookComponent = ({ book, index }: BookProps) => {
           className={styles.ImageHolder}
           perspective={850}
         >
-          {restrictions || !imageIsValid || book.cover_image === null ? (
+          {!imageIsValid || book.cover_image === null ? (
             <div
               className={styles.NoImage}
               data-tooltip-id={`my-tooltip-${index}`}
-              data-tooltip-content={
-                restrictions
-                  ? `You can sign in to add your own cover image`
-                  : `Add an image through the book page ⬇️`
-              }
+              data-tooltip-content={`Add an image through the book page ⬇️`}
             ></div>
           ) : (
             <img
@@ -90,31 +79,29 @@ const BookComponent = ({ book, index }: BookProps) => {
       <div className={styles.Book_Meta_Section}>
         <div className={styles.Meta_center}>
           <h2>{book.title}</h2>
-          <p>{cleanAuthor(book.author)}</p>
-          {restrictions ? null : (
-            <p>
-              {[...Array(5)].map((eachStar, i) => {
-                const isFilled = i < book.rating;
-                const starIcon = isFilled ? (
-                  <StarIcon className={styles.star} />
-                ) : (
-                  <StarBorderIcon className={styles.star} />
-                );
-                return (
-                  <span
-                    key={i}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      const newRating = isFilled ? i : i + 1;
-                      addRating({ data: newRating, book_id: book._id });
-                    }}
-                  >
-                    {starIcon}
-                  </span>
-                );
-              })}
-            </p>
-          )}
+          <p id={styles.author}>{cleanAuthor(book.author)}</p>
+          <p>
+            {[...Array(5)].map((eachStar, i) => {
+              const isFilled = i < book.rating;
+              const starIcon = isFilled ? (
+                <StarIcon className={styles.star} />
+              ) : (
+                <StarBorderIcon className={styles.star} />
+              );
+              return (
+                <span
+                  key={i}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const newRating = isFilled ? i : i + 1;
+                    addRating({ data: newRating, book_id: book._id });
+                  }}
+                >
+                  {starIcon}
+                </span>
+              );
+            })}
+          </p>
         </div>
       </div>
       <Tooltip id={`my-tooltip-${index}`} className="toolTip" noArrow />
@@ -122,4 +109,4 @@ const BookComponent = ({ book, index }: BookProps) => {
   );
 };
 
-export default BookComponent;
+export default React.memo(BookComponent);

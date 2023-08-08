@@ -13,16 +13,16 @@
     height: 5dvh;
   }
 
-  @include breakpoint-mixin("Laptop") {
+  @include breakpoint-mixin("Laptop_S") {
     height: 7dvh;
+  }
+
+  @include breakpoint-mixin("Desktop_M") {
+    height: 5dvh;
   }
 
   @include portrait-min-width-mixin("Vertical_Display") {
     height: 3dvh;
-  }
-
-  @include breakpoint-mixin("Desktop") {
-    height: 5dvh;
   }
 
   .navbarWidth {
@@ -48,7 +48,7 @@
       p {
         margin-left: 20px;
 
-        @include breakpoint-mixin("Laptop") {
+        @include breakpoint-mixin("Laptop_S") {
           cursor: pointer;
           margin-left: 0px;
           border-radius: 4px;

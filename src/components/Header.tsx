@@ -1,27 +1,16 @@
 import styles from "../styles/Header.module.scss";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import userAuthenticated from "@/helpers/UserAuthenticated";
 
 export default function Header() {
   const router = useRouter();
-  const [restrictionHeader, setRestrictionHeader] = useState(false);
-
-  useEffect(() => {
-    //Setting restrictionHeader to true if user not authenticated
-    setRestrictionHeader(!userAuthenticated());
-  }, [router.pathname]);
 
   //If on landing page we display default header
-  if (router.pathname === "/Home" && restrictionHeader) {
+  if (router.pathname === "/Home") {
     return (
       <div className={`${styles.header} ${styles.headerExpand}`}>
         <div className={styles.headerWidth}>
-          <p>
-            Welcome to KTON, this is a demo of the site, login to ensure you can
-            access all features!
-          </p>
-          <span onClick={() => setRestrictionHeader(false)}>x</span>
+          <p>Here we can do feature updates etc</p>
         </div>
       </div>
     );

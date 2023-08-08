@@ -1,7 +1,7 @@
 @import "../styles/Breakpoints.module.scss";
 
 .siteDescSect {
-  @include breakpoint-mixin("Laptop") {
+  @include breakpoint-mixin("Laptop_S") {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -15,7 +15,7 @@
     text-align: justify;
     margin-bottom: 2%;
 
-    @include breakpoint-mixin("Laptop") {
+    @include breakpoint-mixin("Laptop_S") {
       max-width: 75%;
     }
 
@@ -23,7 +23,7 @@
       max-width: 60%;
     }
 
-    @include breakpoint-mixin("Desktop") {
+    @include breakpoint-mixin("Desktop_M") {
       font-size: 20px;
     }
   }

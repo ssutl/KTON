@@ -3,12 +3,28 @@
 .genreBanner {
   width: calc(90% + 10px);
   display: flex;
-  margin: 0px auto 0px auto;
+  margin: 0px auto 7dvh auto;
   flex-wrap: wrap;
   // background-color: orange;
 
+  @include breakpoint-mixin("Mobile_M") {
+    margin: 0px auto 5dvh auto;
+  }
+
+  @include breakpoint-mixin("Tablet") {
+    margin: 0px auto 4dvh auto;
+  }
+
+  @include breakpoint-mixin("Laptop_L") {
+    margin: 0px auto 5dvh auto;
+  }
+
+  @include breakpoint-mixin("Desktop_L") {
+    margin: 0px auto 4dvh auto;
+  }
+
   @include portrait-min-width-mixin("Vertical_Display") {
-    margin-bottom: 0px;
+    margin: 0px auto 2dvh auto;
   }
 
   span {
@@ -18,7 +34,7 @@
       margin-right: 20px;
       cursor: pointer;
 
-      @include breakpoint-mixin("Laptop") {
+      @include breakpoint-mixin("Laptop_S") {
         cursor: pointer;
         margin-left: 0px;
         border-radius: 4px;

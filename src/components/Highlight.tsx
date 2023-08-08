@@ -8,7 +8,6 @@ import React, {
 } from "react";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import { Book_highlight } from "@/api/Interface";
-import userAuthenticated from "@/helpers/UserAuthenticated";
 import TagIcon from "@mui/icons-material/Tag";
 import NotesIcon from "@mui/icons-material/Notes";
 import StarIcon from "@mui/icons-material/Star";
@@ -31,7 +30,6 @@ interface highlightProps {
 const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
   const { userinfo } = useContext(KTON_CONTEXT);
   const [screenWidth, setScreenWidth] = useState(1024);
-  const [restrictions, setRestrictions] = useState(true);
   const {
     favouriteHighlight,
     deleteHighlight,
@@ -55,10 +53,7 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
   const router = useRouter();
   const book_id = router.query.id;
 
-  //Set restrictions on page load
   useEffect(() => {
-    setRestrictions(!userAuthenticated());
-
     //Have to set screenwidth to conditionally change size of heat map
     setScreenWidth(window.innerWidth);
     window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
@@ -212,8 +207,8 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
       <div className={styles.Highlight}>
         <div className={styles.mainHalf}>
           <h2>{highlight.Text}</h2>
-          {restrictions ? null : <h3>{highlight.notes}</h3>}
-          {restrictions || !highlight.category.length ? null : (
+          <h3>{highlight.notes}</h3>
+          {!highlight.category.length ? null : (
             //Displaying tags in tags holder
             <div className={styles.tagsBanner}>
               {highlight.category.map((eachCategory, i) => (
@@ -245,9 +240,7 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
             <p
               onMouseDown={() =>
                 //if the dropdown is already set to annotate, then we want to close it
-                restrictions
-                  ? setLoginModal()
-                  : setDropdown(dropdown === "Annotate" ? false : "Annotate")
+                setDropdown(dropdown === "Annotate" ? false : "Annotate")
               }
               data-tooltip-id={`my-tooltip-${index}`}
               data-tooltip-content="Annotate"
@@ -260,11 +253,7 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
             <p
               onMouseDown={() =>
                 //if dropdown is already set to categorise, then we want to close it
-                restrictions
-                  ? setLoginModal()
-                  : setDropdown(
-                      dropdown === "Categorise" ? false : "Categorise"
-                    )
+                setDropdown(dropdown === "Categorise" ? false : "Categorise")
               }
               data-tooltip-id={`my-tooltip-${index}`}
               data-tooltip-content="Categorise"
@@ -276,13 +265,11 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
             }
             <p
               onMouseDown={() =>
-                restrictions
-                  ? setLoginModal()
-                  : favouriteHighlight({
-                      data: !highlight.starred,
-                      book_id,
-                      highlight_id: highlight._id,
-                    })
+                favouriteHighlight({
+                  data: !highlight.starred,
+                  book_id,
+                  highlight_id: highlight._id,
+                })
               }
               data-tooltip-id={`my-tooltip-${index}`}
               data-tooltip-content="Favourite"
@@ -294,9 +281,7 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
             }
             <p
               onClick={() =>
-                restrictions
-                  ? setLoginModal()
-                  : screenWidth < 1024
+                screenWidth < 1024
                   ? alert(
                       "This feature is not available on mobile yet (I'm working on it loool, shi not easy). Please use a desktop device."
                     )
@@ -312,12 +297,10 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
             }
             <p
               onClick={() =>
-                restrictions
-                  ? setLoginModal()
-                  : deleteHighlight({
-                      book_id,
-                      highlight_id: highlight._id,
-                    })
+                deleteHighlight({
+                  book_id,
+                  highlight_id: highlight._id,
+                })
               }
               data-tooltip-id={`my-tooltip-${index}`}
               data-tooltip-content="Delete"
@@ -336,6 +319,7 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
         </div>
         <div className={styles.metaHalf}>
           <p>{new Date(highlight.Date).toDateString()}</p>
+          <p>Loc: {highlight.LocationEnd}</p>
         </div>
         <Tooltip
           id={`my-tooltip-${index}`}

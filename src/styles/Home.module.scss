@@ -5,11 +5,11 @@
     height: 95dvh;
   }
 
-  @include breakpoint-mixin("Laptop") {
+  @include breakpoint-mixin("Laptop_S") {
     height: 93dvh;
   }
 
-  @include breakpoint-mixin("Desktop") {
+  @include breakpoint-mixin("Desktop_M") {
     height: 95dvh;
   }
 

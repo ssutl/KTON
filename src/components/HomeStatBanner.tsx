@@ -1,92 +1,177 @@
 import styles from "../styles/HomeStatBanner.module.scss";
 import React, { useState, useEffect, useContext } from "react";
-import userAuthenticated from "@/helpers/UserAuthenticated";
 import { KTON_CONTEXT } from "../context/KTONContext";
-import { streakRanges } from "date-streaks";
-import { Meta_con_highlight } from "@/api/Interface";
-import clippings_AllHighlights from "../helpers/Clippings_AllHighlights";
 import { useRouter } from "next/router";
+import { Meta_con_highlight } from "@/api/Interface";
 
-export default function HomeStatBanner() {
+function HomeStatBanner() {
   //These are the highlights in context, which only authenticated users will have
   //We'll conditionally push either local clippings or context highlights to this state
   const router = useRouter();
   const { highlights } = useContext(KTON_CONTEXT);
-  const [main_highlights, setMain_highlights] = useState<
-    Meta_con_highlight[] | undefined
-  >();
 
-  //Conditon on page load, if user is authenticated, push context else push local clippings
-  useEffect(() => {
-    if (userAuthenticated()) {
-      setMain_highlights(highlights);
-    } else {
-      const clippings = sessionStorage.getItem("clippings");
-      setMain_highlights(clippings_AllHighlights(clippings));
-    }
-  }, []);
+  function getlongestStreak(): {
+    CurrentLongestStreak: number;
+    LongestStreakStart: string;
+    LongestStreakEnd: string;
+  } | null {
+    if (!highlights) return null;
 
-  //Getting the longest streak of days read
-  function getLongestStreak() {
-    if (main_highlights) {
-      //Creating an array of all the dates read
-      const arrayOfDates = main_highlights.map(
-        (eachHighlight) => eachHighlight.highlight.Date
+    let CurrentLongestStreak = 0;
+    let CurrentCount = 0;
+    let CurrentStreakStart = "";
+    let LongestStreakStart = "";
+    let LongestStreakEnd = "";
+
+    const reducedHighlights = reduceHighlightsToOnePerDay().sort(function (
+      a: any,
+      b: any
+    ) {
+      return (
+        new Date(b.highlight.Date).getTime() -
+        new Date(a.highlight.Date).getTime()
       );
+    });
 
-      //Finding the longest consecutive streak of dates
-      const streakInfo = streakRanges({ dates: arrayOfDates });
+    reducedHighlights.reverse().map((meta_highlight, i) => {
+      if (i < reducedHighlights.length - 1) {
+        const dateOfNextHighlight = formatDateString(
+          reducedHighlights[i + 1].highlight.Date
+        );
+        const nextDayOfCurrentHighlight = getNextDay(
+          formatDateString(meta_highlight.highlight.Date)
+        );
 
-      const sortedArr = streakInfo.sort((a, b) => b.duration - a.duration);
+        if (dateOfNextHighlight === nextDayOfCurrentHighlight) {
+          if (CurrentCount === 0) {
+            // Set the start of the streak if it's not already set
+            CurrentStreakStart = meta_highlight.highlight.Date;
+          }
+          CurrentCount++;
+        } else {
+          if (CurrentCount > CurrentLongestStreak) {
+            CurrentLongestStreak = CurrentCount;
+            LongestStreakStart = CurrentStreakStart;
+            LongestStreakEnd = meta_highlight.highlight.Date;
+          }
 
-      return sortedArr[0];
-    }
+          // Reset current count and streak start for the next strea
+          CurrentCount = 0;
+          CurrentStreakStart = "";
+        }
+      }
+    });
+
+    return {
+      CurrentLongestStreak,
+      LongestStreakStart,
+      LongestStreakEnd,
+    };
   }
 
+  function reduceHighlightsToOnePerDay(): Meta_con_highlight[] {
+    if (!highlights || highlights.length === 0) return [];
+
+    const dateMap = new Map<string, Meta_con_highlight>();
+
+    // Store the first highlight of each date in the dateMap
+    for (const highlight of highlights) {
+      const dateString = formatDateString(highlight.highlight.Date);
+      if (!dateMap.has(dateString)) {
+        dateMap.set(dateString, highlight);
+      }
+    }
+
+    // Extract the values (unique highlights) from the dateMap and return as an array
+    return Array.from(dateMap.values());
+  }
+
+  const formatDateString = (date: string) => {
+    return date.split(" ").slice(1, 4).join(" ");
+  };
+
+  function getNextDay(dateString: string): string {
+    // dateString = "16 Feb 2021"
+    var day = new Date(dateString);
+    var nextDay = new Date(day);
+    nextDay.setDate(day.getDate() + 1);
+
+    // Custom formatting function for the date
+    function formatDate(date: Date): string {
+      const day = date.getDate().toString().padStart(2, "");
+
+      // Array of month names starting from January (index 0) to December (index 11)
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+
+      const month = monthNames[date.getMonth()];
+      const year = date.getFullYear().toString();
+
+      return `${day} ${month} ${year}`;
+    }
+
+    return formatDate(nextDay);
+  }
+
+  if (!highlights)
+    return (
+      <div className={styles.HomeStatBanner}>
+        <div className={styles.loading}></div>
+        <div className={styles.loading}></div>
+        <div className={styles.loading}></div>
+      </div>
+    );
+
+  const streakData = getlongestStreak();
+
   //Once we have the highlights, we can render the component
+
+  if (!streakData) return null;
+
   return (
     <div className={styles.HomeStatBanner}>
-      {main_highlights ? (
-        <>
-          <div className={styles.statsBox}>
-            <p>Longest Streak</p>
-            <h1>{getLongestStreak()?.duration}</h1>
-            <p>
-              {getLongestStreak()?.end === null
-                ? `${getLongestStreak()?.start.toDateString()} - todays date lol`
-                : `${getLongestStreak()?.start.toDateString()} - ${getLongestStreak()?.end?.toDateString()}`}
-            </p>
-          </div>
-          <div
-            className={`${styles.statsBox} ${styles.statsBoxLong}`}
-            onClick={() => router.push(`/Book/${main_highlights[0].book_id}`)}
-          >
-            <p>Current Read</p>
-            <h1>{main_highlights[0].title}</h1>
-            <p>
-              Started:{" "}
-              {new Date(main_highlights[0].highlight.Date).toDateString()}
-            </p>
-          </div>
-          <div className={styles.statsBox}>
-            <p>Total Highlights</p>
-            <h1>{main_highlights.length}</h1>
-            <p>
-              {`${new Date(
-                main_highlights[main_highlights.length - 1].highlight.Date
-              ).toDateString()} - ${new Date(
-                main_highlights[0].highlight.Date
-              ).toDateString()}`}
-            </p>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className={styles.loading}></div>
-          <div className={styles.loading}></div>
-          <div className={styles.loading}></div>
-        </>
-      )}
+      <div className={styles.statsBox}>
+        <p>Longest Streak</p>
+        <h1>{streakData?.CurrentLongestStreak}</h1>
+        <p>{`${new Date(
+          streakData.LongestStreakStart
+        ).toDateString()} - ${new Date(
+          streakData.LongestStreakEnd
+        ).toDateString()}`}</p>
+      </div>
+      <div
+        className={`${styles.statsBox} ${styles.statsBoxLong}`}
+        onClick={() => router.push(`/Book/${highlights[0].book_id}`)}
+      >
+        <p>Current Read</p>
+        <h1>{highlights[0].title}</h1>
+        <p>Started: {new Date(highlights[0].highlight.Date).toDateString()}</p>
+      </div>
+      <div className={styles.statsBox}>
+        <p>Total Highlights</p>
+        <h1>{highlights.length}</h1>
+        <p>
+          {`${new Date(
+            highlights[highlights.length - 1].highlight.Date
+          ).toDateString()} - ${new Date(
+            highlights[0].highlight.Date
+          ).toDateString()}`}
+        </p>
+      </div>
     </div>
   );
 }
+
+export default React.memo(HomeStatBanner);

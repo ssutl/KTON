@@ -1,19 +1,11 @@
 import { Book } from "@/api/Interface";
-import React, {
-  useRef,
-  useState,
-  useContext,
-  useEffect,
-  SetStateAction,
-} from "react";
+import React, { useRef, useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import styles from "../styles/Modal.module.scss";
-import userAuthenticated from "@/helpers/UserAuthenticated";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import genreColors from "@/helpers/sortGenreColors";
 import HandleChanges from "@/helpers/HandleChanges";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { spec } from "node:test/reporters";
 
 interface ModalProps {
   specific_type:
@@ -46,7 +38,6 @@ const Modal = ({
   const { colorConverter, randomColorGenerator, mapTable } = genreColors();
   const { userinfo } = useContext(KTON_CONTEXT);
   const [searchValue, setSearchValue] = useState("");
-  const [restrictions, setRestricitons] = useState<boolean>(true);
   const { addGenreToBook, addGenreToUser, updateBookCover } = HandleChanges();
   const [randomColor, setRandomColor] = useState(randomColorGenerator());
 
@@ -58,18 +49,13 @@ const Modal = ({
   }, [searchValue]);
 
   //Initialising App by making data call on page load, this updates user context
-  useEffect(() => {
-    setRestricitons(!userAuthenticated());
-  }, []);
 
   const filteredData =
     specific_type === "Book_Search"
       ? mainBooks &&
-        mainBooks
-          .slice(0, restrictions ? 10 : mainBooks.length)
-          .filter((book) =>
-            book.title.toLowerCase().includes(searchValue.toLowerCase())
-          )
+        mainBooks.filter((book) =>
+          book.title.toLowerCase().includes(searchValue.toLowerCase())
+        )
       : specific_type === "Filter_Search"
       ? mainBooks && [
           ...new Set(

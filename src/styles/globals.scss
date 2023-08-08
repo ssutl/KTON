@@ -45,11 +45,11 @@ body {
       font-size: 42px;
     }
 
-    @include breakpoint-mixin("Laptop") {
+    @include breakpoint-mixin("Laptop_S") {
       font-size: 44px;
     }
 
-    @include breakpoint-mixin("Desktop") {
+    @include breakpoint-mixin("Desktop_M") {
       font-size: 48px;
     }
   }
@@ -64,11 +64,11 @@ body {
       font-size: 30px;
     }
 
-    @include breakpoint-mixin("Laptop") {
+    @include breakpoint-mixin("Laptop_S") {
       font-size: 28px;
     }
 
-    @include breakpoint-mixin("Desktop") {
+    @include breakpoint-mixin("Desktop_M") {
       font-size: 30px;
     }
   }
@@ -83,11 +83,11 @@ body {
       font-size: 20px;
     }
 
-    @include breakpoint-mixin("Laptop") {
+    @include breakpoint-mixin("Laptop_S") {
       font-size: 19px;
     }
 
-    @include breakpoint-mixin("Desktop") {
+    @include breakpoint-mixin("Desktop_M") {
       font-size: 20px;
     }
   }
@@ -103,11 +103,11 @@ body {
       font-size: 19px;
     }
 
-    @include breakpoint-mixin("Laptop") {
+    @include breakpoint-mixin("Laptop_S") {
       font-size: 17px;
     }
 
-    @include breakpoint-mixin("Desktop") {
+    @include breakpoint-mixin("Desktop_M") {
       font-size: 19px;
     }
   }

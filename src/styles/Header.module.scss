@@ -9,7 +9,7 @@
   box-sizing: border-box;
   height: 7dvh;
 
-  @include breakpoint-mixin("Desktop") {
+  @include breakpoint-mixin("Desktop_M") {
     height: 5dvh;
   }
 
@@ -29,14 +29,14 @@
     span {
       cursor: pointer;
 
-      @include breakpoint-mixin("Laptop") {
+      @include breakpoint-mixin("Laptop_S") {
         &:hover {
           opacity: 0.5;
         }
       }
     }
 
-    @include breakpoint-mixin("Laptop") {
+    @include breakpoint-mixin("Laptop_S") {
       width: 95%;
     }
   }
