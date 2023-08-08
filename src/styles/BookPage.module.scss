@@ -128,8 +128,7 @@
         }
 
         @include breakpoint-mixin("Laptop_M") {
-          width: 45%;
-          height: 370px;
+          width: 40%;
         }
 
         @include breakpoint-mixin("Laptop_L") {
