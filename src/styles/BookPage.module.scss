@@ -259,6 +259,7 @@
   margin: 0px auto 10dvh auto;
   //Aligning title with highlights below
   width: calc((90% + 10px));
+  position: relative;
 
   @include breakpoint-mixin("Mobile_M") {
     margin: 0px auto 8dvh auto;
@@ -276,9 +277,22 @@
     margin: 0dvh auto 3dvh auto;
   }
 
-  h1 {
+  .titleContainer {
     margin-bottom: 40px;
     text-align: justify;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    span {
+      position: relative;
+      height: fit-content;
+
+      #searchIcon {
+        cursor: pointer;
+        font-size: 30px;
+      }
+    }
   }
 }
 

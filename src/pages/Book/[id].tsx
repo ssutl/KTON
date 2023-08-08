@@ -11,9 +11,11 @@ import AllowedRoute from "@/helpers/AllowedRoute";
 import HighlightsList from "@/components/HighlightsList";
 import SummarySection from "@/components/SummaryComponent";
 import GenreBanner from "@/components/GenreBanner";
-import Modal from "@/components/Modal";
 import LoadingPage from "@/components/LoadingPage";
 import { Tooltip } from "react-tooltip";
+import SearchIcon from "@mui/icons-material/Search";
+import Modal_Book_Search from "@/components/Modal_Book_Search";
+import Modal_Type_Save from "@/components/Modal_Type_Save";
 
 const BookPage = () => {
   const router = useRouter();
@@ -26,6 +28,7 @@ const BookPage = () => {
   const [screenWidth, setScreenWidth] = useState(0);
   const [showEditImageModal, setShowEditImageModal] = useState(false);
   const [coverIsValid, setCoverIsValid] = useState(true);
+  const [displaySearchModal, setDisplaySearchModal] = useState(false);
 
   //Initialising App by making data call on page load, this updates user context
   useEffect(() => {
@@ -52,7 +55,20 @@ const BookPage = () => {
     if (!mainBook) return null;
     return (
       <div className={styles.bookTitle}>
-        <h1>{mainBook.title}</h1>
+        <div className={styles.titleContainer}>
+          <h1>{mainBook.title}</h1>
+          <span>
+            <SearchIcon
+              onClick={() => setDisplaySearchModal(!displaySearchModal)}
+              id={styles.searchIcon}
+            />
+            {displaySearchModal && (
+              <Modal_Book_Search
+                closeModal={() => setDisplaySearchModal(false)}
+              />
+            )}
+          </span>
+        </div>
         <p>{cleanAuthor(mainBook.author)}</p>
       </div>
     );
@@ -103,8 +119,7 @@ const BookPage = () => {
               </p>
             </Tilt>
             {showEditImageModal && (
-              <Modal
-                specific_type="Type_Save"
+              <Modal_Type_Save
                 closeModal={() => setShowEditImageModal(false)}
                 mainBook={mainBook}
               />

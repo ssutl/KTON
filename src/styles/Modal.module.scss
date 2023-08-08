@@ -123,20 +123,55 @@
   }
 }
 
-.Type_Save {
+.Modal_Filter_Search {
   @include breakpoint-mixin("Laptop_S") {
-    bottom: 0%;
-    right: 10%;
+    width: 400px;
+    left: 0%;
+    top: 180%;
+
+    .listItem {
+      &:hover {
+        background-color: $hover;
+      }
+    }
   }
 }
 
-.Book_Search {
+.Modal_Add_Genre {
+  @include breakpoint-mixin("Laptop_S") {
+    left: 0%;
+    bottom: 170%;
+    width: 400px;
+  }
+
+  .listItem {
+    justify-content: space-between;
+
+    @include breakpoint-mixin("Laptop_S") {
+      #trashIcon {
+        display: none;
+      }
+
+      #createText {
+        margin-right: 15px;
+      }
+
+      &:hover {
+        background-color: $hover;
+        #trashIcon {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.Modal_Book_Search {
   @include breakpoint-mixin("Laptop_S") {
     width: 500px;
     right: 0%;
     top: 180%;
 
-    //Give hover to specific modals
     .listItem {
       &:hover {
         background-color: $hover;
@@ -145,20 +180,7 @@
   }
 }
 
-.Filter_Search {
-  @include breakpoint-mixin("Laptop_S") {
-    left: 0%;
-    top: 180%;
-    //Give hover to specific modals
-    .listItem {
-      &:hover {
-        background-color: $hover;
-      }
-    }
-  }
-}
-
-.Select {
+.Modal_Select {
   padding: 10px 5px;
 
   @include breakpoint-mixin("Laptop_S") {
@@ -171,24 +193,10 @@
   }
 }
 
-.Add_Genre {
+.Modal_Type_Save {
   @include breakpoint-mixin("Laptop_S") {
-    left: 0%;
-    bottom: 170%;
-
-    .listItem {
-      &:hover {
-        background-color: $hover;
-      }
-
-      #createText {
-        margin-right: 15px;
-      }
-    }
-  }
-
-  .spaceBetween {
-    justify-content: space-between;
+    bottom: 0%;
+    right: 10%;
   }
 }
 

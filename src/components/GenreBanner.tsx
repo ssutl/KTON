@@ -4,7 +4,7 @@ import React, { useState, useContext, useRef } from "react";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import genreColors from "@/helpers/sortGenreColors";
 import HandleChanges from "@/helpers/HandleChanges";
-import Modal from "./Modal";
+import Modal_Add_Genre from "./Modal_Add_Genre";
 
 const GenreBanner = () => {
   const { books, userinfo } = useContext(KTON_CONTEXT);
@@ -31,10 +31,8 @@ const GenreBanner = () => {
           + Add genre
         </p>
         {displayGenreModal ? (
-          <Modal
-            specific_type="Add_Genre"
+          <Modal_Add_Genre
             closeModal={() => setDisplayGenreModal(false)}
-            mainBooks={books!}
             mainBook={mainBook}
           />
         ) : null}
