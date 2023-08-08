@@ -319,6 +319,7 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
         </div>
         <div className={styles.metaHalf}>
           <p>{new Date(highlight.Date).toDateString()}</p>
+          <p>Loc: {highlight.LocationEnd}</p>
         </div>
         <Tooltip
           id={`my-tooltip-${index}`}
