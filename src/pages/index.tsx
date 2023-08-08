@@ -10,8 +10,9 @@ export default function LoginPage({
 }: {
   TotalHighlights: number;
 }) {
-  console.log("TotalHighlights: ", TotalHighlights);
   //UseEffect to check if there's already an authToken
+  screen.orientation.lock("portrait-primary");
+
   useEffect(() => {
     const authToken = localStorage.getItem("token");
     const clippings = sessionStorage.getItem("clippings");
