@@ -1,5 +1,5 @@
 import React, { useRef, useState, useContext, useEffect } from "react";
-import { KTON_CONTEXT } from "../context/KTONContext";
+import { KTON_CONTEXT } from "../../context/KTONContext";
 import genericModalStyles from "../styles/Modal.module.scss";
 import genreColors from "@/helpers/sortGenreColors";
 import { Book } from "@/api/Interface";

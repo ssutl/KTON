@@ -6,11 +6,11 @@ import { Book } from "@/api/Interface";
 import InitApi from "../../api/InitAPI";
 import Head from "next/head";
 import AllowedRoute from "@/helpers/AllowedRoute";
-import BooksList from "@/components/BooksList";
-import LoadingPage from "@/components/LoadingPage";
-import Modal_Book_Search from "@/components/Modal_Book_Search";
-import Modal_Filter_Search from "@/components/Modal_Filter_Search";
-import Modal_Select from "@/components/Modal_Select";
+import BooksList from "@/components/Library/BooksList";
+import LoadingPage from "@/components/Loading/LoadingPage";
+import Modal_Book_Search from "@/components/Modals/Modal_Book_Search";
+import Modal_Filter_Search from "@/components/Modals/Modal_Filter_Search";
+import Modal_Select from "@/components/Modals/Modal_Select";
 
 const Library = () => {
   const { InitialiseApp } = InitApi();

@@ -1,6 +1,6 @@
 import TextareaAutosize from "react-textarea-autosize";
 import styles from "../styles/SummarySection.module.scss";
-import { KTON_CONTEXT } from "../context/KTONContext";
+import { KTON_CONTEXT } from "../../context/KTONContext";
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { useRouter } from "next/router";
 import HandleChanges from "@/helpers/HandleChanges";

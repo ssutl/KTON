@@ -2,8 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import styles from "../styles/HeatMapBanner.module.scss";
 import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
-import CalenderFunctions from "../helpers/CalanderFunctions";
-import { KTON_CONTEXT } from "../context/KTONContext";
+import CalenderFunctions from "../../helpers/CalanderFunctions";
+import { KTON_CONTEXT } from "../../context/KTONContext";
 import HeatMapDataFunc from "@/helpers/HeatMapDataFunc";
 
 //interface HeatMapBannerProps {}

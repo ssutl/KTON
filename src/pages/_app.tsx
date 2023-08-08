@@ -1,7 +1,7 @@
 import "../styles/globals.scss";
 import type { AppProps } from "next/app";
 import React from "react";
-import Layout from "@/components/Layout";
+import Layout from "@/components/Global/Layout";
 import { KTON_Provider } from "@/context/KTONContext";
 
 export default function App({ Component, pageProps }: AppProps) {

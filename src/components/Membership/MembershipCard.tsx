@@ -2,7 +2,7 @@ import styles from "../styles/MembershipCard.module.scss";
 import create_checkout from "@/api/Membership/create_checkout";
 import { useRouter } from "next/router";
 import React, { useState, useEffect, useContext } from "react";
-import { KTON_CONTEXT } from "../context/KTONContext";
+import { KTON_CONTEXT } from "../../context/KTONContext";
 
 interface MembershipCardProps {
   type: "Free" | "Premium";

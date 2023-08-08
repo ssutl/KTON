@@ -1,6 +1,6 @@
-import MembershipCard from "@/components/MembershipCard";
+import MembershipCard from "@/components/Membership/MembershipCard";
 import styles from "../../styles/MembershipPage.module.scss";
-import HandleLoginModal from "../../components/HandleLoginModal";
+import HandleLoginModal from "../../components/Login/HandleLoginModal";
 
 const Membership = () => {
   const { LoginModal, setLoginModal } = HandleLoginModal();

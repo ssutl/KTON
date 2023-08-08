@@ -1,5 +1,5 @@
-import Navbar from "@/components/Navbar";
-import Header from "@/components/Header";
+import Navbar from "@/components/Global/Navbar";
+import Header from "@/components/Global/Header";
 import FeedbackModal from "./FeedbackModal";
 import styles from "../styles/Layout.module.scss";
 import RateReviewIcon from "@mui/icons-material/RateReview";

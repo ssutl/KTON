@@ -5,17 +5,17 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import { KTON_CONTEXT } from "../../context/KTONContext";
 import InitApi from "../../api/InitAPI";
 import Tilt from "react-parallax-tilt";
-import HandleLoginModal from "@/components/HandleLoginModal";
+import HandleLoginModal from "@/components/Login/HandleLoginModal";
 import cleanAuthor from "@/helpers/cleanAuthor";
 import AllowedRoute from "@/helpers/AllowedRoute";
-import HighlightsList from "@/components/HighlightsList";
-import SummarySection from "@/components/SummaryComponent";
-import GenreBanner from "@/components/GenreBanner";
-import LoadingPage from "@/components/LoadingPage";
+import HighlightsList from "@/components/Book/HighlightsList";
+import SummarySection from "@/components/Book/SummaryComponent";
+import GenreBanner from "@/components/Book/GenreBanner";
+import LoadingPage from "@/components/Loading/LoadingPage";
 import { Tooltip } from "react-tooltip";
 import SearchIcon from "@mui/icons-material/Search";
-import Modal_Book_Search from "@/components/Modal_Book_Search";
-import Modal_Type_Save from "@/components/Modal_Type_Save";
+import Modal_Book_Search from "@/components/Modals/Modal_Book_Search";
+import Modal_Type_Save from "@/components/Modals/Modal_Type_Save";
 
 const BookPage = () => {
   const router = useRouter();

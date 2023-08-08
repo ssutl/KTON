@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import styles from "../styles/QuoteBanner.module.scss";
-import { KTON_CONTEXT } from "../context/KTONContext";
+import { KTON_CONTEXT } from "../../context/KTONContext";
 import { Meta_con_highlight } from "@/api/Interface";
 import cleanAuthor from "@/helpers/cleanAuthor";
 import { useRouter } from "next/router";

@@ -1,4 +1,4 @@
-import styles from "../styles/Highlight.module.scss";
+import styles from "../../styles/Book/Highlight.module.scss";
 import React, {
   useEffect,
   useState,
@@ -6,7 +6,7 @@ import React, {
   useContext,
   useCallback,
 } from "react";
-import { KTON_CONTEXT } from "../context/KTONContext";
+import { KTON_CONTEXT } from "../../context/KTONContext";
 import { Book_highlight } from "@/api/Interface";
 import TagIcon from "@mui/icons-material/Tag";
 import NotesIcon from "@mui/icons-material/Notes";

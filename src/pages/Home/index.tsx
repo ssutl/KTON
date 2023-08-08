@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import styles from "../../styles/Home.module.scss";
 import { KTON_CONTEXT } from "../../context/KTONContext";
-import QuoteBanner from "@/components/QuoteBanner";
+import QuoteBanner from "@/components/Home/QuoteBanner";
 import InitApi from "../../api/InitAPI";
-import HomeStatBanner from "@/components/HomeStatBanner";
-import HeatMapBanner from "@/components/HeatMapBanner";
+import HomeStatBanner from "@/components/Home/HomeStatBanner";
+import HeatMapBanner from "@/components/Home/HeatMapBanner";
 import Head from "next/head";
 import AllowedRoute from "@/helpers/AllowedRoute";
-import LoadingPage from "@/components/LoadingPage";
+import LoadingPage from "@/components/Loading/LoadingPage";
 
 const Home = () => {
   const { userinfo, books, highlights } = useContext(KTON_CONTEXT);

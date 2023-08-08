@@ -1,10 +1,10 @@
-import styles from "../styles/GenreBanner.module.scss";
+import styles from "../../styles/Book/GenreBanner.module.scss";
 import { useRouter } from "next/router";
 import React, { useState, useContext, useRef } from "react";
-import { KTON_CONTEXT } from "../context/KTONContext";
+import { KTON_CONTEXT } from "../../context/KTONContext";
 import genreColors from "@/helpers/sortGenreColors";
 import HandleChanges from "@/helpers/HandleChanges";
-import Modal_Add_Genre from "./Modal_Add_Genre";
+import Modal_Add_Genre from "../Modals/Modal_Add_Genre";
 
 const GenreBanner = () => {
   const { books, userinfo } = useContext(KTON_CONTEXT);
