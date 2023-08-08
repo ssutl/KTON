@@ -1,4 +1,4 @@
-import styles from "../../styles/Book/GenreBanner.module.scss";
+import styles from "../../styles/Components/GenreBanner.module.scss";
 import { useRouter } from "next/router";
 import React, { useState, useContext, useRef } from "react";
 import { KTON_CONTEXT } from "../../context/KTONContext";

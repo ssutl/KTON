@@ -7,7 +7,7 @@ import VerticalAlignBottomOutlinedIcon from "@mui/icons-material/VerticalAlignBo
 import VerticalAlignTopOutlinedIcon from "@mui/icons-material/VerticalAlignTopOutlined";
 import { HexColorPicker } from "react-colorful";
 import React, { useCallback, useEffect, useState } from "react";
-import styles from "../../styles/Book/EditModal.module.scss";
+import styles from "../../styles/Components/EditModal.module.scss";
 import { ImageStyles, MetaDataStyles, TextStyles } from "./ShareOverlay";
 import { Book } from "@/api/Interface";
 import TextColorModal from "./TextColorModal";

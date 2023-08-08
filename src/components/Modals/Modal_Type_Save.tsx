@@ -1,5 +1,5 @@
 import React, { useRef, useState, useContext, useEffect } from "react";
-import genericModalStyles from "../styles/Modal.module.scss";
+import genericModalStyles from "../../styles/Components/Modal.module.scss";
 import HandleChanges from "@/helpers/HandleChanges";
 import { Book } from "@/api/Interface";
 

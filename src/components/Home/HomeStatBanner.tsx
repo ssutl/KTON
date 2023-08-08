@@ -1,4 +1,4 @@
-import styles from "../styles/HomeStatBanner.module.scss";
+import styles from "../../styles/Components/HomeStatBanner.module.scss";
 import React, { useState, useEffect, useContext } from "react";
 import { KTON_CONTEXT } from "../../context/KTONContext";
 import { useRouter } from "next/router";

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import styles from "../styles/Book.module.scss";
+import styles from "../../styles/Components/BookComponent.module.scss";
 import { Book } from "@/api/Interface";
 import Tilt from "react-parallax-tilt";
 import { usePalette } from "react-palette";

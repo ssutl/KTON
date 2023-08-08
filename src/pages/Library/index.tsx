@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import styles from "../../styles/Library.module.scss";
+import styles from "../../styles/Pages/Library.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
 import { KTON_CONTEXT } from "../../context/KTONContext";
-import { Book } from "@/api/Interface";
 import InitApi from "../../api/InitAPI";
 import Head from "next/head";
 import AllowedRoute from "@/helpers/AllowedRoute";

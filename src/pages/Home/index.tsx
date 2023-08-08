@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import styles from "../../styles/Home.module.scss";
+import styles from "../../styles/Pages/Home.module.scss";
 import { KTON_CONTEXT } from "../../context/KTONContext";
 import QuoteBanner from "@/components/Home/QuoteBanner";
 import InitApi from "../../api/InitAPI";

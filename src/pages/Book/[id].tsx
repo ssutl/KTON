@@ -1,5 +1,5 @@
 import { Book } from "@/api/Interface";
-import styles from "../../styles/BookPage.module.scss";
+import styles from "../../styles/Pages/BookPage.module.scss";
 import { useRouter } from "next/router";
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { KTON_CONTEXT } from "../../context/KTONContext";

@@ -1,7 +1,7 @@
 import { Book } from "@/api/Interface";
 import Highlight from "./Highlight";
 import HandleLoginModal from "../Login/HandleLoginModal";
-import bookPageStyles from "../../styles/Book/BookPage.module.scss";
+import bookPageStyles from "../../styles/Pages/BookPage.module.scss";
 
 const HighlightsList: React.FC<{ book: Book }> = ({ book }) => {
   const { LoginModal, setLoginModal } = HandleLoginModal();

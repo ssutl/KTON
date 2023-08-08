@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import styles from "../styles/LoginComponent.module.scss";
+import styles from "../../styles/Components/LoginComponent.module.scss";
 import LoginApi, { LoginApiReturnType } from "@/api/Users/Login";
 
 const LoginComponent = () => {

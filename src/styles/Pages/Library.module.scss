@@ -1,0 +1,196 @@
+@import "../../styles/Layout/Breakpoints.module.scss";
+
+.Library {
+  overflow-y: scroll;
+
+  @include breakpoint-mixin("Tablet") {
+    height: 95dvh;
+  }
+
+  @include breakpoint-mixin("Laptop_S") {
+    height: 93dvh;
+  }
+
+  @include breakpoint-mixin("Desktop_M") {
+    height: 95dvh;
+  }
+
+  @include portrait-min-width-mixin("Vertical_Display") {
+    height: 97dvh;
+  }
+
+  .searchBanner {
+    height: 7dvh;
+    width: 100%;
+    border-bottom: 0.5px solid $border;
+    display: flex;
+    justify-content: center;
+
+    @include breakpoint-mixin("Tablet") {
+      height: 5dvh;
+    }
+
+    @include breakpoint-mixin("Laptop_S") {
+      height: 7dvh;
+    }
+
+    @include portrait-min-width-mixin("Vertical_Display") {
+      height: 3dvh;
+    }
+
+    @include breakpoint-mixin("Desktop_M") {
+      height: 5dvh;
+    }
+
+    .searchBannerWidth {
+      // background-color: aqua;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      width: 95%;
+
+      @include breakpoint-mixin("Laptop_S") {
+        //To account for the scrollbar
+        width: calc(95% + 10px);
+        margin-left: 10px;
+        //To account for the scrollbar
+      }
+
+      span {
+        position: relative;
+
+        #searchIcon {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .filterBanner {
+    width: 100%;
+    border-bottom: 0.5px solid $border;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0px 10px 0px;
+
+    .filterBannerWidth {
+      height: 100%;
+      width: 95%;
+      display: flex;
+      flex-direction: column-reverse;
+
+      @include breakpoint-mixin("Laptop_S") {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .filterSection {
+        width: fit-content;
+        height: 100%;
+        display: flex;
+
+        span {
+          position: relative;
+
+          #buttons {
+            margin-right: 20px;
+
+            @include breakpoint-mixin("Laptop_S") {
+              cursor: pointer;
+
+              margin-right: 0px;
+              border-radius: 4px;
+              padding: 2px 10px;
+
+              &:hover {
+                opacity: 0.5;
+                background-color: $hover;
+              }
+            }
+          }
+        }
+      }
+
+      .descriptionSection {
+        width: 100%;
+        text-align: justify;
+        margin-bottom: 20px;
+
+        @include breakpoint-mixin("Laptop_S") {
+          margin-bottom: 0px;
+          width: 35%;
+        }
+
+        @include breakpoint-mixin("Desktop_M") {
+          width: 25%;
+        }
+
+        @include breakpoint-mixin("Desktop_L") {
+          width: 20%;
+        }
+      }
+    }
+  }
+
+  .bookContainer {
+    height: fit-content;
+    width: 100%;
+    display: grid;
+
+    @include breakpoint-mixin("Tablet") {
+      grid-template-columns: repeat(
+        2,
+        1fr
+      ); /* Adjust the number of columns as needed */
+    }
+
+    @include breakpoint-mixin("Laptop_S") {
+      grid-template-columns: repeat(
+        4,
+        1fr
+      ); /* Adjust the number of columns as needed */
+    }
+
+    @include portrait-min-width-mixin("Vertical_Display") {
+      grid-template-columns: repeat(
+        2,
+        1fr
+      ); /* Adjust the number of columns as needed */
+    }
+
+    @include breakpoint-mixin("laptop-wide") {
+      grid-template-columns: repeat(
+        5,
+        1fr
+      ); /* Adjust the number of columns as needed */
+    }
+
+    @include breakpoint-mixin("Desktop-wide") {
+      grid-template-columns: repeat(
+        6,
+        1fr
+      ); /* Adjust the number of columns as needed */
+    }
+  }
+}
+
+@include breakpoint-mixin("Laptop_S") {
+  .Library::-webkit-scrollbar {
+    height: 100%;
+    background-color: rgb(45, 41, 41);
+    width: 10px;
+  }
+
+  .Library::-webkit-scrollbar-thumb {
+    background-color: rgba(70, 68, 68, 0.428);
+    border: 1px solid transparent;
+    background-clip: content-box;
+    border-radius: 10px;
+    height: 40px;
+  }
+}
+
+.noScroll {
+  overflow: hidden;
+}

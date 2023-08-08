@@ -1,5 +1,5 @@
 import React, { useRef, useState, useContext } from "react";
-import styles from "../../styles/Book/ShareOverlay.module.scss";
+import styles from "../../styles/Components/ShareOverlay.module.scss";
 import { useRouter } from "next/router";
 import { KTON_CONTEXT } from "../../context/KTONContext";
 import cleanAuthor from "@/helpers/cleanAuthor";

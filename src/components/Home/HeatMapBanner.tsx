@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import styles from "../styles/HeatMapBanner.module.scss";
+import styles from "../../styles/Components/HeatMapBanner.module.scss";
 import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 import CalenderFunctions from "../../helpers/CalanderFunctions";

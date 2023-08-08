@@ -1,4 +1,4 @@
-import styles from "../styles/404.module.scss";
+import styles from "../styles/Pages/404.module.scss";
 import { useRouter } from "next/router";
 
 export default function Custom404() {

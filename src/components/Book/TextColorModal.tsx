@@ -1,4 +1,4 @@
-import styles from "../styles/TextColorModal.module.scss";
+import styles from "../../styles/Components/TextColorModal.module.scss";
 import { HexColorPicker } from "react-colorful";
 
 interface TextColorModalProps {

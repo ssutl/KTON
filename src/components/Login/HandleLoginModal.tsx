@@ -1,5 +1,5 @@
 import LoginComponent from "./LoginComponent";
-import styles from "../styles/LoginModal.module.scss";
+import styles from "../../styles/Components/LoginModal.module.scss";
 import { useState } from "react";
 
 const HandleLoginModal = () => {

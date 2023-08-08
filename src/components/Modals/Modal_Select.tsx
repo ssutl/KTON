@@ -1,4 +1,4 @@
-import genericModalStyles from "../styles/Modal.module.scss";
+import genericModalStyles from "../../styles/Components/Modal.module.scss";
 
 interface Modal_SelectProps {
   onItemClick: (item: any) => void;
