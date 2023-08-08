@@ -7,11 +7,11 @@
     height: 95dvh;
   }
 
-  @include breakpoint-mixin("Laptop") {
+  @include breakpoint-mixin("Laptop_S") {
     height: 93dvh;
   }
 
-  @include breakpoint-mixin("Desktop") {
+  @include breakpoint-mixin("Desktop_M") {
     height: 95dvh;
   }
 
@@ -30,7 +30,7 @@
       height: 5dvh;
     }
 
-    @include breakpoint-mixin("Laptop") {
+    @include breakpoint-mixin("Laptop_S") {
       height: 7dvh;
     }
 
@@ -38,7 +38,7 @@
       height: 3dvh;
     }
 
-    @include breakpoint-mixin("Desktop") {
+    @include breakpoint-mixin("Desktop_M") {
       height: 5dvh;
     }
 
@@ -50,7 +50,7 @@
       height: 100%;
       width: 95%;
 
-      @include breakpoint-mixin("Laptop") {
+      @include breakpoint-mixin("Laptop_S") {
         //To account for the scrollbar
         width: calc(95% + 10px);
         margin-left: 10px;
@@ -80,7 +80,7 @@
       display: flex;
       flex-direction: column-reverse;
 
-      @include breakpoint-mixin("Laptop") {
+      @include breakpoint-mixin("Laptop_S") {
         flex-direction: row;
         justify-content: space-between;
       }
@@ -96,7 +96,7 @@
           #buttons {
             margin-right: 20px;
 
-            @include breakpoint-mixin("Laptop") {
+            @include breakpoint-mixin("Laptop_S") {
               cursor: pointer;
 
               margin-right: 0px;
@@ -117,12 +117,12 @@
         text-align: justify;
         margin-bottom: 20px;
 
-        @include breakpoint-mixin("Laptop") {
+        @include breakpoint-mixin("Laptop_S") {
           margin-bottom: 0px;
           width: 35%;
         }
 
-        @include breakpoint-mixin("Desktop") {
+        @include breakpoint-mixin("Desktop_M") {
           width: 25%;
         }
 
@@ -145,7 +145,7 @@
       ); /* Adjust the number of columns as needed */
     }
 
-    @include breakpoint-mixin("Laptop") {
+    @include breakpoint-mixin("Laptop_S") {
       grid-template-columns: repeat(
         4,
         1fr
@@ -175,7 +175,7 @@
   }
 }
 
-@include breakpoint-mixin("Laptop") {
+@include breakpoint-mixin("Laptop_S") {
   .Library::-webkit-scrollbar {
     height: 100%;
     background-color: rgb(45, 41, 41);

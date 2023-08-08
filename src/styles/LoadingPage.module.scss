@@ -5,14 +5,22 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 94dvh;
+  height: 93dvh;
 
-  @include breakpoint-mixin("Laptop") {
+  @include breakpoint-mixin("Tablet") {
+    height: 95dvh;
+  }
+
+  @include breakpoint-mixin("Laptop_S") {
     height: 93dvh;
   }
 
-  @include breakpoint-mixin("Desktop") {
+  @include breakpoint-mixin("Desktop_M") {
     height: 95dvh;
+  }
+
+  @include portrait-min-width-mixin("Vertical_Display") {
+    height: 97dvh;
   }
 }
 

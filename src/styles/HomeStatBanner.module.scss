@@ -6,7 +6,7 @@
   flex-direction: column;
   margin: 0px auto;
 
-  @include breakpoint-mixin("Laptop") {
+  @include breakpoint-mixin("Laptop_S") {
     width: 95%;
     height: 25%;
     display: flex;
@@ -43,7 +43,7 @@
     text-align: center;
     cursor: pointer;
 
-    @include breakpoint-mixin("Laptop") {
+    @include breakpoint-mixin("Laptop_S") {
       width: 30%;
       height: 80%;
 
@@ -76,7 +76,7 @@
     background-color: #e3e3e36b;
     animation: loading-animation 1s infinite linear;
 
-    @include breakpoint-mixin("Laptop") {
+    @include breakpoint-mixin("Laptop_S") {
       width: 30%;
       height: 80%;
     }

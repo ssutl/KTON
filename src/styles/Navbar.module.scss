@@ -48,7 +48,7 @@
       p {
         margin-left: 20px;
 
-        @include breakpoint-mixin("Laptop") {
+        @include breakpoint-mixin("Laptop_S") {
           cursor: pointer;
           margin-left: 0px;
           border-radius: 4px;

@@ -9,7 +9,7 @@
     height: 95dvh;
   }
 
-  @include breakpoint-mixin("Laptop_s") {
+  @include breakpoint-mixin("Laptop_S") {
     height: 93dvh;
     flex-direction: row;
   }
@@ -32,10 +32,18 @@
       display: block;
     }
 
-    @include breakpoint-mixin("Laptop") {
+    .bookTitle {
+      display: block;
+    }
+
+    @include breakpoint-mixin("Laptop_S") {
       width: 50%;
 
       .highlightList {
+        display: none;
+      }
+
+      .bookTitle {
         display: none;
       }
     }
@@ -46,39 +54,52 @@
       .highlightList {
         display: block;
       }
+
+      .bookTitle {
+        display: block;
+      }
     }
 
-    //Height of book cover
     .imageSection {
-      height: 65dvh;
       width: 100%;
       display: flex;
       justify-content: center;
       position: relative;
+      margin-bottom: 10dvh;
+      // background-color: orange;
+
+      @include breakpoint-mixin("Mobile_M") {
+        margin-bottom: 8dvh;
+      }
 
       @include breakpoint-mixin("Tablet") {
-        // height: 70dvh;
+        margin-bottom: 6dvh;
       }
 
-      @include breakpoint-mixin("Laptop") {
-        height: 62dvh;
+      @include breakpoint-mixin("Laptop_S") {
+        margin-bottom: 4dvh;
       }
 
-      @include portrait-min-width-mixin("Vertical_Display") {
-        height: 43vh;
+      @include breakpoint-mixin("Laptop_M") {
+        margin-bottom: 5dvh;
       }
 
-      @include breakpoint-mixin("Desktop") {
-        height: 65dvh;
+      @include breakpoint-mixin("Desktop_M") {
+        margin-bottom: 7dvh;
       }
 
       @include breakpoint-mixin("Desktop_L") {
-        height: 60dvh;
+        margin-bottom: 5dvh;
       }
 
+      @include portrait-min-width-mixin("Vertical_Display") {
+        margin-bottom: 3dvh;
+      }
+
+      //Height of book cover
       .ImageContainer {
-        height: 75%;
-        width: 65%;
+        height: 285px;
+        width: 60%;
         //To align with title of book on other side
         margin-top: 5dvh;
         box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
@@ -86,14 +107,54 @@
         border-radius: 3px;
         overflow: hidden;
 
-        @include breakpoint-mixin("Tablet") {
-          height: 85%;
-          width: 50%;
+        @include breakpoint-mixin("Mobile_M") {
+          width: 65%;
+          height: 335px;
         }
 
-        @include breakpoint-mixin("Laptop") {
-          height: 80%;
-          width: 40%;
+        @include breakpoint-mixin("Mobile_L") {
+          width: 60%;
+          height: 340px;
+        }
+
+        @include breakpoint-mixin("Tablet") {
+          width: 48%;
+          height: 490px;
+        }
+
+        @include breakpoint-mixin("Laptop_S") {
+          width: 50%;
+          height: 330px;
+        }
+
+        @include breakpoint-mixin("Laptop_M") {
+          width: 45%;
+          height: 370px;
+        }
+
+        @include breakpoint-mixin("Laptop_L") {
+          width: 39%;
+          height: 360px;
+        }
+
+        @include breakpoint-mixin("Desktop_S") {
+          height: 380px;
+          width: 36%;
+        }
+
+        @include breakpoint-mixin("Desktop_M") {
+          height: 440px;
+          // width: 37%;
+        }
+
+        @include breakpoint-mixin("Desktop_L") {
+          height: 565px;
+          width: 34%;
+        }
+
+        @include portrait-min-width-mixin("Vertical_Display") {
+          height: 490px;
+          width: 35%;
         }
 
         .NoImage {
@@ -125,13 +186,13 @@
           cursor: pointer;
           opacity: 0.85;
 
-          @include breakpoint-mixin("Laptop") {
+          @include breakpoint-mixin("Laptop_S") {
             display: none;
             opacity: 1;
           }
         }
 
-        @include breakpoint-mixin("Laptop") {
+        @include breakpoint-mixin("Laptop_S") {
           &:hover {
             .editURLMenu {
               display: block;
@@ -142,7 +203,7 @@
     }
   }
 
-  @include breakpoint-mixin("Laptop") {
+  @include breakpoint-mixin("Laptop_S") {
     .bookHalf::-webkit-scrollbar {
       height: 100%;
       background-color: rgb(45, 41, 41);
@@ -163,7 +224,7 @@
     display: none;
 
     //For laptop and Desktop
-    @include breakpoint-mixin("Laptop") {
+    @include breakpoint-mixin("Laptop_S") {
       display: block;
       overflow-y: auto;
       width: 50%;
@@ -175,7 +236,7 @@
     }
   }
 
-  @include breakpoint-mixin("Laptop") {
+  @include breakpoint-mixin("Laptop_S") {
     .highlightHalf::-webkit-scrollbar {
       height: 100%;
       background-color: rgb(45, 41, 41);
@@ -196,22 +257,28 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 5dvh auto 5dvh auto;
+  margin: 0px auto 10dvh auto;
   //Aligning title with highlights below
   width: calc((90% + 10px));
-  // background-color: orange;
+
+  @include breakpoint-mixin("Mobile_M") {
+    margin: 0px auto 8dvh auto;
+  }
 
   @include breakpoint-mixin("Tablet") {
-    margin: 4dvh auto 4dvh auto;
+    margin: 0px auto 6dvh auto;
+  }
+
+  @include breakpoint-mixin("Laptop_S") {
+    margin: 5dvh auto 3dvh auto;
   }
 
   @include portrait-min-width-mixin("Vertical_Display") {
-    margin: 2dvh auto 2dvh auto;
+    margin: 0dvh auto 3dvh auto;
   }
 
   h1 {
     margin-bottom: 40px;
-    max-width: 70%;
     text-align: justify;
   }
 }
@@ -223,11 +290,11 @@
   justify-content: center;
   height: 94dvh;
 
-  @include breakpoint-mixin("Laptop") {
+  @include breakpoint-mixin("Laptop_S") {
     height: 93dvh;
   }
 
-  @include breakpoint-mixin("Desktop") {
+  @include breakpoint-mixin("Desktop_M") {
     height: 95dvh;
   }
 }

@@ -106,7 +106,7 @@
       cursor: pointer;
       margin-left: 0.5px;
 
-      @include breakpoint-mixin("Laptop") {
+      @include breakpoint-mixin("Laptop_S") {
         margin-left: 0px;
         &:hover {
           opacity: 0.5;

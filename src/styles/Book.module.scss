@@ -23,8 +23,16 @@
     position: relative;
     padding: 25px 0px;
 
-    @include breakpoint-mixin("Laptop_L") {
-      padding: 35px 0px;
+    @include breakpoint-mixin("Laptop_S") {
+      padding: 30px 0px;
+    }
+
+    @include breakpoint-mixin("Desktop_S") {
+      padding: 45px 0px;
+    }
+
+    @include portrait-min-width-mixin("Vertical_Display") {
+      padding: 50px 0px;
     }
 
     .blurEffect {
@@ -83,12 +91,23 @@
         height: 300px;
       }
 
-      @include breakpoint-mixin("Desktop") {
-        height: 75%;
-        width: 55%;
+      @include breakpoint-mixin("Desktop_S") {
+        height: 320px;
+        width: 60%;
+      }
+
+      @include breakpoint-mixin("Desktop_M") {
+        height: 330px;
+        width: 52%;
+      }
+
+      @include breakpoint-mixin("Desktop_L") {
+        height: 445px;
+        width: 54%;
       }
 
       @include portrait-min-width-mixin("Vertical_Display") {
+        height: 345px;
         width: 50%;
       }
 
@@ -123,7 +142,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: justify;
+    // text-align: justify;
     padding: 15px 0px;
 
     .Meta_center {
@@ -146,10 +165,10 @@
         cursor: pointer;
         font-size: 27px;
 
-        @include breakpoint-mixin("Laptop") {
+        @include breakpoint-mixin("Laptop_S") {
           font-size: 26px;
         }
-        @include breakpoint-mixin("Desktop") {
+        @include breakpoint-mixin("Desktop_M") {
           font-size: 25px;
         }
       }

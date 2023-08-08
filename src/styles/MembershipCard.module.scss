@@ -9,12 +9,12 @@
   padding: 0px 20px;
   cursor: pointer;
 
-  @include breakpoint-mixin("Laptop") {
+  @include breakpoint-mixin("Laptop_S") {
     border-radius: 3px;
     width: 30%;
   }
 
-  @include breakpoint-mixin("Desktop") {
+  @include breakpoint-mixin("Desktop_M") {
     height: 65dvh;
     width: 25%;
   }

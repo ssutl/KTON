@@ -15,7 +15,7 @@
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
 
-  @include breakpoint-mixin("Laptop") {
+  @include breakpoint-mixin("Laptop_S") {
     border: 0.5px solid $border;
     width: 300px;
     height: fit-content;
@@ -34,7 +34,7 @@
       opacity: 0.5;
     }
 
-    @include breakpoint-mixin("Laptop") {
+    @include breakpoint-mixin("Laptop_S") {
       display: none;
     }
   }
@@ -83,7 +83,7 @@
       max-width: 85%;
       // width: 100%;
 
-      @include breakpoint-mixin("Laptop") {
+      @include breakpoint-mixin("Laptop_S") {
         max-width: 100%;
       }
 
@@ -124,14 +124,14 @@
 }
 
 .Type_Save {
-  @include breakpoint-mixin("Laptop") {
+  @include breakpoint-mixin("Laptop_S") {
     bottom: 0%;
     right: 10%;
   }
 }
 
 .Book_Search {
-  @include breakpoint-mixin("Laptop") {
+  @include breakpoint-mixin("Laptop_S") {
     width: 500px;
     right: 0%;
     top: 180%;
@@ -146,7 +146,7 @@
 }
 
 .Filter_Search {
-  @include breakpoint-mixin("Laptop") {
+  @include breakpoint-mixin("Laptop_S") {
     left: 0%;
     top: 180%;
     //Give hover to specific modals
@@ -161,7 +161,7 @@
 .Select {
   padding: 10px 5px;
 
-  @include breakpoint-mixin("Laptop") {
+  @include breakpoint-mixin("Laptop_S") {
     left: 0%;
     top: 180%;
     width: 150px;
@@ -172,7 +172,7 @@
 }
 
 .Add_Genre {
-  @include breakpoint-mixin("Laptop") {
+  @include breakpoint-mixin("Laptop_S") {
     left: 0%;
     bottom: 170%;
 
