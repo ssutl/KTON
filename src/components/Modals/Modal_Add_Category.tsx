@@ -2,21 +2,29 @@ import React, { useRef, useState, useContext, useEffect } from "react";
 import { KTON_CONTEXT } from "../../context/KTONContext";
 import genericModalStyles from "../../styles/Components/Modal.module.scss";
 import genreColors from "@/helpers/sortGenreColors";
-import { Book } from "@/api/Interface";
+import { Book, Book_highlight, Meta_con_highlight } from "@/api/Interface";
 import HandleChanges from "@/helpers/HandleChanges";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { useRouter } from "next/router";
 
-interface Modal_Add_GenreProps {
-  mainBook: Book;
+interface Modal_Add_CategoryProps {
+  highlight: Book_highlight;
   closeModal: () => void;
+  position: "above" | "below";
 }
 
-const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
+const Modal_Add_Category = ({
+  highlight,
+  closeModal,
+  position,
+}: Modal_Add_CategoryProps) => {
   const [searchValue, setSearchValue] = useState<string>("");
   const { userinfo, books } = useContext(KTON_CONTEXT);
   const { colorConverter, randomColorGenerator, mapTable } = genreColors();
-  const { addGenreToBook, addGenreToUser, updateBookCover } = HandleChanges();
+  const { addCategoryToHighlight, addCategoryToUser } = HandleChanges();
   const [randomColor, setRandomColor] = useState(randomColorGenerator());
+  const router = useRouter();
+  const book_id = router.query.id;
 
   //When the genreInput changes, we want to change the color of the randomColor
   useEffect(() => {
@@ -27,15 +35,26 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
 
   const filteredData =
     userinfo &&
-    Object.keys(userinfo.genres).filter((eachGenre) =>
-      eachGenre.toLowerCase().includes(searchValue.toLowerCase())
+    userinfo.categories.filter((eachHighlightCategory) =>
+      eachHighlightCategory.toLowerCase().includes(searchValue.toLowerCase())
     );
+
+  //Add overflow hidden to element behind when modal is open
+  useEffect(() => {
+    const scrollHalf = document.getElementById("scrollHighlight");
+    if (scrollHalf) {
+      scrollHalf.style.overflow = "hidden";
+      return () => {
+        scrollHalf.style.overflow = "auto";
+      };
+    }
+  }, []);
 
   if (!userinfo) return null;
   return (
     <>
       <div
-        className={`${genericModalStyles.modal} ${genericModalStyles.Modal_Add_Genre}`}
+        className={`${genericModalStyles.modal} ${genericModalStyles.Modal_Add_Category} ${genericModalStyles[position]}`}
       >
         <div className={genericModalStyles.header}>
           <h3>Select or create genre</h3>
@@ -52,40 +71,34 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
           //List of items for all modals except type_save
         }
         {filteredData &&
-          filteredData.map((eachItem, i) => (
+          filteredData.map((userInfoCategory, i) => (
             <div
               key={i}
               className={genericModalStyles.listItem}
               onClick={() => {
-                if (!mainBook.genre.includes(eachItem)) {
-                  addGenreToBook({
+                //Check if category is already in highlight
+                if (!highlight.category.includes(userInfoCategory)) {
+                  addCategoryToHighlight({
                     type: "add",
-                    data: eachItem,
-                    book_id: mainBook._id,
+                    data: userInfoCategory,
+                    book_id,
+                    highlight_id: highlight._id,
                   });
                 }
               }}
             >
-              <div
-                style={
-                  {
-                    "--background-color": colorConverter(
-                      userinfo.genres[eachItem]
-                    ),
-                  } as React.CSSProperties
-                }
-                className={genericModalStyles.tag}
-              >
-                <p>{eachItem}</p>
+              <div className={genericModalStyles.tag}>
+                <p>{userInfoCategory}</p>
               </div>
               <DeleteOutlineIcon
                 id={genericModalStyles.trashIcon}
                 onClick={(e) => {
                   e.stopPropagation();
-                  addGenreToUser({
+                  addCategoryToHighlight({
                     type: "remove",
-                    data: eachItem,
-                    book_id: mainBook._id,
+                    data: userInfoCategory,
+                    book_id,
+                    highlight_id: highlight._id,
                   });
                 }}
               />
@@ -95,23 +108,16 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
           <div
             className={genericModalStyles.listItem}
             onClick={() => {
-              addGenreToUser({
+              addCategoryToUser({
                 type: "add",
                 data: searchValue,
-                book_id: mainBook._id,
-                color: randomColor.color,
+                book_id,
+                highlight_id: highlight._id,
               });
             }}
           >
             <p id={genericModalStyles.createText}>Create</p>
-            <div
-              className={genericModalStyles.tag}
-              style={
-                {
-                  "--background-color": randomColor.hex,
-                } as React.CSSProperties
-              }
-            >
+            <div className={genericModalStyles.tag}>
               <p>{searchValue}</p>
             </div>
           </div>
@@ -124,4 +130,4 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
     </>
   );
 };
-export default Modal_Add_Genre;
+export default Modal_Add_Category;
