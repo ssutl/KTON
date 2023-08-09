@@ -16,6 +16,7 @@ import { Tooltip } from "react-tooltip";
 import SearchIcon from "@mui/icons-material/Search";
 import Modal_Book_Search from "@/components/Modals/Modal_Book_Search";
 import Modal_Type_Save from "@/components/Modals/Modal_Type_Save";
+import scrollToElementWithText from "@/helpers/ScrollToHighlight";
 
 const BookPage = () => {
   const router = useRouter();
@@ -29,6 +30,15 @@ const BookPage = () => {
   const [showEditImageModal, setShowEditImageModal] = useState(false);
   const [coverIsValid, setCoverIsValid] = useState(true);
   const [displaySearchModal, setDisplaySearchModal] = useState(false);
+
+  //Need to check if anything was passed in through the query string, if it was scroll to it
+  useEffect(() => {
+    if (!router.query.highlight_text) return;
+
+    setTimeout(() => {
+      scrollToElementWithText(router.query.highlight_text as string);
+    }, 500);
+  }, []);
 
   //Initialising App by making data call on page load, this updates user context
   useEffect(() => {
@@ -132,7 +142,7 @@ const BookPage = () => {
           <HighlightsList book={mainBook} />
         </div>
         {/* Highlight Section, this is hidden on mobile*/}
-        <div className={styles.highlightHalf}>
+        <div className={styles.highlightHalf} id="scrollHighlight">
           {bookTitle()}
           <HighlightsList book={mainBook} />
         </div>
