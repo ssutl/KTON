@@ -24,8 +24,6 @@ const Library = () => {
   const [displaySearchModal, setDisplaySearchModal] = useState(false);
   const [displaySortModal, setDisplaySortModal] = useState(false);
   const [displayFilterModal, setDisplayFilterModal] = useState(false);
-  const modalDisplayed =
-    displayFilterModal || displaySortModal || displaySearchModal;
 
   const showFilterH3 =
     books &&
@@ -151,9 +149,7 @@ const Library = () => {
       <Head>
         <title>Library</title>
       </Head>
-      <div
-        className={`${styles.Library} ${modalDisplayed ? styles.noScroll : ""}`}
-      >
+      <div className={`${styles.Library}`} id="Library">
         {SearchBanner()}
         {filterBanner()}
         <div className={styles.bookContainer}>

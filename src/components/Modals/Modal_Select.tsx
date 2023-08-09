@@ -1,4 +1,5 @@
 import genericModalStyles from "../../styles/Components/Modal.module.scss";
+import React, { useEffect } from "react";
 
 interface Modal_SelectProps {
   onItemClick: (item: any) => void;
@@ -13,6 +14,17 @@ const Modal_Select = ({
   selectedSort,
   closeModal,
 }: Modal_SelectProps) => {
+  //Add overflow hidden to element behind when modal is open
+  useEffect(() => {
+    const scrollHalf = document.getElementById("Library");
+    if (scrollHalf) {
+      scrollHalf.style.overflow = "hidden";
+      return () => {
+        scrollHalf.style.overflow = "auto";
+      };
+    }
+  }, []);
+
   return (
     <>
       <div

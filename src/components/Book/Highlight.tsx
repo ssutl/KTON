@@ -20,6 +20,8 @@ import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 import HandleChanges from "@/helpers/HandleChanges";
 import ShareOverlay from "./ShareOverlay";
 import { Tooltip } from "react-tooltip";
+import Modal_Add_Genre from "../Modals/Modal_Add_Genre";
+import Modal_Add_Category from "../Modals/Modal_Add_Category";
 
 interface highlightProps {
   highlight: Book_highlight;
@@ -27,8 +29,7 @@ interface highlightProps {
   index: number;
 }
 
-const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
-  const { userinfo } = useContext(KTON_CONTEXT);
+const Highlight = ({ highlight, index }: highlightProps) => {
   const [screenWidth, setScreenWidth] = useState(1024);
   const {
     favouriteHighlight,
@@ -37,21 +38,25 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
     addCategoryToHighlight,
     addCategoryToUser,
   } = HandleChanges();
-  const [dropdown, setDropdown] = useState<"Annotate" | "Categorise" | false>(
-    false
-  );
-  const [hoveredOption, setHoveredOption] = useState("");
+  const [annotationDropdown, setAnnotationDropdown] = useState<boolean>(false);
   const [inputAnnotation, setInputAnnotation] = useState(highlight.notes);
-  const [categoryInput, setCategoryInput] = useState("");
   const [displayShareOverlay, setDisplayShareOverlay] = useState(false);
+  const [displayCategoryModal, setDisplayCategoryModal] = useState(false);
 
   //Refrence to the dropdowns and their buttons
-  const tagDropDownRef = useRef(null);
   const tagButtonRef = useRef(null);
   const notesDropDownRef = useRef(null);
   const notesButtonRef = useRef(null);
   const router = useRouter();
   const book_id = router.query.id;
+
+  //Refrence to the highlight div
+  const highlightDiv = document.getElementById(`highlight-${index}`);
+
+  //Modal Positon
+  const [divAboveHalf, setDivAboveHalf] = useState<boolean | undefined>(
+    undefined
+  );
 
   useEffect(() => {
     //Have to set screenwidth to conditionally change size of heat map
@@ -103,96 +108,29 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
     );
   };
 
-  //Drop down annotation section for each highlight
-  const categorySection = () => {
-    if (userinfo?.categories) {
-      return (
-        <div className={styles.categoryDropdown} ref={tagDropDownRef}>
-          <div className={styles.searchItem}>
-            <input
-              placeholder="Search for tags, or type to create..."
-              value={categoryInput}
-              onChange={(e) => setCategoryInput(e.target.value)}
-            />
-          </div>
-          <div className={styles.categoryScroll}>
-            {userinfo?.categories
-              .filter((eachHighlightCategory) =>
-                eachHighlightCategory
-                  .toLowerCase()
-                  .includes(categoryInput.toLowerCase())
-              )
-              .map((ExistingCategory, index) => (
-                <div
-                  key={index}
-                  className={`${styles.categoryItem} ${styles.spaceBetween}`}
-                  onMouseOver={() => setHoveredOption(ExistingCategory)}
-                  onMouseLeave={() => setHoveredOption("")}
-                >
-                  <div
-                    className={styles.tag}
-                    onClick={() => {
-                      //Check if category is already in highlight
-                      if (!highlight.category.includes(ExistingCategory)) {
-                        addCategoryToHighlight({
-                          type: "add",
-                          data: ExistingCategory,
-                          book_id,
-                          highlight_id: highlight._id,
-                        });
-                      }
-                    }}
-                  >
-                    <p>{ExistingCategory}</p>
-                  </div>
-                  {hoveredOption === ExistingCategory || screenWidth < 1024 ? (
-                    <DeleteOutlineIcon
-                      id={styles.trashIcon}
-                      onClick={
-                        () => {
-                          addCategoryToUser({
-                            type: "remove",
-                            data: ExistingCategory,
-                            book_id,
-                            highlight_id: highlight._id,
-                          });
-                        }
-                        //We need to delete from the userInfo history
-                      }
-                    />
-                  ) : null}
-                </div>
-              ))}
-            {!userinfo?.categories
-              .map((eachGenre) => eachGenre.toLowerCase())
-              .includes(categoryInput.toLowerCase()) &&
-              categoryInput !== "" && (
-                <div
-                  className={styles.categoryItem}
-                  onClick={() => {
-                    addCategoryToUser({
-                      type: "add",
-                      data: categoryInput,
-                      book_id,
-                      highlight_id: highlight._id,
-                    });
-                  }}
-                >
-                  <p id={styles.createText}>Create</p>
-                  <div className={styles.tag}>
-                    <p>{categoryInput}</p>
-                  </div>
-                </div>
-              )}
-          </div>
-        </div>
-      );
-    } else return null;
-  };
-
   //Attaching click outside function to highlight
-  useOutsideAlerter(notesDropDownRef, setDropdown, notesButtonRef);
-  useOutsideAlerter(tagDropDownRef, setDropdown, tagButtonRef);
+  useOutsideAlerter(notesDropDownRef, setAnnotationDropdown, notesButtonRef);
+
+  //Determining the position of the highlight
+  function determineHighlightPosition(
+    event: React.MouseEvent<HTMLParagraphElement, MouseEvent>
+  ) {
+    const windowHeight = window.innerHeight;
+    const clickedDiv = event.currentTarget;
+
+    const divRect = clickedDiv.getBoundingClientRect();
+    const divTop = divRect.top;
+    const divHeight = divRect.height;
+
+    const divCenterY = divTop + divHeight / 2;
+    const isAboveHalfway = divCenterY < windowHeight / 2;
+
+    if (isAboveHalfway) {
+      setDivAboveHalf(true);
+    } else {
+      setDivAboveHalf(false);
+    }
+  }
 
   //If highlight is not deleted, display it
   return (
@@ -204,7 +142,7 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
           index={index}
         />
       )}
-      <div className={styles.Highlight}>
+      <div className={styles.Highlight} id={`highlight-${index}`}>
         <div className={styles.mainHalf}>
           <h2>{highlight.Text}</h2>
           <h3>{highlight.notes}</h3>
@@ -240,7 +178,7 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
             <p
               onMouseDown={() =>
                 //if the dropdown is already set to annotate, then we want to close it
-                setDropdown(dropdown === "Annotate" ? false : "Annotate")
+                setAnnotationDropdown(!annotationDropdown)
               }
               data-tooltip-id={`my-tooltip-${index}`}
               data-tooltip-content="Annotate"
@@ -250,16 +188,28 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
             {
               //Tag option
             }
-            <p
-              onMouseDown={() =>
-                //if dropdown is already set to categorise, then we want to close it
-                setDropdown(dropdown === "Categorise" ? false : "Categorise")
-              }
-              data-tooltip-id={`my-tooltip-${index}`}
-              data-tooltip-content="Categorise"
-            >
-              <TagIcon ref={tagButtonRef} />
-            </p>
+            <span>
+              <p
+                onMouseDown={
+                  (e) => {
+                    determineHighlightPosition(e);
+                    setDisplayCategoryModal(true);
+                  }
+                  //if dropdown is already set to categorise, then we want to close it
+                }
+                data-tooltip-id={`my-tooltip-${index}`}
+                data-tooltip-content="Categorise"
+              >
+                <TagIcon ref={tagButtonRef} />
+              </p>
+              {displayCategoryModal && (
+                <Modal_Add_Category
+                  highlight={highlight}
+                  closeModal={() => setDisplayCategoryModal(false)}
+                  position={divAboveHalf ? "below" : "above"}
+                />
+              )}
+            </span>
             {
               //Favourite option
             }
@@ -311,11 +261,7 @@ const Highlight = ({ highlight, setLoginModal, index }: highlightProps) => {
           {
             //Dropdowns for annotate and categorise
           }
-          {dropdown === "Annotate"
-            ? annotationSection()
-            : dropdown === "Categorise"
-            ? categorySection()
-            : null}
+          {annotationDropdown ? annotationSection() : null}
         </div>
         <div className={styles.metaHalf}>
           <p>{new Date(highlight.Date).toDateString()}</p>

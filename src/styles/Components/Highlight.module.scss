@@ -42,12 +42,13 @@
 
       .tag {
         padding: 2px 15px;
-        border: 0.5px solid white;
+        border-radius: 3px;
         max-width: 60%;
         overflow-x: hidden;
         box-sizing: border-box;
         margin-right: 20px;
         margin-bottom: 20px;
+        background-color: #769f9d;
 
         p {
           overflow-x: hidden;
@@ -72,12 +73,18 @@
       width: 100%;
       justify-content: space-between;
 
+      //For the category modal
+      span {
+        position: relative;
+      }
+
       p {
         cursor: pointer;
         border-radius: 4px;
         display: flex;
         align-items: center;
         padding: 2px;
+
         @include breakpoint-mixin("Laptop_S") {
           &:hover {
             opacity: 0.5;

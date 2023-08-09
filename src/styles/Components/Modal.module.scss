@@ -35,6 +35,7 @@
     }
 
     @include breakpoint-mixin("Laptop_S") {
+      padding: 10px 5px 5px 5px;
       display: none;
     }
   }
@@ -91,6 +92,7 @@
       padding: 1px 10px;
       background-color: var(--background-color);
       border-radius: 3px;
+
       // border-right: 0.5px solid var(--background-color);
       overflow-x: hidden;
       box-sizing: border-box;
@@ -135,6 +137,43 @@
       }
     }
   }
+}
+
+.Modal_Add_Category {
+  @include breakpoint-mixin("Laptop_S") {
+    width: 400px;
+  }
+
+  .listItem {
+    justify-content: space-between;
+
+    @include breakpoint-mixin("Laptop_S") {
+      #trashIcon {
+        display: none;
+      }
+
+      #createText {
+        margin-right: 15px;
+      }
+
+      &:hover {
+        background-color: $hover;
+        #trashIcon {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.above {
+  left: 0%;
+  bottom: 170%;
+}
+
+.below {
+  left: 0%;
+  top: 180%;
 }
 
 .Modal_Filter_Search {
@@ -214,6 +253,29 @@
   }
 }
 
+.Modal_Author_Select {
+  padding: 10px 5px;
+
+  @include breakpoint-mixin("Laptop_S") {
+    padding: 5px;
+    position: relative;
+    width: 250px;
+    box-sizing: border-box;
+    min-height: fit-content;
+    max-height: fit-content;
+
+    .listItem {
+      &:hover {
+        background-color: $hover;
+      }
+    }
+
+    .header {
+      display: flex;
+    }
+  }
+}
+
 .modalBackground {
   position: fixed;
   top: 0;
@@ -221,6 +283,18 @@
   width: 100vw;
   height: 100dvh;
   z-index: 100;
+}
+.modalBackgroundBlur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  z-index: 1001;
+  background-color: $blur-bg;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal::-webkit-scrollbar {

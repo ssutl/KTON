@@ -4,6 +4,7 @@ import genericModalStyles from "../../styles/Components/Modal.module.scss";
 import { useRouter } from "next/router";
 import scrollToElementWithText from "@/helpers/ScrollToHighlight";
 import cleanAuthor from "@/helpers/cleanAuthor";
+import Modal_Author_Select from "./Modal_Author_Select";
 
 interface Modal_Book_SearchProps {
   closeModal: () => void;
@@ -11,15 +12,31 @@ interface Modal_Book_SearchProps {
 
 const Modal_Book_Search = ({ closeModal }: Modal_Book_SearchProps) => {
   const router = useRouter();
-  const { userinfo, books } = useContext(KTON_CONTEXT);
+  const { books } = useContext(KTON_CONTEXT);
   const [searchValue, setSearchValue] = useState("");
   const libraryRoute = router.pathname === "/Library";
   const bookRoute = router.pathname.includes("/Book/");
 
+  //Get book id from url
   const idMatch = router.asPath.match(/\/Book\/([a-fA-F0-9]+)/);
   const bookId = idMatch ? idMatch[1] : null;
 
+  //Display Author Modal
+  const [displayAuthorModal, setDisplayAuthorModal] = useState(false);
+  const [selectedAuthor, setSelectedAuthor] = useState("");
+
   let book;
+
+  //Add overflow hidden to element behind when modal is open
+  useEffect(() => {
+    const scrollHalf = document.getElementById("Library");
+    if (scrollHalf) {
+      scrollHalf.style.overflow = "hidden";
+      return () => {
+        scrollHalf.style.overflow = "auto";
+      };
+    }
+  }, []);
 
   //Both routes require books to be loaded
   if (!books) return null;
@@ -29,8 +46,27 @@ const Modal_Book_Search = ({ closeModal }: Modal_Book_SearchProps) => {
     book = books.find((eachBook) => eachBook._id === bookId);
   }
 
+  //Check if passed author has multiple books
+  const checkIfAuthorHasMultipleBooks = (author: string) => {
+    const authorBooks = books.filter((eachBook) => eachBook.author === author);
+    if (authorBooks.length === 1) {
+      router.push(`/Book/${authorBooks[0]._id}`);
+    } else {
+      setDisplayAuthorModal(true);
+      setSelectedAuthor(author);
+    }
+  };
+
   return (
     <>
+      {displayAuthorModal && (
+        <Modal_Author_Select
+          optionsData={books.filter(
+            (eachBook) => eachBook.author === selectedAuthor
+          )}
+          closeModal={() => setDisplayAuthorModal(false)}
+        />
+      )}
       <div
         className={`${genericModalStyles.modal} ${genericModalStyles.Modal_Book_Search}`}
       >
@@ -53,6 +89,9 @@ const Modal_Book_Search = ({ closeModal }: Modal_Book_SearchProps) => {
         }
         {libraryRoute && (
           <>
+            {
+              //Show book titles
+            }
             {books.filter((eachBook) =>
               eachBook.title
                 .toLocaleUpperCase()
@@ -79,6 +118,9 @@ const Modal_Book_Search = ({ closeModal }: Modal_Book_SearchProps) => {
                   <p>{eachItem.title}</p>
                 </div>
               ))}
+            {
+              //Show authors
+            }
             {books.filter((eachBook) =>
               eachBook.author
                 .toLocaleUpperCase()
@@ -89,23 +131,27 @@ const Modal_Book_Search = ({ closeModal }: Modal_Book_SearchProps) => {
               </div>
             )}
             {libraryRoute &&
-              books
-                .filter((eachBook) =>
-                  eachBook.author
-                    .toLocaleUpperCase()
-                    .includes(searchValue.toLocaleUpperCase())
-                )
-                .map((eachItem, i) => (
-                  <div
-                    key={i}
-                    className={`${genericModalStyles.listItem}`}
-                    onClick={() => {
-                      router.push(`/Book/${eachItem._id}`);
-                    }}
-                  >
-                    <p>{cleanAuthor(eachItem.author)}</p>
-                  </div>
-                ))}
+              [
+                ...new Set(
+                  books
+                    .filter((eachBook) =>
+                      eachBook.author
+                        .toLocaleUpperCase()
+                        .includes(searchValue.toLocaleUpperCase())
+                    )
+                    .map((eachBook) => eachBook.author)
+                ),
+              ].map((eachItem, i) => (
+                <div
+                  key={i}
+                  className={`${genericModalStyles.listItem}`}
+                  onClick={() => {
+                    checkIfAuthorHasMultipleBooks(eachItem);
+                  }}
+                >
+                  <p>{cleanAuthor(eachItem)}</p>
+                </div>
+              ))}
           </>
         )}
         {

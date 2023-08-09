@@ -29,6 +29,17 @@ const Modal_Filter_Search = ({
     ),
   ];
 
+  //Add overflow hidden to element behind when modal is open
+  useEffect(() => {
+    const scrollHalf = document.getElementById("Library");
+    if (scrollHalf) {
+      scrollHalf.style.overflow = "hidden";
+      return () => {
+        scrollHalf.style.overflow = "auto";
+      };
+    }
+  }, []);
+
   return (
     <>
       <div
