@@ -1,19 +1,22 @@
 import { Book } from "@/api/Interface";
-import styles from "../../styles/BookPage.module.scss";
+import styles from "../../styles/Pages/BookPage.module.scss";
 import { useRouter } from "next/router";
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { KTON_CONTEXT } from "../../context/KTONContext";
 import InitApi from "../../api/InitAPI";
 import Tilt from "react-parallax-tilt";
-import HandleLoginModal from "@/components/HandleLoginModal";
+import HandleLoginModal from "@/components/Login/HandleLoginModal";
 import cleanAuthor from "@/helpers/cleanAuthor";
 import AllowedRoute from "@/helpers/AllowedRoute";
-import HighlightsList from "@/components/HighlightsList";
-import SummarySection from "@/components/SummaryComponent";
-import GenreBanner from "@/components/GenreBanner";
-import Modal from "@/components/Modal";
-import LoadingPage from "@/components/LoadingPage";
+import HighlightsList from "@/components/Book/HighlightsList";
+import SummarySection from "@/components/Book/SummaryComponent";
+import GenreBanner from "@/components/Book/GenreBanner";
+import LoadingPage from "@/components/Loading/LoadingPage";
 import { Tooltip } from "react-tooltip";
+import SearchIcon from "@mui/icons-material/Search";
+import Modal_Book_Search from "@/components/Modals/Modal_Book_Search";
+import Modal_Type_Save from "@/components/Modals/Modal_Type_Save";
+import scrollToElementWithText from "@/helpers/ScrollToHighlight";
 
 const BookPage = () => {
   const router = useRouter();
@@ -26,6 +29,16 @@ const BookPage = () => {
   const [screenWidth, setScreenWidth] = useState(0);
   const [showEditImageModal, setShowEditImageModal] = useState(false);
   const [coverIsValid, setCoverIsValid] = useState(true);
+  const [displaySearchModal, setDisplaySearchModal] = useState(false);
+
+  //Need to check if anything was passed in through the query string, if it was scroll to it
+  useEffect(() => {
+    if (!router.query.highlight_text) return;
+
+    setTimeout(() => {
+      scrollToElementWithText(router.query.highlight_text as string);
+    }, 500);
+  }, []);
 
   //Initialising App by making data call on page load, this updates user context
   useEffect(() => {
@@ -52,7 +65,20 @@ const BookPage = () => {
     if (!mainBook) return null;
     return (
       <div className={styles.bookTitle}>
-        <h1>{mainBook.title}</h1>
+        <div className={styles.titleContainer}>
+          <h1>{mainBook.title}</h1>
+          <span>
+            <SearchIcon
+              onClick={() => setDisplaySearchModal(!displaySearchModal)}
+              id={styles.searchIcon}
+            />
+            {displaySearchModal && (
+              <Modal_Book_Search
+                closeModal={() => setDisplaySearchModal(false)}
+              />
+            )}
+          </span>
+        </div>
         <p>{cleanAuthor(mainBook.author)}</p>
       </div>
     );
@@ -103,8 +129,7 @@ const BookPage = () => {
               </p>
             </Tilt>
             {showEditImageModal && (
-              <Modal
-                specific_type="Type_Save"
+              <Modal_Type_Save
                 closeModal={() => setShowEditImageModal(false)}
                 mainBook={mainBook}
               />
@@ -117,7 +142,7 @@ const BookPage = () => {
           <HighlightsList book={mainBook} />
         </div>
         {/* Highlight Section, this is hidden on mobile*/}
-        <div className={styles.highlightHalf}>
+        <div className={styles.highlightHalf} id="scrollHighlight">
           {bookTitle()}
           <HighlightsList book={mainBook} />
         </div>

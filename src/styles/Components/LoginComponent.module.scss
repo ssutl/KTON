@@ -1,0 +1,117 @@
+@import "../../styles/Layout/Breakpoints.module.scss";
+
+.loginSect {
+  height: fit-content;
+  width: 90%;
+
+  @include breakpoint-mixin("Mobile_L") {
+    width: fit-content;
+  }
+
+  .loginInfoSect {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    // background-color: orange;
+
+    p,
+    h1 {
+      margin-bottom: 10px;
+
+      @include breakpoint-mixin("Mobile_L") {
+        margin-bottom: 15px;
+      }
+    }
+
+    p {
+      width: 100%;
+    }
+
+    p:nth-of-type(2) {
+      cursor: pointer;
+    }
+
+    span {
+      color: #3fcdfc;
+    }
+  }
+
+  .loginFormSect {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+
+    @include breakpoint-mixin("Mobile_M") {
+      margin-bottom: 5px;
+    }
+
+    @include breakpoint-mixin("Mobile_L") {
+      margin-bottom: 0px;
+    }
+
+    @include breakpoint-mixin("Desktop_L") {
+      margin-bottom: 5px;
+    }
+
+    input {
+      background-color: $hover;
+      border-radius: 4px;
+      border: none;
+      padding: 5px;
+      height: 40px;
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 15px;
+
+      @include breakpoint-mixin("Mobile_M") {
+        margin-bottom: 20px;
+      }
+
+      @include breakpoint-mixin("Tablet") {
+        margin-bottom: 25px;
+      }
+    }
+
+    input:focus {
+      outline: none !important;
+      border: 1px solid $kton-blue;
+      box-shadow: 0 0 3px;
+    }
+  }
+
+  .loginStatusSect {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .loginButtonSect {
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    input {
+      display: none;
+    }
+
+    .submitBtn {
+      padding: 5px 30px 5px 30px;
+      border: 0.5px solid white;
+      height: fit-content;
+      color: white;
+      cursor: pointer;
+      margin-left: 0.5px;
+
+      @include breakpoint-mixin("Laptop_S") {
+        margin-left: 0px;
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}

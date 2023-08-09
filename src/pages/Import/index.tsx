@@ -1,4 +1,4 @@
-import ImportComponent from "@/components/ImportComponent";
+import ImportComponent from "@/components/Import/ImportComponent";
 import styles from "../../styles/ImportPage.module.scss";
 import React, { useContext, useEffect } from "react";
 

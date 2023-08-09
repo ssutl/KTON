@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import styles from "../../styles/Library.module.scss";
+import styles from "../../styles/Pages/Library.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
 import { KTON_CONTEXT } from "../../context/KTONContext";
-import { Book } from "@/api/Interface";
 import InitApi from "../../api/InitAPI";
 import Head from "next/head";
 import AllowedRoute from "@/helpers/AllowedRoute";
-import Modal from "@/components/Modal";
-import BooksList from "@/components/BooksList";
-import LoadingPage from "@/components/LoadingPage";
+import BooksList from "@/components/Library/BooksList";
+import LoadingPage from "@/components/Loading/LoadingPage";
+import Modal_Book_Search from "@/components/Modals/Modal_Book_Search";
+import Modal_Filter_Search from "@/components/Modals/Modal_Filter_Search";
+import Modal_Select from "@/components/Modals/Modal_Select";
 
 const Library = () => {
   const { InitialiseApp } = InitApi();
@@ -61,10 +62,8 @@ const Library = () => {
               id={styles.searchIcon}
             />
             {displaySearchModal && (
-              <Modal
-                specific_type="Book_Search"
+              <Modal_Book_Search
                 closeModal={() => setDisplaySearchModal(false)}
-                mainBooks={books}
               />
             )}
           </span>
@@ -97,10 +96,8 @@ const Library = () => {
                     Filters +
                   </p>
                   {displayFilterModal && (
-                    <Modal
-                      specific_type="Filter_Search"
+                    <Modal_Filter_Search
                       closeModal={() => setDisplayFilterModal(false)}
-                      mainBooks={books}
                       onItemClick={(genre: string) => setSelectedFilter(genre)}
                       selectedFilter={selectedFilter}
                     />
@@ -115,8 +112,7 @@ const Library = () => {
                   Sort
                 </p>
                 {displaySortModal && (
-                  <Modal
-                    specific_type="Select"
+                  <Modal_Select
                     closeModal={() => setDisplaySortModal(false)}
                     onItemClick={(
                       selectedSort: "Recent" | "Rating" | "Oldest"
@@ -129,8 +125,7 @@ const Library = () => {
                         setDisplaySortModal(false);
                       }
                     }}
-                    mainBooks={books}
-                    data={["Recent", "Rating"]}
+                    optionsData={["Recent", "Rating"]}
                     selectedSort={selectedSort}
                   />
                 )}
