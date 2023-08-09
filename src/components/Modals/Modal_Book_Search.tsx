@@ -3,6 +3,7 @@ import { KTON_CONTEXT } from "../../context/KTONContext";
 import genericModalStyles from "../../styles/Components/Modal.module.scss";
 import { useRouter } from "next/router";
 import scrollToElementWithText from "@/helpers/ScrollToHighlight";
+import cleanAuthor from "@/helpers/cleanAuthor";
 
 interface Modal_Book_SearchProps {
   closeModal: () => void;
@@ -40,29 +41,76 @@ const Modal_Book_Search = ({ closeModal }: Modal_Book_SearchProps) => {
           <input
             type="text"
             placeholder={
-              libraryRoute ? "Search for a book" : "Searh for a highlight"
+              libraryRoute
+                ? "Search by book, or author"
+                : "Searh for a highlight"
             }
             onChange={(e) => setSearchValue(e.target.value)}
           />
         </div>
-        {libraryRoute &&
-          books
-            .filter((eachBook) =>
+        {
+          //If on the library route, show books and authors
+        }
+        {libraryRoute && (
+          <>
+            {books.filter((eachBook) =>
               eachBook.title
                 .toLocaleUpperCase()
                 .includes(searchValue.toLocaleUpperCase())
-            )
-            .map((eachItem, i) => (
-              <div
-                key={i}
-                className={`${genericModalStyles.listItem}`}
-                onClick={() => {
-                  router.push(`/Book/${eachItem._id}`);
-                }}
-              >
-                <p>{eachItem.title}</p>
+            ).length !== 0 && (
+              <div className={genericModalStyles.listItemType}>
+                <h3>Book Titles</h3>
               </div>
-            ))}
+            )}
+            {books
+              .filter((eachBook) =>
+                eachBook.title
+                  .toLocaleUpperCase()
+                  .includes(searchValue.toLocaleUpperCase())
+              )
+              .map((eachItem, i) => (
+                <div
+                  key={i}
+                  className={`${genericModalStyles.listItem}`}
+                  onClick={() => {
+                    router.push(`/Book/${eachItem._id}`);
+                  }}
+                >
+                  <p>{eachItem.title}</p>
+                </div>
+              ))}
+            {books.filter((eachBook) =>
+              eachBook.author
+                .toLocaleUpperCase()
+                .includes(searchValue.toLocaleUpperCase())
+            ).length !== 0 && (
+              <div className={genericModalStyles.listItemType}>
+                <h3>Authors</h3>
+              </div>
+            )}
+            {libraryRoute &&
+              books
+                .filter((eachBook) =>
+                  eachBook.author
+                    .toLocaleUpperCase()
+                    .includes(searchValue.toLocaleUpperCase())
+                )
+                .map((eachItem, i) => (
+                  <div
+                    key={i}
+                    className={`${genericModalStyles.listItem}`}
+                    onClick={() => {
+                      router.push(`/Book/${eachItem._id}`);
+                    }}
+                  >
+                    <p>{cleanAuthor(eachItem.author)}</p>
+                  </div>
+                ))}
+          </>
+        )}
+        {
+          //If on the book route, show highlights
+        }
         {bookRoute &&
           book?.highlights
             .filter((eachHighlight) => eachHighlight.deleted === false)
@@ -86,6 +134,36 @@ const Modal_Book_Search = ({ closeModal }: Modal_Book_SearchProps) => {
                 <p>{eachHighlight.Text}</p>
               </div>
             ))}
+        {
+          //If no resuls are found, show a message
+        }
+        {libraryRoute &&
+          books.filter((eachBook) =>
+            eachBook.author
+              .toLocaleUpperCase()
+              .includes(searchValue.toLocaleUpperCase())
+          ).length === 0 &&
+          books.filter((eachBook) =>
+            eachBook.title
+              .toLocaleUpperCase()
+              .includes(searchValue.toLocaleUpperCase())
+          ).length === 0 && (
+            <div className={genericModalStyles.listItemType}>
+              <h3>No results found</h3>
+            </div>
+          )}
+        {bookRoute &&
+          book?.highlights
+            .filter((eachHighlight) => eachHighlight.deleted === false)
+            .filter((eachHighlight) =>
+              eachHighlight.Text.toLocaleUpperCase().includes(
+                searchValue.toLocaleUpperCase()
+              )
+            ).length === 0 && (
+            <div className={genericModalStyles.listItemType}>
+              <h3>No results found</h3>
+            </div>
+          )}
       </div>
       <div
         className={genericModalStyles.modalBackground}
@@ -94,4 +172,4 @@ const Modal_Book_Search = ({ closeModal }: Modal_Book_SearchProps) => {
     </>
   );
 };
-export default Modal_Book_Search;
+export default React.memo(Modal_Book_Search);

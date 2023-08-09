@@ -1,4 +1,4 @@
-import styles from "../styles/MembershipCard.module.scss";
+import styles from "../../styles/Components/MembershipCard.module.scss";
 import create_checkout from "@/api/Membership/create_checkout";
 import { useRouter } from "next/router";
 import React, { useState, useEffect, useContext } from "react";

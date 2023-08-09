@@ -1,4 +1,4 @@
-import styles from "../styles/Pages/Login.module.scss";
+import styles from "../styles/Pages/LoginPage.module.scss";
 import { useEffect, useState } from "react";
 import Router from "next/router";
 import Head from "next/head";

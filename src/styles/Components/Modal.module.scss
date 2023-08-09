@@ -61,6 +61,20 @@
     }
   }
 
+  .listItemType {
+    // width: 100%;
+    // padding: 7px 10px;
+    // opacity: 0.5;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+
+    h3 {
+      opacity: 0.5;
+    }
+  }
+
   .listItem {
     width: 100%;
     padding: 7px 10px;
@@ -69,8 +83,7 @@
     display: flex;
 
     p {
-      font-size: 17px;
-      font-weight: 400;
+      font-weight: 300;
     }
 
     //Shit for tags
