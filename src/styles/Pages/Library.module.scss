@@ -1,7 +1,7 @@
 @import "../../styles/Layout/Breakpoints.module.scss";
 
 .Library {
-  overflow-y: scroll;
+  overflow-y: auto;
 
   @include breakpoint-mixin("Tablet") {
     height: 95dvh;

@@ -89,7 +89,8 @@
     //Shit for tags
     .tag {
       padding: 1px 10px;
-      border: 0.5px solid var(--background-color);
+      background-color: var(--background-color);
+      border-radius: 3px;
       // border-right: 0.5px solid var(--background-color);
       overflow-x: hidden;
       box-sizing: border-box;
