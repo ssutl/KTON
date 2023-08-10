@@ -2,6 +2,7 @@
 
 .Library {
   overflow-y: auto;
+  height: 93dvh;
 
   @include breakpoint-mixin("Tablet") {
     height: 95dvh;
