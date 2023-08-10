@@ -1,4 +1,4 @@
-import styles from "../styles/ImportComponent.module.scss";
+import styles from "../../styles/Components/ImportComponent.module.scss";
 import React, { useState, useEffect, useContext } from "react";
 import ImportButton from "./ImportButton";
 import { useRouter } from "next/router";
