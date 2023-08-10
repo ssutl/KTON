@@ -20,6 +20,24 @@ export default function Document() {
           title={"og:image"}
           content="%PUBLIC_URL%/image/laptop.png"
         />
+
+        {
+          //Fav icon
+        }
+
+        <link rel="shortcut icon" href="%PUBLIC_URL%/image/bookIcon.png" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="%PUBLIC_URL%/image/bookIcon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="%PUBLIC_URL%/image/bookIcon.png"
+        />
       </Head>
       <body>
         <Main />
