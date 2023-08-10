@@ -21,44 +21,7 @@
     border-bottom: 0.5px solid $border;
     cursor: pointer;
     position: relative;
-    padding: 25px 0px;
-
-    @include breakpoint-mixin("Laptop_S") {
-      padding: 40px 0px;
-    }
-
-    @include breakpoint-mixin("Desktop_S") {
-      padding: 45px 0px;
-    }
-
-    @include portrait-min-width-mixin("Vertical_Display") {
-      padding: 50px 0px;
-    }
-
-    .blurEffect {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      filter: opacity(0.5);
-      background: radial-gradient(
-          farthest-side,
-          var(--background-color),
-          transparent
-        )
-        center no-repeat;
-      animation: grow 0.5s forwards;
-    }
-
-    @keyframes grow {
-      from {
-        background-size: 10% 10%;
-      }
-      to {
-        background-size: 175% 175%;
-      }
-    }
+    padding: 40px 0px;
 
     .ImageHolder {
       width: 200px;
@@ -140,6 +103,31 @@
         border: none;
         outline: none;
         object-fit: cover;
+      }
+    }
+
+    .blurEffect {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      filter: opacity(0.5);
+      background: radial-gradient(
+          farthest-side,
+          var(--background-color),
+          transparent
+        )
+        center no-repeat;
+      animation: grow 0.5s forwards;
+    }
+
+    @keyframes grow {
+      from {
+        background-size: 10% 10%;
+      }
+      to {
+        background-size: 175% 175%;
       }
     }
   }
