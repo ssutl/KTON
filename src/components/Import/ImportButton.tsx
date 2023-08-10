@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "../styles/ImportButton.module.scss";
+import styles from "../../styles/Components/ImportButton.module.scss";
 import uploadedTxtHelper from "@/helpers/clippingsParse";
 import Router from "next/router";
 import ImportBooksApi from "@/api/Users/ImportBooks";

@@ -3,7 +3,7 @@ import AllowedRoute from "@/helpers/AllowedRoute";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Router from "next/router";
-import styles from "../../styles/verify.module.scss";
+import styles from "../../styles/Pages/verify.module.scss";
 
 const VerificationPage = () => {
   const router = useRouter();
