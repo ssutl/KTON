@@ -24,6 +24,7 @@ export default function Document() {
         {
           //Fav icon
         }
+        <link rel="icon" href="/image/bookIcon.png" />
 
         <link rel="shortcut icon" href="%PUBLIC_URL%/image/bookIcon.png" />
         <link
@@ -38,6 +39,7 @@ export default function Document() {
           sizes="16x16"
           href="%PUBLIC_URL%/image/bookIcon.png"
         />
+        <link rel="apple-touch-icon" sizes="512x512" href="bookIcon.png" />
       </Head>
       <body>
         <Main />
