@@ -17,6 +17,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Modal_Book_Search from "@/components/Modals/Modal_Book_Search";
 import Modal_Type_Save from "@/components/Modals/Modal_Type_Save";
 import scrollToElementWithText from "@/helpers/ScrollToHighlight";
+import Head from "next/head";
 
 const BookPage = () => {
   const router = useRouter();
@@ -104,6 +105,14 @@ const BookPage = () => {
 
   return (
     <>
+      <Head>
+        <title>{mainBook.title}</title>
+        <meta
+          name={"og:image"}
+          title={"og:image"}
+          content={mainBook.cover_image}
+        />
+      </Head>
       {LoginModal()}
       <div className={styles.BookPage}>
         <div className={styles.bookHalf}>

@@ -4,9 +4,14 @@ import React, { useContext, useEffect } from "react";
 
 const ImportPage = () => {
   return (
-    <div className={styles.ImportPage}>
-      <ImportComponent />
-    </div>
+    <>
+      <Head>
+        <title>KTON Home</title>
+      </Head>
+      <div className={styles.ImportPage}>
+        <ImportComponent />
+      </div>
+    </>
   );
 };
 

@@ -34,7 +34,7 @@ const Home = () => {
     return (
       <>
         <Head>
-          <title>Home</title>
+          <title>KTON Home</title>
         </Head>
         <div className={styles.Home}>
           <QuoteBanner />
