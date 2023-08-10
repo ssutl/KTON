@@ -29,7 +29,9 @@ const Modal_Book_Search = ({ closeModal }: Modal_Book_SearchProps) => {
 
   //Add overflow hidden to element behind when modal is open
   useEffect(() => {
-    const scrollHalf = document.getElementById("Library");
+    const scrollHalf = libraryRoute
+      ? document.getElementById("Library")
+      : document.getElementById("scrollHighlight");
     if (scrollHalf) {
       scrollHalf.style.overflow = "hidden";
       return () => {

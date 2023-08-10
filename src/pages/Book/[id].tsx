@@ -33,11 +33,27 @@ const BookPage = () => {
 
   //Need to check if anything was passed in through the query string, if it was scroll to it
   useEffect(() => {
+    //Handling control F
+    function handleKeyPress(e: KeyboardEvent) {
+      if (e.key === "f" && e.ctrlKey) {
+        e.preventDefault();
+        setDisplaySearchModal((prevDisplay) => !prevDisplay);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyPress);
+
     if (!router.query.highlight_text) return;
 
-    setTimeout(() => {
+    const scrollDelay = setTimeout(() => {
       scrollToElementWithText(router.query.highlight_text as string);
     }, 500);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+      //Clean up the timer
+      clearTimeout(scrollDelay);
+    };
   }, []);
 
   //Initialising App by making data call on page load, this updates user context

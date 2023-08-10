@@ -22,6 +22,7 @@ const Library = () => {
   );
   const [screenWidth, setScreenWidth] = useState(0);
   const [displaySearchModal, setDisplaySearchModal] = useState(false);
+  console.log("displaySearchModal", displaySearchModal);
   const [displaySortModal, setDisplaySortModal] = useState(false);
   const [displayFilterModal, setDisplayFilterModal] = useState(false);
 
@@ -76,6 +77,19 @@ const Library = () => {
     if (selectedSort) {
       setSelectedSort(selectedSort as "Recent" | "Rating" | "Oldest");
     }
+
+    function handleKeyPress(e: KeyboardEvent) {
+      if (e.key === "f" && e.ctrlKey) {
+        e.preventDefault();
+        setDisplaySearchModal((prevDisplay) => !prevDisplay);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
   }, []);
 
   //Banner shown to allow user to filter and sort their books
