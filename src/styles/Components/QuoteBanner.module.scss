@@ -53,6 +53,10 @@
         height: 85%;
       }
 
+      @include breakpoint-mixin("Laptop_S") {
+        height: 90%;
+      }
+
       .highlight {
         //Code to trancuate text
         display: -webkit-box;
@@ -79,6 +83,10 @@
 
       @include breakpoint-mixin("Mobile_M") {
         height: 15%;
+      }
+
+      @include breakpoint-mixin("Laptop_S") {
+        height: 10%;
       }
 
       .metaData {
