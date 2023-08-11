@@ -16,7 +16,6 @@
 
   .mainHalf {
     width: 100%;
-    // text-align: justify;
     word-spacing: 10px;
 
     @include breakpoint-mixin("Laptop_S") {
@@ -78,7 +77,7 @@
         position: relative;
       }
 
-      p {
+      .highlightbutton {
         cursor: pointer;
         border-radius: 4px;
         display: flex;

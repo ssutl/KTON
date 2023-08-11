@@ -116,6 +116,22 @@
         opacity: 0.5;
       }
     }
+
+    #createText {
+      margin-right: 15px;
+    }
+
+    @include breakpoint-mixin("Laptop_S") {
+      #trashIcon {
+        display: none;
+      }
+
+      &:hover {
+        #trashIcon {
+          display: block;
+        }
+      }
+    }
   }
 
   .selectedItem {
@@ -145,23 +161,12 @@
   }
 
   .listItem {
-    justify-content: space-between;
+    .tag {
+      background-color: #769f9d;
+    }
 
-    @include breakpoint-mixin("Laptop_S") {
-      #trashIcon {
-        display: none;
-      }
-
-      #createText {
-        margin-right: 15px;
-      }
-
-      &:hover {
-        background-color: $hover;
-        #trashIcon {
-          display: block;
-        }
-      }
+    &:hover {
+      background-color: $hover;
     }
   }
 }
@@ -196,27 +201,10 @@
     bottom: 170%;
     width: 400px;
   }
+}
 
-  .listItem {
-    justify-content: space-between;
-
-    @include breakpoint-mixin("Laptop_S") {
-      #trashIcon {
-        display: none;
-      }
-
-      #createText {
-        margin-right: 15px;
-      }
-
-      &:hover {
-        background-color: $hover;
-        #trashIcon {
-          display: block;
-        }
-      }
-    }
-  }
+.spaceBetween {
+  justify-content: space-between;
 }
 
 .Modal_Book_Search {

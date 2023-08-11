@@ -74,7 +74,7 @@ const Modal_Add_Category = ({
           filteredData.map((userInfoCategory, i) => (
             <div
               key={i}
-              className={genericModalStyles.listItem}
+              className={`${genericModalStyles.listItem} ${genericModalStyles.spaceBetween}`}
               onClick={() => {
                 //Check if category is already in highlight
                 if (!highlight.category.includes(userInfoCategory)) {
@@ -104,7 +104,7 @@ const Modal_Add_Category = ({
               />
             </div>
           ))}
-        {!filteredData && searchValue !== "" && (
+        {!filteredData.length && searchValue !== "" && (
           <div
             className={genericModalStyles.listItem}
             onClick={() => {

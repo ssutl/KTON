@@ -33,48 +33,55 @@
   .QuoteBannerWidth {
     height: 100%;
     width: 90%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    // background-color: orange;
-    position: relative;
 
     @include breakpoint-mixin("Laptop_S") {
       width: 95%;
     }
 
-    .highlight {
-      max-width: 100%;
-      text-align: justify;
-      //Code to trancuate text
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      -webkit-line-clamp: 5;
-      cursor: pointer;
-      //Code to trancuate text
+    .highlightSection {
+      width: 100%;
+      height: 90%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-      @include breakpoint-mixin("Laptop_S") {
-        -webkit-line-clamp: 4;
+      .highlight {
+        max-width: 100%;
 
-        &:hover {
-          opacity: 0.5;
+        //Code to trancuate text
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 5;
+        cursor: pointer;
+        //Code to trancuate text
+
+        @include breakpoint-mixin("Laptop_S") {
+          -webkit-line-clamp: 4;
+
+          &:hover {
+            opacity: 0.5;
+          }
         }
       }
     }
+    .metaDataSection {
+      height: 10%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
 
-    .metaData1 {
-      position: absolute;
-      right: 0;
-      bottom: 10px;
-      cursor: pointer;
-
-      @include breakpoint-mixin("Laptop_S") {
-        &:hover {
-          opacity: 0.5;
-        }
+      .metaData {
+        //Code to trancuate text
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
+        cursor: pointer;
+        //Code to trancuate text
       }
     }
   }

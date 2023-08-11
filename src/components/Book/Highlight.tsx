@@ -176,6 +176,7 @@ const Highlight = ({ highlight, index }: highlightProps) => {
               //Annotate option
             }
             <p
+              className={styles.highlightButton}
               onMouseDown={() =>
                 //if the dropdown is already set to annotate, then we want to close it
                 setAnnotationDropdown(!annotationDropdown)
@@ -190,6 +191,7 @@ const Highlight = ({ highlight, index }: highlightProps) => {
             }
             <span>
               <p
+                className={styles.highlightButton}
                 onMouseDown={
                   (e) => {
                     determineHighlightPosition(e);
@@ -214,6 +216,7 @@ const Highlight = ({ highlight, index }: highlightProps) => {
               //Favourite option
             }
             <p
+              className={styles.highlightButton}
               onMouseDown={() =>
                 favouriteHighlight({
                   data: !highlight.starred,
@@ -230,6 +233,7 @@ const Highlight = ({ highlight, index }: highlightProps) => {
               //Share option
             }
             <p
+              className={styles.highlightButton}
               onClick={() =>
                 screenWidth < 1024
                   ? alert(
@@ -246,6 +250,7 @@ const Highlight = ({ highlight, index }: highlightProps) => {
               //Delete option
             }
             <p
+              className={styles.highlightButton}
               onClick={() =>
                 deleteHighlight({
                   book_id,

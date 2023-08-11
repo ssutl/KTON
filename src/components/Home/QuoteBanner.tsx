@@ -8,6 +8,9 @@ import { useRouter } from "next/router";
 const QuoteBanner = () => {
   const { highlights } = useContext(KTON_CONTEXT);
   const router = useRouter();
+  const [randomHighlight, setRandomHighlight] = useState<Meta_con_highlight>(
+    highlights[Math.floor(Math.random() * highlights.length)]
+  );
 
   const redirect = () => {
     router.push({
@@ -16,11 +19,22 @@ const QuoteBanner = () => {
     });
   };
 
-  //Reading from the main collection (source of truth), if it aint there show loading
-  if (!highlights) return <div className={styles.loading}></div>;
+  //When the component mounts, we want to set a random highlight
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRandomHighlight(
+        highlights[Math.floor(Math.random() * highlights.length)]
+      );
+      //secures a random quote every 60 seconds
+    }, 60000); // runs every 60 seconds
 
-  const randomHighlight =
-    highlights[Math.floor(Math.random() * highlights.length)];
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
+  //Reading from the main collection (source of truth), if it aint there show loading
+  if (!randomHighlight) return <div className={styles.loading}></div>;
 
   const text = randomHighlight.highlight.Text;
   const author = randomHighlight.author;
@@ -29,12 +43,16 @@ const QuoteBanner = () => {
   return (
     <div className={styles.QuoteBanner}>
       <div className={styles.QuoteBannerWidth}>
-        <h1 className={styles.highlight} onClick={() => redirect()}>
-          {text}
-        </h1>
-        <p className={styles.metaData1}>
-          {cleanAuthor(author)} - {title}
-        </p>
+        <div className={styles.highlightSection}>
+          <h1 className={styles.highlight} onClick={() => redirect()}>
+            {text}
+          </h1>
+        </div>
+        <div className={styles.metaDataSection}>
+          <p className={styles.metaData}>
+            {cleanAuthor(author)} - {title}
+          </p>
+        </div>
       </div>
     </div>
   );

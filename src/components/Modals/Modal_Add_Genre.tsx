@@ -55,7 +55,7 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
           filteredData.map((eachItem, i) => (
             <div
               key={i}
-              className={genericModalStyles.listItem}
+              className={`${genericModalStyles.listItem} ${genericModalStyles.spaceBetween}`}
               onClick={() => {
                 if (!mainBook.genre.includes(eachItem)) {
                   addGenreToBook({
@@ -91,7 +91,7 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
               />
             </div>
           ))}
-        {!filteredData && searchValue !== "" && (
+        {!filteredData.length && searchValue !== "" && (
           <div
             className={genericModalStyles.listItem}
             onClick={() => {
