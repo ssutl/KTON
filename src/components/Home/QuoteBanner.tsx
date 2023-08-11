@@ -49,10 +49,7 @@ const QuoteBanner = () => {
       <div className={styles.QuoteBannerWidth}>
         <div className={styles.highlightSection}>
           <h1 className={styles.highlight} onClick={() => redirect()}>
-            {text} Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            Corporis, eligendi nostrum. Beatae sint enim eum facilis dolorum sit
-            ipsam at veritatis suscipit alias doloribus quos quis consectetur,
-            culpa, asperiores voluptas.
+            {text}
           </h1>
         </div>
         <div className={styles.metaDataSection}>
