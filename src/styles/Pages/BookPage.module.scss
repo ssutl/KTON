@@ -71,8 +71,8 @@
       }
 
       @include breakpoint-mixin("Laptop_M") {
-        height: 410px;
-        width: 325px;
+        height: 440px;
+        width: 320px;
       }
 
       @include breakpoint-mixin("Laptop_L") {
@@ -102,46 +102,59 @@
       background-color: $cd-bg;
     }
 
-    .bookTitle {
+    .bookInformation {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      margin: 0px auto 10dvh auto;
       //Aligning title with highlights below
-      width: calc((90% + 10px));
+      width: calc(90% + 10px);
       position: relative;
-
-      @include breakpoint-mixin("Mobile_M") {
-        margin: 0px auto 8dvh auto;
-      }
-
-      @include breakpoint-mixin("Tablet") {
-        margin: 0px auto 6dvh auto;
-      }
-
-      @include breakpoint-mixin("Laptop_S") {
-        margin: 5dvh auto 3dvh auto;
-      }
+      margin: 5dvh auto 0 auto;
 
       @include portrait-min-width-mixin("Vertical_Display") {
-        margin: 0dvh auto 3dvh auto;
+        margin: 5dvh auto 0 auto;
       }
 
       .titleContainer {
-        margin-bottom: 40px;
-        // text-align: justify;
         display: flex;
-        justify-content: space-between;
         align-items: center;
 
-        span {
+        .titleSection {
+          height: 100%;
+          width: 90%;
+          flex-wrap: wrap;
+        }
+
+        .searchSection {
+          height: 100%;
+          width: 10%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           position: relative;
-          height: fit-content;
 
           #searchIcon {
             cursor: pointer;
             font-size: 30px;
           }
+        }
+      }
+
+      .titleContainer,
+      #author,
+      .star {
+        margin-bottom: 25px;
+      }
+
+      .star {
+        cursor: pointer;
+        font-size: 27px;
+
+        @include breakpoint-mixin("Laptop_S") {
+          font-size: 26px;
+        }
+        @include breakpoint-mixin("Desktop_M") {
+          font-size: 25px;
         }
       }
     }

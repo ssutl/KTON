@@ -31,7 +31,7 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
       eachGenre.toLowerCase().includes(searchValue.toLowerCase())
     );
 
-  if (!userinfo) return null;
+  if (!userinfo || !filteredData) return null;
   return (
     <>
       <div
@@ -51,46 +51,45 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
         {
           //List of items for all modals except type_save
         }
-        {filteredData &&
-          filteredData.map((eachItem, i) => (
+        {filteredData.map((eachItem, i) => (
+          <div
+            key={i}
+            className={`${genericModalStyles.listItem} ${genericModalStyles.spaceBetween}`}
+            onClick={() => {
+              if (!mainBook.genre.includes(eachItem)) {
+                addGenreToBook({
+                  type: "add",
+                  data: eachItem,
+                  book_id: mainBook._id,
+                });
+              }
+            }}
+          >
             <div
-              key={i}
-              className={`${genericModalStyles.listItem} ${genericModalStyles.spaceBetween}`}
-              onClick={() => {
-                if (!mainBook.genre.includes(eachItem)) {
-                  addGenreToBook({
-                    type: "add",
-                    data: eachItem,
-                    book_id: mainBook._id,
-                  });
-                }
-              }}
+              style={
+                {
+                  "--background-color": colorConverter(
+                    userinfo.genres[eachItem]
+                  ),
+                } as React.CSSProperties
+              }
+              className={genericModalStyles.tag}
             >
-              <div
-                style={
-                  {
-                    "--background-color": colorConverter(
-                      userinfo.genres[eachItem]
-                    ),
-                  } as React.CSSProperties
-                }
-                className={genericModalStyles.tag}
-              >
-                <p>{eachItem}</p>
-              </div>
-              <DeleteOutlineIcon
-                id={genericModalStyles.trashIcon}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  addGenreToUser({
-                    type: "remove",
-                    data: eachItem,
-                    book_id: mainBook._id,
-                  });
-                }}
-              />
+              <p>{eachItem}</p>
             </div>
-          ))}
+            <DeleteOutlineIcon
+              id={genericModalStyles.trashIcon}
+              onClick={(e) => {
+                e.stopPropagation();
+                addGenreToUser({
+                  type: "remove",
+                  data: eachItem,
+                  book_id: mainBook._id,
+                });
+              }}
+            />
+          </div>
+        ))}
         {!filteredData.length && searchValue !== "" && (
           <div
             className={genericModalStyles.listItem}

@@ -18,6 +18,9 @@ import Modal_Book_Search from "@/components/Modals/Modal_Book_Search";
 import Modal_Type_Save from "@/components/Modals/Modal_Type_Save";
 import scrollToElementWithText from "@/helpers/ScrollToHighlight";
 import Head from "next/head";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import StarIcon from "@mui/icons-material/Star";
+import HandleChanges from "@/helpers/HandleChanges";
 
 const BookPage = () => {
   const router = useRouter();
@@ -28,6 +31,7 @@ const BookPage = () => {
   const [mainBook, setMainBook] = useState<undefined | Book>(undefined);
   const { LoginModal } = HandleLoginModal();
   const [screenWidth, setScreenWidth] = useState(0);
+  const { addRating } = HandleChanges();
   const [showEditImageModal, setShowEditImageModal] = useState(false);
   const [coverIsValid, setCoverIsValid] = useState(true);
   const [displaySearchModal, setDisplaySearchModal] = useState(false);
@@ -78,13 +82,15 @@ const BookPage = () => {
     setMainBook(books.filter((book) => book._id === singleId)[0]);
   }, [books, singleId]);
 
-  const bookTitle = () => {
+  const bookInformation = () => {
     if (!mainBook) return null;
     return (
-      <div className={styles.bookTitle}>
+      <div className={styles.bookInformation}>
         <div className={styles.titleContainer}>
-          <h1>{mainBook.title}</h1>
-          <span>
+          <div className={styles.titleSection}>
+            <h1>{mainBook.title}</h1>
+          </div>
+          <div className={styles.searchSection}>
             <SearchIcon
               onClick={() => setDisplaySearchModal(!displaySearchModal)}
               id={styles.searchIcon}
@@ -94,9 +100,31 @@ const BookPage = () => {
                 closeModal={() => setDisplaySearchModal(false)}
               />
             )}
-          </span>
+          </div>
         </div>
-        <p>{cleanAuthor(mainBook.author)}</p>
+        <p id={styles.author}>{cleanAuthor(mainBook.author)}</p>
+        <p>
+          {[...Array(5)].map((eachStar, i) => {
+            const isFilled = i < mainBook.rating;
+            const starIcon = isFilled ? (
+              <StarIcon className={styles.star} />
+            ) : (
+              <StarBorderIcon className={styles.star} />
+            );
+            return (
+              <span
+                key={i}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const newRating = isFilled ? i : i + 1;
+                  addRating({ data: newRating, book_id: mainBook._id });
+                }}
+              >
+                {starIcon}
+              </span>
+            );
+          })}
+        </p>
       </div>
     );
   };
@@ -156,7 +184,8 @@ const BookPage = () => {
           )} */}
         </div>
         <div className={styles.highlightHalf} id="scrollHighlight">
-          {bookTitle()}
+          {bookInformation()}
+          <SummarySection />
           <HighlightsList book={mainBook} />
         </div>
         <Tooltip
