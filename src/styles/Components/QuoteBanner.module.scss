@@ -59,17 +59,11 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 4;
         cursor: pointer;
         //Code to trancuate text
 
-        @include breakpoint-mixin("Mobile_M") {
-          -webkit-line-clamp: 5;
-        }
-
         @include breakpoint-mixin("Laptop_S") {
-          -webkit-line-clamp: 4;
-
           &:hover {
             opacity: 0.5;
           }
