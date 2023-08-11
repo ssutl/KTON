@@ -31,6 +31,8 @@ const LoginApi = async ({
       data: { username: email, password: password },
     });
 
+    console.log("success");
+
     //On success for login and signup there are 2 possible responses, for login: User exists well done heres a token pass into app. For signup: User created, please verify email.
 
     //If token is returned, store it in local storage and redirect to home page

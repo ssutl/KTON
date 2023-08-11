@@ -116,57 +116,45 @@ const BookPage = () => {
       {LoginModal()}
       <div className={styles.BookPage}>
         <div className={styles.bookHalf}>
-          <div className={styles.overlay}></div>
-          <div className={styles.imageSection}>
-            <Tilt
-              glareEnable={true}
-              glareMaxOpacity={0.1}
-              glarePosition="all"
-              glareBorderRadius="0px"
-              tiltAngleYInitial={screenWidth < 1024 ? 0 : -10}
-              tiltEnable={false}
-              className={styles.ImageContainer}
-              perspective={650}
-            >
-              {!coverIsValid || mainBook.cover_image === null ? (
-                <div
-                  className={styles.NoImage}
-                  data-tooltip-id={`my-tooltip-${id}`}
-                  data-tooltip-content={`Add an image through the button above ⬆️`}
-                ></div>
-              ) : (
-                <img
-                  alt="Book Cover"
-                  draggable="false"
-                  src={mainBook.cover_image}
-                  className={styles.image}
-                  onError={({ currentTarget }) => {
-                    setCoverIsValid(false);
-                  }}
-                />
-              )}
-
-              <p
-                className={styles.editURLMenu}
-                onClick={() => setShowEditImageModal(!showEditImageModal)}
-              >
-                Edit cover
-              </p>
-            </Tilt>
-            {showEditImageModal && (
-              <Modal_Type_Save
-                closeModal={() => setShowEditImageModal(false)}
-                mainBook={mainBook}
+          <Tilt
+            glareEnable={true}
+            glareMaxOpacity={0.4}
+            glarePosition="all"
+            glareBorderRadius="0px"
+            tiltAngleYInitial={screenWidth < 1024 ? 0 : -10}
+            tiltEnable={false}
+            className={styles.image}
+            perspective={650}
+          >
+            {!coverIsValid || mainBook.cover_image === null ? (
+              <div
+                data-tooltip-id={`my-tooltip-${id}`}
+                data-tooltip-content={`Add an image through the button above ⬆️`}
+              ></div>
+            ) : (
+              <img
+                alt="Book Cover"
+                draggable="false"
+                src={mainBook.cover_image}
+                onError={({ currentTarget }) => {
+                  setCoverIsValid(false);
+                }}
               />
             )}
-          </div>
-          <GenreBanner />
-          {bookTitle()}
-          <SummarySection />
-          {/*Highlights is only shown in this half on mobile, hidden on desktop */}
-          <HighlightsList book={mainBook} />
+          </Tilt>
+          {/* <p
+            className={styles.editURLMenu}
+            onClick={() => setShowEditImageModal(!showEditImageModal)}
+          >
+            Edit cover
+          </p>
+          {showEditImageModal && (
+            <Modal_Type_Save
+              closeModal={() => setShowEditImageModal(false)}
+              mainBook={mainBook}
+            />
+          )} */}
         </div>
-        {/* Highlight Section, this is hidden on mobile*/}
         <div className={styles.highlightHalf} id="scrollHighlight">
           {bookTitle()}
           <HighlightsList book={mainBook} />
