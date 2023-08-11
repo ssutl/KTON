@@ -41,8 +41,9 @@
     .image {
       height: 345px;
       width: 250px;
-      border-radius: 3px;
       cursor: pointer;
+      border-radius: 3px;
+      overflow: hidden;
 
       img {
         height: 100%;

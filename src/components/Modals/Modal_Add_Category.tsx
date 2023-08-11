@@ -6,6 +6,7 @@ import { Book, Book_highlight, Meta_con_highlight } from "@/api/Interface";
 import HandleChanges from "@/helpers/HandleChanges";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useRouter } from "next/router";
+import { filter } from "lodash";
 
 interface Modal_Add_CategoryProps {
   highlight: Book_highlight;
@@ -50,7 +51,8 @@ const Modal_Add_Category = ({
     }
   }, []);
 
-  if (!userinfo) return null;
+  if (!userinfo || !filteredData) return null;
+
   return (
     <>
       <div
@@ -70,40 +72,39 @@ const Modal_Add_Category = ({
         {
           //List of items for all modals except type_save
         }
-        {filteredData &&
-          filteredData.map((userInfoCategory, i) => (
-            <div
-              key={i}
-              className={`${genericModalStyles.listItem} ${genericModalStyles.spaceBetween}`}
-              onClick={() => {
-                //Check if category is already in highlight
-                if (!highlight.category.includes(userInfoCategory)) {
-                  addCategoryToHighlight({
-                    type: "add",
-                    data: userInfoCategory,
-                    book_id,
-                    highlight_id: highlight._id,
-                  });
-                }
-              }}
-            >
-              <div className={genericModalStyles.tag}>
-                <p>{userInfoCategory}</p>
-              </div>
-              <DeleteOutlineIcon
-                id={genericModalStyles.trashIcon}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  addCategoryToHighlight({
-                    type: "remove",
-                    data: userInfoCategory,
-                    book_id,
-                    highlight_id: highlight._id,
-                  });
-                }}
-              />
+        {filteredData.map((userInfoCategory, i) => (
+          <div
+            key={i}
+            className={`${genericModalStyles.listItem} ${genericModalStyles.spaceBetween}`}
+            onClick={() => {
+              //Check if category is already in highlight
+              if (!highlight.category.includes(userInfoCategory)) {
+                addCategoryToHighlight({
+                  type: "add",
+                  data: userInfoCategory,
+                  book_id,
+                  highlight_id: highlight._id,
+                });
+              }
+            }}
+          >
+            <div className={genericModalStyles.tag}>
+              <p>{userInfoCategory}</p>
             </div>
-          ))}
+            <DeleteOutlineIcon
+              id={genericModalStyles.trashIcon}
+              onClick={(e) => {
+                e.stopPropagation();
+                addCategoryToHighlight({
+                  type: "remove",
+                  data: userInfoCategory,
+                  book_id,
+                  highlight_id: highlight._id,
+                });
+              }}
+            />
+          </div>
+        ))}
         {!filteredData.length && searchValue !== "" && (
           <div
             className={genericModalStyles.listItem}
