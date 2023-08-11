@@ -8,9 +8,7 @@ import { useRouter } from "next/router";
 const QuoteBanner = () => {
   const { highlights } = useContext(KTON_CONTEXT);
   const router = useRouter();
-  const [randomHighlight, setRandomHighlight] = useState<Meta_con_highlight>(
-    highlights[Math.floor(Math.random() * highlights.length)]
-  );
+  const [randomHighlight, setRandomHighlight] = useState<Meta_con_highlight>();
 
   const redirect = () => {
     router.push({
@@ -21,6 +19,12 @@ const QuoteBanner = () => {
 
   //When the component mounts, we want to set a random highlight
   useEffect(() => {
+    if (!highlights) return;
+
+    setRandomHighlight(
+      highlights[Math.floor(Math.random() * highlights.length)]
+    );
+
     const interval = setInterval(() => {
       setRandomHighlight(
         highlights[Math.floor(Math.random() * highlights.length)]
@@ -31,7 +35,7 @@ const QuoteBanner = () => {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [highlights]);
 
   //Reading from the main collection (source of truth), if it aint there show loading
   if (!randomHighlight) return <div className={styles.loading}></div>;
