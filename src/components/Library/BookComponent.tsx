@@ -37,6 +37,7 @@ const BookComponent = ({ book, index }: BookProps) => {
       className={styles.Book}
       onClick={() => router.push(`Book/${book._id}`)}
     >
+      {book.annotated && <div className={styles.annotatedTag}></div>}
       <div
         className={styles.ImageSection}
         onMouseEnter={handleMouseEnter}

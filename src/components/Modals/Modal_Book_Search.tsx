@@ -4,7 +4,7 @@ import genericModalStyles from "../../styles/Components/Modal.module.scss";
 import { useRouter } from "next/router";
 import scrollToElementWithText from "@/helpers/ScrollToHighlight";
 import cleanAuthor from "@/helpers/cleanAuthor";
-import Modal_Author_Select from "./Modal_Author_Select";
+import Modal_Centered_Select from "./Modal_Centered_Select";
 
 interface Modal_Book_SearchProps {
   closeModal: () => void;
@@ -62,7 +62,7 @@ const Modal_Book_Search = ({ closeModal }: Modal_Book_SearchProps) => {
   return (
     <>
       {displayAuthorModal && (
-        <Modal_Author_Select
+        <Modal_Centered_Select
           optionsData={books.filter(
             (eachBook) => eachBook.author === selectedAuthor
           )}

@@ -36,6 +36,7 @@ export interface Book {
   deleted: boolean;
   upload_date: string;
   highlights: Book_highlight[];
+  annotated: boolean;
   _id: string;
 }
 

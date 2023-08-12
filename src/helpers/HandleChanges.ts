@@ -10,6 +10,7 @@ import addUserCategoryApi from "@/api/Users/AddCategories";
 import summariseBookApi from "@/api/Books/Summary";
 import annotateHighlightApi from "@/api/Highlights/Annotate";
 import changeBookImageApi from "@/api/Books/ChangeBookImage";
+import markAsAnnotatedApi from "@/api/Books/MarkAsAnnotated";
 
 export interface RatingProps {
   data: number;
@@ -49,6 +50,10 @@ export interface addCategoryToHighlightProps {
 export interface addSummaryToBookProps {
   data: string | undefined;
   book_id: string | undefined | string[];
+}
+
+export interface markBookAsAnnotatedProps {
+  book_id: string;
 }
 
 export interface updateBookCoverProps {
@@ -373,6 +378,21 @@ function HandleChanges() {
     }
   };
 
+  const markBookAsAnnotated = ({ book_id }: markBookAsAnnotatedProps) => {
+    if (books && typeof book_id === "string") {
+      const data = !books.filter((book) => book._id === book_id)[0].annotated;
+
+      const newState = books.map((book_context) => {
+        //If book has same ID change rating locally
+        if (book_id === book_context._id) {
+          return { ...book_context, annotated: data };
+        } else return book_context;
+      });
+      updateBooks(newState);
+      markAsAnnotatedApi({ book_id: book_id, data: data });
+    }
+  };
+
   const updateBookCover = ({ data, book_id }: updateBookCoverProps) => {
     if (books && data && typeof book_id === "string") {
       const newState = books.map((book_context) => {
@@ -397,6 +417,7 @@ function HandleChanges() {
     addCategoryToUser,
     addSummaryToBook,
     updateBookCover,
+    markBookAsAnnotated,
   };
 }
 

@@ -7,10 +7,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 
   @include breakpoint-mixin("Tablet") {
     border-right: 0.5px solid $border;
     border-bottom: 0.5px solid $border;
+  }
+
+  //I want the annotated tag to be a triangle in the top left corner of the book
+  //Make it bigger
+  .annotatedTag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-top: 40px solid #78bc61;
+    border-right: 40px solid transparent;
+    z-index: 1;
   }
 
   .ImageSection {

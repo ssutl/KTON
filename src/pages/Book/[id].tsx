@@ -21,6 +21,8 @@ import Head from "next/head";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
 import HandleChanges from "@/helpers/HandleChanges";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import Modal_Author_Select from "@/components/Modals/Modal_Centered_Select";
 
 const BookPage = () => {
   const router = useRouter();
@@ -29,15 +31,26 @@ const BookPage = () => {
   const { books } = useContext(KTON_CONTEXT);
   const { InitialiseApp } = InitApi();
   const [mainBook, setMainBook] = useState<undefined | Book>(undefined);
-  const { LoginModal } = HandleLoginModal();
   const [screenWidth, setScreenWidth] = useState(0);
   const { addRating } = HandleChanges();
   const [showEditImageModal, setShowEditImageModal] = useState(false);
   const [coverIsValid, setCoverIsValid] = useState(true);
   const [displaySearchModal, setDisplaySearchModal] = useState(false);
+  const [showBookEditModal, setShowBookEditModal] = useState(false);
 
-  //Need to check if anything was passed in through the query string, if it was scroll to it
   useEffect(() => {
+    AllowedRoute();
+
+    const handleResize = () => setScreenWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+
+    //check if this is an allowed route
+
+    //If user is authenticated and they have no books in context, then we need to refresh context
+    if (!books) {
+      InitialiseApp();
+    }
+
     //Handling control F
     function handleKeyPress(e: KeyboardEvent) {
       if (e.key === "f" && e.ctrlKey) {
@@ -48,6 +61,7 @@ const BookPage = () => {
 
     window.addEventListener("keydown", handleKeyPress);
 
+    //Scrolling to the highlighted text
     if (!router.query.highlight_text) return;
 
     const scrollDelay = setTimeout(() => {
@@ -56,24 +70,10 @@ const BookPage = () => {
 
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
+      window.removeEventListener("resize", handleResize);
       //Clean up the timer
       clearTimeout(scrollDelay);
     };
-  }, []);
-
-  //Initialising App by making data call on page load, this updates user context
-  useEffect(() => {
-    AllowedRoute();
-
-    setScreenWidth(window.innerWidth);
-    window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
-
-    //check if this is an allowed route
-
-    //If user is authenticated and they have no books in context, then we need to refresh context
-    if (!books) {
-      InitialiseApp();
-    }
   }, []);
 
   //Condition to set mainbooks to either books or clippings, depending on user authentication
@@ -141,9 +141,18 @@ const BookPage = () => {
           content={mainBook.cover_image}
         />
       </Head>
-      {LoginModal()}
+      {showBookEditModal && (
+        <Modal_Author_Select
+          optionsData={["Mark as annotated", "Delete Book"]}
+          closeModal={() => setShowBookEditModal(false)}
+        />
+      )}
       <div className={styles.BookPage}>
         <div className={styles.bookHalf}>
+          <MoreHorizIcon
+            id={styles.editBookDots}
+            onClick={() => setShowBookEditModal(!showBookEditModal)}
+          />
           <Tilt
             glareEnable={true}
             glareMaxOpacity={0.4}
@@ -169,19 +178,19 @@ const BookPage = () => {
                 }}
               />
             )}
+            {/* <p
+              className={styles.editURLMenu}
+              onClick={() => setShowEditImageModal(!showEditImageModal)}
+            >
+              Edit cover
+            </p>
+            {showEditImageModal && (
+              <Modal_Type_Save
+                closeModal={() => setShowEditImageModal(false)}
+                mainBook={mainBook}
+              />
+            )} */}
           </Tilt>
-          {/* <p
-            className={styles.editURLMenu}
-            onClick={() => setShowEditImageModal(!showEditImageModal)}
-          >
-            Edit cover
-          </p>
-          {showEditImageModal && (
-            <Modal_Type_Save
-              closeModal={() => setShowEditImageModal(false)}
-              mainBook={mainBook}
-            />
-          )} */}
         </div>
         <div className={styles.highlightHalf} id="scrollHighlight">
           {bookInformation()}

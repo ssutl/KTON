@@ -22,7 +22,6 @@ const Library = () => {
   );
   const [screenWidth, setScreenWidth] = useState(0);
   const [displaySearchModal, setDisplaySearchModal] = useState(false);
-  console.log("displaySearchModal", displaySearchModal);
   const [displaySortModal, setDisplaySortModal] = useState(false);
   const [displayFilterModal, setDisplayFilterModal] = useState(false);
 
