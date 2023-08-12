@@ -63,12 +63,12 @@ const BookPage = () => {
 
   //Initialising App by making data call on page load, this updates user context
   useEffect(() => {
+    AllowedRoute();
+
     setScreenWidth(window.innerWidth);
     window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
 
     //check if this is an allowed route
-    if (!AllowedRoute())
-      throw new Error("Unauthed users cannot access this route");
 
     //If user is authenticated and they have no books in context, then we need to refresh context
     if (!books) {

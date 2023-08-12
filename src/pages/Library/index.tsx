@@ -34,8 +34,7 @@ const Library = () => {
   //Initialising App by making data call on page load, this updates user context
   useEffect(() => {
     //check if this is an allowed route
-    if (!AllowedRoute())
-      throw new Error("Unauthed users cannot access this route");
+    AllowedRoute();
 
     //If user is authenticated and they have no books in context, then we need to refresh context
     if (!books) {
@@ -43,8 +42,29 @@ const Library = () => {
     }
 
     //Controlling screenwidth
-    setScreenWidth(window.innerWidth);
-    window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
+    const handleResize = () => setScreenWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+
+    //Set sort to whatever is in local storage
+    const selectedSort = localStorage.getItem("selectedSort");
+    if (selectedSort) {
+      setSelectedSort(selectedSort as "Recent" | "Rating" | "Oldest");
+    }
+
+    //Handling control F
+    function handleKeyPress(e: KeyboardEvent) {
+      if (e.key === "f" && e.ctrlKey) {
+        e.preventDefault();
+        setDisplaySearchModal((prevDisplay) => !prevDisplay);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   //Code to for search bar
@@ -70,27 +90,6 @@ const Library = () => {
       </div>
     );
   };
-
-  //Set sort to whatever is in local storage
-  useEffect(() => {
-    const selectedSort = localStorage.getItem("selectedSort");
-    if (selectedSort) {
-      setSelectedSort(selectedSort as "Recent" | "Rating" | "Oldest");
-    }
-
-    function handleKeyPress(e: KeyboardEvent) {
-      if (e.key === "f" && e.ctrlKey) {
-        e.preventDefault();
-        setDisplaySearchModal((prevDisplay) => !prevDisplay);
-      }
-    }
-
-    window.addEventListener("keydown", handleKeyPress);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyPress);
-    };
-  }, []);
 
   //Banner shown to allow user to filter and sort their books
   const filterBanner = () => {

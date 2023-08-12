@@ -20,12 +20,11 @@ const Export = () => {
 
   //On page load check if there is a code in the url
   useEffect(() => {
+    AllowedRoute();
+
     if (window.location.href.includes("code=")) {
       getCodeFromUrl();
     }
-
-    //check if this is an allowed route
-    AllowedRoute();
   }, []);
 
   return (

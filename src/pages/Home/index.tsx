@@ -16,8 +16,7 @@ const Home = () => {
   //Initialising App by making data call on page load
   useEffect(() => {
     //check if this is an allowed route
-    if (!AllowedRoute())
-      throw new Error("Unauthed users cannot access this route");
+    AllowedRoute();
 
     //If the user is logged in but the book data is empty then we gotta refresh context, this way we can keep initial load fast by not loading books off of navigation
     if (!books) {
