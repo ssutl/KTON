@@ -2,12 +2,14 @@
 
 .Home {
   overflow-y: auto;
+  padding-bottom: 25px;
 
   @include breakpoint-mixin("Tablet") {
     height: 95dvh;
   }
 
   @include breakpoint-mixin("Laptop_S") {
+    padding-bottom: 0px;
     height: 93dvh;
   }
 
