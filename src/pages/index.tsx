@@ -20,14 +20,15 @@ export default function LoginPage({
       // Pass user into the app
       Router.push("Home");
     }
-  }, []);
 
-  window.addEventListener("orientationchange", function () {
-    if (window.innerHeight > window.innerWidth) {
-      document.getElementsByTagName("body")[0].style.transform =
-        "rotate(90deg)";
-    }
-  });
+    //Prevent screen rotation
+    window.addEventListener("orientationchange", function () {
+      if (window.innerHeight > window.innerWidth) {
+        document.getElementsByTagName("body")[0].style.transform =
+          "rotate(90deg)";
+      }
+    });
+  }, []);
 
   return (
     <>
