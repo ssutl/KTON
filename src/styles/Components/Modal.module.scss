@@ -236,7 +236,7 @@
 
 .Modal_Type_Save {
   @include breakpoint-mixin("Laptop_S") {
-    bottom: 0%;
+    bottom: 5%;
     right: 10%;
   }
 }

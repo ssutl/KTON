@@ -19,6 +19,7 @@ import {
   groupByMonth,
   groupByTime,
 } from "@/helpers/MostOftenReadHelper";
+import { CustomTooltip } from "./CustomToolTip";
 
 const MostReadBanner = () => {
   const { highlights } = useContext(KTON_CONTEXT);
@@ -92,10 +93,7 @@ const MostReadBanner = () => {
               <YAxis dx={-25} dataKey="count" tick={{ fill: "#ffffff" }} />
               <CartesianGrid strokeDasharray="8 8" />
               <Tooltip
-                contentStyle={{
-                  backgroundColor: "#252525",
-                }}
-                itemStyle={{ color: "#ffffff" }}
+                content={<CustomTooltip dataSelection={dataSelection} />}
               />
               <Area
                 type="monotone"

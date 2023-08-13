@@ -24,6 +24,7 @@ import GenreBanner from "@/components/Book/GenreBanner";
 import Modal_Filter_Search from "@/components/Modals/Modal_Filter_Search";
 import Modal_Select from "@/components/Modals/Modal_Select";
 import { sortBy } from "lodash";
+import Modal_Type_Save from "@/components/Modals/Modal_Type_Save";
 
 const BookPage = () => {
   const router = useRouter();
@@ -232,6 +233,7 @@ const BookPage = () => {
               <div
                 data-tooltip-id={`my-tooltip-${id}`}
                 data-tooltip-content={`Add an image through the button above ⬆️`}
+                className={styles.NoImage}
               ></div>
             ) : (
               <img
@@ -243,19 +245,19 @@ const BookPage = () => {
                 }}
               />
             )}
-            {/* <p
+            <p
               className={styles.editURLMenu}
               onClick={() => setShowEditImageModal(!showEditImageModal)}
             >
               Edit cover
             </p>
-            {showEditImageModal && (
-              <Modal_Type_Save
-                closeModal={() => setShowEditImageModal(false)}
-                mainBook={mainBook}
-              />
-            )} */}
           </Tilt>
+          {showEditImageModal && (
+            <Modal_Type_Save
+              closeModal={() => setShowEditImageModal(false)}
+              mainBook={mainBook}
+            />
+          )}
         </div>
         <div className={styles.highlightHalf} id="scrollHighlight">
           {bookInformation()}
