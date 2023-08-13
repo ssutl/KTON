@@ -22,9 +22,9 @@
     background-attachment: fixed;
   }
 
-  // @include breakpoint-mixin("Desktop_M") {
-  //   height: 40dvh;
-  // }
+  @include breakpoint-mixin("Desktop_L") {
+    height: 42dvh;
+  }
 
   @include portrait-min-width-mixin("Vertical_Display") {
     height: 30dvh;
@@ -35,7 +35,10 @@
     width: 90%;
 
     @include breakpoint-mixin("Laptop_S") {
-      width: 95%;
+      //To account for the scrollbar
+      width: calc(95% + 10px);
+      margin-left: 10px;
+      //To account for the scrollbar
     }
 
     .highlightSection {

@@ -128,9 +128,11 @@ function HomeStatBanner() {
   if (!highlights)
     return (
       <div className={styles.HomeStatBanner}>
-        <div className={styles.loading}></div>
-        <div className={styles.loading}></div>
-        <div className={styles.loading}></div>
+        <div className={styles.StatWidthContainer}>
+          <div className={styles.loading}></div>
+          <div className={styles.loading}></div>
+          <div className={styles.loading}></div>
+        </div>
       </div>
     );
 
@@ -142,33 +144,37 @@ function HomeStatBanner() {
 
   return (
     <div className={styles.HomeStatBanner}>
-      <div className={styles.statsBox}>
-        <p>Longest Streak</p>
-        <h1>{streakData?.CurrentLongestStreak}</h1>
-        <p>{`${new Date(
-          streakData.LongestStreakStart
-        ).toDateString()} - ${new Date(
-          streakData.LongestStreakEnd
-        ).toDateString()}`}</p>
-      </div>
-      <div
-        className={`${styles.statsBox} ${styles.statsBoxLong}`}
-        onClick={() => router.push(`/Book/${highlights[0].book_id}`)}
-      >
-        <p>Current Read</p>
-        <h1>{highlights[0].title}</h1>
-        <p>Started: {new Date(highlights[0].highlight.Date).toDateString()}</p>
-      </div>
-      <div className={styles.statsBox}>
-        <p>Total Highlights</p>
-        <h1>{highlights.length}</h1>
-        <p>
-          {`${new Date(
-            highlights[highlights.length - 1].highlight.Date
+      <div className={styles.StatWidthContainer}>
+        <div className={styles.statsBox}>
+          <p>Longest Streak</p>
+          <h1>{streakData?.CurrentLongestStreak}</h1>
+          <p>{`${new Date(
+            streakData.LongestStreakStart
           ).toDateString()} - ${new Date(
-            highlights[0].highlight.Date
-          ).toDateString()}`}
-        </p>
+            streakData.LongestStreakEnd
+          ).toDateString()}`}</p>
+        </div>
+        <div
+          className={`${styles.statsBox} ${styles.statsBoxLong}`}
+          onClick={() => router.push(`/Book/${highlights[0].book_id}`)}
+        >
+          <p>Current Read</p>
+          <h1>{highlights[0].title}</h1>
+          <p>
+            Started: {new Date(highlights[0].highlight.Date).toDateString()}
+          </p>
+        </div>
+        <div className={styles.statsBox}>
+          <p>Total Highlights</p>
+          <h1>{highlights.length}</h1>
+          <p>
+            {`${new Date(
+              highlights[highlights.length - 1].highlight.Date
+            ).toDateString()} - ${new Date(
+              highlights[0].highlight.Date
+            ).toDateString()}`}
+          </p>
+        </div>
       </div>
     </div>
   );

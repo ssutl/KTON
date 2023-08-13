@@ -1,109 +1,114 @@
 @import "../../styles/Layout/Breakpoints.module.scss";
 
 .HomeStatBanner {
-  width: 90%;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  margin: 0px auto;
+  justify-content: center;
 
   @include breakpoint-mixin("Laptop_S") {
-    width: 95%;
     height: 23dvh;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  @include breakpoint-mixin("Desktop_M") {
-    height: 23dvh;
-  }
-
-  @include breakpoint-mixin("Desktop_L") {
-    height: 20%;
   }
 
   @include portrait-min-width-mixin("Vertical_Display") {
-    flex-direction: column;
-    height: 40%;
+    height: fit-content;
   }
 
-  // color: white;
-
-  .statsBox {
-    height: calc(25dvh * 0.85);
-    //Setting an equal margin on top and bottom, because the heatmap is 85% of the height of the banner and the margin is 15% of the banner, 7.5% of the banner is added to the top and bottom margin
-    margin-bottom: calc((25dvh - (25dvh * 0.85)) / 2);
-    width: 100%;
-    border: 0.5px solid $border;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
-      rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  .StatWidthContainer {
+    width: 90%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    background-color: $cd-bg;
-    // background-color: #bec6d9;
-    text-align: center;
-    cursor: pointer;
-    border-radius: 3px;
 
     @include breakpoint-mixin("Laptop_S") {
-      margin-bottom: 0px;
-      width: 30%;
-      height: 80%;
+      //To account for the scrollbar
+      width: calc(95% + 10px);
+      margin-left: 10px;
+      //To account for the scrollbar
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-      &:hover {
-        transition: all 0.5s ease;
-        transform: scale(1.025);
-        border: 1px solid grey;
+    @include portrait-min-width-mixin("Vertical_Display") {
+      flex-direction: column;
+    }
+
+    .statsBox {
+      height: 20dvh;
+      margin-top: 25px;
+      width: 100%;
+      border: 0.5px solid $border;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+        rgba(0, 0, 0, 0.22) 0px 10px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      background-color: $cd-bg;
+      // background-color: #bec6d9;
+      text-align: center;
+      border-radius: 3px;
+
+      @include breakpoint-mixin("Laptop_S") {
+        margin: 0px;
+        width: 30%;
+        height: 80%;
+        cursor: pointer;
+
+        &:hover {
+          transition: all 0.5s ease;
+          transform: scale(1.01);
+          border: 1px solid grey;
+        }
+      }
+
+      @include portrait-min-width-mixin("Vertical_Display") {
+        height: calc(20dvh * 0.85);
+        width: 100%;
+        margin-bottom: calc((20dvh - (20dvh * 0.85)) / 2);
+      }
+
+      h1 {
+        //Code to trancuate text
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 2;
+        //Code to trancuate text
       }
     }
 
-    @include portrait-min-width-mixin("Vertical_Display") {
+    .loading {
+      height: calc(25dvh * 0.85);
+      margin-bottom: calc((25dvh - (25dvh * 0.85)) / 2);
       width: 100%;
+      background-color: #e3e3e36b;
+      animation: loading-animation 1s infinite linear;
+
+      @include breakpoint-mixin("Laptop_S") {
+        width: 30%;
+        height: 80%;
+      }
+
+      @include portrait-min-width-mixin("Vertical_Display") {
+        width: 100%;
+      }
     }
 
-    h1 {
-      //Code to trancuate text
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      -webkit-line-clamp: 2;
-      //Code to trancuate text
-    }
-  }
+    @keyframes loading-animation {
+      0% {
+        opacity: 0.2;
+      }
 
-  .loading {
-    height: calc(25dvh * 0.85);
-    margin-bottom: calc((25dvh - (25dvh * 0.85)) / 2);
-    width: 100%;
-    background-color: #e3e3e36b;
-    animation: loading-animation 1s infinite linear;
+      50% {
+        opacity: 0.5;
+      }
 
-    @include breakpoint-mixin("Laptop_S") {
-      width: 30%;
-      height: 80%;
-    }
-
-    @include portrait-min-width-mixin("Vertical_Display") {
-      width: 100%;
-    }
-  }
-
-  @keyframes loading-animation {
-    0% {
-      opacity: 0.2;
-    }
-
-    50% {
-      opacity: 0.5;
-    }
-
-    100% {
-      opacity: 0.2;
+      100% {
+        opacity: 0.2;
+      }
     }
   }
 }
