@@ -40,13 +40,13 @@ const Modal_Select = ({
               selectedSort === eachItem ? genericModalStyles.selectedItem : ""
             }`}
             onClick={() => {
-              if (selectedSort === eachItem && selectedSort !== "Recent") {
-                onItemClick!("Recent");
+              if (selectedSort === eachItem && selectedSort === "Recent") {
+                onItemClick!("Oldest");
               } else if (
                 selectedSort === eachItem &&
-                selectedSort === "Recent"
+                selectedSort !== "Recent"
               ) {
-                onItemClick!("Oldest");
+                onItemClick!(undefined);
               } else {
                 onItemClick!(eachItem);
               }

@@ -2,6 +2,7 @@ import React, { useRef, useState, useContext, useEffect } from "react";
 import { KTON_CONTEXT } from "../../context/KTONContext";
 import genericModalStyles from "../../styles/Components/Modal.module.scss";
 import genreColors from "@/helpers/sortGenreColors";
+import { useRouter } from "next/router";
 
 interface Modal_Filter_SearchProps {
   onItemClick: (item: any) => void;
@@ -14,18 +15,32 @@ const Modal_Filter_Search = ({
   selectedFilter,
   closeModal,
 }: Modal_Filter_SearchProps) => {
+  const router = useRouter();
   const [searchValue, setSearchValue] = useState<string>("");
   const { userinfo, books } = useContext(KTON_CONTEXT);
   const { colorConverter, randomColorGenerator, mapTable } = genreColors();
+  const libraryRoute = router.pathname === "/Library";
+  const bookRoute = router.pathname.includes("/Book/");
+  //Get book id from url
+  const idMatch = router.asPath.match(/\/Book\/([a-fA-F0-9]+)/);
+  const bookId = idMatch ? idMatch[1] : null;
 
   const filteredData = books && [
     ...new Set(
-      books
-        .map((book) => book.genre)
-        .reduce((acc, curr) => acc.concat(curr), [])
-        .filter((eachGenre) =>
-          eachGenre.toLowerCase().includes(searchValue.toLowerCase())
-        )
+      libraryRoute
+        ? books
+            .map((book) => book.genre)
+            .reduce((acc, curr) => acc.concat(curr), [])
+            .filter((eachGenre) =>
+              eachGenre.toLowerCase().includes(searchValue.toLowerCase())
+            )
+        : books
+            .filter((eachBook) => eachBook._id === bookId)[0]
+            .highlights.map((eachHiglight) => eachHiglight.category)
+            .reduce((acc, curr) => acc.concat(curr), [])
+            .filter((eachGenre) =>
+              eachGenre.toLowerCase().includes(searchValue.toLowerCase())
+            )
     ),
   ];
 
@@ -78,11 +93,15 @@ const Modal_Filter_Search = ({
               {userinfo && (
                 <div
                   style={
-                    {
-                      "--background-color": colorConverter(
-                        userinfo.genres[eachItem]
-                      ),
-                    } as React.CSSProperties
+                    libraryRoute
+                      ? ({
+                          "--background-color": colorConverter(
+                            userinfo.genres[eachItem]
+                          ),
+                        } as React.CSSProperties)
+                      : {
+                          backgroundColor: "#769f9d",
+                        }
                   }
                   className={genericModalStyles.tag}
                 >

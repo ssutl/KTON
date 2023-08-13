@@ -1,9 +1,19 @@
-import { Book } from "@/api/Interface";
+import { Book, Book_highlight, Meta_con_highlight } from "@/api/Interface";
 import Highlight from "./Highlight";
 import HandleLoginModal from "../Login/HandleLoginModal";
 import bookPageStyles from "../../styles/Pages/BookPage.module.scss";
 
-const HighlightsList: React.FC<{ book: Book }> = ({ book }) => {
+interface HighlightsListProps {
+  book: Book;
+  selectedSort: "Recent" | "Oldest" | "Length";
+  selectedFilter: string | undefined;
+}
+
+const HighlightsList: React.FC<HighlightsListProps> = ({
+  book,
+  selectedSort,
+  selectedFilter,
+}) => {
   const { LoginModal, setLoginModal } = HandleLoginModal();
 
   if (book)
@@ -12,6 +22,20 @@ const HighlightsList: React.FC<{ book: Book }> = ({ book }) => {
         {LoginModal()}
         {book.highlights
           .filter((eachHighlight) => eachHighlight.deleted === false)
+          .sort((a: Book_highlight, b: Book_highlight) => {
+            if (selectedSort === "Length") {
+              return b.Text.length - a.Text.length;
+            } else if (selectedSort === "Recent") {
+              return new Date(b.Date).getTime() - new Date(a.Date).getTime();
+            } else if (selectedSort === "Oldest") {
+              return new Date(a.Date).getTime() - new Date(b.Date).getTime();
+            } else return 0;
+          })
+          .filter((eachHighlight) =>
+            selectedFilter
+              ? eachHighlight.category.includes(selectedFilter)
+              : eachHighlight
+          )
           .map((eachHighlight, index) => (
             <Highlight
               highlight={eachHighlight}
