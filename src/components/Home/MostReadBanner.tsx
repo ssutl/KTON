@@ -56,14 +56,27 @@ const MostReadBanner = () => {
       <div className={styles.graphContainer}>
         <div className={styles.graphHeader}>
           <div className={styles.maxReadSection}>
-            <h2 className="p-large" id="max-read">
-              {data.max}
-            </h2>
+            <h3>{data.max}</h3>
           </div>
           <div className={styles.dataButtonSection}>
-            <p onClick={() => setDataSelection("Month")}>Month</p>
-            <p onClick={() => setDataSelection("Day")}>Day</p>
-            <p onClick={() => setDataSelection("Time")}>Time</p>
+            <p
+              className={dataSelection === "Month" ? styles.active : ""}
+              onClick={() => setDataSelection("Month")}
+            >
+              Month
+            </p>
+            <p
+              className={dataSelection === "Day" ? styles.active : ""}
+              onClick={() => setDataSelection("Day")}
+            >
+              Day
+            </p>
+            <p
+              className={dataSelection === "Time" ? styles.active : ""}
+              onClick={() => setDataSelection("Time")}
+            >
+              Time
+            </p>
           </div>
         </div>
         <ResponsiveContainer width="100%" height="70%">
@@ -77,9 +90,8 @@ const MostReadBanner = () => {
                 <stop offset="95%" stopColor="#3fcdfc" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <XAxis dataKey="name" />
-            <YAxis dataKey="count" />
-
+            <XAxis dy={5} dataKey="name" tick={{ fill: "#ffffff" }} />
+            <YAxis dx={-25} dataKey="count" tick={{ fill: "#ffffff" }} />
             <CartesianGrid strokeDasharray="5 5" />
             <Tooltip />
             <Area
