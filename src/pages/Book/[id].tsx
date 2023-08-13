@@ -193,6 +193,7 @@ const BookPage = () => {
         </div>
         <div className={styles.highlightHalf} id="scrollHighlight">
           {bookInformation()}
+          <GenreBanner />
           <SummarySection />
           <HighlightsList book={mainBook} />
         </div>

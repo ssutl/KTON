@@ -198,7 +198,7 @@
 .Modal_Add_Genre {
   @include breakpoint-mixin("Laptop_S") {
     left: 0%;
-    bottom: 170%;
+    top: 170%;
     width: 400px;
   }
 }
