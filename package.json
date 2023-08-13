@@ -42,6 +42,7 @@
     "react-parallax-tilt": "^1.7.151",
     "react-textarea-autosize": "^8.5.2",
     "react-tooltip": "^5.19.0",
+    "recharts": "^2.7.3",
     "sass": "^1.63.6",
     "socket.io-client": "^4.7.1",
     "styled-components": "^5.3.11",

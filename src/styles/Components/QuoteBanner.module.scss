@@ -14,24 +14,20 @@
     height: 50dvh;
   }
 
-  // @include breakpoint-mixin("Tablet") {
-  //   height: 85dvh;
-  // }
-
   @include breakpoint-mixin("Laptop_S") {
-    height: 40%;
+    height: 40dvh;
     background-position: center center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-position: 0 -250px; /* Center the image */
     background-attachment: fixed;
   }
 
-  @include breakpoint-mixin("Desktop_L") {
-    height: 45%;
+  @include breakpoint-mixin("Desktop_M") {
+    height: 35dvh;
   }
 
   @include portrait-min-width-mixin("Vertical_Display") {
-    height: 40%;
+    height: 30dvh;
   }
 
   .QuoteBannerWidth {

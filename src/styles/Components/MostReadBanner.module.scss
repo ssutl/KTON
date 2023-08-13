@@ -1,0 +1,69 @@
+@import "../../styles/Layout/Breakpoints.module.scss";
+
+.MostReadBanner {
+  width: 90%;
+  margin: 0px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  @include breakpoint-mixin("Laptop_S") {
+    width: 95%;
+  }
+
+  @include breakpoint-mixin("Desktop_M") {
+    height: 60dvh;
+  }
+
+  .graphContainer {
+    height: 90%;
+    width: 100%;
+    background-color: $modal-bg;
+    box-sizing: border-box;
+    border: 0.5px solid $border;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+      rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    padding: 0px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    .graphHeader {
+      height: 10%;
+      width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+
+      .maxReadSection {
+        width: 80%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .dataButtonSection {
+        width: 15%;
+        height: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        p {
+          @include breakpoint-mixin("Laptop_S") {
+            cursor: pointer;
+            margin-left: 0px;
+            border-radius: 4px;
+            padding: 2px 10px;
+
+            &:hover {
+              opacity: 0.5;
+              background-color: $hover;
+            }
+          }
+        }
+      }
+    }
+  }
+}

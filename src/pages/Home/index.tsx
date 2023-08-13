@@ -8,6 +8,7 @@ import HeatMapBanner from "@/components/Home/HeatMapBanner";
 import Head from "next/head";
 import AllowedRoute from "@/helpers/AllowedRoute";
 import LoadingPage from "@/components/Loading/LoadingPage";
+import MostReadBanner from "@/components/Home/MostReadBanner";
 
 const Home = () => {
   const { userinfo, books, highlights } = useContext(KTON_CONTEXT);
@@ -37,8 +38,9 @@ const Home = () => {
         </Head>
         <div className={styles.Home}>
           <QuoteBanner />
-          <HeatMapBanner />
-          <HomeStatBanner />
+          <MostReadBanner />
+          {/* <HeatMapBanner />
+          <HomeStatBanner /> */}
         </div>
       </>
     );
