@@ -5,17 +5,14 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import { KTON_CONTEXT } from "../../context/KTONContext";
 import InitApi from "../../api/InitAPI";
 import Tilt from "react-parallax-tilt";
-import HandleLoginModal from "@/components/Login/HandleLoginModal";
 import cleanAuthor from "@/helpers/cleanAuthor";
 import AllowedRoute from "@/helpers/AllowedRoute";
 import HighlightsList from "@/components/Book/HighlightsList";
 import SummarySection from "@/components/Book/SummaryComponent";
-import GenreBanner from "@/components/Book/GenreBanner";
 import LoadingPage from "@/components/Loading/LoadingPage";
 import { Tooltip } from "react-tooltip";
 import SearchIcon from "@mui/icons-material/Search";
 import Modal_Book_Search from "@/components/Modals/Modal_Book_Search";
-import Modal_Type_Save from "@/components/Modals/Modal_Type_Save";
 import scrollToElementWithText from "@/helpers/ScrollToHighlight";
 import Head from "next/head";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
@@ -23,6 +20,7 @@ import StarIcon from "@mui/icons-material/Star";
 import HandleChanges from "@/helpers/HandleChanges";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Modal_Author_Select from "@/components/Modals/Modal_Centered_Select";
+import GenreBanner from "@/components/Book/GenreBanner";
 
 const BookPage = () => {
   const router = useRouter();

@@ -32,7 +32,7 @@ function InitAPI() {
       //If no books push them to the import page
       return response.data.filter(
         (eachBook: Book) => eachBook.deleted === false
-      ).length === 0
+      ).length === 0 || response.data.length === 0
         ? router.push("/Import")
         : response.data
             .map((eachBook: Book) => {
@@ -41,8 +41,7 @@ function InitAPI() {
               });
               return eachBook;
             })
-            .reverse()
-            .filter((eachBook: Book) => eachBook.deleted === false);
+            .reverse();
     } catch (error) {
       console.error("Error fetching all books:", error);
       throw error; // Optionally re-throw the error to handle it in the caller
