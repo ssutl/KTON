@@ -18,6 +18,24 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
   const { addGenreToBook, addGenreToUser, updateBookCover } = HandleChanges();
   const [randomColor, setRandomColor] = useState(randomColorGenerator());
 
+  useEffect(() => {
+    //Auto focus on input
+    const input = document.getElementById("autoFocus");
+    if (input) {
+      input.focus();
+    }
+
+    //Add overflow hidden to element behind when modal is open
+    const scrollHalf = document.getElementById("scrollHighlight");
+
+    if (scrollHalf) {
+      scrollHalf.style.overflow = "hidden";
+      return () => {
+        scrollHalf.style.overflow = "auto";
+      };
+    }
+  }, []);
+
   //When the genreInput changes, we want to change the color of the randomColor
   useEffect(() => {
     if (searchValue === "") {
@@ -45,6 +63,7 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
           <input
             type="text"
             placeholder={"Search for a genre, or type in your own..."}
+            id="autoFocus"
             onChange={(e) => setSearchValue(e.target.value)}
           />
         </div>

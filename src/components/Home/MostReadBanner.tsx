@@ -90,8 +90,13 @@ const MostReadBanner = () => {
               </defs>
               <XAxis dy={5} dataKey="name" tick={{ fill: "#ffffff" }} />
               <YAxis dx={-25} dataKey="count" tick={{ fill: "#ffffff" }} />
-              <CartesianGrid strokeDasharray="5 5" />
-              <Tooltip />
+              <CartesianGrid strokeDasharray="8 8" />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "#252525",
+                }}
+                itemStyle={{ color: "#ffffff" }}
+              />
               <Area
                 type="monotone"
                 dataKey="count"

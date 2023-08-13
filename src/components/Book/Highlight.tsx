@@ -77,10 +77,6 @@ const Highlight = ({ highlight, index }: highlightProps) => {
     setDisplayShareOverlay(false);
   };
 
-  if (index === 0) {
-    console.log(highlight);
-  }
-
   //Drop down annotation section for each highlight
   const annotationSection = () => {
     return (

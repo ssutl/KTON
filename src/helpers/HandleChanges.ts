@@ -105,7 +105,7 @@ function HandleChanges() {
         // Sorting on server for each book using the API
         addGenreToBookApi({
           book_id: id,
-          data: newState.filter((book) => book._id === book_id)[0].genre, // Pass the genre data for the current book to the API
+          data: newState.filter((book) => book._id === id)[0].genre, // Pass the genre data for the current book to the API
         });
       });
     }
@@ -392,7 +392,6 @@ function HandleChanges() {
         } else return book_context;
       });
       updateBooks(newState);
-      console.log(data);
       markAsAnnotatedApi({ book_id: book_id, data: data });
     }
   };
