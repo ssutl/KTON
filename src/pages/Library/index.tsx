@@ -20,7 +20,7 @@ const Library = () => {
   const [selectedFilter, setSelectedFilter] = useState<string | undefined>(
     undefined
   );
-  const [screenWidth, setScreenWidth] = useState(0);
+  const [screenWidth, setScreenWidth] = useState(1024);
   const [displaySearchModal, setDisplaySearchModal] = useState(false);
   const [displaySortModal, setDisplaySortModal] = useState(false);
   const [displayFilterModal, setDisplayFilterModal] = useState(false);

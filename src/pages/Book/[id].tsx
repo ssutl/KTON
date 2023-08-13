@@ -21,6 +21,9 @@ import HandleChanges from "@/helpers/HandleChanges";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Modal_Author_Select from "@/components/Modals/Modal_Centered_Select";
 import GenreBanner from "@/components/Book/GenreBanner";
+import Modal_Filter_Search from "@/components/Modals/Modal_Filter_Search";
+import Modal_Select from "@/components/Modals/Modal_Select";
+import { sortBy } from "lodash";
 
 const BookPage = () => {
   const router = useRouter();
@@ -29,12 +32,25 @@ const BookPage = () => {
   const { books } = useContext(KTON_CONTEXT);
   const { InitialiseApp } = InitApi();
   const [mainBook, setMainBook] = useState<undefined | Book>(undefined);
-  const [screenWidth, setScreenWidth] = useState(0);
+  const [screenWidth, setScreenWidth] = useState(1024);
   const { addRating } = HandleChanges();
   const [showEditImageModal, setShowEditImageModal] = useState(false);
   const [coverIsValid, setCoverIsValid] = useState(true);
   const [displaySearchModal, setDisplaySearchModal] = useState(false);
   const [showBookEditModal, setShowBookEditModal] = useState(false);
+  const [selectedSort, setSelectedSort] = useState<
+    "Recent" | "Oldest" | "Length"
+  >("Recent");
+  const [selectedFilter, setSelectedFilter] = useState<string | undefined>(
+    undefined
+  );
+  const [displaySortModal, setDisplaySortModal] = useState(false);
+  const [displayFilterModal, setDisplayFilterModal] = useState(false);
+  const showFilterH3 =
+    mainBook &&
+    mainBook.highlights
+      .map((highlight) => highlight.category)
+      .reduce((acc, curr) => acc.concat(curr), []).length;
 
   useEffect(() => {
     AllowedRoute();
@@ -127,6 +143,56 @@ const BookPage = () => {
     );
   };
 
+  const filterBanner = () => {
+    return (
+      <div className={styles.filterBanner}>
+        <>
+          {showFilterH3 ? (
+            <span>
+              <p
+                id={styles.buttons}
+                onClick={() => setDisplayFilterModal(!displayFilterModal)}
+              >
+                Filters +
+              </p>
+              {displayFilterModal && (
+                <Modal_Filter_Search
+                  closeModal={() => setDisplayFilterModal(false)}
+                  onItemClick={(genre: string) => setSelectedFilter(genre)}
+                  selectedFilter={selectedFilter}
+                />
+              )}
+            </span>
+          ) : null}
+          <span>
+            <p
+              id={styles.buttons}
+              onClick={() => setDisplaySortModal(!displaySortModal)}
+            >
+              Sort
+            </p>
+            {displaySortModal && (
+              <Modal_Select
+                closeModal={() => setDisplaySortModal(false)}
+                onItemClick={(selectedSort: "Recent" | "Oldest" | "Length") => {
+                  localStorage.setItem("selectedSort", selectedSort);
+                  setSelectedSort(selectedSort);
+
+                  //If on mobile automatically close this modal auto
+                  if (screenWidth < 1024) {
+                    setDisplaySortModal(false);
+                  }
+                }}
+                optionsData={["Recent", "Length"]}
+                selectedSort={selectedSort}
+              />
+            )}
+          </span>
+        </>
+      </div>
+    );
+  };
+
   if (!mainBook) return <LoadingPage Text="Book Loading" />;
 
   return (
@@ -195,7 +261,12 @@ const BookPage = () => {
           {bookInformation()}
           <GenreBanner />
           <SummarySection />
-          <HighlightsList book={mainBook} />
+          {filterBanner()}
+          <HighlightsList
+            book={mainBook}
+            selectedSort={selectedSort}
+            selectedFilter={selectedFilter}
+          />
         </div>
         <Tooltip
           id={`my-tooltip-${id}`}
