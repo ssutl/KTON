@@ -11,6 +11,8 @@ import summariseBookApi from "@/api/Books/Summary";
 import annotateHighlightApi from "@/api/Highlights/Annotate";
 import changeBookImageApi from "@/api/Books/ChangeBookImage";
 import markAsAnnotatedApi from "@/api/Books/MarkAsAnnotated";
+import deleteBookApi from "@/api/Books/DeleteBook";
+import deleteHighlightApi from "@/api/Highlights/Delete";
 
 export interface RatingProps {
   data: number;
@@ -36,7 +38,7 @@ export interface annotateHighlightProps {
 }
 
 export interface deleteHighlightProps {
-  book_id: string | undefined | string[];
+  book_id: string;
   highlight_id: string;
 }
 
@@ -202,6 +204,7 @@ function HandleChanges() {
         } else return book_context;
       });
       updateBooks(newState);
+      deleteHighlightApi({ book_id, highlight_id });
     }
   };
 
@@ -389,6 +392,7 @@ function HandleChanges() {
         } else return book_context;
       });
       updateBooks(newState);
+      console.log(data);
       markAsAnnotatedApi({ book_id: book_id, data: data });
     }
   };
@@ -406,6 +410,19 @@ function HandleChanges() {
     }
   };
 
+  const deleteBook = ({ book_id }: { book_id: string }) => {
+    if (books && typeof book_id === "string") {
+      const newState = books.map((book_context) => {
+        //If book has same ID delete it locally
+        if (book_id === book_context._id) {
+          return { ...book_context, deleted: true };
+        } else return book_context;
+      });
+      updateBooks(newState);
+      deleteBookApi({ book_id: book_id });
+    }
+  };
+
   return {
     addRating,
     addGenreToBook,
@@ -418,6 +435,7 @@ function HandleChanges() {
     addSummaryToBook,
     updateBookCover,
     markBookAsAnnotated,
+    deleteBook,
   };
 }
 

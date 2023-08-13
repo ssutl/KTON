@@ -2,12 +2,14 @@
 
 .BookPage {
   height: 93dvh;
+  overflow-y: scroll;
 
   @include breakpoint-mixin("Tablet") {
     height: 95dvh;
   }
 
   @include breakpoint-mixin("Laptop_S") {
+    overflow-y: hidden;
     display: flex;
     flex-direction: row;
     height: 93dvh;
@@ -18,6 +20,8 @@
   }
 
   @include portrait-min-width-mixin("Vertical_Display") {
+    overflow-y: scroll;
+    display: block;
     height: 97dvh;
   }
 
@@ -31,6 +35,25 @@
     justify-content: center;
     position: relative;
 
+    @include breakpoint-mixin("Laptop_S") {
+      width: 50%;
+    }
+
+    @include portrait-min-width-mixin("Vertical_Display") {
+      width: 100%;
+    }
+
+    .annotatedTag {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 0;
+      height: 0;
+      border-top: 60px solid #78bc61;
+      border-left: 60px solid transparent;
+      z-index: 1;
+    }
+
     #editBookDots {
       position: absolute;
       top: 0;
@@ -40,17 +63,9 @@
       font-size: 25px;
     }
 
-    @include breakpoint-mixin("Laptop_S") {
-      width: 50%;
-    }
-
-    @include portrait-min-width-mixin("Vertical_Display") {
-      width: 100%;
-    }
-
     .image {
-      height: 345px;
-      width: 250px;
+      height: 300px;
+      width: 220px;
       cursor: pointer;
       border-radius: 3px;
       overflow: hidden;
@@ -58,46 +73,57 @@
       img {
         height: 100%;
         width: 100%;
+        object-fit: cover;
       }
 
       @include breakpoint-mixin("Mobile_M") {
-        height: 400px;
-        width: 300px;
+        height: 370px;
+        width: 270px;
       }
 
       @include breakpoint-mixin("Mobile_L") {
-        height: 500px;
-        width: 350px;
+        height: 430px;
+        width: 310px;
       }
 
       @include breakpoint-mixin("Tablet") {
-        height: 650px;
-        width: 465px;
+        height: 625px;
+        width: 460px;
       }
 
       @include breakpoint-mixin("Laptop_S") {
-        height: 435px;
-        width: 335px;
+        height: 405px;
+        width: 305px;
       }
 
       @include breakpoint-mixin("Laptop_M") {
-        height: 440px;
-        width: 320px;
+        height: 420px;
+        width: 315px;
       }
 
       @include breakpoint-mixin("Laptop_L") {
-        height: 475px;
-        width: 365px;
+        height: 440px;
+        width: 335px;
       }
 
       @include breakpoint-mixin("Desktop_S") {
-        height: 625px;
-        width: 480px;
+        height: 565px;
+        width: 430px;
+      }
+
+      @include breakpoint-mixin("Desktop_M") {
+        height: 585px;
+        width: 430px;
       }
 
       @include breakpoint-mixin("Desktop_L") {
-        height: 800px;
-        width: 620px;
+        height: 820px;
+        width: 600px;
+      }
+
+      @include portrait-min-width-mixin("Vertical_Display") {
+        height: 850px;
+        width: 600px;
       }
     }
   }
@@ -112,6 +138,10 @@
       background-color: $cd-bg;
     }
 
+    @include portrait-min-width-mixin("Vertical_Display") {
+      width: 100%;
+    }
+
     .bookInformation {
       display: flex;
       flex-direction: column;
@@ -121,27 +151,31 @@
       position: relative;
       margin: 5dvh auto 0 auto;
 
-      @include portrait-min-width-mixin("Vertical_Display") {
-        margin: 5dvh auto 0 auto;
-      }
-
       .titleContainer {
         display: flex;
         align-items: center;
 
         .titleSection {
           height: 100%;
-          width: 90%;
+          width: 85%;
           flex-wrap: wrap;
+
+          @include breakpoint-mixin("Laptop_S") {
+            width: 90%;
+          }
         }
 
         .searchSection {
-          height: 100%;
-          width: 10%;
+          min-height: 100%;
+          width: 15%;
           display: flex;
           align-items: center;
           justify-content: center;
           position: relative;
+
+          @include breakpoint-mixin("Laptop_S") {
+            width: 10%;
+          }
 
           #searchIcon {
             cursor: pointer;
@@ -185,6 +219,20 @@
       height: 40px;
     }
   }
+}
+
+.BookPage::-webkit-scrollbar {
+  height: 100%;
+  background-color: rgb(45, 41, 41);
+  width: 10px;
+}
+
+.BookPage::-webkit-scrollbar-thumb {
+  background-color: rgba(70, 68, 68, 0.428);
+  border: 1px solid transparent;
+  background-clip: content-box;
+  border-radius: 10px;
+  height: 40px;
 }
 
 .loading {

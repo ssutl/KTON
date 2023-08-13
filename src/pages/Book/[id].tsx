@@ -149,6 +149,7 @@ const BookPage = () => {
       )}
       <div className={styles.BookPage}>
         <div className={styles.bookHalf}>
+          {mainBook.annotated && <div className={styles.annotatedTag}></div>}
           <MoreHorizIcon
             id={styles.editBookDots}
             onClick={() => setShowBookEditModal(!showBookEditModal)}

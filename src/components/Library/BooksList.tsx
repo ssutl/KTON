@@ -31,6 +31,7 @@ const BooksList: React.FC<{
         .filter((eachBook) =>
           selectedFilter ? eachBook.genre.includes(selectedFilter) : eachBook
         )
+        .filter((eachBook) => eachBook.deleted === false)
         .map((eachBook, i) => (
           <BookComponent book={eachBook} index={i} key={i} />
         ))}

@@ -11,7 +11,7 @@ const HighlightsList: React.FC<{ book: Book }> = ({ book }) => {
       <div className={bookPageStyles.highlightList}>
         {LoginModal()}
         {book.highlights
-          .filter((eachHighlight) => eachHighlight.deleted !== true)
+          .filter((eachHighlight) => eachHighlight.deleted === false)
           .map((eachHighlight, index) => (
             <Highlight
               highlight={eachHighlight}

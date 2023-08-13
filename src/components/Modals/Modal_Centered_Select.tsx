@@ -13,7 +13,7 @@ const Modal_Centered_Select = ({
   closeModal,
 }: Modal_Centered_SelectProps) => {
   const router = useRouter();
-  const { markBookAsAnnotated } = HandleChanges();
+  const { markBookAsAnnotated, deleteBook } = HandleChanges();
 
   return (
     <div
@@ -45,7 +45,10 @@ const Modal_Centered_Select = ({
                   markBookAsAnnotated({ book_id: router.query.id as string });
                 } else {
                   // Delete Book
-                  console.log("Delete Book");
+                  //Push user to library
+                  router.push("/Library");
+
+                  deleteBook({ book_id: router.query.id as string });
                 }
               } else {
                 // Render Book title

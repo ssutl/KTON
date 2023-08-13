@@ -1,37 +1,30 @@
 import axios from "axios";
 
-export interface markAsAnnotatedApiProps {
+export interface deleteBookApiProps {
   book_id: string;
-  data: boolean;
 }
 
-//API TO MARK BOOK AS ANNOTATED
+//API TO ADD GENRE TO BOOK
 
-const markAsAnnotatedApi = async ({
-  book_id,
-  data,
-}: markAsAnnotatedApiProps) => {
+const deleteBookApi = async ({ book_id }: deleteBookApiProps) => {
   //Get token
   const authToken = localStorage.getItem("token");
 
   //If token is null, throw error
   if (authToken === null) throw new Error("No token found");
 
-  //Simple request to update cover image
+  //Simple request to update summaries
   try {
-    axios({
+    const apiStatus = axios({
       method: "PUT",
       url: `${process.env.NEXT_PUBLIC_BACKENDURL}/books/${book_id}`,
       headers: {
         "x-auth-token": authToken.replace(/\"/g, ""),
       },
-      data: { annotated: data },
+      data: { deleted: true },
     });
-
-    console.log("Book annotated");
   } catch (err) {
-    console.log(err);
-    throw new Error("Failed changing book image");
+    throw new Error("Failed adding genre to book");
   }
 };
-export default markAsAnnotatedApi;
+export default deleteBookApi;

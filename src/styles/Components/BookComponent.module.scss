@@ -19,11 +19,11 @@
   .annotatedTag {
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
     width: 0;
     height: 0;
-    border-top: 40px solid #78bc61;
-    border-right: 40px solid transparent;
+    border-top: 50px solid #78bc61;
+    border-left: 50px solid transparent;
     z-index: 1;
   }
 

@@ -48,10 +48,7 @@ const Highlight = ({ highlight, index }: highlightProps) => {
   const notesDropDownRef = useRef(null);
   const notesButtonRef = useRef(null);
   const router = useRouter();
-  const book_id = router.query.id;
-
-  //Refrence to the highlight div
-  const highlightDiv = document.getElementById(`highlight-${index}`);
+  const book_id = router.query.id as string;
 
   //Modal Positon
   const [divAboveHalf, setDivAboveHalf] = useState<boolean | undefined>(
@@ -79,6 +76,10 @@ const Highlight = ({ highlight, index }: highlightProps) => {
   const closeModal = () => {
     setDisplayShareOverlay(false);
   };
+
+  if (index === 0) {
+    console.log(highlight);
+  }
 
   //Drop down annotation section for each highlight
   const annotationSection = () => {

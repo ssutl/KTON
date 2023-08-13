@@ -51,7 +51,7 @@ $kton-blue: #3fcdfc;
 
 @mixin portrait-min-width-mixin($breakpoint) {
   $minWidth: map-get($breakpoints, $breakpoint);
-  @media screen and (min-width: $minWidth) and (orientation: portrait) {
+  @media only screen and (min-width: $minWidth) and (orientation: portrait) {
     @content;
   }
 }
