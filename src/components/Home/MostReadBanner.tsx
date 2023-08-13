@@ -53,7 +53,7 @@ const MostReadBanner = () => {
 
   return (
     <div className={styles.MostReadBanner}>
-      <div className={styles.graphContainer}>
+      <div className={styles.modalContainer}>
         <div className={styles.graphHeader}>
           <div className={styles.maxReadSection}>
             <h3>{data.max}</h3>
@@ -79,30 +79,29 @@ const MostReadBanner = () => {
             </p>
           </div>
         </div>
-        <ResponsiveContainer width="100%" height="70%">
-          <AreaChart
-            data={data?.data}
-            margin={{ top: 0, right: 35, left: 0, bottom: 0 }}
-          >
-            <defs>
-              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#3fcdfc" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="#3fcdfc" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <XAxis dy={5} dataKey="name" tick={{ fill: "#ffffff" }} />
-            <YAxis dx={-25} dataKey="count" tick={{ fill: "#ffffff" }} />
-            <CartesianGrid strokeDasharray="5 5" />
-            <Tooltip />
-            <Area
-              type="monotone"
-              dataKey="count"
-              stroke="#3fcdfc"
-              fillOpacity={1}
-              fill="url(#colorUv)"
-            />
-          </AreaChart>
-        </ResponsiveContainer>
+        <div className={styles.graphContainer}>
+          <ResponsiveContainer>
+            <AreaChart data={data?.data}>
+              <defs>
+                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#3fcdfc" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#3fcdfc" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <XAxis dy={5} dataKey="name" tick={{ fill: "#ffffff" }} />
+              <YAxis dx={-25} dataKey="count" tick={{ fill: "#ffffff" }} />
+              <CartesianGrid strokeDasharray="5 5" />
+              <Tooltip />
+              <Area
+                type="monotone"
+                dataKey="count"
+                stroke="#3fcdfc"
+                fillOpacity={1}
+                fill="url(#colorUv)"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );

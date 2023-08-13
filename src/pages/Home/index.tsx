@@ -38,9 +38,9 @@ const Home = () => {
         </Head>
         <div className={styles.Home}>
           <QuoteBanner />
+          <HeatMapBanner />
+          <HomeStatBanner />
           <MostReadBanner />
-          {/* <HeatMapBanner />
-          <HomeStatBanner /> */}
         </div>
       </>
     );

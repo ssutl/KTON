@@ -10,7 +10,11 @@
 
   @include breakpoint-mixin("Laptop_S") {
     width: 95%;
-    height: 35%;
+    height: 30dvh;
+  }
+
+  @include breakpoint-mixin("Desktop_M") {
+    height: 32dvh;
   }
 
   @include portrait-min-width-mixin("Vertical_Display") {
@@ -28,6 +32,7 @@
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
       rgba(0, 0, 0, 0.22) 0px 10px 10px;
     cursor: pointer;
+    border-radius: 3px;
 
     @include breakpoint-mixin("Laptop_S") {
       &:hover {

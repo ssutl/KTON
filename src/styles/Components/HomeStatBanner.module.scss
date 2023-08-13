@@ -8,11 +8,15 @@
 
   @include breakpoint-mixin("Laptop_S") {
     width: 95%;
-    height: 25%;
+    height: 23dvh;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+  }
+
+  @include breakpoint-mixin("Desktop_M") {
+    height: 23dvh;
   }
 
   @include breakpoint-mixin("Desktop_L") {
@@ -28,6 +32,7 @@
 
   .statsBox {
     height: calc(25dvh * 0.85);
+    //Setting an equal margin on top and bottom, because the heatmap is 85% of the height of the banner and the margin is 15% of the banner, 7.5% of the banner is added to the top and bottom margin
     margin-bottom: calc((25dvh - (25dvh * 0.85)) / 2);
     width: 100%;
     border: 0.5px solid $border;
@@ -42,8 +47,10 @@
     // background-color: #bec6d9;
     text-align: center;
     cursor: pointer;
+    border-radius: 3px;
 
     @include breakpoint-mixin("Laptop_S") {
+      margin-bottom: 0px;
       width: 30%;
       height: 80%;
 

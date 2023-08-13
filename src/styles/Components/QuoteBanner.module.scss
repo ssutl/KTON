@@ -22,9 +22,9 @@
     background-attachment: fixed;
   }
 
-  @include breakpoint-mixin("Desktop_M") {
-    height: 35dvh;
-  }
+  // @include breakpoint-mixin("Desktop_M") {
+  //   height: 40dvh;
+  // }
 
   @include portrait-min-width-mixin("Vertical_Display") {
     height: 30dvh;

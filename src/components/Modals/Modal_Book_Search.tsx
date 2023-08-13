@@ -27,11 +27,18 @@ const Modal_Book_Search = ({ closeModal }: Modal_Book_SearchProps) => {
 
   let book;
 
-  //Add overflow hidden to element behind when modal is open
   useEffect(() => {
+    //Auto focus on input
+    const input = document.getElementById("autoFocus");
+    if (input) {
+      input.focus();
+    }
+
+    //Add overflow hidden to element behind when modal is open
     const scrollHalf = libraryRoute
       ? document.getElementById("Library")
       : document.getElementById("scrollHighlight");
+
     if (scrollHalf) {
       scrollHalf.style.overflow = "hidden";
       return () => {
@@ -83,6 +90,7 @@ const Modal_Book_Search = ({ closeModal }: Modal_Book_SearchProps) => {
                 ? "Search by book, or author"
                 : "Searh for a highlight"
             }
+            id="autoFocus"
             onChange={(e) => setSearchValue(e.target.value)}
           />
         </div>
