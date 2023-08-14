@@ -8,12 +8,14 @@ export default function App({ Component, pageProps }: AppProps) {
   const [isMobileLandscape, setIsMobileLandscape] = React.useState(false);
 
   useEffect(() => {
-    if (
-      window.matchMedia("(orientation: landscape)").matches &&
-      window.matchMedia("(hover: none)").matches
-    ) {
-      setIsMobileLandscape(true);
-    }
+    window.addEventListener("resize", function (event) {
+      if (
+        window.matchMedia("(orientation: landscape)").matches &&
+        window.matchMedia("(hover: none)").matches
+      ) {
+        setIsMobileLandscape(true);
+      }
+    });
   }, []);
 
   if (isMobileLandscape) {
