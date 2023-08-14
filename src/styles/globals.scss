@@ -121,12 +121,6 @@ body {
   }
 }
 
-@media (orientation: landscape) and (hover: none) and (pointer: coarse) {
-  body {
-    display: none;
-  }
-}
-
 body::-webkit-scrollbar {
   height: 100%;
   background-color: rgb(45, 41, 41);
