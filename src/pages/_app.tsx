@@ -21,9 +21,9 @@ export default function App({ Component, pageProps }: AppProps) {
       //make window reload
       window.location.reload();
 
-      setTimeout(() => {
-        window.location.reload();
-      }, 300);
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 300);
     });
   }, []);
 
