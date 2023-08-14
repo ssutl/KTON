@@ -42,6 +42,7 @@ const Library = () => {
 
     //Controlling screenwidth
     const handleResize = () => setScreenWidth(window.innerWidth);
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     //Set sort to whatever is in local storage
