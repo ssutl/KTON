@@ -20,14 +20,6 @@ export default function App({ Component, pageProps }: AppProps) {
     });
   }, []);
 
-  useEffect(() => {
-    if (isMobileLandscape) {
-      setTimeout(() => {
-        alert("请使用竖屏浏览 (please use portrait mode to browse)");
-      }, 1000);
-    }
-  }, [isMobileLandscape]);
-
   if (isMobileLandscape) {
     return (
       <div
@@ -35,6 +27,7 @@ export default function App({ Component, pageProps }: AppProps) {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          flexDirection: "column",
         }}
       >
         <h1>请使用竖屏浏览</h1>
