@@ -58,7 +58,6 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
         <div className={genericModalStyles.header}>
           <h3>Select or create genre</h3>
         </div>
-
         <div className={genericModalStyles.searchSection}>
           <input
             type="text"

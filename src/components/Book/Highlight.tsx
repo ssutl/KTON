@@ -147,8 +147,8 @@ const Highlight = ({ highlight, index }: highlightProps) => {
       )}
       <div className={styles.Highlight} id={`highlight-${index}`}>
         <div className={styles.mainHalf}>
-          <h2>{highlight.Text}</h2>
-          <h3>{highlight.notes}</h3>
+          <h2 id={styles.highlightText}>{highlight.Text}</h2>
+          <h3 id={styles.highlightNote}>{highlight.notes}</h3>
           {!highlight.category.length ? null : (
             //Displaying tags in tags holder
             <div className={styles.tagsBanner}>

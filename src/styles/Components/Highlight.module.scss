@@ -16,18 +16,22 @@
 
   .mainHalf {
     width: 100%;
-    word-spacing: 10px;
 
     @include breakpoint-mixin("Laptop_S") {
       height: 100%;
       width: 70%;
     }
 
-    h2 {
+    #highlightText,
+    #highlightNote {
+      word-spacing: 10px;
+    }
+
+    #highlightText {
       margin-bottom: 25px;
     }
 
-    h3 {
+    #highlightNote {
       margin-bottom: 40px;
     }
 
