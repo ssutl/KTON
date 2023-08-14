@@ -21,12 +21,20 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   useEffect(() => {
-    alert("请使用竖屏浏览 (please use portrait mode to browse)");
+    setTimeout(() => {
+      alert("请使用竖屏浏览 (please use portrait mode to browse)");
+    }, 1000);
   }, [isMobileLandscape]);
 
   if (isMobileLandscape) {
     return (
-      <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <h1>请使用竖屏浏览</h1>
       </div>
     );
