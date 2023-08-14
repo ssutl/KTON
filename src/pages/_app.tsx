@@ -8,23 +8,18 @@ export default function App({ Component, pageProps }: AppProps) {
   const [isMobileLandscape, setIsMobileLandscape] = useState(false);
 
   useEffect(() => {
-    handleOrientationChange();
-
-    function handleOrientationChange() {
-      if (
-        window.matchMedia("(orientation: landscape)").matches &&
-        window.matchMedia("(hover: none)").matches
-      ) {
-        setIsMobileLandscape(true);
-      } else {
-        setTimeout(() => {
-          setIsMobileLandscape(false);
-        }, 1000);
-      }
+    if (
+      window.matchMedia("(orientation: landscape)").matches &&
+      window.matchMedia("(hover: none)").matches
+    ) {
+      setIsMobileLandscape(true);
+    } else {
+      setIsMobileLandscape(false);
     }
 
-    window.addEventListener("resize", function (event) {
-      handleOrientationChange();
+    screen.orientation.addEventListener("change", (event) => {
+      //make window reload
+      window.location.reload();
     });
   }, []);
 
