@@ -22,9 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
     }
 
     window.addEventListener("resize", function (event) {
-      setTimeout(() => {
-        handleOrientationChange();
-      }, 1000);
+      handleOrientationChange();
     });
   }, []);
 
@@ -37,7 +35,7 @@ export default function App({ Component, pageProps }: AppProps) {
           alignItems: "center",
           flexDirection: "column",
           height: "100dvh",
-          width: "100%",
+          width: "100vw",
         }}
       >
         <h1>请使用竖屏浏览</h1>
