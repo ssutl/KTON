@@ -22,7 +22,9 @@ export default function App({ Component, pageProps }: AppProps) {
     }
 
     window.addEventListener("resize", function (event) {
-      handleOrientationChange();
+      setTimeout(() => {
+        handleOrientationChange();
+      }, 1000);
     });
   }, []);
 
