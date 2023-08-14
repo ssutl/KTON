@@ -19,10 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
     screen.orientation.addEventListener("change", (event) => {
       //make window reload
-      // window.location.reload();
-      setTimeout(() => {
-        window.location.reload();
-      }, 300);
+      window.location.reload();
     });
   }, []);
 
