@@ -14,9 +14,15 @@ export default function App({ Component, pageProps }: AppProps) {
         window.matchMedia("(hover: none)").matches
       ) {
         setIsMobileLandscape(true);
+      } else {
+        setIsMobileLandscape(false);
       }
     });
   }, []);
+
+  useEffect(() => {
+    alert("请使用竖屏浏览 (please use portrait mode to browse)");
+  }, [isMobileLandscape]);
 
   if (isMobileLandscape) {
     return (
