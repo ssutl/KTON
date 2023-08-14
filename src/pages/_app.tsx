@@ -14,14 +14,14 @@ export default function App({ Component, pageProps }: AppProps) {
     ) {
       setIsMobileLandscape(true);
     } else {
-      setTimeout(() => {
-        setIsMobileLandscape(false);
-      }, 500);
+      setIsMobileLandscape(false);
     }
 
     screen.orientation.addEventListener("change", (event) => {
       //make window reload
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
     });
   }, []);
 
