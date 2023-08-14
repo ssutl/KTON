@@ -11,7 +11,10 @@ export default function App({ Component, pageProps }: AppProps) {
     handleOrientationChange();
 
     function handleOrientationChange() {
-      if (window.matchMedia("(orientation: landscape)").matches) {
+      if (
+        window.matchMedia("(orientation: landscape)").matches &&
+        window.matchMedia("(hover: none)").matches
+      ) {
         setIsMobileLandscape(true);
       } else {
         setIsMobileLandscape(false);
