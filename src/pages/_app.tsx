@@ -36,6 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
         }}
       >
         <h1>请使用竖屏浏览</h1>
+        <p>(please use portrait mode to browse)</p>
       </div>
     );
   }
