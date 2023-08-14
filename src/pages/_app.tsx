@@ -34,17 +34,16 @@ export default function App({ Component, pageProps }: AppProps) {
     };
   }, []);
 
-  if (isMobileLandScape)
-    return (
-      <div>
-        <h1>请使用竖屏浏览</h1>
-      </div>
-    );
-
   return (
     <KTON_Provider>
       <Layout>
-        <Component {...pageProps} />
+        {isMobileLandScape ? (
+          <div>
+            <h1>请使用竖屏浏览</h1>
+          </div>
+        ) : (
+          <Component {...pageProps} />
+        )}
       </Layout>
     </KTON_Provider>
   );
