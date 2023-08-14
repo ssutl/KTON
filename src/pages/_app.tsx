@@ -1,11 +1,11 @@
 import "../styles/globals.scss";
 import type { AppProps } from "next/app";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "@/components/Layout/Layout";
 import { KTON_Provider } from "@/context/KTONContext";
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [isMobileLandscape, setIsMobileLandscape] = React.useState(false);
+  const [isMobileLandscape, setIsMobileLandscape] = useState(false);
 
   useEffect(() => {
     window.addEventListener("resize", function (event) {
@@ -21,9 +21,11 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
-      alert("请使用竖屏浏览 (please use portrait mode to browse)");
-    }, 1000);
+    if (isMobileLandscape) {
+      setTimeout(() => {
+        alert("请使用竖屏浏览 (please use portrait mode to browse)");
+      }, 1000);
+    }
   }, [isMobileLandscape]);
 
   if (isMobileLandscape) {
