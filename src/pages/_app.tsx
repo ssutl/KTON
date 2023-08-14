@@ -14,7 +14,9 @@ export default function App({ Component, pageProps }: AppProps) {
     ) {
       setIsMobileLandscape(true);
     } else {
-      setIsMobileLandscape(false);
+      setTimeout(() => {
+        setIsMobileLandscape(false);
+      }, 100);
     }
 
     screen.orientation.addEventListener("change", (event) => {
