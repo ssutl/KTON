@@ -172,13 +172,17 @@
 }
 
 .above {
-  left: 0%;
-  bottom: 170%;
+  @include breakpoint-mixin("Laptop_S") {
+    left: 0%;
+    bottom: 170%;
+  }
 }
 
 .below {
-  left: 0%;
-  top: 180%;
+  @include breakpoint-mixin("Laptop_S") {
+    left: 0%;
+    top: 180%;
+  }
 }
 
 .Modal_Filter_Search {
@@ -273,6 +277,7 @@
   z-index: 100;
   // background-color: $blur-bg;
 }
+
 .modalBackgroundBlur {
   position: fixed;
   top: 0;
