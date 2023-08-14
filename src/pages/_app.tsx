@@ -6,7 +6,6 @@ import { KTON_Provider } from "@/context/KTONContext";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isMobileLandscape, setIsMobileLandscape] = useState(false);
-  const [isOrientationStable, setIsOrientationStable] = useState(false);
 
   useEffect(() => {
     handleOrientationChange();
@@ -18,27 +17,18 @@ export default function App({ Component, pageProps }: AppProps) {
       ) {
         setIsMobileLandscape(true);
       } else {
-        setIsMobileLandscape(false);
+        setTimeout(() => {
+          setIsMobileLandscape(false);
+        }, 1000);
       }
     }
 
-    function handleResize() {
+    window.addEventListener("resize", function (event) {
       handleOrientationChange();
-
-      // Check if the orientation change is stable after a brief delay
-      setTimeout(() => {
-        setIsOrientationStable(true);
-      }, 500);
-    }
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    });
   }, []);
 
-  if (!isOrientationStable && isMobileLandscape) {
+  if (isMobileLandscape) {
     return (
       <div
         style={{
@@ -46,7 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
-          height: "100vh",
+          height: "100dvh",
           width: "100vw",
         }}
       >
