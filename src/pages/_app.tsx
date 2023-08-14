@@ -18,15 +18,9 @@ export default function App({ Component, pageProps }: AppProps) {
     }
 
     screen.orientation.addEventListener("change", (event) => {
-      //Set body to display none for 300ms
-      document.body.style.display = "none";
-      //background  black
-      document.body.style.backgroundColor = "black";
-      //Set body to display block after 300ms
-      setTimeout(() => {
-        document.body.style.display = "block";
-      }, 300);
       //make window reload
+      window.location.reload();
+
       setTimeout(() => {
         window.location.reload();
       }, 300);
