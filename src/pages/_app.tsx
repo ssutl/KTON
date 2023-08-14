@@ -3,35 +3,24 @@ import type { AppProps } from "next/app";
 import React, { useEffect, useState } from "react";
 import Layout from "@/components/Layout/Layout";
 import { KTON_Provider } from "@/context/KTONContext";
+import { set } from "lodash";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isMobileLandScape, setIsMobileLandScape] = useState(false);
 
   useEffect(() => {
-    const handleOrientationChange = () => {
-      setIsMobileLandScape(
-        window.matchMedia("(orientation: landscape)").matches &&
-          window.innerWidth <= 768
-      );
-    };
-
-    console.log(
+    const check =
       window.matchMedia("(orientation: landscape)").matches &&
-        window.innerWidth <= 768
-    );
+      window.innerWidth <= 768;
 
-    window.addEventListener("orientationchange", handleOrientationChange);
-
-    return () => {
-      window.removeEventListener("orientationchange", handleOrientationChange);
-    };
+    setIsMobileLandScape(check);
   }, []);
-
-  console.log("isMobileLandScape", isMobileLandScape);
 
   useEffect(() => {
     if (isMobileLandScape)
-      alert("请使用竖屏浏览 (Please use portrait mode to browse)");
+      setTimeout(() => {
+        alert("请使用竖屏浏览 (Please use portrait mode to browse)");
+      }, 1000);
   }, [isMobileLandScape]);
 
   if (isMobileLandScape)
