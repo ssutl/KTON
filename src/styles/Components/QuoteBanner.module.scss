@@ -103,21 +103,25 @@
 }
 
 .loading {
-  height: 45dvh;
+  height: 55dvh;
   width: 100%;
   background-color: #e3e3e36b;
   animation: loading-animation 1s infinite linear;
 
+  @include breakpoint-mixin("Mobile_M") {
+    height: 50dvh;
+  }
+
   @include breakpoint-mixin("Laptop_S") {
-    height: 40%;
+    height: 40dvh;
   }
 
   @include breakpoint-mixin("Desktop_L") {
-    height: 45%;
+    height: 42dvh;
   }
 
   @include portrait-min-width-mixin("Vertical_Display") {
-    height: 40%;
+    height: 30dvh;
   }
 }
 
