@@ -30,7 +30,7 @@ interface highlightProps {
 }
 
 const Highlight = ({ highlight, index }: highlightProps) => {
-  const [screenWidth, setScreenWidth] = useState(1024);
+  const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
   const {
     favouriteHighlight,
     deleteHighlight,
@@ -56,9 +56,14 @@ const Highlight = ({ highlight, index }: highlightProps) => {
   );
 
   useEffect(() => {
-    //Have to set screenwidth to conditionally change size of heat map
-    setScreenWidth(window.innerWidth);
-    window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
+    //Have to set screenwidth to disable share feature for mobile
+    const handleResize = () => setScreenWidth(window.innerWidth);
+    handleResize();
+    window.addEventListener("resize", () => handleResize());
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   //Need to save highlight whenever the user clicks the enter key
@@ -129,7 +134,8 @@ const Highlight = ({ highlight, index }: highlightProps) => {
     }
   }
 
-  //If highlight is not deleted, display it
+  if (!screenWidth) return null;
+
   return (
     <>
       {displayShareOverlay && (

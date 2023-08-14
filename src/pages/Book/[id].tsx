@@ -33,7 +33,7 @@ const BookPage = () => {
   const { books } = useContext(KTON_CONTEXT);
   const { InitialiseApp } = InitApi();
   const [mainBook, setMainBook] = useState<undefined | Book>(undefined);
-  const [screenWidth, setScreenWidth] = useState(1024);
+  const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
   const { addRating } = HandleChanges();
   const [showEditImageModal, setShowEditImageModal] = useState(false);
   const [coverIsValid, setCoverIsValid] = useState(true);
@@ -56,8 +56,10 @@ const BookPage = () => {
   useEffect(() => {
     AllowedRoute();
 
+    //Have to set screenwidth to automatically close modal on mobile
     const handleResize = () => setScreenWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
+    handleResize();
+    window.addEventListener("resize", () => handleResize());
 
     //check if this is an allowed route
 
@@ -145,6 +147,8 @@ const BookPage = () => {
   };
 
   const filterBanner = () => {
+    if (!screenWidth) return null;
+
     return (
       <div className={styles.filterBanner}>
         <>
@@ -224,7 +228,6 @@ const BookPage = () => {
             glareMaxOpacity={0.4}
             glarePosition="all"
             glareBorderRadius="0px"
-            tiltAngleYInitial={screenWidth < 1024 ? 0 : -10}
             tiltEnable={false}
             className={styles.image}
             perspective={650}

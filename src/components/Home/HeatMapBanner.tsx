@@ -12,7 +12,7 @@ const HeatMapBanner = () => {
   const { highlights } = useContext(KTON_CONTEXT);
   const today = new Date();
   const { shiftDate } = CalenderFunctions();
-  const [screenWidth, setScreenWidth] = useState(1024);
+  const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
   const [displayMode, setDisplayMode] = useState<"portrait" | "landscape">(
     "landscape"
   );
@@ -26,12 +26,16 @@ const HeatMapBanner = () => {
 
   useEffect(() => {
     //Have to set screenwidth to conditionally change size of heat map
-    setScreenWidth(window.innerWidth);
-    window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
-    //Helper function to get heatmap data in desired format
+    const handleResize = () => setScreenWidth(window.innerWidth);
+    handleResize();
+    window.addEventListener("resize", () => handleResize());
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
-  if (!highlights)
+  if (!highlights || !screenWidth)
     return (
       <div className={styles.HeatMapBanner}>
         <div className={styles.loading}></div>

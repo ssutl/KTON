@@ -20,7 +20,7 @@ const Library = () => {
   const [selectedFilter, setSelectedFilter] = useState<string | undefined>(
     undefined
   );
-  const [screenWidth, setScreenWidth] = useState(1024);
+  const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
   const [displaySearchModal, setDisplaySearchModal] = useState(false);
   const [displaySortModal, setDisplaySortModal] = useState(false);
   const [displayFilterModal, setDisplayFilterModal] = useState(false);
@@ -92,6 +92,8 @@ const Library = () => {
 
   //Banner shown to allow user to filter and sort their books
   const filterBanner = () => {
+    if (!screenWidth) return null;
+
     return (
       <div className={styles.filterBanner}>
         <div className={styles.filterBannerWidth}>
