@@ -37,7 +37,6 @@
     box-sizing: border-box;
     border-radius: 3px;
     outline: 0.5px solid $border_mobile;
-    margin-left: 0.5px;
 
     @include breakpoint-mixin("Laptop_S") {
       outline: 0.5px solid $border_laptop;
