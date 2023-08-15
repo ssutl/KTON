@@ -52,6 +52,7 @@ const GenreBanner = () => {
         >
           {eachGenre}{" "}
           <span
+            id={styles.removeIcon}
             onClick={() => {
               addGenreToBook({
                 type: "remove",

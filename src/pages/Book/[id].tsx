@@ -151,7 +151,7 @@ const BookPage = () => {
 
     return (
       <div className={styles.filterBanner}>
-        <>
+        <div className={styles.filterContainer}>
           {showFilterH3 ? (
             <span>
               <p
@@ -193,7 +193,8 @@ const BookPage = () => {
               />
             )}
           </span>
-        </>
+        </div>
+        <GenreBanner />
       </div>
     );
   };
@@ -264,7 +265,6 @@ const BookPage = () => {
         </div>
         <div className={styles.highlightHalf} id="scrollHighlight">
           {bookInformation()}
-          <GenreBanner />
           <SummarySection />
           {filterBanner()}
           <HighlightsList

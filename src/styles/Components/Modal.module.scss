@@ -201,9 +201,15 @@
 
 .Modal_Add_Genre {
   @include breakpoint-mixin("Laptop_S") {
-    left: 0%;
-    top: 170%;
+    right: 0%;
+    bottom: 170%;
     width: 400px;
+
+    .listItem {
+      &:hover {
+        background-color: $hover;
+      }
+    }
   }
 }
 

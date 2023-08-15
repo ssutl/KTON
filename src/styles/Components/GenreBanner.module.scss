@@ -1,10 +1,19 @@
 @import "../../styles/Layout/Breakpoints.module.scss";
 
 .genreBanner {
-  width: calc(90% + 10px);
+  width: 100%;
   display: flex;
-  margin: 0px auto;
   flex-wrap: wrap;
+  row-gap: 15px;
+  margin-top: 25px;
+
+  @include breakpoint-mixin("Laptop_S") {
+    margin-left: auto;
+    margin-top: 0px;
+    width: 80%;
+    flex-direction: row-reverse;
+    row-gap: 20px;
+  }
 
   span {
     position: relative;
@@ -28,13 +37,17 @@
   }
 
   .BannerTags {
-    margin-right: 20px;
     height: fit-content;
     padding: 2px 15px;
     background-color: var(--background-color);
     border-radius: 3px;
+    margin-right: 15px;
 
-    span {
+    @include breakpoint-mixin("Laptop_S") {
+      margin-right: 20px;
+    }
+
+    #removeIcon {
       margin-left: 10px;
       cursor: pointer;
     }

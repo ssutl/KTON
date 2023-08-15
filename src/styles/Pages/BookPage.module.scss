@@ -238,28 +238,36 @@
       padding: 25px 0px;
       border-top: 0.5px solid $border_mobile;
       border-bottom: 0.5px solid $border_mobile;
+      flex-direction: column;
+      //Display genre banner below buttons on mobile
 
       @include breakpoint-mixin("Laptop_S") {
+        flex-direction: row;
         border-top: 0.5px solid $border_laptop;
         border-bottom: 0.5px solid $border_laptop;
       }
 
-      span {
-        position: relative;
+      .filterContainer {
+        display: flex;
 
-        #buttons {
-          margin-right: 20px;
+        span {
+          position: relative;
+          height: fit-content;
 
-          @include breakpoint-mixin("Laptop_S") {
-            cursor: pointer;
+          #buttons {
+            margin-right: 20px;
+            white-space: nowrap;
 
-            margin-right: 0px;
-            border-radius: 4px;
-            padding: 2px 10px;
+            @include breakpoint-mixin("Laptop_S") {
+              cursor: pointer;
+              margin-right: 0px;
+              border-radius: 4px;
+              padding: 2px 10px;
 
-            &:hover {
-              opacity: 0.5;
-              background-color: $hover;
+              &:hover {
+                opacity: 0.5;
+                background-color: $hover;
+              }
             }
           }
         }
