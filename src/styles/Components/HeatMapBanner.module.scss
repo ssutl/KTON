@@ -27,19 +27,19 @@
 
   .HeatMapContainer {
     height: 100%;
-    width: 90%;
+    width: calc(90% + 0.5px);
+    margin-left: 0.5px;
     display: flex;
     align-items: center;
     background-color: $cd-bg;
     // background-color: #bec6d9;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
       rgba(0, 0, 0, 0.22) 0px 10px 10px;
-    box-sizing: border-box;
     border-radius: 3px;
-    outline: 0.5px solid $border_mobile;
+    border: 0.5px solid $border_mobile;
 
     @include breakpoint-mixin("Laptop_S") {
-      outline: 0.5px solid $border_laptop;
+      border: 0.5px solid $border_laptop;
       height: 85%;
       //To account for the scrollbar
       width: calc(95% + 10px);
