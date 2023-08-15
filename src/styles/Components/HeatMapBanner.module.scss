@@ -29,6 +29,7 @@
     height: 100%;
     width: calc(90% + 0.5px);
     margin-left: 0.5px;
+    //To account for the scrollbar
     display: flex;
     align-items: center;
     background-color: $cd-bg;
