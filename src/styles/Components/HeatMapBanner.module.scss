@@ -36,11 +36,11 @@
       rgba(0, 0, 0, 0.22) 0px 10px 10px;
     box-sizing: border-box;
     border-radius: 3px;
-    border: 0.5px solid $border_mobile;
+    outline: 0.5px solid $border_mobile;
     margin-left: 0.5px;
 
     @include breakpoint-mixin("Laptop_S") {
-      border: 0.5px solid $border_laptop;
+      outline: 0.5px solid $border_laptop;
       height: 85%;
       //To account for the scrollbar
       width: calc(95% + 10px);
