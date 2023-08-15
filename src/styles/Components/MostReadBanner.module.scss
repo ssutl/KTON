@@ -18,7 +18,6 @@
     width: 90%;
     background-color: $modal-bg;
     box-sizing: border-box;
-    border: 0.5px solid $border;
     border-radius: 3px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
       rgba(0, 0, 0, 0.22) 0px 10px 10px;
@@ -27,8 +26,10 @@
     flex-direction: column;
     justify-content: space-evenly;
     cursor: pointer;
+    border: 0.5px solid $border_mobile;
 
     @include breakpoint-mixin("Laptop_S") {
+      border: 0.5px solid $border_laptop;
       //To account for the scrollbar
       width: calc(95% + 10px);
       margin-left: 10px;

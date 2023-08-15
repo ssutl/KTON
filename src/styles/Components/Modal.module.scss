@@ -16,7 +16,7 @@
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
 
   @include breakpoint-mixin("Laptop_S") {
-    border: 0.5px solid $border;
+    border: 0.5px solid $border_laptop;
     width: 300px;
     height: fit-content;
     position: absolute;

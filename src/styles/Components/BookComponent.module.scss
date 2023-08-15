@@ -2,7 +2,7 @@
 
 .Book {
   width: 100%;
-  border-bottom: 0.5px solid $border;
+  border-bottom: 0.5px solid $border_mobile;
   box-sizing: border-box; /* Include the border in the item's total width */
   display: flex;
   flex-direction: column;
@@ -10,8 +10,13 @@
   position: relative;
 
   @include breakpoint-mixin("Tablet") {
-    border-right: 0.5px solid $border;
-    border-bottom: 0.5px solid $border;
+    border-right: 0.5px solid $border_mobile;
+    border-bottom: 0.5px solid $border_mobile;
+  }
+
+  @include breakpoint-mixin("Laptop_S") {
+    border-right: 0.5px solid $border_laptop;
+    border-bottom: 0.5px solid $border_laptop;
   }
 
   //I want the annotated tag to be a triangle in the top left corner of the book
@@ -32,10 +37,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 0.5px solid $border;
     cursor: pointer;
     position: relative;
     padding: 40px 0px;
+    border-bottom: 0.5px solid $border_mobile;
+
+    @include breakpoint-mixin("Laptop_S") {
+      border-bottom: 0.5px solid $border_laptop;
+    }
 
     .ImageHolder {
       width: 200px;

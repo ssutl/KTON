@@ -4,16 +4,17 @@
   height: 7dvh;
   width: 100%;
   display: flex;
-  border-bottom: 0.5px solid $border;
   justify-content: center;
   box-sizing: border-box;
-  // color: white;
+  border-bottom: 0.5px solid $border_mobile;
 
+  // color: white;
   @include breakpoint-mixin("Tablet") {
     height: 5dvh;
   }
 
   @include breakpoint-mixin("Laptop_S") {
+    border-bottom: 0.5px solid $border_laptop;
     height: 7dvh;
   }
 

@@ -30,14 +30,15 @@
     width: 90%;
     display: flex;
     align-items: center;
-    border: 0.5px solid $border;
     background-color: $cd-bg;
     // background-color: #bec6d9;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
       rgba(0, 0, 0, 0.22) 0px 10px 10px;
     border-radius: 3px;
+    border: 0.5px solid $border_mobile;
 
     @include breakpoint-mixin("Laptop_S") {
+      border: 0.5px solid $border_laptop;
       height: 85%;
       //To account for the scrollbar
       width: calc(95% + 10px);
