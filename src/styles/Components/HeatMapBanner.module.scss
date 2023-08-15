@@ -32,11 +32,12 @@
     align-items: center;
     background-color: $cd-bg;
     // background-color: #bec6d9;
-    // box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
-    //   rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+      rgba(0, 0, 0, 0.22) 0px 10px 10px;
     box-sizing: border-box;
     border-radius: 3px;
     border: 0.5px solid $border_mobile;
+    margin-left: 0.5px;
 
     @include breakpoint-mixin("Laptop_S") {
       border: 0.5px solid $border_laptop;
