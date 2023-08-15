@@ -27,7 +27,7 @@
 
   .HeatMapContainer {
     height: 100%;
-    width: 50%;
+    width: 90%;
     display: flex;
     align-items: center;
     background-color: $cd-bg;
@@ -37,6 +37,7 @@
     box-sizing: border-box;
     border-radius: 3px;
     border: 0.5px solid $border_mobile;
+    border-left: 0.5px solid $border_mobile;
 
     @include breakpoint-mixin("Laptop_S") {
       border: 0.5px solid $border_laptop;
