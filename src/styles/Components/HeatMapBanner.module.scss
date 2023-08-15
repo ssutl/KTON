@@ -7,6 +7,7 @@
   justify-content: center;
   height: 20dvh;
   margin-top: 25px;
+  background-color: orange;
 
   @include breakpoint-mixin("Laptop_S") {
     margin: 0px;
@@ -28,7 +29,7 @@
   .HeatMapContainer {
     height: 100%;
     width: 90%;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     background-color: $cd-bg;
     // background-color: #bec6d9;
