@@ -61,9 +61,16 @@
 
       span {
         position: relative;
+        display: flex;
+        align-items: center;
 
         #searchIcon {
           cursor: pointer;
+          font-size: 19px;
+
+          @include breakpoint-mixin("Mobile_M") {
+            font-size: 23px;
+          }
         }
       }
     }

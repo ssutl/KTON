@@ -1,0 +1,113 @@
+@import "../../styles/Layout/Breakpoints.module.scss";
+
+.exportPage {
+  overflow-y: auto;
+  height: 93dvh;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+
+  @include breakpoint-mixin("Tablet") {
+    height: 95dvh;
+  }
+
+  @include breakpoint-mixin("Laptop_S") {
+    height: 93dvh;
+  }
+
+  @include breakpoint-mixin("Desktop_M") {
+    height: 95dvh;
+  }
+
+  @include portrait-min-width-mixin("Vertical_Display") {
+    height: 97dvh;
+  }
+
+  .exportPageWidth {
+    height: fit-content;
+    width: 90%;
+
+    @include breakpoint-mixin("Laptop_S") {
+      width: 95%;
+    }
+
+    .exportPageTitle {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 25dvh;
+
+      @include breakpoint-mixin("Laptop_S") {
+        height: 20dvh;
+      }
+
+      #title {
+        margin-bottom: 15px;
+      }
+    }
+
+    .exportPageContent {
+      height: fit-content;
+      display: grid;
+      width: 100%;
+      overflow-x: visible;
+      padding: 30px 0px;
+      row-gap: 40px;
+
+      @include breakpoint-mixin("Tablet") {
+        column-gap: 50px;
+
+        grid-template-columns: repeat(
+          2,
+          1fr
+        ); /* Adjust the number of columns as needed */
+      }
+
+      @include breakpoint-mixin("Laptop_S") {
+        padding: 50px 0px;
+        column-gap: 100px;
+
+        grid-template-columns: repeat(
+          3,
+          1fr
+        ); /* Adjust the number of columns as needed */
+      }
+
+      @include portrait-min-width-mixin("Vertical_Display") {
+        grid-template-columns: repeat(
+          2,
+          1fr
+        ); /* Adjust the number of columns as needed */
+      }
+
+      @include breakpoint-mixin("laptop-wide") {
+        grid-template-columns: repeat(
+          5,
+          1fr
+        ); /* Adjust the number of columns as needed */
+      }
+
+      @include breakpoint-mixin("Desktop-wide") {
+        grid-template-columns: repeat(
+          6,
+          1fr
+        ); /* Adjust the number of columns as needed */
+      }
+    }
+  }
+}
+
+.exportPage::-webkit-scrollbar {
+  height: 100%;
+  background-color: rgb(45, 41, 41);
+  width: 10px;
+}
+
+.exportPage::-webkit-scrollbar-thumb {
+  background-color: rgba(70, 68, 68, 0.428);
+  border: 1px solid transparent;
+  background-clip: content-box;
+  border-radius: 10px;
+  height: 40px;
+}

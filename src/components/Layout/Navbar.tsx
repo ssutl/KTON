@@ -32,9 +32,11 @@ export default function Navbar() {
               <p onClick={() => router.push("/Library")}>Library</p>
             </>
           )}
-          {/* {isImportRoute ? null : (
-            <p onClick={() => router.push("/Membership")}>Pricing</p>
-          )} */}
+          {isIndexRoute || isVerifyRoute ? null : (
+            <>
+              <p onClick={() => router.push("/Export")}>Export</p>
+            </>
+          )}
           {!isIndexRoute ? (
             <p
               onClick={() => {
