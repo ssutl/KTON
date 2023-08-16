@@ -9,6 +9,14 @@
   border: 0.5px solid $border_mobile;
   cursor: pointer;
 
+  .toolTip {
+    display: none;
+
+    @include breakpoint-mixin("Laptop_S") {
+      display: block;
+    }
+  }
+
   @include breakpoint-mixin("Laptop_S") {
     border: 0.5px solid $border_laptop;
 
