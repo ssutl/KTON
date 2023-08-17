@@ -5,6 +5,7 @@ import RateReviewIcon from "@mui/icons-material/RateReview";
 import React, { useState, useEffect } from "react";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import { useRouter } from "next/router";
+import SettingModal from "../Settings/SettingModal";
 
 const Layout = ({ children }: any) => {
   const [feedbackModal, setFeedbackModal] = useState(false);
@@ -24,8 +25,8 @@ const Layout = ({ children }: any) => {
   return (
     <>
       <Navbar />
-      {/* <Header /> */}
       {children}
+      <SettingModal />
       {feedbackModal && authed ? (
         <FeedbackModal closeModal={closeModal} />
       ) : null}

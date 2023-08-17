@@ -1,0 +1,63 @@
+@import "../../styles/Layout/Breakpoints.module.scss";
+
+.pageOverlay {
+  position: fixed;
+  height: 100dvh;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $blur-bg;
+  z-index: 100;
+
+  .settingModal {
+    height: 100dvh;
+    width: 100%;
+    border-radius: 3px;
+    background-color: $modal-bg;
+    display: flex;
+    flex-direction: column;
+
+    @include breakpoint-mixin("Laptop_S") {
+      flex-direction: row;
+      height: 70dvh;
+      border: 0.5px solid $border_laptop;
+    }
+
+    .mobileHeader {
+      height: 10%;
+      width: 100%;
+      background-color: aquamarine;
+      display: flex;
+    }
+
+    .leftHalf {
+      height: 100%;
+      display: flex;
+      background-color: orange;
+      display: none;
+      //Hidden on mobile, gonna display list of items
+
+      @include breakpoint-mixin("Laptop_S") {
+        width: 20%;
+        display: flex;
+      }
+    }
+
+    .rightHalf {
+      //Displayed full width on mobile
+      height: 90%;
+      width: 100%;
+      display: flex;
+      background-color: green;
+
+      @include breakpoint-mixin("Laptop_S") {
+        height: 100%;
+        width: 80%;
+      }
+    }
+  }
+}
