@@ -27,21 +27,26 @@ function InitAPI() {
         },
       });
 
-      //Filtering deleted books
-
       //If no books push them to the import page
-      return response.data.filter(
-        (eachBook: Book) => eachBook.deleted === false
-      ).length === 0 || response.data.length === 0
-        ? router.push("/Import")
-        : response.data
-            .map((eachBook: Book) => {
-              eachBook.highlights.sort(function (a, b) {
-                return new Date(b.Date).getTime() - new Date(a.Date).getTime();
-              });
-              return eachBook;
-            })
-            .reverse();
+      if (
+        response.data.filter((eachBook: Book) => eachBook.deleted === false)
+          .length === 0 ||
+        response.data.length === 0
+      ) {
+        router.push("/Import");
+      }
+
+      console.log("response.data", response.data);
+
+      //Either way return the array of books
+      return response.data
+        .map((eachBook: Book) => {
+          eachBook.highlights.sort(function (a, b) {
+            return new Date(b.Date).getTime() - new Date(a.Date).getTime();
+          });
+          return eachBook;
+        })
+        .reverse();
     } catch (error) {
       console.error("Error fetching all books:", error);
       throw error; // Optionally re-throw the error to handle it in the caller

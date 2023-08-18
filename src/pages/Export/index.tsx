@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import notionApi from "@/api/Notion/NotionApi";
 import Head from "next/head";
@@ -7,12 +7,13 @@ import styles from "../../styles/Pages/Export.module.scss";
 import ExportCard from "@/components/Export/ExportCard";
 import excelIcon from "../../../public/image/excel.png";
 import notionIcon from "../../../public/image/notion.png";
-import ankiIcon from "../../../public/image/anki.png";
-import ankiApi from "@/api/Anki/AnkiApi";
 import csvApi from "@/api/CSV/csvApi";
+import { KTON_CONTEXT } from "../../context/KTONContext";
+import InitApi from "../../api/InitAPI";
 
 const Export = () => {
-  const router = useRouter();
+  const { books } = useContext(KTON_CONTEXT);
+  const { InitialiseApp } = InitApi();
 
   //Get the code from the url
   const getCodeFromUrl = () => {
@@ -32,6 +33,10 @@ const Export = () => {
 
     if (window.location.href.includes("code=")) {
       getCodeFromUrl();
+    }
+
+    if (!books) {
+      InitialiseApp();
     }
   }, []);
 

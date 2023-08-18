@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import userAuthenticated from "@/helpers/UserAuthenticated";
 import { useRouter } from "next/router";
 import SettingModal from "../Settings/SettingModal";
+import { set } from "lodash";
 
 const Layout = ({ children }: any) => {
   const [feedbackModal, setFeedbackModal] = useState(false);
@@ -15,10 +16,16 @@ const Layout = ({ children }: any) => {
 
   const handleSettingsModal = () => {
     setDisplaySettings(!displaySettings);
+    localStorage.setItem("displaySettings", JSON.stringify(!displaySettings));
   };
 
   useEffect(() => {
     setAuthed(userAuthenticated());
+
+    //Persist settings modal on page refresh
+    const local_displaySettings =
+      localStorage.getItem("displaySettings") === "true";
+    setDisplaySettings(local_displaySettings);
   }, [router.pathname]);
 
   const closeModal = () => {

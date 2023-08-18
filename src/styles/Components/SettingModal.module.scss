@@ -23,7 +23,7 @@
 
     @include breakpoint-mixin("Laptop_S") {
       border-radius: 3px;
-      width: 70%;
+      width: 65%;
       flex-direction: row;
       height: 75dvh;
       border: 0.5px solid $border_laptop;
