@@ -40,14 +40,14 @@ const Modal_Confirmation = ({
   return (
     <div
       className={genericModalStyles.modalBackgroundBlur}
-      onClick={(e) => {
+      onMouseDown={(e) => {
         e.stopPropagation();
         closeModal();
       }}
     >
       <div
         className={`${genericModalStyles.modal} ${genericModalStyles.Modal_Confirmation}`}
-        onClick={(e) => {
+        onMouseDown={(e) => {
           e.stopPropagation();
         }}
       >

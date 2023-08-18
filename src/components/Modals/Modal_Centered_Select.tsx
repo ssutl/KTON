@@ -18,11 +18,11 @@ const Modal_Centered_Select = ({
   return (
     <div
       className={genericModalStyles.modalBackgroundBlur}
-      onClick={closeModal}
+      onMouseDown={() => closeModal()}
     >
       <div
         className={`${genericModalStyles.modal} ${genericModalStyles.Modal_Centered_Select}`}
-        onClick={(e) => {
+        onMouseDown={(e) => {
           e.stopPropagation();
         }}
       >

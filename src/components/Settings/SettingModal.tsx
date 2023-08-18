@@ -195,14 +195,20 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
   if (!screenWidth) return null;
 
   return (
-    <div className={styles.pageOverlay} onClick={() => handleSettingsModal()}>
+    <div
+      className={styles.pageOverlay}
+      onMouseDown={() => handleSettingsModal()}
+    >
       {displayConfirmationModal && (
         <Modal_Confirmation
           closeModal={() => setDisplayConfirmationModal(false)}
           closeSettingModal={() => handleSettingsModal()}
         />
       )}
-      <div className={styles.settingModal} onClick={(e) => e.stopPropagation()}>
+      <div
+        className={styles.settingModal}
+        onMouseDown={(e) => e.stopPropagation()}
+      >
         <div className={styles.mobileHeader}>
           <h3>Settings</h3>
           <h3 onClick={() => handleSettingsModal()} id={styles.done}>
