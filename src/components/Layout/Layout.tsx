@@ -15,18 +15,11 @@ const Layout = ({ children }: any) => {
   const [displaySettings, setDisplaySettings] = useState(false);
 
   const handleSettingsModal = () => {
-    console.log("handle settings modal", !displaySettings);
     setDisplaySettings(!displaySettings);
-    localStorage.setItem("displaySettings", JSON.stringify(!displaySettings));
   };
 
   useEffect(() => {
     setAuthed(userAuthenticated());
-
-    //Persist settings modal on page refresh
-    const local_displaySettings =
-      localStorage.getItem("displaySettings") === "true";
-    setDisplaySettings(local_displaySettings);
   }, [router.pathname]);
 
   const closeModal = () => {

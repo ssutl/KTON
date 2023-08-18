@@ -36,7 +36,16 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      height: 25dvh;
+      // background-color: orange;
+      height: 35dvh;
+
+      @include breakpoint-mixin("Mobile_M") {
+        height: 25dvh;
+      }
+
+      @include breakpoint-mixin("Mobile_L") {
+        height: 20dvh;
+      }
 
       @include breakpoint-mixin("Laptop_S") {
         height: 20dvh;
@@ -56,7 +65,7 @@
       row-gap: 40px;
 
       @include breakpoint-mixin("Tablet") {
-        column-gap: 50px;
+        column-gap: 10px;
 
         grid-template-columns: repeat(
           2,
@@ -65,8 +74,8 @@
       }
 
       @include breakpoint-mixin("Laptop_S") {
-        padding: 50px 0px;
-        column-gap: 100px;
+        padding: 20px 0px;
+        column-gap: 40px;
 
         grid-template-columns: repeat(
           3,

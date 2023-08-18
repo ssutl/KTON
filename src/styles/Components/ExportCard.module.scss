@@ -1,13 +1,14 @@
 @import "../../styles/Layout/Breakpoints.module.scss";
 
 .exportCard {
-  padding: 15px 0px;
+  padding: 15px 10px;
   box-sizing: border-box;
   width: 100%;
   display: flex;
   border-radius: 3px;
   border: 0.5px solid $border_mobile;
   cursor: pointer;
+  justify-content: space-between;
 
   .toolTip {
     display: none;
@@ -26,11 +27,15 @@
   }
 
   .ImageHalf {
-    width: 20%;
+    width: 25%;
     height: 100%;
     overflow: hidden;
     display: flex;
     justify-content: center;
+
+    @include breakpoint-mixin("Laptop_S") {
+      width: 20%;
+    }
 
     .imageContainer {
       height: 45px;
@@ -52,11 +57,15 @@
   }
 
   .TextHalf {
-    width: 80%;
+    width: 75%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    @include breakpoint-mixin("Laptop_S") {
+      width: 80%;
+    }
 
     #title {
       margin-bottom: 10px;
