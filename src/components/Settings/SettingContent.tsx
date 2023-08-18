@@ -12,7 +12,7 @@ export interface SettingFeature {
 }
 
 export interface SettingOption {
-  name: "Account" | "Books & Highlights";
+  name: "Account" | "Books & Highlights" | "Import & Export";
   features: SettingFeature[];
 }
 

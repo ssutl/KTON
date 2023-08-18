@@ -41,21 +41,8 @@ export default function Navbar({ handleSettingsModal }: NavbarProps) {
         </h3>
         {DisplayAll && (
           <div className={styles.navigationButtons}>
-            <p onClick={() => router.push("/Import")}>Import</p>
-            <p onClick={() => router.push("/Export")}>Export</p>
             <p onClick={() => router.push("/Library")}>Library</p>
             <p onClick={() => handleSettingsModal()}>Settings</p>
-            <p
-              onClick={() => {
-                router.push("/");
-                localStorage.removeItem("token");
-                localStorage.removeItem("username");
-                sessionStorage.removeItem("clippings");
-                updateBooks(undefined);
-              }}
-            >
-              Logout
-            </p>
           </div>
         )}
       </div>

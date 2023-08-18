@@ -11,11 +11,11 @@ export interface SettingModalProps {
 }
 
 const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
-  const { userinfo } = useContext(KTON_CONTEXT);
+  const { userinfo, updateBooks } = useContext(KTON_CONTEXT);
   const router = useRouter();
   const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
   const [selectedSetting, setSelectedSetting] = useState<
-    "Books & Highlights" | "Account"
+    "Books & Highlights" | "Account" | "Import & Export"
   >("Account");
 
   useEffect(() => {
@@ -112,6 +112,24 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
             </>
           ),
         },
+        {
+          name: "Logout",
+          description: "Logout of KTON on all devices",
+          button: (
+            <p
+              className={styles.button}
+              onClick={() => {
+                router.push("/");
+                localStorage.removeItem("token");
+                localStorage.removeItem("username");
+                sessionStorage.removeItem("clippings");
+                updateBooks(undefined);
+              }}
+            >
+              Logout
+            </p>
+          ),
+        },
       ],
     },
     {
@@ -124,6 +142,41 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
         {
           name: "Restore Highlights",
           description: "Restore deleted highlights",
+        },
+      ],
+    },
+    {
+      name: "Import & Export",
+      features: [
+        {
+          name: "Import Highlights",
+          description: "Import highlights from your kindle device",
+          button: (
+            <p
+              className={styles.button}
+              onClick={() => {
+                router.push("/Import");
+                handleSettingsModal();
+              }}
+            >
+              Import
+            </p>
+          ),
+        },
+        {
+          name: "Export Highlights",
+          description: "Export highlights to different formats",
+          button: (
+            <p
+              className={styles.button}
+              onClick={() => {
+                router.push("/Export");
+                handleSettingsModal();
+              }}
+            >
+              Export
+            </p>
+          ),
         },
       ],
     },

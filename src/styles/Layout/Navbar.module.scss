@@ -31,25 +31,15 @@
     height: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     font-weight: 500;
-    overflow-x: scroll;
 
     @include breakpoint-mixin("Tablet") {
       width: 95%;
     }
 
-    @include breakpoint-mixin("Laptop_S") {
-      justify-content: space-between;
-      overflow-x: hidden;
-    }
-
     h3 {
       cursor: pointer;
-      margin-right: 60px;
-
-      @include breakpoint-mixin("Laptop_S") {
-        margin-right: 0px;
-      }
     }
 
     .navigationButtons {
