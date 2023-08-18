@@ -29,16 +29,16 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
     };
   }, []);
 
-  //Add overflow hidden to element behind when modal is open
-  useEffect(() => {
-    const scrollHalf = document.body;
-    if (scrollHalf) {
-      scrollHalf.style.overflow = "hidden";
-      return () => {
-        scrollHalf.style.overflow = "auto";
-      };
-    }
-  }, []);
+  // //Add overflow hidden to element behind when modal is open
+  // useEffect(() => {
+  //   const scrollHalf = document.body;
+  //   if (scrollHalf) {
+  //     scrollHalf.style.overflow = "hidden";
+  //     return () => {
+  //       scrollHalf.style.overflow = "auto";
+  //     };
+  //   }
+  // }, []);
 
   const handleCustomerPortal = async () => {
     console.log("userinfo", userinfo);
