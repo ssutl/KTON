@@ -33,6 +33,14 @@ function InitAPI() {
         return undefined;
       }
 
+      //If they have books, but all have deleted tag, we want to push them to the import page but return the books to the context
+      if (
+        response.data.filter((eachBook: Book) => eachBook.deleted === false)
+          .length === 0
+      ) {
+        router.push("/Import");
+      }
+
       //If they have books, even if all deleted we want to return them to the context
       return response.data
         .map((eachBook: Book) => {
