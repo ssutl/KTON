@@ -6,17 +6,19 @@
 
 .buttonContainer {
   display: flex;
+  justify-content: center;
 }
 
 .button {
   padding: 10px 40px 10px 40px;
-  border: 0.5px solid white;
+  border: 0.5px solid $border_mobile;
   cursor: pointer;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-left: 0.5px;
+  // margin-left: 0.5px;
 
   @include breakpoint-mixin("Laptop_S") {
+    border: 0.5px solid $border_laptop;
     margin-left: 0px;
     &:hover {
       opacity: 0.5;
