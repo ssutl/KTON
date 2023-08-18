@@ -18,13 +18,14 @@ export default function Navbar({ handleSettingsModal }: NavbarProps) {
   const isLibr = router.pathname === "/Library";
   const isBook = router.pathname.includes("/Book/");
   const isExport = router.pathname === "/Export";
+
   const DisplayAll =
     isHome ||
     isLibr ||
     isBook ||
     isExport ||
     (isImportRoute &&
-      books?.filter((eachBook) => eachBook.deleted).length !== 0);
+      books?.filter((eachBook) => eachBook.deleted === false).length !== 0);
 
   //Display the navbar
   if (router.pathname === "/verify/[...id]") return null;
