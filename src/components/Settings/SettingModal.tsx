@@ -114,7 +114,9 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
         },
         {
           name: "Logout",
-          description: "Logout of KTON on all devices",
+          description: `Logout of your account: ${JSON.parse(
+            localStorage.getItem("username") as string
+          )} on KTON`,
           button: (
             <p
               className={styles.button}
@@ -124,6 +126,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
                 localStorage.removeItem("username");
                 sessionStorage.removeItem("clippings");
                 updateBooks(undefined);
+                handleSettingsModal();
               }}
             >
               Logout

@@ -13,6 +13,7 @@
     border: none;
     outline: none;
     margin-bottom: 20px;
+    overflow-y: hidden;
 
     @include breakpoint-mixin("Tablet") {
       min-height: 15dvh;
