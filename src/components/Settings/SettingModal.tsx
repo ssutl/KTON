@@ -114,16 +114,6 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
           name: "Restore Highlights",
           description: "Restore deleted highlights",
         },
-        {
-          name: "Delete Books",
-          description: "Delete all your books",
-          button: <p className={styles.button}>Delete Books</p>,
-        },
-        {
-          name: "Delete Highlights",
-          description: "Delete all your highlights",
-          button: <p className={styles.button}>Delete Highlights</p>,
-        },
       ],
     },
   ];
