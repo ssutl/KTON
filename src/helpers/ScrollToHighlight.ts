@@ -4,7 +4,6 @@ function scrollToElementWithText(text: string) {
   const container = document.getElementById("scrollHighlight");
 
   if (!container) {
-    console.log("Container not found");
     return;
   }
 

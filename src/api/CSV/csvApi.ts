@@ -15,8 +15,6 @@ const csvApi = async () => {
       },
     });
 
-    console.log(response.data);
-
     return response.data;
   } catch (err) {
     throw new Error("Failed generating CSV");

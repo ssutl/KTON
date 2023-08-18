@@ -10,7 +10,6 @@ export interface NavbarProps {
 
 export default function Navbar({ handleSettingsModal }: NavbarProps) {
   const { updateBooks, books } = useContext(KTON_CONTEXT);
-  console.log("books", books);
   const router = useRouter();
   // getting the current route
   const isIndexRoute = router.pathname === "/";

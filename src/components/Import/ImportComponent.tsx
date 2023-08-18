@@ -11,7 +11,6 @@ const ImportComponent = () => {
   const [percentage, setPercentage] = useState<number>(2);
   const router = useRouter();
   const [username, setUsername] = useState<string>("");
-  console.log("username", username);
 
   useEffect(() => {
     setUsername(localStorage.getItem("username") as string);

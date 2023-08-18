@@ -24,7 +24,6 @@ const Export = () => {
       cdIndex
     );
     notionApi(code);
-    console.log("called with code", code);
   };
 
   //On page load check if there is a code in the url

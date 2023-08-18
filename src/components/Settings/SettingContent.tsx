@@ -22,7 +22,6 @@ const SettingContent = ({
   settingOption: SettingOption;
 }) => {
   const { books, highlights } = useContext(KTON_CONTEXT);
-  console.log("books", books);
   const { deleteBook, deleteHighlight } = HandleChanges();
 
   return (

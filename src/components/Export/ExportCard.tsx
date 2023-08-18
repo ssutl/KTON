@@ -12,7 +12,6 @@ export interface ExportCardProps {
 }
 
 const ExportCard = ({ option }: ExportCardProps) => {
-  console.log("option", option);
   return (
     <div
       className={styles.exportCard}

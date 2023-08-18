@@ -81,7 +81,6 @@ function InitAPI() {
 
   //Creating a function which calls all the above APIs in order to populate the App context
   function InitialiseApp() {
-    console.log("called");
     // Fetch data from your database and update the context state variables
     const fetchData = async () => {
       try {

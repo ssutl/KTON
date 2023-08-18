@@ -14,7 +14,6 @@ import Modal_Select from "@/components/Modals/Modal_Select";
 const Library = () => {
   const { InitialiseApp } = InitApi();
   const { books, userinfo } = useContext(KTON_CONTEXT);
-  console.log("userinfo", userinfo);
   const [selectedSort, setSelectedSort] = useState<
     "Recent" | "Rating" | "Oldest"
   >("Recent");
