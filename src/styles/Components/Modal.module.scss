@@ -9,13 +9,14 @@
   height: 65dvh;
   z-index: 1000;
   box-sizing: border-box;
-  padding: 0px 5px 10px 5px;
+  padding: 20px 15px;
   overflow-y: auto;
   border-radius: 3px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
 
   @include breakpoint-mixin("Laptop_S") {
+    padding: 15px;
     border: 0.5px solid $border_laptop;
     width: 300px;
     height: fit-content;
@@ -28,14 +29,14 @@
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 15px 10px 10px 10px;
+    margin-bottom: 15px;
+    // background-color: orange;
 
     h3 {
       opacity: 0.5;
     }
 
     @include breakpoint-mixin("Laptop_S") {
-      padding: 10px 5px 5px 5px;
       display: none;
     }
   }
@@ -44,15 +45,19 @@
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 15px 10px;
     justify-content: center;
+    margin-bottom: 10px;
+
+    @include breakpoint-mixin("Laptop_S") {
+      margin-bottom: 15px;
+    }
 
     input {
       background-color: $hover;
       border-radius: 4px;
       width: 100%;
       border: none;
-      padding: 5px;
+      padding: 7px;
     }
 
     input:focus {
@@ -63,13 +68,9 @@
   }
 
   .listItemType {
-    // width: 100%;
-    // padding: 7px 10px;
-    // opacity: 0.5;
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 10px;
 
     h3 {
       opacity: 0.5;
@@ -139,14 +140,19 @@
   }
 
   .buttonSection {
-    width: 100%;
     .button {
-      padding: 2px 30px 2px 30px;
-      border: 0.5px solid white;
-      color: white;
+      border-radius: 4px;
+      width: 100%;
+      border: none;
+      padding: 5px;
+      border: 0.5px solid $border_mobile;
+      display: flex;
+      justify-content: center;
       cursor: pointer;
-      margin-left: 10px;
-      width: fit-content;
+
+      @include breakpoint-mixin("Laptop_S") {
+        border: 0.5px solid $border_laptop;
+      }
 
       &:hover {
         opacity: 0.5;
@@ -244,14 +250,7 @@
   }
 }
 
-.Modal_Type_Save {
-  @include breakpoint-mixin("Laptop_S") {
-    bottom: 5%;
-    right: 10%;
-  }
-}
-
-.Modal_Author_Select {
+.Modal_Centered_Select {
   padding: 10px 5px;
 
   @include breakpoint-mixin("Laptop_S") {
@@ -267,6 +266,24 @@
         background-color: $hover;
       }
     }
+
+    .header {
+      display: flex;
+    }
+  }
+}
+
+.Modal_Type_Save {
+  @include breakpoint-mixin("Laptop_S") {
+    bottom: 5%;
+    right: 10%;
+  }
+}
+
+.Modal_Confirmation {
+  @include breakpoint-mixin("Laptop_S") {
+    position: relative;
+    width: 450px;
 
     .header {
       display: flex;

@@ -5,6 +5,8 @@ import createPortal from "@/api/Membership/create_portal";
 import { KTON_CONTEXT } from "../../context/KTONContext";
 import { useRouter } from "next/router";
 import createCheckout from "@/api/Membership/create_checkout";
+import Modal_Type_Save from "../Modals/Modal_Type_Save";
+import Modal_Confirmation from "../Modals/Modal_Confirmation";
 
 export interface SettingModalProps {
   handleSettingsModal: () => void;
@@ -14,6 +16,8 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
   const { userinfo, updateBooks } = useContext(KTON_CONTEXT);
   const router = useRouter();
   const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
+  const [displayConfirmationModal, setDisplayConfirmationModal] =
+    useState(false);
   const [selectedSetting, setSelectedSetting] = useState<
     "Books & Highlights" | "Account" | "Import & Export"
   >("Account");
@@ -87,7 +91,14 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
         {
           name: "Delete Account",
           description: "Delete your account and all your data",
-          button: <p className={styles.button}>Delete Account</p>,
+          button: (
+            <p
+              className={styles.button}
+              onClick={() => setDisplayConfirmationModal(true)}
+            >
+              Delete Account
+            </p>
+          ),
         },
         {
           name: "Manage membership plan",
@@ -189,6 +200,11 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
 
   return (
     <div className={styles.pageOverlay} onClick={() => handleSettingsModal()}>
+      {displayConfirmationModal && (
+        <Modal_Confirmation
+          closeModal={() => setDisplayConfirmationModal(false)}
+        />
+      )}
       <div className={styles.settingModal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.mobileHeader}>
           <h3>Settings</h3>

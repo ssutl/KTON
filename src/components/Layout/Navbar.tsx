@@ -10,6 +10,7 @@ export interface NavbarProps {
 
 export default function Navbar({ handleSettingsModal }: NavbarProps) {
   const { updateBooks, books } = useContext(KTON_CONTEXT);
+  console.log("books", books);
   const router = useRouter();
   // getting the current route
   const isIndexRoute = router.pathname === "/";
@@ -19,13 +20,12 @@ export default function Navbar({ handleSettingsModal }: NavbarProps) {
   const isBook = router.pathname.includes("/Book/");
   const isExport = router.pathname === "/Export";
 
-  const DisplayAll =
-    isHome ||
-    isLibr ||
-    isBook ||
-    isExport ||
+  const DisplaySettings = isHome || isLibr || isBook || isExport;
+  const DisplayLibrary =
+    DisplaySettings ||
     (isImportRoute &&
-      books?.filter((eachBook) => eachBook.deleted === false).length !== 0);
+      books?.filter((eachBook) => eachBook.deleted === false).length !== 0 &&
+      books !== undefined);
 
   //Display the navbar
   if (router.pathname === "/verify/[...id]") return null;
@@ -40,12 +40,14 @@ export default function Navbar({ handleSettingsModal }: NavbarProps) {
         >
           KTON
         </h3>
-        {DisplayAll && (
-          <div className={styles.navigationButtons}>
+        <div className={styles.navigationButtons}>
+          {DisplayLibrary && (
             <p onClick={() => router.push("/Library")}>Library</p>
+          )}
+          {(DisplaySettings || isImportRoute) && (
             <p onClick={() => handleSettingsModal()}>Settings</p>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

@@ -38,8 +38,13 @@ export const KTON_Provider = ({ children }: any) => {
   };
 
   const updateBooks = (value: Book[] | undefined) => {
-    setBooks(value);
-    setHighlights(Books_AllHighlights(value));
+    if (value === undefined) {
+      setBooks(undefined);
+      setHighlights(undefined);
+    } else {
+      setBooks(value);
+      setHighlights(Books_AllHighlights(value));
+    }
   };
 
   //Wrapping the app in the provider

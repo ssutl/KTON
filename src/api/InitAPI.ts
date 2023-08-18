@@ -27,18 +27,13 @@ function InitAPI() {
         },
       });
 
-      //If no books push them to the import page
-      if (
-        response.data.filter((eachBook: Book) => eachBook.deleted === false)
-          .length === 0 ||
-        response.data.length === 0
-      ) {
+      //If no books push them to the import page and return undefined to context
+      if (response.data.length === 0) {
         router.push("/Import");
+        return undefined;
       }
 
-      console.log("response.data", response.data);
-
-      //Either way return the array of books
+      //If they have books, even if all deleted we want to return them to the context
       return response.data
         .map((eachBook: Book) => {
           eachBook.highlights.sort(function (a, b) {

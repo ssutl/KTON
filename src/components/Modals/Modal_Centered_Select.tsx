@@ -21,7 +21,7 @@ const Modal_Centered_Select = ({
       onClick={closeModal}
     >
       <div
-        className={`${genericModalStyles.modal} ${genericModalStyles.Modal_Author_Select}`}
+        className={`${genericModalStyles.modal} ${genericModalStyles.Modal_Centered_Select}`}
         onClick={(e) => {
           e.stopPropagation();
         }}

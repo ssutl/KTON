@@ -26,27 +26,21 @@ const Home = () => {
   }, []);
 
   //If the data is in the context, or the user is not authenticated we pass them into app, else loading
-  if (
-    userinfo !== undefined &&
-    books !== undefined &&
-    highlights !== undefined
-  ) {
-    return (
-      <>
-        <Head>
-          <title>KTON Home</title>
-        </Head>
-        <div className={styles.Home}>
-          <QuoteBanner />
-          <HeatMapBanner />
-          <HomeStatBanner />
-          <MostReadBanner />
-        </div>
-      </>
-    );
-  } else {
-    return <LoadingPage Text="KTON" />;
-  }
+  if (!userinfo || !books || !highlights) return <LoadingPage Text="KTON" />;
+
+  return (
+    <>
+      <Head>
+        <title>KTON Home</title>
+      </Head>
+      <div className={styles.Home}>
+        <QuoteBanner />
+        <HeatMapBanner />
+        <HomeStatBanner />
+        <MostReadBanner />
+      </div>
+    </>
+  );
 };
 
 export default Home;
