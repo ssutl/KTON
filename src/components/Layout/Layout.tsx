@@ -31,7 +31,9 @@ const Layout = ({ children }: any) => {
     <>
       <Navbar handleSettingsModal={() => handleSettingsModal()} />
       {children}
-      {displaySettings && <SettingModal />}
+      {displaySettings && (
+        <SettingModal handleSettingsModal={() => handleSettingsModal()} />
+      )}
       {feedbackModal && authed ? (
         <FeedbackModal closeModal={closeModal} />
       ) : null}

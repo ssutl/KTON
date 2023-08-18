@@ -6,16 +6,17 @@ import { KTON_CONTEXT } from "../../context/KTONContext";
 import { useRouter } from "next/router";
 import createCheckout from "@/api/Membership/create_checkout";
 
-const SettingModal = () => {
-  const { userinfo } = useContext(KTON_CONTEXT);
-  console.log("userinfo", userinfo);
-  const router = useRouter();
+export interface SettingModalProps {
+  handleSettingsModal: () => void;
+}
 
-  //Create a list of settings features with a name for the page they belong to, whether they have a toggle button, a input or none. and what happens on click.
+const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
+  const { userinfo } = useContext(KTON_CONTEXT);
+  const router = useRouter();
   const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
-  const [selectedSetting, setSelectedSetting] = useState<"Books" | "Account">(
-    "Account"
-  );
+  const [selectedSetting, setSelectedSetting] = useState<
+    "Books & Highlights" | "Account"
+  >("Account");
 
   useEffect(() => {
     //Have to set screenwidth to conditionally change size of heat map
@@ -29,18 +30,34 @@ const SettingModal = () => {
   }, []);
 
   const handleCustomerPortal = async () => {
-    if (userinfo?.stripe_customer_id) {
-      console.log("clicked");
-      const response = await createPortal({
+    console.log("userinfo", userinfo);
+    if (!userinfo?.stripe_customer_id) return null;
+
+    console.log("clicked");
+
+    try {
+      const url = await createPortal({
         customer_id: userinfo.stripe_customer_id,
       });
 
-      router.push(response);
+      router.push(url);
+    } catch (error) {
+      console.log(error);
     }
   };
 
   const handleCreateCheckoutSession = async () => {
-    // createCheckout({price_id})
+    try {
+      const url = await createCheckout({
+        price_id: "price_1NUZdSKPa3aWR3Tf7nc1SplP",
+        success_url: `http://localhost:3000/${router.pathname}`,
+        cancel_url: `http://localhost:3000/${router.pathname}`,
+      });
+
+      router.push(url);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const settings: SettingOption[] = [
@@ -51,56 +68,61 @@ const SettingModal = () => {
           name: "Manage membership billing",
           description: "Manage your membership and payment settings",
           button: (
-            <div
-              className={styles.button}
-              onClick={() => handleCustomerPortal()}
-            >
+            <p className={styles.button} onClick={() => handleCustomerPortal()}>
               Manage
-            </div>
+            </p>
           ),
         },
         {
           name: "Delete Account",
           description: "Delete your account and all your data",
-          button: <div className={styles.button}>Delete Account</div>,
+          button: <p className={styles.button}>Delete Account</p>,
         },
         {
           name: "Manage membership plan",
           description: "Upgrade or downgrade your membership plan",
           button: (
             <>
-              <div
+              <p
                 className={`${styles.button} ${
                   !userinfo?.subscription ? styles.kton_active : ""
                 }`}
               >
                 Free
-              </div>
-              <div
+              </p>
+              <p
                 className={`${styles.button} ${
                   userinfo?.subscription ? styles.kton_active : ""
                 }`}
                 onClick={() => handleCreateCheckoutSession()}
               >
                 Premium
-              </div>
+              </p>
             </>
           ),
         },
       ],
     },
     {
-      name: "Books",
+      name: "Books & Highlights",
       features: [
+        {
+          name: "Handle Books",
+          description: "Delete or restore particular books",
+        },
+        {
+          name: "Restore Highlights",
+          description: "Restore deleted highlights",
+        },
         {
           name: "Delete Books",
           description: "Delete all your books",
-          button: <div className={styles.button}>Delete Books</div>,
+          button: <p className={styles.button}>Delete Books</p>,
         },
         {
-          name: "Restore Deleted Books",
-          description: "Restore all your deleted books",
-          input: true,
+          name: "Delete Highlights",
+          description: "Delete all your highlights",
+          button: <p className={styles.button}>Delete Highlights</p>,
         },
       ],
     },
@@ -109,11 +131,13 @@ const SettingModal = () => {
   if (!screenWidth) return null;
 
   return (
-    <div className={styles.pageOverlay}>
-      <div className={styles.settingModal}>
+    <div className={styles.pageOverlay} onClick={() => handleSettingsModal()}>
+      <div className={styles.settingModal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.mobileHeader}>
-          <p>Settings</p>
-          <p>done</p>
+          <h3>Settings</h3>
+          <h3 onClick={() => handleSettingsModal()} id={styles.done}>
+            done
+          </h3>
         </div>
         <div className={styles.leftHalf}>
           <div className={styles.settingHeader}>
