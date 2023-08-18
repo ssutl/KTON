@@ -136,19 +136,6 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
       ],
     },
     {
-      name: "Books & Highlights",
-      features: [
-        {
-          name: "Handle Books",
-          description: "Delete or restore particular books",
-        },
-        {
-          name: "Restore Highlights",
-          description: "Restore deleted highlights",
-        },
-      ],
-    },
-    {
       name: "Import & Export",
       features: [
         {
@@ -180,6 +167,19 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
               Export
             </p>
           ),
+        },
+      ],
+    },
+    {
+      name: "Books & Highlights",
+      features: [
+        {
+          name: "Handle Books",
+          description: "Delete or restore particular books",
+        },
+        {
+          name: "Restore Highlights",
+          description: "Restore deleted highlights",
         },
       ],
     },
