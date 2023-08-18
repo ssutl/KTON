@@ -54,15 +54,15 @@ const Export = () => {
         );
       },
     },
-    {
-      name: "Excel CSV",
-      description:
-        "Create a CSV database with book titles and highlights for easy management.",
-      image: excelIcon,
-      onClick: () => {
-        csvApi();
-      },
-    },
+    // {
+    //   name: "Excel CSV",
+    //   description:
+    //     "Create a CSV database with book titles and highlights for easy management.",
+    //   image: excelIcon,
+    //   onClick: () => {
+    //     csvApi();
+    //   },
+    // },
   ];
 
   return (
