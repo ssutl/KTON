@@ -4,6 +4,8 @@ import ImportButton from "./ImportButton";
 import { useRouter } from "next/router";
 import { io } from "socket.io-client";
 
+const socket = io(`${process.env.NEXT_PUBLIC_BACKENDURL}`);
+
 const ImportComponent = () => {
   const [progress, setProgress] = useState<"Started" | "None" | "Complete">(
     "None"
@@ -22,8 +24,6 @@ const ImportComponent = () => {
       setPercentage(value);
     }
   };
-
-  const socket = io(`${process.env.NEXT_PUBLIC_BACKENDURL}`);
 
   //Connecting to the sockets to see the progress of the upload
   useEffect(() => {

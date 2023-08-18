@@ -10,6 +10,10 @@ function HomeStatBanner() {
   const router = useRouter();
   const { highlights } = useContext(KTON_CONTEXT);
 
+  const filteredHighlights = highlights?.filter(
+    (eachHighlight) => eachHighlight.highlight.deleted === false
+  );
+
   function getlongestStreak(): {
     CurrentLongestStreak: number;
     LongestStreakStart: string;
@@ -70,12 +74,12 @@ function HomeStatBanner() {
   }
 
   function reduceHighlightsToOnePerDay(): Meta_con_highlight[] {
-    if (!highlights || highlights.length === 0) return [];
+    if (!filteredHighlights || filteredHighlights.length === 0) return [];
 
     const dateMap = new Map<string, Meta_con_highlight>();
 
     // Store the first highlight of each date in the dateMap
-    for (const highlight of highlights) {
+    for (const highlight of filteredHighlights) {
       const dateString = formatDateString(highlight.highlight.Date);
       if (!dateMap.has(dateString)) {
         dateMap.set(dateString, highlight);
@@ -125,7 +129,7 @@ function HomeStatBanner() {
     return formatDate(nextDay);
   }
 
-  if (!highlights)
+  if (!filteredHighlights)
     return (
       <div className={styles.HomeStatBanner}>
         <div className={styles.StatWidthContainer}>
@@ -156,22 +160,23 @@ function HomeStatBanner() {
         </div>
         <div
           className={`${styles.statsBox} ${styles.statsBoxLong}`}
-          onClick={() => router.push(`/Book/${highlights[0].book_id}`)}
+          onClick={() => router.push(`/Book/${filteredHighlights[0].book_id}`)}
         >
           <p>Current Read</p>
-          <h1>{highlights[0].title}</h1>
+          <h1>{filteredHighlights[0].title}</h1>
           <p>
-            Started: {new Date(highlights[0].highlight.Date).toDateString()}
+            Started:{" "}
+            {new Date(filteredHighlights[0].highlight.Date).toDateString()}
           </p>
         </div>
         <div className={styles.statsBox}>
           <p>Total Highlights</p>
-          <h1>{highlights.length}</h1>
+          <h1>{filteredHighlights.length}</h1>
           <p>
             {`${new Date(
-              highlights[highlights.length - 1].highlight.Date
+              filteredHighlights[filteredHighlights.length - 1].highlight.Date
             ).toDateString()} - ${new Date(
-              highlights[0].highlight.Date
+              filteredHighlights[0].highlight.Date
             ).toDateString()}`}
           </p>
         </div>

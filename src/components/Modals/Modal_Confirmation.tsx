@@ -1,16 +1,20 @@
 import React, { useRef, useState, useContext, useEffect } from "react";
 import genericModalStyles from "../../styles/Components/Modal.module.scss";
-import HandleChanges from "@/helpers/HandleChanges";
 import DeleteUserApi from "@/api/Users/DeleteUser";
 import Router from "next/router";
+import { KTON_CONTEXT } from "../../context/KTONContext";
 
 interface Modal_ConfirmationProps {
   closeModal: () => void;
+  closeSettingModal: () => void;
 }
 
-const Modal_Confirmation = ({ closeModal }: Modal_ConfirmationProps) => {
+const Modal_Confirmation = ({
+  closeModal,
+  closeSettingModal,
+}: Modal_ConfirmationProps) => {
+  const { updateBooks } = useContext(KTON_CONTEXT);
   const [searchValue, setSearchValue] = useState<string>("");
-  const { updateBookCover } = HandleChanges();
 
   const deleteAccount = async () => {
     if (searchValue !== JSON.parse(localStorage.getItem("username") as string))
@@ -20,8 +24,13 @@ const Modal_Confirmation = ({ closeModal }: Modal_ConfirmationProps) => {
       const res = await DeleteUserApi();
 
       if (res === "success") {
+        closeSettingModal();
         closeModal();
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        sessionStorage.removeItem("clippings");
         Router.push("/");
+        updateBooks(undefined);
       }
     } catch (error) {
       console.log(error);
@@ -29,7 +38,13 @@ const Modal_Confirmation = ({ closeModal }: Modal_ConfirmationProps) => {
   };
 
   return (
-    <div className={genericModalStyles.modalBackgroundBlur}>
+    <div
+      className={genericModalStyles.modalBackgroundBlur}
+      onClick={(e) => {
+        e.stopPropagation();
+        closeModal();
+      }}
+    >
       <div
         className={`${genericModalStyles.modal} ${genericModalStyles.Modal_Confirmation}`}
         onClick={(e) => {

@@ -20,14 +20,19 @@ const QuoteBanner = () => {
   //When the component mounts, we want to set a random highlight
   useEffect(() => {
     if (!highlights) return;
+    const filteredHighlights = highlights.filter(
+      (eachHighlight) => eachHighlight.highlight.deleted === false
+    );
 
     setRandomHighlight(
-      highlights[Math.floor(Math.random() * highlights.length)]
+      filteredHighlights[Math.floor(Math.random() * filteredHighlights.length)]
     );
 
     const interval = setInterval(() => {
       setRandomHighlight(
-        highlights[Math.floor(Math.random() * highlights.length)]
+        filteredHighlights[
+          Math.floor(Math.random() * filteredHighlights.length)
+        ]
       );
       //secures a random quote every 60 seconds
     }, 60000); // runs every 60 seconds

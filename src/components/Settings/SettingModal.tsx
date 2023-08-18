@@ -5,7 +5,6 @@ import createPortal from "@/api/Membership/create_portal";
 import { KTON_CONTEXT } from "../../context/KTONContext";
 import { useRouter } from "next/router";
 import createCheckout from "@/api/Membership/create_checkout";
-import Modal_Type_Save from "../Modals/Modal_Type_Save";
 import Modal_Confirmation from "../Modals/Modal_Confirmation";
 
 export interface SettingModalProps {
@@ -200,6 +199,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
       {displayConfirmationModal && (
         <Modal_Confirmation
           closeModal={() => setDisplayConfirmationModal(false)}
+          closeSettingModal={() => handleSettingsModal()}
         />
       )}
       <div className={styles.settingModal} onClick={(e) => e.stopPropagation()}>

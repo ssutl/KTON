@@ -42,7 +42,11 @@ const HeatMapBanner = () => {
       </div>
     );
 
-  const heatMapData = HeatMapDataFunc(highlights);
+  const heatMapData = HeatMapDataFunc(
+    highlights.filter(
+      (eachHighlight) => eachHighlight.highlight.deleted === false
+    )
+  );
 
   return (
     <div className={styles.HeatMapBanner}>

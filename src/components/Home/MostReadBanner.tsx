@@ -37,15 +37,19 @@ const MostReadBanner = () => {
   useEffect(() => {
     if (!highlights) return;
 
+    const filteredHighlights = highlights.filter(
+      (eachHighlight) => eachHighlight.highlight.deleted === false
+    );
+
     switch (dataSelection) {
       case "Month":
-        setData(groupByMonth(highlights));
+        setData(groupByMonth(filteredHighlights));
         break;
       case "Day":
-        setData(groupByDay(highlights));
+        setData(groupByDay(filteredHighlights));
         break;
       case "Time":
-        setData(groupByTime(highlights));
+        setData(groupByTime(filteredHighlights));
         break;
     }
   }, [dataSelection, highlights]);

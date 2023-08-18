@@ -15,6 +15,7 @@ const Layout = ({ children }: any) => {
   const [displaySettings, setDisplaySettings] = useState(false);
 
   const handleSettingsModal = () => {
+    console.log("handle settings modal", !displaySettings);
     setDisplaySettings(!displaySettings);
     localStorage.setItem("displaySettings", JSON.stringify(!displaySettings));
   };
