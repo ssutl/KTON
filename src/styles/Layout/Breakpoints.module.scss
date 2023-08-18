@@ -39,6 +39,9 @@ $highlighted-blue: #263341;
 
 //Positive & Negative
 $kton-blue: #3fcdfc;
+$kton-red: #ff3f3f;
+
+// $negativeBTN: #ff4a4a;
 
 @mixin breakpoint-mixin($width, $type: min) {
   @if map_has_key($breakpoints, $width) {

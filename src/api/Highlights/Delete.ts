@@ -3,12 +3,14 @@ import axios from "axios";
 export interface deleteHighlightApiProps {
   book_id: string;
   highlight_id: string;
+  data: boolean;
 }
 
 //API TO DELETE HIGHLIGHT
 const deleteHighlightApi = async ({
   book_id,
   highlight_id,
+  data,
 }: deleteHighlightApiProps) => {
   //Get token
   const authToken = localStorage.getItem("token");

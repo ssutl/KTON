@@ -2,16 +2,29 @@ import styles from "../../styles/Layout/Navbar.module.scss";
 import React, { useState, useEffect, useContext } from "react";
 import { KTON_CONTEXT } from "../../context/KTONContext";
 import { useRouter } from "next/router";
+import userAuthenticated from "@/helpers/UserAuthenticated";
 
-export default function Navbar() {
-  const { updateBooks } = useContext(KTON_CONTEXT);
-  const [hasClippings, setHasClippings] = useState(false);
+export interface NavbarProps {
+  handleSettingsModal: () => void;
+}
+
+export default function Navbar({ handleSettingsModal }: NavbarProps) {
+  const { updateBooks, books } = useContext(KTON_CONTEXT);
   const router = useRouter();
   // getting the current route
   const isIndexRoute = router.pathname === "/";
   const isImportRoute = router.pathname === "/Import";
-  const isVerifyRoute = /^\/verify\/\d+$/.test(router.asPath);
-  const isMembershipRoute = router.pathname === "/Membership";
+  const isHome = router.pathname === "/Home";
+  const isLibr = router.pathname === "/Library";
+  const isBook = router.pathname.includes("/Book/");
+  const isExport = router.pathname === "/Export";
+  const DisplayAll =
+    isHome ||
+    isLibr ||
+    isBook ||
+    isExport ||
+    (isImportRoute &&
+      books?.filter((eachBook) => eachBook.deleted).length !== 0);
 
   //Display the navbar
   if (router.pathname === "/verify/[...id]") return null;
@@ -26,18 +39,12 @@ export default function Navbar() {
         >
           KTON
         </h3>
-        <div className={styles.navigationButtons}>
-          {isIndexRoute || isVerifyRoute ? null : (
-            <>
-              <p onClick={() => router.push("/Library")}>Library</p>
-            </>
-          )}
-          {isIndexRoute || isVerifyRoute ? null : (
-            <>
-              <p onClick={() => router.push("/Export")}>Export</p>
-            </>
-          )}
-          {!isIndexRoute ? (
+        {DisplayAll && (
+          <div className={styles.navigationButtons}>
+            <p onClick={() => router.push("/Import")}>Import</p>
+            <p onClick={() => router.push("/Export")}>Export</p>
+            <p onClick={() => router.push("/Library")}>Library</p>
+            <p onClick={() => handleSettingsModal()}>Settings</p>
             <p
               onClick={() => {
                 router.push("/");
@@ -49,8 +56,8 @@ export default function Navbar() {
             >
               Logout
             </p>
-          ) : null}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

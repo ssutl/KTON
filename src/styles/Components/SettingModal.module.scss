@@ -1,0 +1,153 @@
+@import "../../styles/Layout/Breakpoints.module.scss";
+
+.pageOverlay {
+  position: fixed;
+  height: 100dvh;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $blur-bg;
+  z-index: 100;
+
+  .settingModal {
+    height: 100dvh;
+    width: 100%;
+    background-color: $modal-bg;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    @include breakpoint-mixin("Laptop_S") {
+      border-radius: 3px;
+      width: 65%;
+      flex-direction: row;
+      height: 75dvh;
+      border: 0.5px solid $border_laptop;
+    }
+
+    .mobileHeader {
+      height: 10%;
+      width: 100%;
+      background-color: $cd-bg;
+      display: flex;
+      border-bottom: 0.5px solid $border_mobile;
+      align-items: center;
+      justify-content: center;
+
+      @include breakpoint-mixin("Laptop_S") {
+        display: none;
+      }
+
+      #done {
+        position: absolute;
+        right: 10%;
+        color: $kton-blue;
+      }
+    }
+
+    .leftHalf {
+      height: 100%;
+      display: flex;
+      background-color: $cd-bg;
+      display: none;
+      flex-direction: column;
+      padding: 20px 10px;
+      //Hidden on mobile, gonna display list of items
+      border-right: 0.5px solid $border_mobile;
+
+      @include breakpoint-mixin("Laptop_S") {
+        border-right: 0.5px solid $border_laptop;
+        width: 20%;
+        display: flex;
+      }
+
+      .settingHeader {
+        display: flex;
+        align-items: center;
+        padding: 0px 10px;
+        margin-bottom: 20px;
+
+        p {
+          font-weight: 500;
+        }
+      }
+
+      .settingOption {
+        width: 100%;
+        padding: 5px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+        display: flex;
+
+        .settingIcon {
+          margin-right: 15px;
+          font-size: 20px;
+        }
+
+        &:hover {
+          background-color: $hover;
+        }
+      }
+    }
+
+    .rightHalf {
+      //Displayed full width on mobile
+      height: 90%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      background-color: $bg;
+      padding: 20px 20px;
+      overflow-y: auto;
+
+      @include breakpoint-mixin("Laptop_S") {
+        padding: 20px 60px;
+        height: 100%;
+        width: 80%;
+      }
+
+      .button {
+        height: fit-content;
+        padding: 5px 10px;
+        border-radius: 3px;
+        border: 0.5px solid $border_mobile;
+
+        @include breakpoint-mixin("Laptop_S") {
+          border: 0.5px solid $border_laptop;
+        }
+
+        &:hover {
+          background-color: $hover;
+        }
+      }
+
+      .kton_active {
+        background-color: $kton-blue;
+
+        &:hover {
+          background-color: $kton-blue;
+        }
+      }
+    }
+
+    @include breakpoint-mixin("Laptop_S") {
+      .rightHalf::-webkit-scrollbar {
+        height: 100%;
+        background-color: rgb(45, 41, 41);
+        width: 10px;
+      }
+
+      .rightHalf::-webkit-scrollbar-thumb {
+        background-color: rgba(70, 68, 68, 0.428);
+        border: 1px solid transparent;
+        background-clip: content-box;
+        border-radius: 10px;
+        height: 40px;
+      }
+    }
+  }
+}

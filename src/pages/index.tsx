@@ -5,31 +5,7 @@ import Head from "next/head";
 import LoginComponent from "@/components/Login/LoginComponent";
 // import totalHighlightsApi from "@/api/Highlights/TotalHighlights";
 
-export default function LoginPage({
-  TotalHighlights,
-}: {
-  TotalHighlights: number;
-}) {
-  //UseEffect to check if there's already an authToken
-
-  useEffect(() => {
-    const authToken = localStorage.getItem("token");
-    const clippings = sessionStorage.getItem("clippings");
-
-    if (authToken || clippings) {
-      // Pass user into the app
-      Router.push("Home");
-    }
-
-    //Prevent screen rotation
-    window.addEventListener("orientationchange", function () {
-      if (window.innerHeight > window.innerWidth) {
-        document.getElementsByTagName("body")[0].style.transform =
-          "rotate(90deg)";
-      }
-    });
-  }, []);
-
+export default function LoginPage() {
   return (
     <>
       <Head>
