@@ -57,8 +57,10 @@
       flex-direction: column;
       padding: 20px 10px;
       //Hidden on mobile, gonna display list of items
+      border-right: 0.5px solid $border_mobile;
 
       @include breakpoint-mixin("Laptop_S") {
+        border-right: 0.5px solid $border_laptop;
         width: 20%;
         display: flex;
       }

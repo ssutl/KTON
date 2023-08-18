@@ -191,20 +191,25 @@ function HandleChanges() {
   const deleteHighlight = ({ book_id, highlight_id }: deleteHighlightProps) => {
     if (books) {
       //Handling request locally
+      const value = !books
+        .filter((book) => book._id === book_id)[0]
+        .highlights.filter((highlight) => highlight._id === highlight_id)[0]
+        .deleted;
+
       const newState = books.map((book_context) => {
         if (book_id === book_context._id) {
           return {
             ...book_context,
             highlights: book_context.highlights.map((highlight) => {
               if (highlight._id === highlight_id) {
-                return { ...highlight, deleted: true };
+                return { ...highlight, deleted: value };
               } else return highlight;
             }),
           };
         } else return book_context;
       });
       updateBooks(newState);
-      deleteHighlightApi({ book_id, highlight_id });
+      deleteHighlightApi({ book_id, highlight_id, data: value });
     }
   };
 
@@ -411,14 +416,16 @@ function HandleChanges() {
 
   const deleteBook = ({ book_id }: { book_id: string }) => {
     if (books && typeof book_id === "string") {
+      const value = !books.filter((book) => book._id === book_id)[0].deleted;
+
       const newState = books.map((book_context) => {
         //If book has same ID delete it locally
         if (book_id === book_context._id) {
-          return { ...book_context, deleted: true };
+          return { ...book_context, deleted: value };
         } else return book_context;
       });
       updateBooks(newState);
-      deleteBookApi({ book_id: book_id });
+      deleteBookApi({ book_id: book_id, data: value });
     }
   };
 

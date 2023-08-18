@@ -18,81 +18,88 @@
     }
   }
 
-  .settingSelect {
-    padding: 15px 0px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
+  .featureContainer {
+    border-bottom: 0.5px solid $border_mobile;
 
     @include breakpoint-mixin("Laptop_S") {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
+      border-bottom: 0.5px solid $border_laptop;
     }
 
-    .selectTextSection {
-      #selectName {
-        font-size: 18px;
-        font-weight: 500;
-        margin-bottom: 5px;
-      }
-
-      #selectDescription {
-        opacity: 0.5;
-      }
-    }
-
-    .buttonSection {
-      display: flex;
-      column-gap: 20px;
-      margin-top: 15px;
-
-      @include breakpoint-mixin("Laptop_S") {
-        margin-top: 0px;
-      }
-    }
-  }
-
-  .listSection {
-    .listItem {
-      width: 100%;
-      padding: 10px 0px;
-      border-radius: 3px;
+    .settingSelect {
+      padding: 15px 0px;
       cursor: pointer;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
 
-      #bookTitle {
-        font-weight: 300;
-        max-width: 70%;
+      @include breakpoint-mixin("Laptop_S") {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
       }
 
-      .listItemButtons {
+      .selectTextSection {
+        #selectName {
+          font-size: 17px;
+          font-weight: 500;
+          margin-bottom: 5px;
+        }
+
+        #selectDescription {
+          opacity: 0.5;
+        }
+      }
+
+      .buttonSection {
         display: flex;
-        column-gap: 10px;
+        column-gap: 20px;
+        margin-top: 15px;
 
-        .button {
-          height: fit-content;
-          padding: 5px 10px;
-          border-radius: 3px;
-          border: 0.5px solid $border_mobile;
+        @include breakpoint-mixin("Laptop_S") {
+          margin-top: 0px;
+        }
+      }
+    }
 
-          @include breakpoint-mixin("Laptop_S") {
-            border: 0.5px solid $border_laptop;
-          }
+    .listSection {
+      .listItem {
+        width: 100%;
+        padding: 10px 0px;
+        border-radius: 3px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-          &:hover {
-            background-color: $hover;
-          }
+        #bookTitle {
+          max-width: 70%;
         }
 
-        .delete {
-          border: 0.5px solid $kton-red;
-        }
+        .listItemButtons {
+          display: flex;
+          column-gap: 10px;
 
-        .restore {
-          border: 0.5px solid palegreen;
+          .button {
+            height: fit-content;
+            padding: 5px 10px;
+            border-radius: 3px;
+            border: 0.5px solid $border_mobile;
+
+            @include breakpoint-mixin("Laptop_S") {
+              border: 0.5px solid $border_laptop;
+            }
+
+            &:hover {
+              background-color: $hover;
+            }
+          }
+
+          .delete {
+            border: 0.5px solid $kton-red;
+          }
+
+          .restore {
+            border: 0.5px solid palegreen;
+          }
         }
       }
     }

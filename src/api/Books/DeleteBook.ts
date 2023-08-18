@@ -2,11 +2,12 @@ import axios from "axios";
 
 export interface deleteBookApiProps {
   book_id: string;
+  data: boolean;
 }
 
 //API TO ADD GENRE TO BOOK
 
-const deleteBookApi = async ({ book_id }: deleteBookApiProps) => {
+const deleteBookApi = async ({ book_id, data }: deleteBookApiProps) => {
   //Get token
   const authToken = localStorage.getItem("token");
 
@@ -21,7 +22,7 @@ const deleteBookApi = async ({ book_id }: deleteBookApiProps) => {
       headers: {
         "x-auth-token": authToken.replace(/\"/g, ""),
       },
-      data: { deleted: true },
+      data: { deleted: data },
     });
   } catch (err) {
     throw new Error("Failed adding genre to book");
