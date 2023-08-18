@@ -33,9 +33,14 @@
     align-items: center;
     justify-content: space-between;
     font-weight: 500;
+    overflow-x: scroll;
 
     @include breakpoint-mixin("Tablet") {
       width: 95%;
+    }
+
+    @include breakpoint-mixin("Laptop_S") {
+      overflow-x: hidden;
     }
 
     h3 {
