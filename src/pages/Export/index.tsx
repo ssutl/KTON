@@ -1,18 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/router";
 import notionApi from "@/api/Notion/NotionApi";
 import Head from "next/head";
 import AllowedRoute from "@/helpers/AllowedRoute";
 import styles from "../../styles/Pages/Export.module.scss";
 import ExportCard from "@/components/Export/ExportCard";
-import excelIcon from "../../../public/image/excel.png";
 import notionIcon from "../../../public/image/notion.png";
-import csvApi from "@/api/CSV/csvApi";
 import { KTON_CONTEXT } from "../../context/KTONContext";
 import InitApi from "../../api/InitAPI";
 
 const Export = () => {
-  const { books } = useContext(KTON_CONTEXT);
+  const { books, userinfo } = useContext(KTON_CONTEXT);
   const { InitialiseApp } = InitApi();
 
   //Get the code from the url
@@ -43,15 +40,20 @@ const Export = () => {
   const exportOptions = [
     {
       name: "Notion",
-      description:
-        "Integrate with Notion and easily copy your digital library to a notion database",
+      description: userinfo?.subscription
+        ? "Integrate with Notion and easily copy your digital library to a notion database"
+        : "Notion integration is only available for premium users",
       image: notionIcon,
       onClick: () => {
-        //Open in new tab instead
-        window.open(
-          "https://api.notion.com/v1/oauth/authorize?client_id=7081a522-2c1f-445b-8a37-d73e11076dcd&response_type=code&owner=user&redirect_uri=https%3A%2F%2Fapp.kton.xyz%2FExport",
-          "_blank"
-        );
+        if (userinfo?.subscription) {
+          //Open in new tab instead
+          window.open(
+            "https://api.notion.com/v1/oauth/authorize?client_id=7081a522-2c1f-445b-8a37-d73e11076dcd&response_type=code&owner=user&redirect_uri=https%3A%2F%2Fapp.kton.xyz%2FExport",
+            "_blank"
+          );
+        } else {
+          alert("Notion integration is only available for premium users");
+        }
       },
     },
     // {

@@ -30,7 +30,6 @@
     display: flex;
     align-items: center;
     margin-bottom: 15px;
-    // background-color: orange;
 
     h3 {
       opacity: 0.5;
@@ -251,10 +250,9 @@
 }
 
 .Modal_Centered_Select {
-  padding: 10px 5px;
+  padding: 10px;
 
   @include breakpoint-mixin("Laptop_S") {
-    padding: 5px;
     position: relative;
     width: 250px;
     box-sizing: border-box;

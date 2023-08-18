@@ -1,6 +1,8 @@
 import styles from "../../styles/Components/ExportCard.module.scss";
 import Image, { StaticImageData } from "next/image";
 import { Tooltip } from "react-tooltip";
+import { KTON_CONTEXT } from "../../context/KTONContext";
+import React, { useContext } from "react";
 
 export interface ExportCardProps {
   option: {
@@ -12,11 +14,13 @@ export interface ExportCardProps {
 }
 
 const ExportCard = ({ option }: ExportCardProps) => {
+  const { userinfo } = useContext(KTON_CONTEXT);
+
   return (
     <div
       className={styles.exportCard}
       onClick={() => option.onClick()}
-      data-tooltip-id={`my-tooltip-${option.name}`}
+      data-tooltip-id={`my-tooltip-${option.name}-${userinfo?.subscription}`}
       data-tooltip-content="Notion currently has a limit of 100 highlights and 2000 characters per highlight. 📖"
     >
       <div className={styles.ImageHalf}>
@@ -28,7 +32,11 @@ const ExportCard = ({ option }: ExportCardProps) => {
         <h3 id={styles.title}>{option.name}</h3>
         <p id={styles.description}>{option.description}</p>
       </div>
-      <Tooltip id={`my-tooltip-Notion`} className={styles.toolTip} noArrow />
+      <Tooltip
+        id={`my-tooltip-Notion-true`}
+        className={styles.toolTip}
+        noArrow
+      />
     </div>
   );
 };
