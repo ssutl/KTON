@@ -20,10 +20,12 @@
     background-color: $modal-bg;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 
     @include breakpoint-mixin("Laptop_S") {
+      width: 70%;
       flex-direction: row;
-      height: 70dvh;
+      height: 75dvh;
       border: 0.5px solid $border_laptop;
     }
 
@@ -32,18 +34,52 @@
       width: 100%;
       background-color: aquamarine;
       display: flex;
+
+      @include breakpoint-mixin("Laptop_S") {
+        display: none;
+      }
     }
 
     .leftHalf {
       height: 100%;
       display: flex;
-      background-color: orange;
+      background-color: $cd-bg;
       display: none;
+      flex-direction: column;
+      padding: 20px 10px;
       //Hidden on mobile, gonna display list of items
 
       @include breakpoint-mixin("Laptop_S") {
         width: 20%;
         display: flex;
+      }
+
+      .settingHeader {
+        display: flex;
+        align-items: center;
+        padding: 0px 10px;
+        margin-bottom: 20px;
+
+        p {
+          font-weight: 500;
+        }
+      }
+
+      .settingOption {
+        width: 100%;
+        padding: 5px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+        display: flex;
+
+        .settingIcon {
+          margin-right: 15px;
+          font-size: 20px;
+        }
+
+        &:hover {
+          background-color: $hover;
+        }
       }
     }
 
@@ -52,11 +88,36 @@
       height: 90%;
       width: 100%;
       display: flex;
-      background-color: green;
+      flex-direction: column;
+      background-color: $bg;
+      padding: 20px 60px;
 
       @include breakpoint-mixin("Laptop_S") {
         height: 100%;
         width: 80%;
+      }
+
+      .button {
+        height: fit-content;
+        padding: 5px 10px;
+        border-radius: 3px;
+        border: 0.5px solid $border_mobile;
+
+        @include breakpoint-mixin("Laptop_S") {
+          border: 0.5px solid $border_laptop;
+        }
+
+        &:hover {
+          background-color: $hover;
+        }
+      }
+
+      .kton_active {
+        background-color: $kton-blue;
+
+        &:hover {
+          background-color: $kton-blue;
+        }
       }
     }
   }

@@ -2,11 +2,13 @@ import styles from "../../styles/Layout/Navbar.module.scss";
 import React, { useState, useEffect, useContext } from "react";
 import { KTON_CONTEXT } from "../../context/KTONContext";
 import { useRouter } from "next/router";
-import TuneIcon from "@mui/icons-material/Tune";
 
-export default function Navbar() {
+export interface NavbarProps {
+  handleSettingsModal: () => void;
+}
+
+export default function Navbar({ handleSettingsModal }: NavbarProps) {
   const { updateBooks } = useContext(KTON_CONTEXT);
-  const [hasClippings, setHasClippings] = useState(false);
   const router = useRouter();
   // getting the current route
   const isIndexRoute = router.pathname === "/";
@@ -32,6 +34,7 @@ export default function Navbar() {
             <>
               <p onClick={() => router.push("/Library")}>Library</p>
               <p onClick={() => router.push("/Export")}>Export</p>
+              <p onClick={() => handleSettingsModal()}>Settings</p>
             </>
           )}
           {!isIndexRoute ? (

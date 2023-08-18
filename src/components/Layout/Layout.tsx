@@ -11,6 +11,11 @@ const Layout = ({ children }: any) => {
   const [feedbackModal, setFeedbackModal] = useState(false);
   const [authed, setAuthed] = useState(false);
   const router = useRouter();
+  const [displaySettings, setDisplaySettings] = useState(false);
+
+  const handleSettingsModal = () => {
+    setDisplaySettings(!displaySettings);
+  };
 
   useEffect(() => {
     setAuthed(userAuthenticated());
@@ -24,9 +29,9 @@ const Layout = ({ children }: any) => {
 
   return (
     <>
-      <Navbar />
+      <Navbar handleSettingsModal={() => handleSettingsModal()} />
       {children}
-      <SettingModal />
+      {displaySettings && <SettingModal />}
       {feedbackModal && authed ? (
         <FeedbackModal closeModal={closeModal} />
       ) : null}

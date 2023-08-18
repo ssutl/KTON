@@ -1,0 +1,37 @@
+@import "../../styles/Layout/Breakpoints.module.scss";
+
+.settingContentHeader {
+  display: flex;
+  align-items: center;
+  border-bottom: 0.5px solid $border_mobile;
+  margin-bottom: 20px;
+
+  @include breakpoint-mixin("Laptop_S") {
+    border-bottom: 0.5px solid $border_laptop;
+  }
+}
+
+.settingSelect {
+  padding: 10px 0px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .selectTextSection {
+    #selectName {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    #selectDescription {
+      opacity: 0.5;
+    }
+  }
+
+  .buttonSection {
+    display: flex;
+    column-gap: 20px;
+  }
+}
