@@ -62,8 +62,8 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
     try {
       const url = await createCheckout({
         price_id,
-        success_url: `${process.env.NEXT_PUBLIC_BACKENDURL}${router.pathname}`,
-        cancel_url: `${process.env.NEXT_PUBLIC_BACKENDURL}${router.pathname}`,
+        success_url: `https://app.kton.xyz${router.pathname}`,
+        cancel_url: `https://app.kton.xyz${router.pathname}`,
       });
 
       router.push(url);
