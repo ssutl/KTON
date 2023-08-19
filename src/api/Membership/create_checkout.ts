@@ -4,6 +4,7 @@ export interface createCheckoutProps {
   price_id: string;
   success_url: string;
   cancel_url: string;
+  stripe_customer_id: string;
 }
 
 export type createCheckoutReturnTypes = Promise<string>;
@@ -14,6 +15,7 @@ const createCheckout = async ({
   price_id,
   success_url,
   cancel_url,
+  stripe_customer_id,
 }: createCheckoutProps): createCheckoutReturnTypes => {
   //Get token
   const authToken = localStorage.getItem("token");
@@ -30,7 +32,7 @@ const createCheckout = async ({
         "x-auth-token": authToken.replace(/\"/g, ""),
         "Access-Control-Allow-Origin": "*",
       },
-      data: { priceId: price_id, success_url, cancel_url },
+      data: { priceId: price_id, success_url, cancel_url, stripe_customer_id },
     });
 
     //The checkout session url is returned, which the user is redirected to

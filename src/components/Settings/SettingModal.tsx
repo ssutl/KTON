@@ -58,12 +58,14 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
   };
 
   const handleCreateCheckoutSession = async (price_id: string) => {
-    console.log("clicked");
+    if (!userinfo) return null;
+
     try {
       const url = await createCheckout({
         price_id,
         success_url: `https://app.kton.xyz${router.pathname}`,
         cancel_url: `https://app.kton.xyz${router.pathname}`,
+        stripe_customer_id: userinfo.stripe_customer_id,
       });
 
       router.push(url);
