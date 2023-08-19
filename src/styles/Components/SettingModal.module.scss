@@ -35,6 +35,11 @@
       border: 0.5px solid $border_laptop;
     }
 
+    @include breakpoint-mixin("Laptop_L") {
+      width: 75%;
+      height: 70dvh;
+    }
+
     @include breakpoint-mixin("Desktop_S") {
       width: 65%;
       height: 65dvh;
