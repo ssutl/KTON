@@ -70,6 +70,8 @@ export default function Navbar({ handleSettingsModal }: NavbarProps) {
   if (screenWidth && screenWidth <= 1024 && !isIndexRoute)
     return mobileNavbar();
 
+  if (screenWidth && screenWidth <= 1024 && isIndexRoute) return null;
+
   return (
     <div className={styles.navbar}>
       <div className={styles.navbarWidth}>

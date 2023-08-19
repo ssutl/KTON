@@ -2,14 +2,10 @@
 
 .exportPage {
   overflow-y: auto;
-  height: 93dvh;
+  height: 90dvh;
   display: flex;
   justify-content: center;
   box-sizing: border-box;
-
-  @include breakpoint-mixin("Tablet") {
-    height: 95dvh;
-  }
 
   @include breakpoint-mixin("Laptop_S") {
     height: 93dvh;
