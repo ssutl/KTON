@@ -39,7 +39,7 @@ const ShareImageNatively = (title: string) => {
     (dataUrl: string) => {
       const file = dataURLtoFile(dataUrl, title);
       // Share the image file using the Web Share API
-      shareFile(file, "Title", "https://co-aid.in");
+      shareFile(file, title, "https://kton.xyz");
     }
   );
 };
