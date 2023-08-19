@@ -31,13 +31,16 @@
       display: flex;
       flex-direction: column;
 
-      @include breakpoint-mixin("Laptop_S") {
+      @include breakpoint-mixin("Laptop_L") {
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
       }
 
       .selectTextSection {
+        // width: 60%;
+        padding-right: 25px;
+
         #selectName {
           font-size: 17px;
           font-weight: 500;
@@ -54,7 +57,7 @@
         column-gap: 20px;
         margin-top: 15px;
 
-        @include breakpoint-mixin("Laptop_S") {
+        @include breakpoint-mixin("Laptop_L") {
           margin-top: 0px;
         }
       }

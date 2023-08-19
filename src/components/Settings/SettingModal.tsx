@@ -58,11 +58,12 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
   };
 
   const handleCreateCheckoutSession = async (price_id: string) => {
+    console.log("clicked");
     try {
       const url = await createCheckout({
         price_id,
-        success_url: `http://localhost:3000${router.pathname}`,
-        cancel_url: `http://localhost:3000${router.pathname}`,
+        success_url: `${process.env.NEXT_PUBLIC_BACKENDURL}${router.pathname}`,
+        cancel_url: `${process.env.NEXT_PUBLIC_BACKENDURL}${router.pathname}`,
       });
 
       router.push(url);
