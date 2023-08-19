@@ -44,7 +44,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
   }, []);
 
   const handleCustomerPortal = async () => {
-    if (!userinfo) return null;
+    if (!userinfo) return;
 
     try {
       const url = await createPortal({
@@ -58,7 +58,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
   };
 
   const handleCreateCheckoutSession = async (price_id: string) => {
-    if (!userinfo) return null;
+    if (!userinfo) return;
 
     try {
       const url = await createCheckout({
@@ -118,7 +118,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
         {
           name: "Membership End Date",
           description: `${
-            userinfo
+            userinfo && userinfo?.subscription_end !== null
               ? new Date(userinfo.subscription_end).toDateString()
               : "N/A"
           }`,
