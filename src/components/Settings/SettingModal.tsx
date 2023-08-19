@@ -61,8 +61,8 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
     try {
       const url = await createCheckout({
         price_id: "price_1NUZdSKPa3aWR3Tf7nc1SplP",
-        success_url: `http://localhost:3000/${router.pathname}`,
-        cancel_url: `http://localhost:3000/${router.pathname}`,
+        success_url: `http://localhost:3000${router.pathname}`,
+        cancel_url: `http://localhost:3000${router.pathname}`,
       });
 
       router.push(url);
@@ -83,18 +83,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
               Manage
             </p>
           ),
-        },
-        {
-          name: "Delete Account",
-          description: "Delete your account and all your data",
-          button: (
-            <p
-              className={styles.button}
-              onClick={() => setDisplayConfirmationModal(true)}
-            >
-              Delete Account
-            </p>
-          ),
+          showCondition: true,
         },
         {
           name: "Manage membership plan",
@@ -118,6 +107,12 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
               </p>
             </>
           ),
+          showCondition: true,
+        },
+        {
+          name: "Membership End Date",
+          description: `${userinfo?.subscription_end}`,
+          showCondition: userinfo ? userinfo.subscription : false,
         },
         {
           name: "Logout",
@@ -139,6 +134,20 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
               Logout
             </p>
           ),
+          showCondition: true,
+        },
+        {
+          name: "Delete Account",
+          description: "Delete your account and all your data",
+          button: (
+            <p
+              className={styles.button}
+              onClick={() => setDisplayConfirmationModal(true)}
+            >
+              Delete Account
+            </p>
+          ),
+          showCondition: true,
         },
       ],
     },
@@ -159,6 +168,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
               Import
             </p>
           ),
+          showCondition: true,
         },
         {
           name: "Export Highlights",
@@ -174,6 +184,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
               Export
             </p>
           ),
+          showCondition: true,
         },
       ],
     },
@@ -183,10 +194,12 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
         {
           name: "Handle Books",
           description: "Delete or restore particular books",
+          showCondition: true,
         },
         {
           name: "Restore Highlights",
           description: "Restore deleted highlights",
+          showCondition: true,
         },
       ],
     },
