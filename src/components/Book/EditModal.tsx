@@ -5,6 +5,8 @@ import FormatAlignJustifyOutlinedIcon from "@mui/icons-material/FormatAlignJusti
 import VerticalAlignCenterOutlinedIcon from "@mui/icons-material/VerticalAlignCenterOutlined";
 import VerticalAlignBottomOutlinedIcon from "@mui/icons-material/VerticalAlignBottomOutlined";
 import VerticalAlignTopOutlinedIcon from "@mui/icons-material/VerticalAlignTopOutlined";
+import CropSquareIcon from "@mui/icons-material/CropSquare";
+import CropPortraitIcon from "@mui/icons-material/CropPortrait";
 import { HexColorPicker } from "react-colorful";
 import React, { useCallback, useEffect, useState } from "react";
 import styles from "../../styles/Components/EditModal.module.scss";
@@ -34,6 +36,8 @@ const EditModal = ({
   setTextStyles,
   setMetaDataStyles,
 }: EditModalProps) => {
+  const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
+
   //Collecting props to edit the picture, such as text color, font size, etc.
   const [color, setColor] = useState("#aabbcc");
   const [fontSize, setFontSize] = useState<number>(30);
@@ -43,9 +47,11 @@ const EditModal = ({
   );
   const [imageHeight, setImageHeight] = useState<number>(400);
   const [imageWidth, setImageWidth] = useState<number>(400);
-  const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
   const [textWidth, setTextWidth] = useState<number>(95);
   const [textAlign, setTextAlign] = useState<textAlignTypes>("center");
+  const [selectedCrop, setSelectedCrop] = useState<"portrait" | "square">(
+    "square"
+  );
   const [textVerticalAlign, setTextVerticalAlign] =
     useState<verticalAlignTypes>("center");
   const [textColor, setTextColor] = useState<string>("#000000");
@@ -98,8 +104,25 @@ const EditModal = ({
     textWidth,
     textColor,
     backgroundType,
-    backgroundImage,
   ]);
+
+  useEffect(() => {
+    //Have to set screenwidth to disable share feature for mobile
+    const handleResize = () => setScreenWidth(window.innerWidth);
+    handleResize();
+    window.addEventListener("resize", () => handleResize());
+
+    //Setting the image size for mobile
+    if (window.innerWidth < 1024) {
+      setImageWidth(330);
+      setImageHeight(330);
+      setFontSize(20);
+    }
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <div
@@ -231,22 +254,45 @@ const EditModal = ({
       <div className={styles.header}>
         <p>Image Size</p>
       </div>
-      <div className={styles.imageSizeSection}>
-        <div className={styles.imageSizeInputContainer}>
-          <p>X</p>
-          <input
-            type="number"
-            value={imageWidth}
-            onChange={(e) => setImageWidth(Number(e.target.value))}
-          />
+      <div className={styles.textSection}>
+        <div className={`${styles.textSectionRow} ${styles.laptop}`}>
+          <div className={styles.textInputContainer}>
+            <p>X</p>
+            <input
+              type="number"
+              value={imageWidth}
+              onChange={(e) => setImageWidth(Number(e.target.value))}
+            />
+          </div>
+          <div className={styles.textInputContainer}>
+            <p>Y</p>
+            <input
+              type="number"
+              value={imageHeight}
+              onChange={(e) => setImageHeight(Number(e.target.value))}
+            />
+          </div>
         </div>
-        <div className={styles.imageSizeInputContainer}>
-          <p>Y</p>
-          <input
-            type="number"
-            value={imageHeight}
-            onChange={(e) => setImageHeight(Number(e.target.value))}
-          />
+        <div className={`${styles.textSectionRow} ${styles.mobile}`}>
+          <div className={styles.textInputIconContainer}>
+            <p>Crop</p>
+            <CropPortraitIcon
+              className={styles.cropIcon}
+              onClick={() => {
+                //has to be 4:5 ratio
+                setImageHeight(400);
+                setImageWidth(320);
+              }}
+            />
+            <CropSquareIcon
+              className={styles.cropIcon}
+              onClick={() => {
+                //has to be 1:1 ratio
+                setImageHeight(330);
+                setImageWidth(330);
+              }}
+            />
+          </div>
         </div>
       </div>
       {
