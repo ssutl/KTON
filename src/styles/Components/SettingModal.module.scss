@@ -2,7 +2,7 @@
 
 .pageOverlay {
   position: fixed;
-  height: 100dvh;
+  height: 90dvh;
   width: 100%;
   top: 0px;
   left: 0px;
@@ -14,8 +14,12 @@
   z-index: 100;
   overflow-y: hidden;
 
-  .settingModal {
+  @include breakpoint-mixin("Laptop_S") {
     height: 100dvh;
+  }
+
+  .settingModal {
+    height: 100%;
     width: 100%;
     background-color: $modal-bg;
     display: flex;
@@ -114,6 +118,7 @@
         padding: 5px 10px;
         border-radius: 3px;
         border: 0.5px solid $border_mobile;
+        white-space: nowrap;
 
         @include breakpoint-mixin("Laptop_S") {
           border: 0.5px solid $border_laptop;

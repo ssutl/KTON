@@ -8,9 +8,13 @@ import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 
 export interface NavbarProps {
   handleSettingsModal: () => void;
+  settingsDisplayed: boolean;
 }
 
-export default function Navbar({ handleSettingsModal }: NavbarProps) {
+export default function Navbar({
+  handleSettingsModal,
+  settingsDisplayed,
+}: NavbarProps) {
   const { books } = useContext(KTON_CONTEXT);
   const router = useRouter();
   const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
@@ -49,11 +53,25 @@ export default function Navbar({ handleSettingsModal }: NavbarProps) {
     return (
       <div className={styles.mobileNavbar}>
         <div className={styles.navbarWidth}>
-          <p onClick={() => router.push("/Home")}>
+          <p
+            onClick={() => {
+              router.push("/Home");
+              if (settingsDisplayed) {
+                handleSettingsModal();
+              }
+            }}
+          >
             <AutoGraphIcon />
           </p>
           {DisplayLibrary && (
-            <p onClick={() => router.push("/Library")}>
+            <p
+              onClick={() => {
+                router.push("/Library");
+                if (settingsDisplayed) {
+                  handleSettingsModal();
+                }
+              }}
+            >
               <SplitscreenIcon />
             </p>
           )}

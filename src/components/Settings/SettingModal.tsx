@@ -18,7 +18,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
   const [displayConfirmationModal, setDisplayConfirmationModal] =
     useState(false);
   const [selectedSetting, setSelectedSetting] = useState<
-    "Books & Highlights" | "Account" | "Import & Export"
+    "Account" | "Books & Highlights" | "Import & Export" | "Upgrade"
   >("Account");
 
   useEffect(() => {
@@ -57,10 +57,10 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
     }
   };
 
-  const handleCreateCheckoutSession = async () => {
+  const handleCreateCheckoutSession = async (price_id: string) => {
     try {
       const url = await createCheckout({
-        price_id: "price_1NUZdSKPa3aWR3Tf7nc1SplP",
+        price_id,
         success_url: `http://localhost:3000${router.pathname}`,
         cancel_url: `http://localhost:3000${router.pathname}`,
       });
@@ -74,6 +74,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
   const settings: SettingOption[] = [
     {
       name: "Account",
+      showCondition: true,
       features: [
         {
           name: "Manage membership billing",
@@ -83,11 +84,11 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
               Manage
             </p>
           ),
-          showCondition: true,
+          showCondition: userinfo ? userinfo.subscription : false,
         },
         {
-          name: "Manage membership plan",
-          description: "Upgrade or downgrade your membership plan",
+          name: "Current Membership Plan",
+          description: "View your current membership plan",
           button: (
             <>
               <p
@@ -101,7 +102,9 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
                 className={`${styles.button} ${
                   userinfo?.subscription ? styles.kton_active : ""
                 }`}
-                onClick={() => handleCreateCheckoutSession()}
+                onClick={() =>
+                  userinfo?.subscription ? null : setSelectedSetting("Upgrade")
+                }
               >
                 Premium
               </p>
@@ -153,6 +156,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
     },
     {
       name: "Import & Export",
+      showCondition: true,
       features: [
         {
           name: "Import Highlights",
@@ -189,7 +193,40 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
       ],
     },
     {
+      name: "Upgrade",
+      showCondition: userinfo ? !userinfo.subscription : true,
+      features: [
+        {
+          name: "Upgrade to Premium",
+          description:
+            "Upgrade to premium to unlock all features: Notion integration, unlimited highlights, and no watermark on shared highlights",
+          button: (
+            <>
+              <p
+                className={styles.button}
+                onClick={() => {
+                  handleCreateCheckoutSession("price_1NUZdSKPa3aWR3Tf7nc1SplP");
+                }}
+              >
+                $3 per month
+              </p>
+              <p
+                className={styles.button}
+                onClick={() => {
+                  handleCreateCheckoutSession("price_1NUZdSKPa3aWR3TfC9hwGZ4b");
+                }}
+              >
+                $30 per year
+              </p>
+            </>
+          ),
+          showCondition: true,
+        },
+      ],
+    },
+    {
       name: "Books & Highlights",
+      showCondition: true,
       features: [
         {
           name: "Handle Books",
@@ -203,7 +240,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
         },
       ],
     },
-  ];
+  ].filter((eachSetting) => eachSetting.showCondition) as SettingOption[];
 
   if (!screenWidth) return null;
 
