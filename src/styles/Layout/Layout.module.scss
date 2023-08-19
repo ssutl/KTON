@@ -18,3 +18,12 @@
   z-index: 100;
   cursor: pointer;
 }
+
+.layout {
+  display: flex;
+  flex-direction: column-reverse;
+
+  @include breakpoint-mixin("Laptop_S") {
+    flex-direction: column;
+  }
+}

@@ -2,15 +2,19 @@ import styles from "../../styles/Layout/Navbar.module.scss";
 import React, { useState, useEffect, useContext } from "react";
 import { KTON_CONTEXT } from "../../context/KTONContext";
 import { useRouter } from "next/router";
-import userAuthenticated from "@/helpers/UserAuthenticated";
+import SplitscreenIcon from "@mui/icons-material/Splitscreen";
+import TuneIcon from "@mui/icons-material/Tune";
+import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 
 export interface NavbarProps {
   handleSettingsModal: () => void;
 }
 
 export default function Navbar({ handleSettingsModal }: NavbarProps) {
-  const { updateBooks, books } = useContext(KTON_CONTEXT);
+  const { books } = useContext(KTON_CONTEXT);
   const router = useRouter();
+  const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
+
   // getting the current route
   const isIndexRoute = router.pathname === "/";
   const isImportRoute = router.pathname === "/Import";
@@ -26,8 +30,45 @@ export default function Navbar({ handleSettingsModal }: NavbarProps) {
       books?.filter((eachBook) => eachBook.deleted === false).length !== 0 &&
       books !== undefined);
 
+  //Screen width for mobile
+  useEffect(() => {
+    //Have to set screenwidth to disable share feature for mobile
+    const handleResize = () => setScreenWidth(window.innerWidth);
+    handleResize();
+    window.addEventListener("resize", () => handleResize());
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   //Display the navbar
   if (router.pathname === "/verify/[...id]") return null;
+
+  const mobileNavbar = () => {
+    return (
+      <div className={styles.mobileNavbar}>
+        <div className={styles.navbarWidth}>
+          <p onClick={() => router.push("/Home")}>
+            <AutoGraphIcon />
+          </p>
+          {DisplayLibrary && (
+            <p onClick={() => router.push("/Library")}>
+              <SplitscreenIcon />
+            </p>
+          )}
+          {(DisplaySettings || isImportRoute) && (
+            <p onClick={() => handleSettingsModal()}>
+              <TuneIcon />
+            </p>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  if (screenWidth && screenWidth <= 1024 && !isIndexRoute)
+    return mobileNavbar();
 
   return (
     <div className={styles.navbar}>

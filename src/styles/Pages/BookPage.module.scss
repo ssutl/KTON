@@ -1,12 +1,8 @@
 @import "../../styles/Layout/Breakpoints.module.scss";
 
 .BookPage {
-  height: 93dvh;
+  height: 90dvh;
   overflow-y: scroll;
-
-  @include breakpoint-mixin("Tablet") {
-    height: 95dvh;
-  }
 
   @include breakpoint-mixin("Laptop_S") {
     overflow-y: hidden;

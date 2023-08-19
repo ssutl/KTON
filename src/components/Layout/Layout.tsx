@@ -27,9 +27,8 @@ const Layout = ({ children }: any) => {
   };
 
   //Quick default layout in order to persist navbar and header on every page
-
   return (
-    <>
+    <div className={styles.layout}>
       <Navbar handleSettingsModal={() => handleSettingsModal()} />
       {children}
       {displaySettings && (
@@ -49,7 +48,7 @@ const Layout = ({ children }: any) => {
           <RateReviewIcon />
         </div>
       )}
-    </>
+    </div>
   );
 };
 
