@@ -312,8 +312,8 @@ const EditModal = ({
       <div className={styles.header}>
         <p>Export Image</p>
       </div>
-      <div className={styles.textSection}>
-        <div className={styles.textSectionRow}>
+      <div className={styles.exportSection}>
+        <div className={styles.exportSectionRow}>
           <p
             className={styles.exportButton}
             onClick={() => handleImageDownload()}
@@ -333,8 +333,8 @@ const EditModal = ({
             Share
           </p>
         </div>
-        <div className={styles.textSectionRow}>
-          <p>Mac doesn&apos;t support sharing</p>
+        <div className={styles.exportSectionRow}>
+          <p>Mac doesn&apos;t support sharing 😔</p>
         </div>
       </div>
     </div>
