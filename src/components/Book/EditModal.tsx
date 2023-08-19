@@ -312,25 +312,30 @@ const EditModal = ({
       <div className={styles.header}>
         <p>Export Image</p>
       </div>
-      <div className={styles.exportSection}>
-        <p
-          className={styles.exportButton}
-          onClick={() => handleImageDownload()}
-        >
-          Export as .png
-        </p>
-        <p
-          className={styles.exportButton}
-          onClick={async () => {
-            try {
-              ShareImageNatively(`${book?.title}-${index}.jpeg`);
-            } catch (err) {
-              navigator.clipboard.writeText(window.location.href);
-            }
-          }}
-        >
-          Share
-        </p>
+      <div className={styles.textSection}>
+        <div className={styles.textSectionRow}>
+          <p
+            className={styles.exportButton}
+            onClick={() => handleImageDownload()}
+          >
+            Export as .png
+          </p>
+          <p
+            className={styles.exportButton}
+            onClick={async () => {
+              try {
+                ShareImageNatively(`${book?.title}-${index}.jpeg`);
+              } catch (err) {
+                navigator.clipboard.writeText(window.location.href);
+              }
+            }}
+          >
+            Share
+          </p>
+        </div>
+        <div className={styles.textSectionRow}>
+          <p>Mac doesn&apos;t support sharing</p>
+        </div>
       </div>
     </div>
   );

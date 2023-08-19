@@ -54,17 +54,6 @@
       opacity: 0.5;
       cursor: pointer;
     }
-
-    .imageIcon {
-      height: 24px;
-      width: 24px;
-      opacity: 0.5;
-      cursor: pointer;
-    }
-
-    .selectedIcon {
-      opacity: 1;
-    }
   }
 
   .backgroundSection {
@@ -85,6 +74,17 @@
     padding: 0px 20px;
     flex-direction: column;
     border-bottom: 0.5px solid $border_laptop;
+
+    .exportButton {
+      border: 0.5px solid white;
+      padding: 3px 10px;
+      width: fit-content;
+
+      &:hover {
+        cursor: pointer;
+        opacity: 0.5;
+      }
+    }
 
     .textSectionRow {
       height: 6dvh;

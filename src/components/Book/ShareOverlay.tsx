@@ -1,9 +1,10 @@
-import React, { useRef, useState, useContext } from "react";
+import React, { useRef, useState, useContext, useEffect } from "react";
 import styles from "../../styles/Components/ShareOverlay.module.scss";
 import { useRouter } from "next/router";
 import { KTON_CONTEXT } from "../../context/KTONContext";
 import cleanAuthor from "@/helpers/cleanAuthor";
 import EditModal from "./EditModal";
+import { useAlert } from "react-alert";
 
 export interface ShareOverlayProps {
   closeModal: () => void;
@@ -40,7 +41,6 @@ const ShareOverlay = ({
   index,
 }: ShareOverlayProps) => {
   const { books, userinfo } = useContext(KTON_CONTEXT);
-  console.log("userinfo", userinfo);
   const router = useRouter();
   const book_id = router.query.id;
   const book = books?.find((book) => book._id === book_id);
@@ -48,9 +48,16 @@ const ShareOverlay = ({
   const ref = useRef<HTMLDivElement>(null);
   //Styling for the image which is passed up from the edit modal
   const [ImageStyles, setImageStyles] = useState<ImageStyles>();
-  console.log("ImageStyles", ImageStyles);
   const [TextStyles, setTextStyles] = useState<TextStyles>();
   const [MetaDataStyles, setMetaDataStyles] = useState<MetaDataStyles>();
+  const alert = useAlert();
+
+  useEffect(() => {
+    if (userinfo?.subscription) return;
+    alert.show("Upgrade to premium to remove watermarks", {
+      type: "info",
+    });
+  }, []);
 
   if (!book) return null;
 
@@ -67,7 +74,7 @@ const ShareOverlay = ({
           style={ImageStyles}
           contentEditable="true"
         >
-          {!userinfo?.subscription && (
+          {userinfo?.subscription !== true && (
             <h1
               id={styles.watermark}
               style={{
