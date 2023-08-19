@@ -1,7 +1,6 @@
 @import "../../styles/Layout/Breakpoints.module.scss";
 
 .editModal {
-  height: 100%;
   background-color: $cd-bg;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
@@ -10,7 +9,16 @@
   align-items: center;
   // overflow: hidden;
   position: relative;
-  width: 25%;
+  height: 100dvh;
+  width: 90%;
+  margin: 0px auto;
+  border-radius: 10px;
+
+  @include breakpoint-mixin("Laptop_S") {
+    margin: 0;
+    width: 25%;
+    height: 100%;
+  }
 
   @include breakpoint-mixin("Desktop_M") {
     width: 15%;
