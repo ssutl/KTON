@@ -9,12 +9,16 @@
 }
 
 .button {
-  padding: 10px 40px 10px 40px;
+  width: 100%;
+  padding: 10px 0px;
   border: 0.5px solid white;
   cursor: pointer;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-left: 0.5px;
+  // margin-left: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   @include breakpoint-mixin("Laptop_S") {
     margin-left: 0px;

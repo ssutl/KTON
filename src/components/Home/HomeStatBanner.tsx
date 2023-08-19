@@ -129,7 +129,11 @@ function HomeStatBanner() {
     return formatDate(nextDay);
   }
 
-  if (!filteredHighlights)
+  const streakData = getlongestStreak();
+
+  //Once we have the highlights, we can render the component
+
+  if (!filteredHighlights || !streakData)
     return (
       <div className={styles.HomeStatBanner}>
         <div className={styles.StatWidthContainer}>
@@ -139,12 +143,6 @@ function HomeStatBanner() {
         </div>
       </div>
     );
-
-  const streakData = getlongestStreak();
-
-  //Once we have the highlights, we can render the component
-
-  if (!streakData) return null;
 
   return (
     <div className={styles.HomeStatBanner}>

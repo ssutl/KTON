@@ -23,7 +23,7 @@ const ImportPage = () => {
   return (
     <>
       <Head>
-        <title>KTON Home</title>
+        <title>KTON Import</title>
       </Head>
       <div className={styles.ImportPage}>
         <ImportComponent />

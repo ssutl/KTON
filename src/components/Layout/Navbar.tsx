@@ -16,6 +16,7 @@ export default function Navbar({
   settingsDisplayed,
 }: NavbarProps) {
   const { books } = useContext(KTON_CONTEXT);
+  console.log("books", books);
   const router = useRouter();
   const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
 

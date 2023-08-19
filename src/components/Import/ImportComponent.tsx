@@ -1,10 +1,8 @@
 import styles from "../../styles/Components/ImportComponent.module.scss";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import ImportButton from "./ImportButton";
 import { useRouter } from "next/router";
 import { io } from "socket.io-client";
-
-const socket = io(`${process.env.NEXT_PUBLIC_BACKENDURL}`);
 
 const ImportComponent = () => {
   const [progress, setProgress] = useState<"Started" | "None" | "Complete">(
@@ -24,6 +22,8 @@ const ImportComponent = () => {
       setPercentage(value);
     }
   };
+
+  const socket = io(`${process.env.NEXT_PUBLIC_BACKENDURL}`);
 
   //Connecting to the sockets to see the progress of the upload
   useEffect(() => {
@@ -58,16 +58,17 @@ const ImportComponent = () => {
   return (
     <div className={styles.importSect}>
       <div className={styles.importInfoSect}>
-        <h2>
+        <p id={styles.importToText}>
           {progress === "None"
-            ? `Import your clippings to ${JSON.parse(username)}`
+            ? `Import your clippings to`
             : progress === "Started"
             ? `Importing Clippings`
             : `Upload Complete!`}
-        </h2>
+        </p>
+        <h2>{JSON.parse(username)}</h2>
         <p>
           {progress === "None"
-            ? `Locate "Clippings.txt"`
+            ? `Firstly locate "Clippings.txt"`
             : progress === "Started"
             ? `Uploading.... ${percentage}%`
             : `Happy reading!`}
