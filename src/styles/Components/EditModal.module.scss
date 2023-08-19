@@ -150,6 +150,22 @@
         }
       }
     }
+
+    .laptop {
+      display: none;
+
+      @include breakpoint-mixin("Laptop_S") {
+        display: flex;
+      }
+    }
+
+    .mobile {
+      display: flex;
+
+      @include breakpoint-mixin("Laptop_S") {
+        display: none;
+      }
+    }
   }
 
   .exportSection {

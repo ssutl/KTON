@@ -15,6 +15,7 @@ import { Book } from "@/api/Interface";
 import TextColorModal from "./TextColorModal";
 import ShareImageNatively from "@/helpers/ShareImageNatively";
 import ImageDownload from "@/helpers/ImageDownload";
+import { set } from "lodash";
 
 interface EditModalProps {
   refrence: React.RefObject<HTMLDivElement>;
@@ -114,8 +115,8 @@ const EditModal = ({
 
     //Setting the image size for mobile
     if (window.innerWidth < 1024) {
-      setImageWidth(330);
-      setImageHeight(330);
+      setImageWidth(320);
+      setImageHeight(320);
       setFontSize(20);
     }
 
@@ -277,19 +278,25 @@ const EditModal = ({
           <div className={styles.textInputIconContainer}>
             <p>Crop</p>
             <CropPortraitIcon
-              className={styles.cropIcon}
+              className={`${styles.cropIcon} ${
+                selectedCrop === "portrait" && styles.selectedIcon
+              }`}
               onClick={() => {
+                setSelectedCrop("portrait");
                 //has to be 4:5 ratio
                 setImageHeight(400);
                 setImageWidth(320);
               }}
             />
             <CropSquareIcon
-              className={styles.cropIcon}
+              className={`${styles.cropIcon} ${
+                selectedCrop === "square" && styles.selectedIcon
+              }`}
               onClick={() => {
+                setSelectedCrop("square");
                 //has to be 1:1 ratio
-                setImageHeight(330);
-                setImageWidth(330);
+                setImageHeight(320);
+                setImageWidth(320);
               }}
             />
           </div>

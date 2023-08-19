@@ -5,11 +5,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 93dvh;
-
-  @include breakpoint-mixin("Tablet") {
-    height: 95dvh;
-  }
+  height: 90dvh;
 
   @include breakpoint-mixin("Laptop_S") {
     height: 93dvh;
