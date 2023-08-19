@@ -44,7 +44,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
   }, []);
 
   const handleCustomerPortal = async () => {
-    if (!userinfo?.stripe_customer_id) return null;
+    if (!userinfo) return null;
 
     try {
       const url = await createPortal({
