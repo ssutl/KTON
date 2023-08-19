@@ -51,7 +51,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
         customer_id: userinfo.stripe_customer_id,
       });
 
-      router.push(url);
+      window.open(url, "_ blank");
     } catch (error) {
       console.log(error);
     }
@@ -68,7 +68,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
         stripe_customer_id: userinfo.stripe_customer_id,
       });
 
-      router.push(url);
+      window.open(url, "_ blank");
     } catch (error) {
       console.log(error);
     }
