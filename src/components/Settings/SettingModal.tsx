@@ -117,7 +117,11 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
         },
         {
           name: "Membership End Date",
-          description: `${userinfo?.subscription_end}`,
+          description: `${
+            userinfo
+              ? new Date(userinfo.subscription_end).toDateString()
+              : "N/A"
+          }`,
           showCondition: userinfo ? userinfo.subscription : false,
         },
         {
