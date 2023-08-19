@@ -133,7 +133,11 @@ const EditModal = ({
       }}
     >
       {displayTextColorModal && (
-        <TextColorModal textColor={textColor} setTextColor={setTextColor} />
+        <TextColorModal
+          textColor={textColor}
+          setTextColor={setTextColor}
+          closeModal={() => setDisplayTextColorModal(false)}
+        />
       )}
       {
         //Section to edit the background colour of the image
