@@ -6,7 +6,6 @@
   height: 90dvh;
 
   @include breakpoint-mixin("Laptop_S") {
-    padding-bottom: 0px;
     height: 93dvh;
   }
 
@@ -15,6 +14,7 @@
   }
 
   @include portrait-min-width-mixin("Vertical_Display") {
+    padding-bottom: 25px;
     height: 97dvh;
   }
 }

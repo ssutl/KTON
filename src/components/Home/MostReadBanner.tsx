@@ -54,7 +54,12 @@ const MostReadBanner = () => {
     }
   }, [dataSelection, highlights]);
 
-  if (!data) return null;
+  if (!data)
+    return (
+      <div className={styles.MostReadBanner}>
+        <div className={styles.loading}></div>
+      </div>
+    );
 
   return (
     <div className={styles.MostReadBanner}>

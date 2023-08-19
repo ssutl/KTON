@@ -9,12 +9,12 @@
   margin-top: 25px;
 
   @include breakpoint-mixin("Laptop_S") {
-    margin: 0px;
-    height: 30dvh;
+    margin-top: 30px;
+    height: 25dvh;
   }
 
   @include breakpoint-mixin("Desktop_M") {
-    height: 32dvh;
+    height: 27dvh;
   }
 
   @include breakpoint-mixin("Desktop_L") {
@@ -22,7 +22,8 @@
   }
 
   @include portrait-min-width-mixin("Vertical_Display") {
-    height: 20dvh;
+    margin-top: 25px;
+    height: 15dvh;
   }
 
   .HeatMapContainer {
@@ -38,11 +39,8 @@
 
     @include breakpoint-mixin("Laptop_S") {
       border: 0.5px solid $border_laptop;
-      height: 85%;
-      //To account for the scrollbar
       width: calc(95% + 10px);
-      margin-left: 10px; // Add left margin
-      //To account for the scrollbar
+      margin-left: 10px;
       cursor: pointer;
 
       &:hover {
@@ -52,8 +50,16 @@
       }
     }
 
-    @include portrait-min-width-mixin("Vertical_Display") {
+    .loading {
       height: 100%;
+      width: 90%;
+      background-color: #e3e3e36b;
+      animation: loading-animation 1s infinite linear;
+
+      @include breakpoint-mixin("Laptop_S") {
+        width: calc(95% + 10px);
+        margin-left: 10px; // Add left margin
+      }
     }
 
     .color-empty-light {
@@ -77,13 +83,6 @@
   text {
     font-size: 8px;
     fill: #aaa;
-  }
-
-  .loading {
-    height: 85%;
-    width: 100%;
-    background-color: #e3e3e36b;
-    animation: loading-animation 1s infinite linear;
   }
 
   @keyframes loading-animation {

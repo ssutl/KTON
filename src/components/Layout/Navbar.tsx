@@ -85,10 +85,9 @@ export default function Navbar({
     );
   };
 
-  if (screenWidth && screenWidth <= 1024 && !isIndexRoute)
-    return mobileNavbar();
+  if (screenWidth && screenWidth < 1024 && !isIndexRoute) return mobileNavbar();
 
-  if (screenWidth && screenWidth <= 1024 && isIndexRoute) return null;
+  if (screenWidth && screenWidth < 1024 && isIndexRoute) return null;
 
   return (
     <div className={styles.navbar}>

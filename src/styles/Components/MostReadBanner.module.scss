@@ -9,8 +9,17 @@
   height: 50dvh;
 
   @include breakpoint-mixin("Laptop_S") {
-    margin: 0px;
-    height: 60dvh;
+    margin-top: 35px;
+    height: 40dvh;
+  }
+
+  @include breakpoint-mixin("Desktop_M") {
+    height: 50dvh;
+  }
+
+  @include portrait-min-width-mixin("Vertical_Display") {
+    margin-top: 25px;
+    height: 20dvh;
   }
 
   .modalContainer {
@@ -30,12 +39,13 @@
 
     @include breakpoint-mixin("Laptop_S") {
       border: 0.5px solid $border_laptop;
-      //To account for the scrollbar
       width: calc(95% + 10px);
       margin-left: 10px;
-      //To account for the scrollbar
-      height: 90%;
       padding: 0px 40px;
+    }
+
+    @include portrait-min-width-mixin("Vertical_Display") {
+      padding: 0px 10px;
     }
 
     .graphHeader {
@@ -103,6 +113,11 @@
         width: 100%;
         height: 70%;
       }
+
+      @include portrait-min-width-mixin("Vertical_Display") {
+        width: 100%;
+        height: 75%;
+      }
     }
 
     @include breakpoint-mixin("Laptop_S") {
@@ -111,6 +126,15 @@
         transform: scale(1.01);
         border: 1px solid grey;
       }
+    }
+  }
+
+  .loading {
+    height: 100%;
+    width: 90%;
+
+    @include breakpoint-mixin("Laptop_S") {
+      width: calc(95% + 10px);
     }
   }
 }
