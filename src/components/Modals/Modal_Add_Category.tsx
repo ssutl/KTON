@@ -95,7 +95,7 @@ const Modal_Add_Category = ({
               id={genericModalStyles.trashIcon}
               onClick={(e) => {
                 e.stopPropagation();
-                addCategoryToHighlight({
+                addCategoryToUser({
                   type: "remove",
                   data: userInfoCategory,
                   book_id,

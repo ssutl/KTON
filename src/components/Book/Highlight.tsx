@@ -20,8 +20,8 @@ import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 import HandleChanges from "@/helpers/HandleChanges";
 import ShareOverlay from "./ShareOverlay";
 import { Tooltip } from "react-tooltip";
-import Modal_Add_Genre from "../Modals/Modal_Add_Genre";
 import Modal_Add_Category from "../Modals/Modal_Add_Category";
+import { set } from "lodash";
 
 interface highlightProps {
   highlight: Book_highlight;
@@ -75,6 +75,8 @@ const Highlight = ({ highlight, index }: highlightProps) => {
         book_id,
         highlight_id: highlight._id,
       });
+      setInputAnnotation("");
+      setAnnotationDropdown(false);
     }
   };
 
@@ -100,6 +102,8 @@ const Highlight = ({ highlight, index }: highlightProps) => {
                 book_id,
                 highlight_id: highlight._id,
               });
+              setInputAnnotation("");
+              setAnnotationDropdown(false);
             }}
           >
             Save
