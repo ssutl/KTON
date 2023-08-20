@@ -103,10 +103,18 @@
       textarea {
         min-height: 10dvh;
         width: 100%;
-        background-color: transparent;
-        border: none;
         outline: none;
         resize: none;
+        background-color: $hover;
+        border-radius: 4px;
+        border: none;
+        padding: 10px;
+      }
+
+      textarea:focus {
+        outline: none !important;
+        border: 1px solid $kton-blue;
+        box-shadow: 0 0 3px;
       }
 
       .buttonsSection {
