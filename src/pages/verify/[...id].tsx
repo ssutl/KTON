@@ -23,7 +23,7 @@ const VerificationPage = () => {
             Router.push("/Import");
           }
         } catch (err) {
-          throw err;
+          throw new Error("Failed to verify user");
         }
       }
     };

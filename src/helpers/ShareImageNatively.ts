@@ -27,9 +27,11 @@ const shareFile = (file: any, title: any, text: any) => {
         text,
       })
       .then(() => console.log("Share was successful."))
-      .catch((error) => console.log("Sharing failed", error));
+      .catch((error) => {
+        //Throw error
+        throw new Error(error);
+      });
   } else {
-    console.log(`Your system doesn't support sharing files.`);
     alert(
       `Your system doesn't support sharing files, you can follow this link to enable it: https://winaero.com/chrome-to-get-web-share-api-support-on-desktop/`
     );

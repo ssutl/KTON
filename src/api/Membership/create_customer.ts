@@ -37,7 +37,6 @@ const createCustomer = async ({
     const url: string = response.data;
     return url;
   } catch (err) {
-    console.log("err: ", err);
     throw new Error("Failed to create customer");
   }
 };

@@ -28,7 +28,6 @@ const markAsAnnotatedApi = async ({
       data: { annotated: data },
     });
   } catch (err) {
-    console.log(err);
     throw new Error("Failed changing book image");
   }
 };

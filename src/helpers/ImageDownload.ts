@@ -49,7 +49,7 @@ const ImageDownload = ({ refrence, title, imageWidth }: ImageDownloadProps) => {
       link.click();
       if (refrence.current) refrence.current.removeChild(watermarkElement);
     } catch (err) {
-      console.log(err);
+      throw new Error("Failed to download image");
     }
 
     // Remove the watermark element from the div

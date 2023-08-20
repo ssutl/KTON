@@ -32,9 +32,7 @@ const Modal_Confirmation = ({
         Router.push("/");
         updateBooks(undefined);
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   return (

@@ -52,9 +52,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
       });
 
       window.open(url, "_ blank");
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const handleCreateCheckoutSession = async (price_id: string) => {
@@ -69,9 +67,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
       });
 
       window.open(url, "_ blank");
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const settings: SettingOption[] = [

@@ -70,7 +70,6 @@ const BookComponent = ({ book, index }: BookProps) => {
               src={book.cover_image}
               className={styles.image}
               onError={() => {
-                console.log("error");
                 setImageIsValid(false);
               }}
             />
