@@ -149,7 +149,7 @@ function HomeStatBanner() {
       <div className={styles.StatWidthContainer}>
         <div className={styles.statsBox}>
           <p>Longest Streak</p>
-          <h1>{streakData?.CurrentLongestStreak}</h1>
+          <h1>{streakData.CurrentLongestStreak}</h1>
           <p>{`${new Date(
             streakData.LongestStreakStart
           ).toDateString()} - ${new Date(
