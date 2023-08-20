@@ -208,7 +208,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
               <p
                 className={styles.button}
                 onClick={() => {
-                  handleCreateCheckoutSession("price_1NUZdSKPa3aWR3Tf7nc1SplP");
+                  handleCreateCheckoutSession("price_1Nh0z1KPa3aWR3TfGDgtGqgD");
                 }}
               >
                 $3 per month
@@ -216,7 +216,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
               <p
                 className={styles.button}
                 onClick={() => {
-                  handleCreateCheckoutSession("price_1NUZdSKPa3aWR3TfC9hwGZ4b");
+                  handleCreateCheckoutSession("price_1Nh0z1KPa3aWR3TfK3PiysV4");
                 }}
               >
                 $30 per year
