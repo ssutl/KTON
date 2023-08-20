@@ -1,0 +1,345 @@
+@import "../../styles/Layout/Breakpoints.module.scss";
+
+.BookPage {
+  height: 90dvh;
+  overflow-y: scroll;
+
+  @include breakpoint-mixin("Laptop_S") {
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: row;
+    height: 93dvh;
+  }
+
+  @include breakpoint-mixin("Desktop_M") {
+    height: 95dvh;
+  }
+
+  @include portrait-min-width-mixin("Vertical_Display") {
+    overflow-y: scroll;
+    display: block;
+    height: 97dvh;
+  }
+
+  .bookHalf {
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+
+    @include breakpoint-mixin("Laptop_S") {
+      border-right: 0.5px solid $border_laptop;
+      width: 50%;
+    }
+
+    @include portrait-min-width-mixin("Vertical_Display") {
+      width: 100%;
+    }
+
+    .annotatedTag {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 0;
+      height: 0;
+      border-top: 60px solid #78bc61;
+      border-left: 60px solid transparent;
+      z-index: 1;
+    }
+
+    #editBookDots {
+      position: absolute;
+      top: 10px;
+      left: 5%;
+      cursor: pointer;
+      font-size: 25px;
+    }
+
+    .image {
+      height: 300px;
+      width: 220px;
+      cursor: pointer;
+      border-radius: 3px;
+      overflow: hidden;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+        rgba(0, 0, 0, 0.22) 0px 10px 10px;
+      position: relative;
+
+      .editURLMenu {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background-color: $modal-bg;
+        padding: 2px 10px;
+        border-radius: 3px;
+        border: 0.5px solid $border_mobile;
+
+        @include breakpoint-mixin("Laptop_S") {
+          border: 0.5px solid $border_laptop;
+        }
+      }
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      @include breakpoint-mixin("Mobile_M") {
+        height: 370px;
+        width: 270px;
+      }
+
+      @include breakpoint-mixin("Mobile_L") {
+        height: 430px;
+        width: 310px;
+      }
+
+      @include breakpoint-mixin("Tablet") {
+        height: 625px;
+        width: 460px;
+      }
+
+      @include breakpoint-mixin("Laptop_S") {
+        height: 405px;
+        width: 305px;
+      }
+
+      @include breakpoint-mixin("Laptop_M") {
+        height: 420px;
+        width: 315px;
+      }
+
+      @include breakpoint-mixin("Laptop_L") {
+        height: 440px;
+        width: 335px;
+      }
+
+      @include breakpoint-mixin("Desktop_S") {
+        height: 565px;
+        width: 430px;
+      }
+
+      @include breakpoint-mixin("Desktop_M") {
+        height: 585px;
+        width: 430px;
+      }
+
+      @include breakpoint-mixin("Desktop_L") {
+        height: 820px;
+        width: 600px;
+      }
+
+      @include portrait-min-width-mixin("Vertical_Display") {
+        height: 850px;
+        width: 600px;
+      }
+
+      .NoImage {
+        background-image: url("../../../public/image/NoBookCover.svg");
+        /* Make the background image repeat both horizontally and vertically */
+        background-repeat: repeat;
+        /* Set the size of the background image */
+        background-size: 150px; /* Adjust this value to control the size of the image */
+        /* Set the width and height of the container to fill the available space */
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .highlightHalf {
+    width: 100%;
+    overflow-y: auto;
+
+    //For laptop and Desktop
+    @include breakpoint-mixin("Laptop_S") {
+      width: 50%;
+      background-color: $cd-bg;
+    }
+
+    @include portrait-min-width-mixin("Vertical_Display") {
+      width: 100%;
+    }
+
+    .bookInformation {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      //Aligning title with highlights below
+      width: calc(90% + 10px);
+      position: relative;
+      margin: 5dvh auto 0 auto;
+
+      .titleContainer {
+        display: flex;
+        align-items: center;
+
+        .titleSection {
+          height: 100%;
+          width: 85%;
+          flex-wrap: wrap;
+
+          @include breakpoint-mixin("Laptop_S") {
+            width: 90%;
+          }
+        }
+
+        .searchSection {
+          min-height: 100%;
+          width: 15%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          position: relative;
+
+          @include breakpoint-mixin("Laptop_S") {
+            width: 10%;
+          }
+
+          #searchIcon {
+            cursor: pointer;
+            font-size: 30px;
+          }
+        }
+      }
+
+      .titleContainer,
+      #author,
+      .star {
+        margin-bottom: 25px;
+      }
+
+      .star {
+        cursor: pointer;
+        font-size: 27px;
+
+        @include breakpoint-mixin("Laptop_S") {
+          font-size: 26px;
+        }
+        @include breakpoint-mixin("Desktop_M") {
+          font-size: 25px;
+        }
+      }
+    }
+
+    .filterBanner {
+      width: calc(90% + 10px);
+      display: flex;
+      margin: 0px auto;
+      padding: 25px 0px;
+      border-top: 0.5px solid $border_mobile;
+      border-bottom: 0.5px solid $border_mobile;
+      flex-direction: column;
+      //Display genre banner below buttons on mobile
+
+      @include breakpoint-mixin("Laptop_S") {
+        flex-direction: row;
+        border-top: 0.5px solid $border_laptop;
+        border-bottom: 0.5px solid $border_laptop;
+      }
+
+      .filterContainer {
+        display: flex;
+
+        span {
+          position: relative;
+          height: fit-content;
+
+          #buttons {
+            margin-right: 20px;
+            white-space: nowrap;
+
+            @include breakpoint-mixin("Laptop_S") {
+              cursor: pointer;
+              margin-right: 0px;
+              border-radius: 4px;
+              padding: 2px 10px;
+
+              &:hover {
+                opacity: 0.5;
+                background-color: $hover;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @include breakpoint-mixin("Laptop_S") {
+    .highlightHalf::-webkit-scrollbar {
+      height: 100%;
+      background-color: rgb(45, 41, 41);
+      width: 10px;
+    }
+
+    .highlightHalf::-webkit-scrollbar-thumb {
+      background-color: rgba(70, 68, 68, 0.428);
+      border: 1px solid transparent;
+      background-clip: content-box;
+      border-radius: 10px;
+      height: 40px;
+    }
+  }
+}
+
+@include breakpoint-mixin("Laptop_S") {
+  .BookPage::-webkit-scrollbar {
+    height: 100%;
+    background-color: rgb(45, 41, 41);
+    width: 10px;
+  }
+
+  .BookPage::-webkit-scrollbar-thumb {
+    background-color: rgba(70, 68, 68, 0.428);
+    border: 1px solid transparent;
+    background-clip: content-box;
+    border-radius: 10px;
+    height: 40px;
+  }
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 94dvh;
+
+  @include breakpoint-mixin("Laptop_S") {
+    height: 93dvh;
+  }
+
+  @include breakpoint-mixin("Desktop_M") {
+    height: 95dvh;
+  }
+}
+
+.loadingText:after {
+  content: " .";
+  animation: dots 1s steps(5, end) infinite;
+}
+
+@keyframes dots {
+  0%,
+  20% {
+    color: rgba(0, 0, 0, 0);
+    text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  40% {
+    color: white;
+    text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  60% {
+    text-shadow: 0.25em 0 0 white, 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  80%,
+  100% {
+    text-shadow: 0.25em 0 0 white, 0.5em 0 0 white;
+  }
+}

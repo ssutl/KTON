@@ -1,0 +1,63 @@
+//below each breakpoint add a comment to describe screen height for that width
+
+$breakpoints: (
+  "Mobile_S": 320px,
+  //screen height for Mobile_S is 568px
+  "Mobile_M": 370px,
+  //screen height for Mobile_M is 667px
+  "Mobile_L": 425px,
+  //screen height for Mobile_L is 812px
+  "Tablet": 768px,
+  //screen height for Tablet is 1024px
+  "Laptop_S": 1024px,
+  //screen height for Laptop_S is 768px
+  "Laptop_M": 1280px,
+  //screen height for Laptop_M is 800px
+  "Laptop_L": 1440px,
+  //screen height for Laptop_L is 900px
+  "Desktop_S": 1680px,
+  //screen height for Desktop_S is 1050px
+  "Desktop_M": 1920px,
+  //screen height for Desktop_M is 1080px
+  "Desktop_L": 2560px,
+  //screen height for Desktop_L is 1440px
+  "Vertical_Display": 1080px,
+  //screen height for Vertical_Display is 1920px
+);
+
+//Dark Theme
+$bg: #191919;
+$cd-bg: #262626;
+$modal-bg: #252525;
+$hover: #313131;
+$blur-bg: #191919c0;
+$border_laptop: #2d2d2d;
+$border_mobile: rgba(255, 255, 255, 0.399);
+$highlighted-blue: #263341;
+
+//Custom themes
+
+//Positive & Negative
+$kton-blue: #3fcdfc;
+$kton-red: #ff3f3f;
+
+// $negativeBTN: #ff4a4a;
+
+@mixin breakpoint-mixin($width, $type: min) {
+  @if map_has_key($breakpoints, $width) {
+    $width: map_get($breakpoints, $width);
+    @if $type == max {
+      $width: $width - 1px;
+    }
+    @media only screen and (#{$type}-width: $width) {
+      @content;
+    }
+  }
+}
+
+@mixin portrait-min-width-mixin($breakpoint) {
+  $minWidth: map-get($breakpoints, $breakpoint);
+  @media only screen and (min-width: $minWidth) and (orientation: portrait) {
+    @content;
+  }
+}

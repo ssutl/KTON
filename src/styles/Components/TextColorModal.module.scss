@@ -1,0 +1,28 @@
+@import "../../styles/Layout/Breakpoints.module.scss";
+
+.pickerContainer {
+  position: absolute;
+  z-index: 1000;
+  border-radius: 4px;
+  overflow: hidden;
+  top: 40%;
+
+  @include breakpoint-mixin("Laptop_S") {
+    top: 50%;
+    right: 110%;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  background-color: $blur-bg;
+
+  @include breakpoint-mixin("Laptop_S") {
+    background-color: transparent;
+  }
+}

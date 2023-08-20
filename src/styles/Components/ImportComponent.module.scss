@@ -1,0 +1,52 @@
+@import "../../styles/Layout/Breakpoints.module.scss";
+.importSect {
+  width: 90%;
+
+  @include breakpoint-mixin("Laptop_S") {
+    width: fit-content;
+  }
+
+  .importInfoSect {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    -webkit-line-clamp: 2;
+    margin-bottom: 20px;
+    word-break: break-all;
+
+    #importToText {
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+  }
+
+  .progressSect {
+    height: 6dvh;
+    border: 0.5px solid rgba(255, 255, 255, 0.7);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    @include breakpoint-mixin("Laptop_S") {
+      height: 5dvh;
+    }
+
+    .progress_bar {
+      height: 7px;
+      width: 80%;
+      background-color: #78747476;
+      border-radius: 4px;
+
+      .progress_bar_fill {
+        height: 100%;
+        background-color: #3fcdfc;
+      }
+    }
+  }
+}

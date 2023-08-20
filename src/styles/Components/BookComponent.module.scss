@@ -1,0 +1,194 @@
+@import "../../styles/Layout/Breakpoints.module.scss";
+
+.Book {
+  width: 100%;
+  border-bottom: 0.5px solid $border_mobile;
+  box-sizing: border-box; /* Include the border in the item's total width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  @include breakpoint-mixin("Tablet") {
+    border-right: 0.5px solid $border_mobile;
+    border-bottom: 0.5px solid $border_mobile;
+  }
+
+  @include breakpoint-mixin("Laptop_S") {
+    border-right: 0.5px solid $border_laptop;
+    border-bottom: 0.5px solid $border_laptop;
+  }
+
+  //I want the annotated tag to be a triangle in the top left corner of the book
+  //Make it bigger
+  .annotatedTag {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-top: 50px solid #78bc61;
+    border-left: 50px solid transparent;
+    z-index: 1;
+  }
+
+  .ImageSection {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    padding: 40px 0px;
+    border-bottom: 0.5px solid $border_mobile;
+
+    @include breakpoint-mixin("Laptop_S") {
+      border-bottom: 0.5px solid $border_laptop;
+    }
+
+    .ImageHolder {
+      width: 200px;
+      height: 270px;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+        rgba(0, 0, 0, 0.22) 0px 10px 10px;
+      border-radius: 3px;
+      overflow: hidden;
+
+      @include breakpoint-mixin("Mobile_M") {
+        width: 225px;
+        height: 310px;
+      }
+
+      @include breakpoint-mixin("Mobile_L") {
+        width: 240px;
+        height: 320px;
+      }
+
+      @include breakpoint-mixin("Tablet") {
+        width: 220px;
+        height: 290px;
+      }
+
+      @include breakpoint-mixin("Laptop_S") {
+        width: 180px;
+        height: 240px;
+      }
+
+      @include breakpoint-mixin("Laptop_M") {
+        width: 200px;
+        height: 265px;
+      }
+
+      @include breakpoint-mixin("Laptop_L") {
+        width: 230px;
+        height: 305px;
+      }
+
+      @include breakpoint-mixin("Desktop_S") {
+        height: 325px;
+        width: 250px;
+      }
+
+      @include breakpoint-mixin("Desktop_M") {
+        width: 255px;
+        height: 330px;
+      }
+
+      @include breakpoint-mixin("Desktop_L") {
+        height: 420px;
+        width: 325px;
+      }
+
+      @include portrait-min-width-mixin("Vertical_Display") {
+        height: 345px;
+        width: 265px;
+      }
+
+      &:hover {
+        transition: all 0.5s ease;
+        transform: scale(1.025);
+      }
+
+      .NoImage {
+        background-image: url("../../../public/image/NoBookCover.svg");
+        /* Make the background image repeat both horizontally and vertically */
+        background-repeat: repeat;
+        /* Set the size of the background image */
+        background-size: 150px; /* Adjust this value to control the size of the image */
+        /* Set the width and height of the container to fill the available space */
+        width: 100%;
+        height: 100%;
+      }
+
+      .image {
+        height: 100%;
+        width: 100%;
+        border: none;
+        outline: none;
+        object-fit: cover;
+      }
+    }
+
+    .blurEffect {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      filter: opacity(0.5);
+      background: radial-gradient(
+          farthest-side,
+          var(--background-color),
+          transparent
+        )
+        center no-repeat;
+      animation: grow 0.5s forwards;
+    }
+
+    @keyframes grow {
+      from {
+        background-size: 10% 10%;
+      }
+      to {
+        background-size: 175% 175%;
+      }
+    }
+  }
+
+  .Book_Meta_Section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 0px;
+
+    .Meta_center {
+      width: 85%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+
+      #author,
+      h2 {
+        margin-bottom: 20px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
+      }
+
+      .star {
+        cursor: pointer;
+        font-size: 27px;
+
+        @include breakpoint-mixin("Laptop_S") {
+          font-size: 26px;
+        }
+        @include breakpoint-mixin("Desktop_M") {
+          font-size: 25px;
+        }
+      }
+    }
+  }
+}

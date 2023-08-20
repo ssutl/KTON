@@ -27,22 +27,29 @@ function InitAPI() {
         },
       });
 
-      //Filtering deleted books
+      //If no books push them to the import page and return undefined to context
+      if (response.data.length === 0) {
+        router.push("/Import");
+        return undefined;
+      }
 
-      //If no books push them to the import page
-      return response.data.filter(
-        (eachBook: Book) => eachBook.deleted === false
-      ).length === 0
-        ? router.push("/Import")
-        : response.data
-            .map((eachBook: Book) => {
-              eachBook.highlights.sort(function (a, b) {
-                return new Date(b.Date).getTime() - new Date(a.Date).getTime();
-              });
-              return eachBook;
-            })
-            .reverse()
-            .filter((eachBook: Book) => eachBook.deleted === false);
+      //If they have books, but all have deleted tag, we want to push them to the import page but return the books to the context
+      if (
+        response.data.filter((eachBook: Book) => eachBook.deleted === false)
+          .length === 0
+      ) {
+        router.push("/Import");
+      }
+
+      //If they have books, even if all deleted we want to return them to the context
+      return response.data
+        .map((eachBook: Book) => {
+          eachBook.highlights.sort(function (a, b) {
+            return new Date(b.Date).getTime() - new Date(a.Date).getTime();
+          });
+          return eachBook;
+        })
+        .reverse();
     } catch (error) {
       console.error("Error fetching all books:", error);
       throw error; // Optionally re-throw the error to handle it in the caller
@@ -74,7 +81,6 @@ function InitAPI() {
 
   //Creating a function which calls all the above APIs in order to populate the App context
   function InitialiseApp() {
-    console.log("called");
     // Fetch data from your database and update the context state variables
     const fetchData = async () => {
       try {

@@ -1,8 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Urbanist:wght@100;200;300;400&display=swap");
-@import "../styles/Breakpoints.module.scss";
+@import "../styles/Layout/Breakpoints.module.scss";
 
 * {
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 input,
@@ -97,7 +100,6 @@ body {
     padding: 0px;
     font-weight: 100;
     font-size: 17px;
-    // line-height: 30px;
 
     @include breakpoint-mixin("Tablet") {
       font-size: 19px;

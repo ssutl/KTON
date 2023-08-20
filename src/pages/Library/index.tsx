@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import styles from "../../styles/Library.module.scss";
+import styles from "../../styles/Pages/Library.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
 import { KTON_CONTEXT } from "../../context/KTONContext";
-import { Book } from "@/api/Interface";
 import InitApi from "../../api/InitAPI";
 import Head from "next/head";
 import AllowedRoute from "@/helpers/AllowedRoute";
-import Modal from "@/components/Modal";
-import BooksList from "@/components/BooksList";
-import LoadingPage from "@/components/LoadingPage";
+import BooksList from "@/components/Library/BooksList";
+import LoadingPage from "@/components/Loading/LoadingPage";
+import Modal_Book_Search from "@/components/Modals/Modal_Book_Search";
+import Modal_Filter_Search from "@/components/Modals/Modal_Filter_Search";
+import Modal_Select from "@/components/Modals/Modal_Select";
 
 const Library = () => {
   const { InitialiseApp } = InitApi();
@@ -19,12 +20,10 @@ const Library = () => {
   const [selectedFilter, setSelectedFilter] = useState<string | undefined>(
     undefined
   );
-  const [screenWidth, setScreenWidth] = useState(0);
+  const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
   const [displaySearchModal, setDisplaySearchModal] = useState(false);
   const [displaySortModal, setDisplaySortModal] = useState(false);
   const [displayFilterModal, setDisplayFilterModal] = useState(false);
-  const modalDisplayed =
-    displayFilterModal || displaySortModal || displaySearchModal;
 
   const showFilterH3 =
     books &&
@@ -34,8 +33,7 @@ const Library = () => {
   //Initialising App by making data call on page load, this updates user context
   useEffect(() => {
     //check if this is an allowed route
-    if (!AllowedRoute())
-      throw new Error("Unauthed users cannot access this route");
+    AllowedRoute();
 
     //If user is authenticated and they have no books in context, then we need to refresh context
     if (!books) {
@@ -43,8 +41,30 @@ const Library = () => {
     }
 
     //Controlling screenwidth
-    setScreenWidth(window.innerWidth);
-    window.addEventListener("resize", () => setScreenWidth(window.innerWidth));
+    const handleResize = () => setScreenWidth(window.innerWidth);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    //Set sort to whatever is in local storage
+    const selectedSort = localStorage.getItem("selectedSort");
+    if (selectedSort) {
+      setSelectedSort(selectedSort as "Recent" | "Rating" | "Oldest");
+    }
+
+    //Handling control F
+    function handleKeyPress(e: KeyboardEvent) {
+      if (e.key === "f" && e.ctrlKey) {
+        e.preventDefault();
+        setDisplaySearchModal((prevDisplay) => !prevDisplay);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   //Code to for search bar
@@ -61,10 +81,8 @@ const Library = () => {
               id={styles.searchIcon}
             />
             {displaySearchModal && (
-              <Modal
-                specific_type="Book_Search"
+              <Modal_Book_Search
                 closeModal={() => setDisplaySearchModal(false)}
-                mainBooks={books}
               />
             )}
           </span>
@@ -73,16 +91,10 @@ const Library = () => {
     );
   };
 
-  //Set sort to whatever is in local storage
-  useEffect(() => {
-    const selectedSort = localStorage.getItem("selectedSort");
-    if (selectedSort) {
-      setSelectedSort(selectedSort as "Recent" | "Rating" | "Oldest");
-    }
-  }, []);
-
   //Banner shown to allow user to filter and sort their books
   const filterBanner = () => {
+    if (!screenWidth) return null;
+
     return (
       <div className={styles.filterBanner}>
         <div className={styles.filterBannerWidth}>
@@ -97,10 +109,8 @@ const Library = () => {
                     Filters +
                   </p>
                   {displayFilterModal && (
-                    <Modal
-                      specific_type="Filter_Search"
+                    <Modal_Filter_Search
                       closeModal={() => setDisplayFilterModal(false)}
-                      mainBooks={books}
                       onItemClick={(genre: string) => setSelectedFilter(genre)}
                       selectedFilter={selectedFilter}
                     />
@@ -115,8 +125,7 @@ const Library = () => {
                   Sort
                 </p>
                 {displaySortModal && (
-                  <Modal
-                    specific_type="Select"
+                  <Modal_Select
                     closeModal={() => setDisplaySortModal(false)}
                     onItemClick={(
                       selectedSort: "Recent" | "Rating" | "Oldest"
@@ -129,8 +138,7 @@ const Library = () => {
                         setDisplaySortModal(false);
                       }
                     }}
-                    mainBooks={books}
-                    data={["Recent", "Rating"]}
+                    optionsData={["Recent", "Rating"]}
                     selectedSort={selectedSort}
                   />
                 )}
@@ -156,9 +164,7 @@ const Library = () => {
       <Head>
         <title>Library</title>
       </Head>
-      <div
-        className={`${styles.Library} ${modalDisplayed ? styles.noScroll : ""}`}
-      >
+      <div className={`${styles.Library}`} id="Library">
         {SearchBanner()}
         {filterBanner()}
         <div className={styles.bookContainer}>

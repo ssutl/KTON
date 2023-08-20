@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useContext } from "react";
 import { toPng } from "html-to-image";
+import { KTON_CONTEXT } from "../context/KTONContext";
 
 export interface ImageDownloadProps {
   refrence: React.RefObject<HTMLDivElement>;
@@ -8,9 +9,11 @@ export interface ImageDownloadProps {
 }
 
 const ImageDownload = ({ refrence, title, imageWidth }: ImageDownloadProps) => {
+  const { userinfo } = useContext(KTON_CONTEXT);
+
   //Image download function
   const handleImageDownload = useCallback(async () => {
-    if (refrence.current === null) {
+    if (refrence.current === null || !userinfo) {
       return;
     }
 
@@ -30,10 +33,12 @@ const ImageDownload = ({ refrence, title, imageWidth }: ImageDownloadProps) => {
     //Adding watermark to the image div
     const watermarkElement = document.createElement("h1");
     watermarkElement.textContent = watermarkText;
-    Object.assign(watermarkElement.style, watermarkStyles);
 
-    // Append the watermark h2 element to the div
-    refrence.current.appendChild(watermarkElement);
+    if (!userinfo.subscription) {
+      Object.assign(watermarkElement.style, watermarkStyles);
+      // Append the watermark h2 element to the div
+      refrence.current.appendChild(watermarkElement);
+    }
 
     try {
       const dataUrl = await toPng(refrence.current, { cacheBust: false });

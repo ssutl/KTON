@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import styles from "../../styles/Home.module.scss";
+import styles from "../../styles/Pages/Home.module.scss";
 import { KTON_CONTEXT } from "../../context/KTONContext";
-import QuoteBanner from "@/components/QuoteBanner";
+import QuoteBanner from "@/components/Home/QuoteBanner";
 import InitApi from "../../api/InitAPI";
-import HomeStatBanner from "@/components/HomeStatBanner";
-import HeatMapBanner from "@/components/HeatMapBanner";
+import HomeStatBanner from "@/components/Home/HomeStatBanner";
+import HeatMapBanner from "@/components/Home/HeatMapBanner";
 import Head from "next/head";
 import AllowedRoute from "@/helpers/AllowedRoute";
-import LoadingPage from "@/components/LoadingPage";
+import LoadingPage from "@/components/Loading/LoadingPage";
+import MostReadBanner from "@/components/Home/MostReadBanner";
 
 const Home = () => {
   const { userinfo, books, highlights } = useContext(KTON_CONTEXT);
@@ -16,8 +17,7 @@ const Home = () => {
   //Initialising App by making data call on page load
   useEffect(() => {
     //check if this is an allowed route
-    if (!AllowedRoute())
-      throw new Error("Unauthed users cannot access this route");
+    AllowedRoute();
 
     //If the user is logged in but the book data is empty then we gotta refresh context, this way we can keep initial load fast by not loading books off of navigation
     if (!books) {
@@ -26,26 +26,21 @@ const Home = () => {
   }, []);
 
   //If the data is in the context, or the user is not authenticated we pass them into app, else loading
-  if (
-    userinfo !== undefined &&
-    books !== undefined &&
-    highlights !== undefined
-  ) {
-    return (
-      <>
-        <Head>
-          <title>Home</title>
-        </Head>
-        <div className={styles.Home}>
-          <QuoteBanner />
-          <HeatMapBanner />
-          <HomeStatBanner />
-        </div>
-      </>
-    );
-  } else {
-    return <LoadingPage Text="KTON" />;
-  }
+  if (!userinfo || !books || !highlights) return <LoadingPage Text="KTON" />;
+
+  return (
+    <>
+      <Head>
+        <title>KTON Home</title>
+      </Head>
+      <div className={styles.Home}>
+        <QuoteBanner />
+        <HeatMapBanner />
+        <HomeStatBanner />
+        <MostReadBanner />
+      </div>
+    </>
+  );
 };
 
 export default Home;

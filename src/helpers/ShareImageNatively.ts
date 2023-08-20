@@ -30,6 +30,9 @@ const shareFile = (file: any, title: any, text: any) => {
       .catch((error) => console.log("Sharing failed", error));
   } else {
     console.log(`Your system doesn't support sharing files.`);
+    alert(
+      `Your system doesn't support sharing files, you can follow this link to enable it: https://winaero.com/chrome-to-get-web-share-api-support-on-desktop/`
+    );
   }
 };
 
@@ -39,7 +42,7 @@ const ShareImageNatively = (title: string) => {
     (dataUrl: string) => {
       const file = dataURLtoFile(dataUrl, title);
       // Share the image file using the Web Share API
-      shareFile(file, "Title", "https://co-aid.in");
+      shareFile(file, title, "https://kton.xyz");
     }
   );
 };

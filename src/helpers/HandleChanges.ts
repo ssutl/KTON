@@ -10,6 +10,9 @@ import addUserCategoryApi from "@/api/Users/AddCategories";
 import summariseBookApi from "@/api/Books/Summary";
 import annotateHighlightApi from "@/api/Highlights/Annotate";
 import changeBookImageApi from "@/api/Books/ChangeBookImage";
+import markAsAnnotatedApi from "@/api/Books/MarkAsAnnotated";
+import deleteBookApi from "@/api/Books/DeleteBook";
+import deleteHighlightApi from "@/api/Highlights/Delete";
 
 export interface RatingProps {
   data: number;
@@ -35,7 +38,7 @@ export interface annotateHighlightProps {
 }
 
 export interface deleteHighlightProps {
-  book_id: string | undefined | string[];
+  book_id: string;
   highlight_id: string;
 }
 
@@ -49,6 +52,10 @@ export interface addCategoryToHighlightProps {
 export interface addSummaryToBookProps {
   data: string | undefined;
   book_id: string | undefined | string[];
+}
+
+export interface markBookAsAnnotatedProps {
+  book_id: string;
 }
 
 export interface updateBookCoverProps {
@@ -98,7 +105,7 @@ function HandleChanges() {
         // Sorting on server for each book using the API
         addGenreToBookApi({
           book_id: id,
-          data: newState.filter((book) => book._id === book_id)[0].genre, // Pass the genre data for the current book to the API
+          data: newState.filter((book) => book._id === id)[0].genre, // Pass the genre data for the current book to the API
         });
       });
     }
@@ -184,19 +191,25 @@ function HandleChanges() {
   const deleteHighlight = ({ book_id, highlight_id }: deleteHighlightProps) => {
     if (books) {
       //Handling request locally
+      const value = !books
+        .filter((book) => book._id === book_id)[0]
+        .highlights.filter((highlight) => highlight._id === highlight_id)[0]
+        .deleted;
+
       const newState = books.map((book_context) => {
         if (book_id === book_context._id) {
           return {
             ...book_context,
             highlights: book_context.highlights.map((highlight) => {
               if (highlight._id === highlight_id) {
-                return { ...highlight, deleted: true };
+                return { ...highlight, deleted: value };
               } else return highlight;
             }),
           };
         } else return book_context;
       });
       updateBooks(newState);
+      deleteHighlightApi({ book_id, highlight_id, data: value });
     }
   };
 
@@ -373,6 +386,21 @@ function HandleChanges() {
     }
   };
 
+  const markBookAsAnnotated = ({ book_id }: markBookAsAnnotatedProps) => {
+    if (books && typeof book_id === "string") {
+      const data = !books.filter((book) => book._id === book_id)[0].annotated;
+
+      const newState = books.map((book_context) => {
+        //If book has same ID change rating locally
+        if (book_id === book_context._id) {
+          return { ...book_context, annotated: data };
+        } else return book_context;
+      });
+      updateBooks(newState);
+      markAsAnnotatedApi({ book_id: book_id, data: data });
+    }
+  };
+
   const updateBookCover = ({ data, book_id }: updateBookCoverProps) => {
     if (books && data && typeof book_id === "string") {
       const newState = books.map((book_context) => {
@@ -383,6 +411,21 @@ function HandleChanges() {
       });
       updateBooks(newState);
       changeBookImageApi({ book_id: book_id, data: data });
+    }
+  };
+
+  const deleteBook = ({ book_id }: { book_id: string }) => {
+    if (books && typeof book_id === "string") {
+      const value = !books.filter((book) => book._id === book_id)[0].deleted;
+
+      const newState = books.map((book_context) => {
+        //If book has same ID delete it locally
+        if (book_id === book_context._id) {
+          return { ...book_context, deleted: value };
+        } else return book_context;
+      });
+      updateBooks(newState);
+      deleteBookApi({ book_id: book_id, data: value });
     }
   };
 
@@ -397,6 +440,8 @@ function HandleChanges() {
     addCategoryToUser,
     addSummaryToBook,
     updateBookCover,
+    markBookAsAnnotated,
+    deleteBook,
   };
 }
 

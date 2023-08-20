@@ -1,0 +1,21 @@
+@import "../Layout/Breakpoints.module.scss";
+
+.main {
+  height: 100dvh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include breakpoint-mixin("Laptop_S") {
+    height: 93dvh;
+  }
+
+  @include breakpoint-mixin("Desktop_M") {
+    height: 95dvh;
+  }
+
+  @include portrait-min-width-mixin("Vertical_Display") {
+    height: 97dvh;
+  }
+}

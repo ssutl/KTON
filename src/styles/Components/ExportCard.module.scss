@@ -1,0 +1,85 @@
+@import "../../styles/Layout/Breakpoints.module.scss";
+
+.exportCard {
+  padding: 15px 10px;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  border-radius: 3px;
+  border: 0.5px solid $border_mobile;
+  cursor: pointer;
+  justify-content: space-between;
+
+  .toolTip {
+    display: none;
+
+    @include breakpoint-mixin("Laptop_S") {
+      display: block;
+    }
+  }
+
+  @include breakpoint-mixin("Laptop_S") {
+    border: 0.5px solid $border_laptop;
+
+    &:hover {
+      background-color: $hover;
+    }
+  }
+
+  .ImageHalf {
+    width: 25%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+
+    @include breakpoint-mixin("Laptop_S") {
+      width: 20%;
+    }
+
+    .imageContainer {
+      width: 45px;
+      height: 45px;
+      border-radius: 3px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @include breakpoint-mixin("Laptop_S") {
+        width: 50px;
+        height: 50px;
+      }
+
+      img {
+        height: 100%;
+        width: 100%;
+        border-radius: 3px;
+        object-fit: cover;
+      }
+    }
+
+    // background-color: aqua;
+  }
+
+  .TextHalf {
+    width: 75%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include breakpoint-mixin("Laptop_S") {
+      width: 80%;
+    }
+
+    #title {
+      margin-bottom: 10px;
+    }
+
+    #description {
+      line-height: 30px;
+    }
+    // background-color: blue;
+  }
+}

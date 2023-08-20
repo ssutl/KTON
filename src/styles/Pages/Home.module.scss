@@ -1,0 +1,36 @@
+@import "../../styles/Layout/Breakpoints.module.scss";
+
+.Home {
+  overflow-y: scroll;
+  padding-bottom: 25px;
+  height: 90dvh;
+
+  @include breakpoint-mixin("Laptop_S") {
+    height: 93dvh;
+  }
+
+  @include breakpoint-mixin("Desktop_M") {
+    height: 95dvh;
+  }
+
+  @include portrait-min-width-mixin("Vertical_Display") {
+    padding-bottom: 25px;
+    height: 97dvh;
+  }
+}
+
+@include breakpoint-mixin("Laptop_S") {
+  .Home::-webkit-scrollbar {
+    height: 100%;
+    background-color: rgb(45, 41, 41);
+    width: 10px;
+  }
+
+  .Home::-webkit-scrollbar-thumb {
+    background-color: rgba(70, 68, 68, 0.428);
+    border: 1px solid transparent;
+    background-clip: content-box;
+    border-radius: 10px;
+    height: 40px;
+  }
+}
