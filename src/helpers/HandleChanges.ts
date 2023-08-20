@@ -374,7 +374,7 @@ function HandleChanges() {
   };
 
   const addSummaryToBook = ({ data, book_id }: addSummaryToBookProps) => {
-    if (books && data && typeof book_id === "string") {
+    if (books && data !== undefined && typeof book_id === "string") {
       const newState = books.map((book_context) => {
         //If book has same ID change rating locally
         if (book_id === book_context._id) {

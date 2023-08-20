@@ -42,6 +42,7 @@ const Highlight = ({ highlight, index }: highlightProps) => {
   const [inputAnnotation, setInputAnnotation] = useState(highlight.notes);
   const [displayShareOverlay, setDisplayShareOverlay] = useState(false);
   const [displayCategoryModal, setDisplayCategoryModal] = useState(false);
+  const [lastAnnotation, setLastAnnotation] = useState<string>("");
 
   //Refrence to the dropdowns and their buttons
   const tagButtonRef = useRef(null);
@@ -95,20 +96,42 @@ const Highlight = ({ highlight, index }: highlightProps) => {
           onKeyDown={handleKeyDown}
         />
         <div className={styles.buttonsSection}>
-          <p
-            onClick={() => {
-              annotateHighlight({
-                data: inputAnnotation,
-                book_id,
-                highlight_id: highlight._id,
-              });
-              setInputAnnotation("");
-              setAnnotationDropdown(false);
-            }}
-          >
-            Save
-          </p>
-          <p onClick={() => setInputAnnotation("")}>Clear</p>
+          {inputAnnotation.replace(/\s/g, "") !==
+            highlight.notes.replace(/\s/g, "") && (
+            <p
+              onClick={() => {
+                annotateHighlight({
+                  data: inputAnnotation,
+                  book_id,
+                  highlight_id: highlight._id,
+                });
+                setInputAnnotation("");
+                setAnnotationDropdown(false);
+              }}
+            >
+              Save
+            </p>
+          )}
+          {inputAnnotation.replace(/\s/g, "") !== "" && (
+            <p
+              onClick={() => {
+                setLastAnnotation(inputAnnotation);
+                setInputAnnotation("");
+              }}
+            >
+              Clear
+            </p>
+          )}
+          {lastAnnotation.replace(/\s/g, "") !== "" &&
+            inputAnnotation !== lastAnnotation && (
+              <p
+                onClick={() => {
+                  setInputAnnotation(lastAnnotation);
+                }}
+              >
+                Undo clear
+              </p>
+            )}
         </div>
       </div>
     );

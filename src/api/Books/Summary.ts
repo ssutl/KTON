@@ -15,7 +15,7 @@ const summariseBookApi = async ({ book_id, data }: summariseBookApiProps) => {
 
   //Simple request to update summaries
   try {
-    axios({
+    const res = await axios({
       method: "PUT",
       url: `${process.env.NEXT_PUBLIC_BACKENDURL}/books/${book_id}`,
       headers: {
@@ -23,6 +23,8 @@ const summariseBookApi = async ({ book_id, data }: summariseBookApiProps) => {
       },
       data: { summary: data },
     });
+
+    console.log("res", res);
   } catch (err) {
     throw new Error("Failed summarising book");
   }

@@ -10,18 +10,14 @@ const SummarySection = () => {
   const id = router.query.id;
   const { books } = useContext(KTON_CONTEXT);
   //Setting the summary to the current summary of the book on load
-  const [inputSummary, setInputSummary] = useState<string | undefined>(
-    books?.filter((book) => book._id === id)[0].summary
+  const bookSummary = books?.filter((book) => book._id === id)[0].summary;
+  const [inputSummary, setInputSummary] = useState<string>(
+    bookSummary ? bookSummary : ""
   );
+  const [lastSummary, setLastSummary] = useState<string>("");
   const { addSummaryToBook } = HandleChanges();
 
-  //Handling when user presses enter to save summary
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      addSummaryToBook({ data: inputSummary, book_id: id });
-    }
-  };
+  if (bookSummary === undefined) return;
 
   return (
     <div className={styles.summarySection}>
@@ -29,17 +25,38 @@ const SummarySection = () => {
         value={inputSummary}
         placeholder="Add a quick summary here"
         onChange={(e) => setInputSummary(e.target.value)}
-        onKeyDown={handleKeyDown}
+        // onKeyDown={handleKeyDown}
       />
       <div className={styles.buttonsSection}>
-        <p
-          onClick={() => {
-            addSummaryToBook({ data: inputSummary, book_id: id });
-          }}
-        >
-          Save
-        </p>
-        <p onClick={() => setInputSummary("")}>Clear</p>
+        {inputSummary.replace(/\s/g, "") !== bookSummary.replace(/\s/g, "") && (
+          <p
+            onClick={() => {
+              addSummaryToBook({ data: inputSummary, book_id: id });
+            }}
+          >
+            Save
+          </p>
+        )}
+        {inputSummary.replace(/\s/g, "") !== "" && (
+          <p
+            onClick={() => {
+              setLastSummary(inputSummary);
+              setInputSummary("");
+            }}
+          >
+            Clear
+          </p>
+        )}
+        {lastSummary.replace(/\s/g, "") !== "" &&
+          inputSummary !== lastSummary && (
+            <p
+              onClick={() => {
+                setInputSummary(lastSummary);
+              }}
+            >
+              Undo clear
+            </p>
+          )}
       </div>
     </div>
   );

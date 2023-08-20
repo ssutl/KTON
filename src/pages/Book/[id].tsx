@@ -33,6 +33,7 @@ const BookPage = () => {
   const { books } = useContext(KTON_CONTEXT);
   const { InitialiseApp } = InitApi();
   const [mainBook, setMainBook] = useState<undefined | Book>(undefined);
+  console.log("mainBook", mainBook);
   const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
   const { addRating } = HandleChanges();
   const [showEditImageModal, setShowEditImageModal] = useState(false);
