@@ -168,9 +168,6 @@ const EditModal = ({
             <input
               type="number"
               value={fontWeight}
-              step={100}
-              min={100}
-              max={900}
               onChange={(e) => setFontWeight(Number(e.target.value))}
             />
           </div>
