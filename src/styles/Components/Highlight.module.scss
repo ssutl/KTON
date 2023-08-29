@@ -86,9 +86,10 @@
         border-radius: 4px;
         display: flex;
         align-items: center;
-        padding: 2px;
+        padding: 5px;
 
         @include breakpoint-mixin("Laptop_S") {
+          padding: 2px;
           &:hover {
             opacity: 0.5;
             background-color: $hover;
