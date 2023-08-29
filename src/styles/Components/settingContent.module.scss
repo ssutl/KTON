@@ -68,13 +68,17 @@
         width: 100%;
         padding: 10px 0px;
         border-radius: 3px;
-        cursor: pointer;
         display: flex;
         justify-content: space-between;
         align-items: center;
 
         #bookTitle {
           max-width: 70%;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          -webkit-line-clamp: 2;
         }
 
         .listItemButtons {
@@ -86,6 +90,7 @@
             padding: 5px 10px;
             border-radius: 3px;
             border: 0.5px solid $border_mobile;
+            cursor: pointer;
 
             @include breakpoint-mixin("Laptop_S") {
               border: 0.5px solid $border_laptop;
