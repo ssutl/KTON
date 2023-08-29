@@ -47,6 +47,13 @@ const BookPage = () => {
   );
   const [displaySortModal, setDisplaySortModal] = useState(false);
   const [displayFilterModal, setDisplayFilterModal] = useState(false);
+
+  //Modal Positon
+  const [divAboveHalf, setDivAboveHalf] = useState<boolean | undefined>(
+    undefined
+  );
+  console.log("divAboveHalf", divAboveHalf);
+
   const showFilterH3 =
     mainBook &&
     mainBook.highlights
@@ -156,7 +163,10 @@ const BookPage = () => {
             <span>
               <p
                 id={styles.buttons}
-                onClick={() => setDisplayFilterModal(!displayFilterModal)}
+                onClick={(e) => {
+                  determineFilterPosition(e);
+                  setDisplayFilterModal(!displayFilterModal);
+                }}
               >
                 Filters +
               </p>
@@ -165,6 +175,7 @@ const BookPage = () => {
                   closeModal={() => setDisplayFilterModal(false)}
                   onItemClick={(genre: string) => setSelectedFilter(genre)}
                   selectedFilter={selectedFilter}
+                  position={divAboveHalf ? "below" : "above"}
                 />
               )}
             </span>
@@ -198,6 +209,26 @@ const BookPage = () => {
       </div>
     );
   };
+
+  function determineFilterPosition(
+    event: React.MouseEvent<HTMLParagraphElement, MouseEvent>
+  ) {
+    const windowHeight = window.innerHeight;
+    const clickedDiv = event.currentTarget;
+
+    const divRect = clickedDiv.getBoundingClientRect();
+    const divTop = divRect.top;
+    const divHeight = divRect.height;
+
+    const divCenterY = divTop + divHeight / 2;
+    const isAboveHalfway = divCenterY < windowHeight / 2;
+
+    if (isAboveHalfway) {
+      setDivAboveHalf(true);
+    } else {
+      setDivAboveHalf(false);
+    }
+  }
 
   if (!mainBook) return <LoadingPage Text="Book Loading" />;
 

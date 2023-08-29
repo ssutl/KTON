@@ -193,8 +193,6 @@
 .Modal_Filter_Search {
   @include breakpoint-mixin("Laptop_S") {
     width: 400px;
-    left: 0%;
-    top: 180%;
 
     .listItem {
       &:hover {

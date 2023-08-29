@@ -8,19 +8,20 @@ interface Modal_Filter_SearchProps {
   onItemClick: (item: any) => void;
   selectedFilter: string | undefined;
   closeModal: () => void;
+  position: "above" | "below";
 }
 
 const Modal_Filter_Search = ({
   onItemClick,
   selectedFilter,
   closeModal,
+  position,
 }: Modal_Filter_SearchProps) => {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState<string>("");
   const { userinfo, books } = useContext(KTON_CONTEXT);
   const { colorConverter, randomColorGenerator, mapTable } = genreColors();
   const libraryRoute = router.pathname === "/Library";
-  const bookRoute = router.pathname.includes("/Book/");
   //Get book id from url
   const idMatch = router.asPath.match(/\/Book\/([a-fA-F0-9]+)/);
   const bookId = idMatch ? idMatch[1] : null;
@@ -46,7 +47,11 @@ const Modal_Filter_Search = ({
 
   //Add overflow hidden to element behind when modal is open
   useEffect(() => {
-    const scrollHalf = document.getElementById("Library");
+    //Add overflow hidden to element behind when modal is open
+    const scrollHalf = libraryRoute
+      ? document.getElementById("Library")
+      : document.getElementById("scrollHighlight");
+
     if (scrollHalf) {
       scrollHalf.style.overflow = "hidden";
       return () => {
@@ -58,7 +63,7 @@ const Modal_Filter_Search = ({
   return (
     <>
       <div
-        className={`${genericModalStyles.modal} ${genericModalStyles.Modal_Filter_Search}`}
+        className={`${genericModalStyles.modal} ${genericModalStyles.Modal_Filter_Search} ${genericModalStyles[position]}`}
       >
         <div className={genericModalStyles.header}>
           <h3>Filter by..</h3>
