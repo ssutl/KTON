@@ -15,14 +15,26 @@ const Export = () => {
   const alert = useAlert();
 
   //Get the code from the url
-  const getCodeFromUrl = () => {
+  const getCodeFromUrl = async () => {
     const codeIndex = window.location.href.indexOf("code=");
     const cdIndex = window.location.href.indexOf("&", codeIndex);
     const code = window.location.href.substring(
       codeIndex + "code=".length,
       cdIndex
     );
-    notionApi(code);
+
+    try {
+      const response = await notionApi(code);
+      if (response === "success") {
+        alert.show("Successfully connected to Notion", {
+          type: "success",
+        });
+      }
+    } catch (err) {
+      alert.show("Error connecting to Notion", {
+        type: "error",
+      });
+    }
   };
 
   //On page load check if there is a code in the url

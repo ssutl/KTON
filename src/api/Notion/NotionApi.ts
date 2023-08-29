@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const notionApi = async (auth_code: string) => {
+const NotionApi = async (auth_code: string) => {
   //Get token from local storage
   const authToken = localStorage.getItem("token");
 
@@ -15,8 +15,10 @@ const notionApi = async (auth_code: string) => {
       },
       data: { code: auth_code },
     });
+
+    return "success";
   } catch (err) {
     throw new Error("Failed publishing to Notion");
   }
 };
-export default notionApi;
+export default NotionApi;
