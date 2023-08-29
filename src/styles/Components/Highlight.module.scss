@@ -1,7 +1,7 @@
 @import "../../styles/Layout/Breakpoints.module.scss";
 
 .Highlight {
-  padding: 30px 0px 20px 0px;
+  padding: 30px 0px;
   //Plus 10px for the width of the scroll bar
   width: calc(90% + 10px);
   margin-right: auto;
@@ -22,26 +22,25 @@
       width: 70%;
     }
 
-    #highlightText,
-    #highlightNote {
-      word-spacing: 10px;
-    }
-
     #highlightText {
+      word-spacing: 10px;
       margin-bottom: 25px;
+      // background-color: palegreen;
     }
 
     #highlightNote {
-      margin-bottom: 40px;
+      word-spacing: 5px;
+      margin-bottom: 30px;
     }
 
     .tagsBanner {
       display: flex;
       flex-wrap: wrap;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       width: 100%;
       justify-content: flex-start;
       align-items: center;
+      row-gap: 20px;
 
       .tag {
         padding: 2px 15px;
@@ -50,7 +49,6 @@
         overflow-x: hidden;
         box-sizing: border-box;
         margin-right: 20px;
-        margin-bottom: 20px;
         background-color: #769f9d;
 
         p {
@@ -98,10 +96,12 @@
     }
 
     .annotationDropdown {
-      padding: 20px 0px 20px 0px;
+      padding-top: 25px;
+      display: flex;
+      flex-direction: column;
 
       textarea {
-        min-height: 10dvh;
+        min-height: 25dvh;
         width: 100%;
         outline: none;
         resize: none;
@@ -109,6 +109,10 @@
         border-radius: 4px;
         border: none;
         padding: 10px;
+
+        @include breakpoint-mixin("Laptop_S") {
+          min-height: 12dvh;
+        }
       }
 
       textarea:focus {
@@ -119,7 +123,6 @@
 
       .buttonsSection {
         display: flex;
-        margin-top: 20px;
         flex-wrap: wrap;
         row-gap: 10px;
 
@@ -133,6 +136,7 @@
           border-radius: 3px;
           margin-right: 15px;
           white-space: nowrap;
+          margin-top: 20px;
 
           @include breakpoint-mixin("Laptop_S") {
             &:hover {
