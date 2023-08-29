@@ -15,7 +15,13 @@ const csvApi = async () => {
       },
     });
 
-    return response.data;
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "books.csv");
+    link.click();
+
+    return "success";
   } catch (err) {
     throw new Error("Failed generating CSV");
   }

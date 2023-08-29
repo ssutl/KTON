@@ -5,14 +5,31 @@ import AllowedRoute from "@/helpers/AllowedRoute";
 import styles from "../../styles/Pages/Export.module.scss";
 import ExportCard from "@/components/Export/ExportCard";
 import notionIcon from "../../../public/image/notion.png";
+import excelIcon from "../../../public/image/excel.png";
 import { KTON_CONTEXT } from "../../context/KTONContext";
 import InitApi from "../../api/InitAPI";
 import { useAlert } from "react-alert";
+import csvApi from "@/api/CSV/csvApi";
 
 const Export = () => {
   const { books, userinfo } = useContext(KTON_CONTEXT);
   const { InitialiseApp } = InitApi();
   const alert = useAlert();
+
+  const handleCSVApi = async () => {
+    try {
+      const response = await csvApi();
+      if (response === "success") {
+        alert.show("Successfully exported to CSV", {
+          type: "success",
+        });
+      }
+    } catch (err) {
+      alert.show("Error exporting to CSV", {
+        type: "error",
+      });
+    }
+  };
 
   //Get the code from the url
   const getCodeFromUrl = async () => {
@@ -72,15 +89,15 @@ const Export = () => {
         }
       },
     },
-    // {
-    //   name: "Excel CSV",
-    //   description:
-    //     "Create a CSV database with book titles and highlights for easy management.",
-    //   image: excelIcon,
-    //   onClick: () => {
-    //     csvApi();
-    //   },
-    // },
+    {
+      name: "Excel CSV",
+      description:
+        "Create a CSV database with book titles and highlights for easy management.",
+      image: excelIcon,
+      onClick: () => {
+        handleCSVApi();
+      },
+    },
   ];
 
   return (
