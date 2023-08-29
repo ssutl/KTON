@@ -16,6 +16,7 @@
 
   .mainHalf {
     width: 100%;
+    overflow-x: hidden;
 
     @include breakpoint-mixin("Laptop_S") {
       height: 100%;
@@ -25,12 +26,13 @@
     #highlightText {
       word-spacing: 10px;
       margin-bottom: 25px;
-      // background-color: palegreen;
+      max-width: 100%;
     }
 
     #highlightNote {
       word-spacing: 5px;
       margin-bottom: 30px;
+      max-width: 100%;
     }
 
     .tagsBanner {
