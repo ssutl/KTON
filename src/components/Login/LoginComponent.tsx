@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import styles from "../../styles/Components/LoginComponent.module.scss";
 import LoginApi, { LoginApiReturnType } from "@/api/Users/Login";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 
 const LoginComponent = () => {
   //Collecting information from the user
@@ -8,6 +10,7 @@ const LoginComponent = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loginStatus, setLoginStatus] = useState<LoginApiReturnType>(undefined);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   //Switch between login and signup
   const switchLoginState = () => {
@@ -68,28 +71,48 @@ const LoginComponent = () => {
         </p>
       </div>
       <div className={styles.loginFormSect}>
-        <input
-          type="text"
-          placeholder="Email"
-          required
-          value={email}
-          autoComplete="off"
-          onChange={(e) => {
-            setEmail(e.target.value.replace(/\s/g, ""));
-            setLoginStatus(undefined);
-          }}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          autoComplete="off"
-          required
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value.replace(/\s/g, ""));
-            setLoginStatus(undefined);
-          }}
-        />
+        <div className={styles.passwordInputContainer}>
+          <input
+            type="text"
+            placeholder="Email"
+            required
+            value={email}
+            autoComplete="off"
+            onChange={(e) => {
+              setEmail(e.target.value.replace(/\s/g, ""));
+              setLoginStatus(undefined);
+            }}
+          />
+        </div>
+        <div className={styles.passwordInputContainer}>
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            autoComplete="off"
+            required
+            className={styles.passwordInput}
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value.replace(/\s/g, ""));
+              setLoginStatus(undefined);
+            }}
+          />
+          {showPassword ? (
+            <LockOpenOutlinedIcon
+              className={styles.lockIcon}
+              onClick={() => {
+                setShowPassword(false);
+              }}
+            />
+          ) : (
+            <LockOutlinedIcon
+              className={styles.lockIcon}
+              onClick={() => {
+                setShowPassword(true);
+              }}
+            />
+          )}
+        </div>
       </div>
       {loginStatus !== "Pending verification" && loginStatus ? (
         <div className={styles.loginStatusSect}>{loginStatus}</div>

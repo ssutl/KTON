@@ -56,15 +56,17 @@
       margin-bottom: 5px;
     }
 
-    input {
+    .passwordInputContainer {
       background-color: $hover;
       border-radius: 3px;
-      border: none;
-      padding: 5px;
       height: 40px;
       width: 100%;
       box-sizing: border-box;
+      padding: 0px 10px;
       margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
       @include breakpoint-mixin("Mobile_M") {
         margin-bottom: 20px;
@@ -73,9 +75,35 @@
       @include breakpoint-mixin("Tablet") {
         margin-bottom: 25px;
       }
+
+      .lockIcon {
+        font-size: 20px;
+        cursor: pointer;
+      }
+
+      input {
+        height: 100%;
+        width: 80%;
+        border: none;
+        background-color: transparent;
+      }
+
+      input:focus {
+        outline: none !important;
+      }
+
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover,
+      input:-webkit-autofill:focus,
+      input:-webkit-autofill:active {
+        transition: background-color 5000s ease-in-out 0s;
+        color: white;
+      }
+
+      -webkit-text-fill-color: white !important;
     }
 
-    input:focus {
+    .passwordInputContainer:focus {
       outline: none !important;
       border: 1px solid $kton-blue;
       box-shadow: 0 0 3px;
