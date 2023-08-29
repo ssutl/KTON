@@ -26,6 +26,8 @@ const Modal_Filter_Search = ({
   const idMatch = router.asPath.match(/\/Book\/([a-fA-F0-9]+)/);
   const bookId = idMatch ? idMatch[1] : null;
 
+  console.log(position);
+
   const filteredData = books && [
     ...new Set(
       libraryRoute

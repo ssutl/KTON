@@ -113,6 +113,7 @@ const Library = () => {
                       closeModal={() => setDisplayFilterModal(false)}
                       onItemClick={(genre: string) => setSelectedFilter(genre)}
                       selectedFilter={selectedFilter}
+                      position="below"
                     />
                   )}
                 </span>

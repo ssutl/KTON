@@ -111,7 +111,7 @@ const Modal_Book_Search = ({ closeModal }: Modal_Book_SearchProps) => {
                 .includes(searchValue.toLocaleUpperCase())
             ).length !== 0 && (
               <div className={genericModalStyles.listItemType}>
-                <h1>Book Titles</h1>
+                <h2>Book Titles</h2>
               </div>
             )}
             {books
@@ -140,7 +140,7 @@ const Modal_Book_Search = ({ closeModal }: Modal_Book_SearchProps) => {
                 .includes(searchValue.toLocaleUpperCase())
             ).length !== 0 && (
               <div className={genericModalStyles.listItemType}>
-                <h1>Authors</h1>
+                <h2>Authors</h2>
               </div>
             )}
             {libraryRoute &&

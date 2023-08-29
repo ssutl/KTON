@@ -51,52 +51,64 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 20px auto 0px auto;
-    width: 95%;
+    border-bottom: 0.5px solid $border_mobile;
+    margin-bottom: 15px;
 
     @include breakpoint-mixin("Laptop_S") {
       width: 100%;
-      margin-bottom: 15px;
+      border: none;
     }
 
     input {
-      background-color: $hover;
-      border-radius: 4px;
       width: 100%;
       border: none;
-      padding: 7px;
+      padding: 10px;
+      background-color: $cd-bg;
+      outline: none !important;
+
+      @include breakpoint-mixin("Laptop_S") {
+        padding: 7px;
+        background-color: $hover;
+        border-radius: 4px;
+      }
     }
 
     input:focus {
-      outline: none !important;
-      border: 1px solid $kton-blue;
-      box-shadow: 0 0 3px;
+      @include breakpoint-mixin("Laptop_S") {
+        outline: none !important;
+        border: 1px solid $kton-blue;
+        box-shadow: 0 0 3px;
+      }
     }
   }
 
   .listItemType {
     display: flex;
     align-items: center;
-    border-bottom: 0.5px solid $border_mobile;
-    margin: 20px auto;
-    width: 95%;
+    margin: 20px 0px 10px 10px;
 
     @include breakpoint-mixin("Laptop_S") {
+      margin: 0px;
+      margin-bottom: 10px;
       width: 100%;
       border-bottom: 0.5px solid $border_laptop;
     }
   }
 
   .listItem {
-    padding: 7px;
-    border-radius: 2px;
+    padding: 10px;
     cursor: pointer;
     display: flex;
-    width: 95%;
-    margin: 0px auto 0px auto;
+    box-sizing: border-box;
+    background-color: $cd-bg;
+    border-bottom: 0.5px solid $border_mobile;
+    border-top: 0.5px solid $border_mobile;
 
     @include breakpoint-mixin("Laptop_S") {
-      width: 100%;
+      padding: 8px;
+      border: 3px;
+      border: none;
+      background-color: transparent;
     }
 
     p {
