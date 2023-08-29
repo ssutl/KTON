@@ -21,6 +21,7 @@ import HandleChanges from "@/helpers/HandleChanges";
 import ShareOverlay from "./ShareOverlay";
 import { Tooltip } from "react-tooltip";
 import Modal_Add_Category from "../Modals/Modal_Add_Category";
+import { set } from "lodash";
 
 interface highlightProps {
   highlight: Book_highlight;
@@ -84,22 +85,18 @@ const Highlight = ({ highlight, index }: highlightProps) => {
     setDisplayShareOverlay(false);
   };
 
-  //when annotation drop down is opened we want to focus on the text area
-  useEffect(() => {
-    const input = document.getElementById("autoFocus");
-    if (input && annotationDropdown) {
-      setTimeout(() => {
-        input.focus();
-      }, 50);
-    }
-  }, [annotationDropdown]);
-
   //Drop down annotation section for each highlight
   const annotationSection = () => {
+    setTimeout(() => {
+      const input = document.getElementById("autFocus");
+      if (input) {
+        input.focus();
+      }
+    }, 50);
     return (
       <div className={styles.annotationDropdown} ref={notesDropDownRef}>
         <TextareaAutosize
-          id="autoFocus"
+          id="autFocus"
           value={inputAnnotation}
           placeholder="Add a quick summary here"
           onChange={(e) => setInputAnnotation(e.target.value)}
