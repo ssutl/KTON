@@ -35,7 +35,6 @@
     flex-direction: column;
     justify-content: space-evenly;
     cursor: pointer;
-    border: 0.5px solid $border_mobile;
 
     @include breakpoint-mixin("Laptop_S") {
       border: 0.5px solid $border_laptop;
