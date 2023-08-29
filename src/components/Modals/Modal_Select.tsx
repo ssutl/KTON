@@ -30,8 +30,11 @@ const Modal_Select = ({
       <div
         className={`${genericModalStyles.modal} ${genericModalStyles.Modal_Select}`}
       >
-        <div className={genericModalStyles.header}>
-          <h3>Sort by</h3>
+        <div className={genericModalStyles.mobileHeader}>
+          <h3>Sort by...</h3>
+          <h3 onClick={() => closeModal()} id={genericModalStyles.done}>
+            done
+          </h3>
         </div>
         {optionsData.map((eachItem, i) => (
           <div

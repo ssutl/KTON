@@ -26,12 +26,15 @@ const Modal_Centered_Select = ({
           e.stopPropagation();
         }}
       >
-        <div className={genericModalStyles.header}>
+        <div className={genericModalStyles.mobileHeader}>
           {typeof optionsData[0] === "string" ? (
             <h3>Edit Book</h3>
           ) : (
             <h3>Select Book</h3>
           )}
+          <h3 onClick={() => closeModal()} id={genericModalStyles.done}>
+            done
+          </h3>
         </div>
         {optionsData.map((eachItem, i) => (
           <div

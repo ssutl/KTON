@@ -28,8 +28,11 @@ const Modal_Type_Save = ({ closeModal, mainBook }: Modal_Type_SaveProps) => {
         {
           //Just header for phone modals
         }
-        <div className={genericModalStyles.header}>
-          <h3>Update image</h3>
+        <div className={genericModalStyles.mobileHeader}>
+          <h3>Update Image</h3>
+          <h3 onClick={() => closeModal()} id={genericModalStyles.done}>
+            done
+          </h3>
         </div>
 
         <div className={genericModalStyles.searchSection}>

@@ -79,8 +79,11 @@ const Modal_Book_Search = ({ closeModal }: Modal_Book_SearchProps) => {
       <div
         className={`${genericModalStyles.modal} ${genericModalStyles.Modal_Book_Search}`}
       >
-        <div className={genericModalStyles.header}>
+        <div className={genericModalStyles.mobileHeader}>
           <h3>{libraryRoute ? "Find Book" : "Find Highlight"}</h3>
+          <h3 onClick={() => closeModal()} id={genericModalStyles.done}>
+            done
+          </h3>
         </div>
         <div className={genericModalStyles.searchSection}>
           <input
@@ -108,7 +111,7 @@ const Modal_Book_Search = ({ closeModal }: Modal_Book_SearchProps) => {
                 .includes(searchValue.toLocaleUpperCase())
             ).length !== 0 && (
               <div className={genericModalStyles.listItemType}>
-                <h3>Book Titles</h3>
+                <h1>Book Titles</h1>
               </div>
             )}
             {books
@@ -137,7 +140,7 @@ const Modal_Book_Search = ({ closeModal }: Modal_Book_SearchProps) => {
                 .includes(searchValue.toLocaleUpperCase())
             ).length !== 0 && (
               <div className={genericModalStyles.listItemType}>
-                <h3>Authors</h3>
+                <h1>Authors</h1>
               </div>
             )}
             {libraryRoute &&

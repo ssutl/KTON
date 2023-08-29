@@ -58,10 +58,12 @@ const Modal_Add_Category = ({
       <div
         className={`${genericModalStyles.modal} ${genericModalStyles.Modal_Add_Category} ${genericModalStyles[position]}`}
       >
-        <div className={genericModalStyles.header}>
-          <h3>Select or create genre</h3>
+        <div className={genericModalStyles.mobileHeader}>
+          <h3>Add Category</h3>
+          <h3 onClick={() => closeModal()} id={genericModalStyles.done}>
+            done
+          </h3>
         </div>
-
         <div className={genericModalStyles.searchSection}>
           <input
             type="text"
