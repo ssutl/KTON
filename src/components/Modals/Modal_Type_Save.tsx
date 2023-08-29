@@ -12,6 +12,14 @@ const Modal_Type_Save = ({ closeModal, mainBook }: Modal_Type_SaveProps) => {
   const [searchValue, setSearchValue] = useState<string>("");
   const { updateBookCover } = HandleChanges();
 
+  useEffect(() => {
+    //Auto focus on input
+    const input = document.getElementById("autoFocus");
+    if (input) {
+      input.focus();
+    }
+  }, []);
+
   return (
     <>
       <div
@@ -26,6 +34,7 @@ const Modal_Type_Save = ({ closeModal, mainBook }: Modal_Type_SaveProps) => {
 
         <div className={genericModalStyles.searchSection}>
           <input
+            id="autoFocus"
             type="text"
             placeholder="Input an image URL"
             onChange={(e) => setSearchValue(e.target.value)}
