@@ -187,8 +187,8 @@ const Highlight = ({ highlight, index }: highlightProps) => {
             //Displaying tags in tags holder
             <div className={styles.tagsBanner}>
               {highlight.category.map((eachCategory, i) => (
-                <p key={i} className={styles.tag}>
-                  {eachCategory}{" "}
+                <div key={i} className={styles.tag}>
+                  <p>{eachCategory} </p>
                   <span
                     onClick={() => {
                       addCategoryToHighlight({
@@ -201,7 +201,7 @@ const Highlight = ({ highlight, index }: highlightProps) => {
                   >
                     x
                   </span>
-                </p>
+                </div>
               ))}
             </div>
           )}

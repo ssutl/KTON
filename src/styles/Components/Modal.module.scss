@@ -117,7 +117,7 @@
 
     //Shit for tags
     .tag {
-      padding: 1px 10px;
+      padding: 2px 10px;
       background-color: var(--background-color);
       border-radius: 3px;
 
@@ -140,8 +140,10 @@
         // width: fit-content;
       }
 
-      &:hover {
-        opacity: 0.5;
+      @include breakpoint-mixin("Laptop_S") {
+        &:hover {
+          opacity: 0.5;
+        }
       }
     }
 

@@ -45,16 +45,24 @@
       row-gap: 20px;
 
       .tag {
-        padding: 2px 15px;
+        display: flex;
+        padding: 2px 10px;
         border-radius: 3px;
-        max-width: 60%;
+        max-width: 85%;
         overflow-x: hidden;
         box-sizing: border-box;
         margin-right: 20px;
         background-color: #769f9d;
+        justify-content: space-between;
+
+        @include breakpoint-mixin("Laptop_S") {
+          max-width: 100%;
+        }
 
         p {
           overflow-x: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
         span {
@@ -87,7 +95,6 @@
         display: flex;
         align-items: center;
         padding: 6px;
-        background-color: $hover;
 
         @include breakpoint-mixin("Laptop_S") {
           padding: 2px;
@@ -148,106 +155,6 @@
             }
           }
         }
-      }
-    }
-
-    .categoryDropdown {
-      padding: 20px 0px 20px 0px;
-
-      .searchItem {
-        padding: 15px 10px;
-        width: 100%;
-        display: flex;
-        // justify-content: center;
-
-        input {
-          background-color: $hover;
-          border-radius: 4px;
-          width: 100%;
-          border: none;
-          padding: 8px;
-        }
-
-        input:focus {
-          outline: none !important;
-          border: 1px solid $kton-blue;
-          box-shadow: 0 0 3px;
-        }
-      }
-
-      .categoryScroll {
-        max-height: 40dvh;
-        overflow-y: auto;
-        // background-color: orange;
-
-        .categoryItem {
-          height: 4dvh;
-          display: flex;
-          align-items: center;
-          width: 100%;
-          margin: 0px auto 0px auto;
-          border-radius: 5px;
-          margin-top: 15px;
-          cursor: pointer;
-          padding: 0px 20px;
-
-          .tag {
-            padding: 2px 15px;
-            border: 0.5px solid white;
-            overflow-x: hidden;
-            box-sizing: border-box;
-            max-width: 85%;
-
-            @include breakpoint-mixin("Laptop_S") {
-              max-width: 60%;
-            }
-
-            p {
-              overflow-x: hidden;
-              //force p to be one line
-              white-space: nowrap;
-              //give ellipsis
-              text-overflow: ellipsis;
-            }
-
-            &:hover {
-              opacity: 0.5;
-            }
-          }
-
-          #trashIcon {
-            font-size: 20px;
-          }
-
-          #createText {
-            border: none;
-            margin-right: 15px;
-          }
-
-          @include breakpoint-mixin("Laptop_S") {
-            &:hover {
-              background-color: #2c2c2c;
-            }
-          }
-        }
-
-        .spaceBetween {
-          justify-content: space-between;
-        }
-      }
-
-      .categoryScroll::-webkit-scrollbar {
-        height: 100%;
-        background-color: rgb(45, 41, 41);
-        width: 10px;
-      }
-
-      .categoryScroll::-webkit-scrollbar-thumb {
-        background-color: rgba(70, 68, 68, 0.428);
-        border: 1px solid transparent;
-        background-clip: content-box;
-        border-radius: 10px;
-        height: 40px;
       }
     }
   }
