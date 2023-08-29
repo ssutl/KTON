@@ -10,8 +10,10 @@ import LoadingPage from "@/components/Loading/LoadingPage";
 import Modal_Book_Search from "@/components/Modals/Modal_Book_Search";
 import Modal_Filter_Search from "@/components/Modals/Modal_Filter_Search";
 import Modal_Select from "@/components/Modals/Modal_Select";
+import { useRouter } from "next/router";
 
 const Library = () => {
+  const router = useRouter();
   const { InitialiseApp } = InitApi();
   const { books, userinfo } = useContext(KTON_CONTEXT);
   const [selectedSort, setSelectedSort] = useState<
@@ -157,6 +159,32 @@ const Library = () => {
       </div>
     );
   };
+
+  useEffect(() => {
+    //Saving scroll position when leaving
+    const libraryContainer = document.getElementById("Library");
+
+    const exitingFunction = () => {
+      if (libraryContainer) {
+        localStorage.setItem(
+          "libraryScrollY",
+          libraryContainer.scrollTop.toString()
+        );
+      }
+    };
+    router.events.on("routeChangeStart", exitingFunction);
+
+    //Setting scroll position when returning
+    const libraryScrollY = localStorage.getItem("libraryScrollY");
+
+    if (libraryScrollY !== null && libraryContainer) {
+      libraryContainer.scrollTop = parseInt(libraryScrollY, 10);
+    }
+
+    return () => {
+      router.events.off("routeChangeStart", exitingFunction);
+    };
+  }, []);
 
   if (!books) return <LoadingPage Text="Loading Library" />;
 
