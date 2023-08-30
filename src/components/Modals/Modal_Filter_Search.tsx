@@ -3,6 +3,7 @@ import { KTON_CONTEXT } from "../../context/KTONContext";
 import genericModalStyles from "../../styles/Components/Modal.module.scss";
 import genreColors from "@/helpers/sortGenreColors";
 import { useRouter } from "next/router";
+import StarIcon from "@mui/icons-material/Star";
 
 interface Modal_Filter_SearchProps {
   onItemClick: (item: any) => void;
@@ -76,9 +77,34 @@ const Modal_Filter_Search = ({
         <div className={genericModalStyles.searchSection}>
           <input
             type="text"
-            placeholder={"Filter by genre.."}
+            placeholder={"Filter by.."}
             onChange={(e) => setSearchValue(e.target.value)}
           />
+        </div>
+        <div
+          className={`${genericModalStyles.listItem} ${
+            genericModalStyles.hoverItem
+          } ${
+            selectedFilter === "s_tarred_1"
+              ? genericModalStyles.selectedItem
+              : ""
+          }`}
+          onClick={() => {
+            //If type is filter search, then set the filter
+            if (selectedFilter === "s_tarred_1") {
+              onItemClick!(undefined);
+            } else {
+              onItemClick!("s_tarred_1");
+            }
+          }}
+        >
+          <div
+            className={genericModalStyles.tag}
+            style={{ backgroundColor: "#3fcdfc" }}
+          >
+            <StarIcon id={genericModalStyles.star} />
+            <p>Starred</p>
+          </div>
         </div>
         {filteredData &&
           filteredData.map((eachItem, i) => (

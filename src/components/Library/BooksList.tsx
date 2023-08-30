@@ -1,6 +1,7 @@
 import { Book } from "@/api/Interface";
 import React, { useState, useEffect, useContext, useRef } from "react";
 import BookComponent from "./BookComponent";
+import { each } from "lodash";
 
 //Books passed from library
 const BooksList: React.FC<{
@@ -29,7 +30,11 @@ const BooksList: React.FC<{
           } else return 0;
         })
         .filter((eachBook) =>
-          selectedFilter ? eachBook.genre.includes(selectedFilter) : eachBook
+          selectedFilter === "s_tarred_1"
+            ? eachBook.rating > 0
+            : selectedFilter
+            ? eachBook.genre.includes(selectedFilter)
+            : eachBook
         )
         .filter((eachBook) => eachBook.deleted === false)
         .map((eachBook, i) => (

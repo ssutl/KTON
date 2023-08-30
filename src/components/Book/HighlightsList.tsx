@@ -6,7 +6,7 @@ import bookPageStyles from "../../styles/Pages/BookPage.module.scss";
 interface HighlightsListProps {
   book: Book;
   selectedSort: "Recent" | "Oldest" | "Length";
-  selectedFilter: string | undefined;
+  selectedFilter: string | "starred" | undefined;
 }
 
 const HighlightsList: React.FC<HighlightsListProps> = ({
@@ -32,7 +32,9 @@ const HighlightsList: React.FC<HighlightsListProps> = ({
             } else return 0;
           })
           .filter((eachHighlight) =>
-            selectedFilter
+            selectedFilter === "s_tarred_1"
+              ? eachHighlight.starred === true
+              : selectedFilter
               ? eachHighlight.category.includes(selectedFilter)
               : eachHighlight
           )

@@ -47,7 +47,6 @@ const BookPage = () => {
   );
   const [displaySortModal, setDisplaySortModal] = useState(false);
   const [displayFilterModal, setDisplayFilterModal] = useState(false);
-
   //Modal Positon
   const [divAboveHalf, setDivAboveHalf] = useState<boolean | undefined>(
     undefined
