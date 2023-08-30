@@ -22,6 +22,7 @@ const Modal_Confirmation = ({
 
     try {
       const res = await DeleteUserApi();
+      console.log("res", res);
 
       if (res === "success") {
         closeSettingModal();
@@ -52,7 +53,7 @@ const Modal_Confirmation = ({
         {
           //Just header for phone modals
         }
-        <div className={genericModalStyles.header}>
+        <div className={genericModalStyles.mobileHeader}>
           <h3>{`To confirm, type ${localStorage.getItem(
             "username"
           )} in the box below`}</h3>

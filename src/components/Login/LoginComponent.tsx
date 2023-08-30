@@ -3,6 +3,7 @@ import styles from "../../styles/Components/LoginComponent.module.scss";
 import LoginApi, { LoginApiReturnType } from "@/api/Users/Login";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
+import { useAlert } from "react-alert";
 
 const LoginComponent = () => {
   //Collecting information from the user
@@ -11,6 +12,7 @@ const LoginComponent = () => {
   const [password, setPassword] = useState<string>("");
   const [loginStatus, setLoginStatus] = useState<LoginApiReturnType>(undefined);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const alert = useAlert();
 
   //Switch between login and signup
   const switchLoginState = () => {
@@ -33,7 +35,9 @@ const LoginComponent = () => {
         });
 
         if (status === "Pending verification") {
-          alert("Please verify your email");
+          alert.show("An email has been sent, verify email to continue.", {
+            type: "info",
+          });
           setLoginStatus(status);
         }
       }

@@ -28,13 +28,15 @@
 
   //mobile header
   .mobileHeader {
-    height: 10dvh;
+    min-height: 10dvh;
     width: 100%;
     background-color: $cd-bg;
     display: flex;
     border-bottom: 0.5px solid $border_mobile;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
+    padding: 10px;
 
     @include breakpoint-mixin("Laptop_S") {
       display: none;
@@ -319,8 +321,12 @@
     position: relative;
     width: 450px;
 
-    .header {
+    .mobileHeader {
       display: flex;
+      padding: 0px;
+      min-height: fit-content;
+      border-bottom: none;
+      margin-bottom: 15px;
     }
   }
 }
