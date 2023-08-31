@@ -11,6 +11,8 @@ export default function LoginPage() {
 
   //If we land on login/Demo then we need to set local storage to true and redirect to library
   useEffect(() => {
+    localStorage.removeItem("Demo");
+
     if (router.isReady) {
       if (index && index[0] === "Demo") {
         localStorage.setItem("Demo", "true");
