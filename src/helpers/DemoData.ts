@@ -9,11 +9,11 @@ export const demoUserInfo: userInfo = {
   dark_mode: true,
   column_count: 3,
   genres: {
-    fantasy: "blue",
-    mystery: "green",
-    romance: "pink",
+    "Self-help": "blue",
+    Productivity: "green",
+    Habits: "yellow",
   },
-  categories: ["fiction", "non-fiction"],
+  categories: ["Practice", "Interesting", "Lesson", "Habit"],
   last_upload: "2023-08-30",
   notion_auth: "notion-auth-token-123",
   verified_email: true,
@@ -26,7 +26,7 @@ export const demoUserInfo: userInfo = {
 export const demoBooks: Book[] = [
   {
     annotated: false,
-    genre: ["Self-help"],
+    genre: ["Self-help", "Productivity", "Habits"],
     _id: "63abd75e139a70021ced2924",
     userID: "63b98299d4a24e32474d3ff7",
     cover_image:
