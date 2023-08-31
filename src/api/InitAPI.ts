@@ -96,13 +96,14 @@ function InitAPI() {
       }
     };
 
-    const isDemo = localStorage.getItem("Demo");
+    const Demo = localStorage.getItem("Demo") === "true";
+    const authToken = localStorage.getItem("token");
 
-    if (isDemo === "true") {
+    if (authToken) {
+      fetchData();
+    } else if (Demo) {
       updateUserInfo(demoUserInfo);
       updateBooks(demoBooks);
-    } else {
-      fetchData();
     }
   }
 

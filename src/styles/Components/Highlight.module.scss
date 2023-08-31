@@ -21,6 +21,7 @@
     @include breakpoint-mixin("Laptop_S") {
       height: 100%;
       width: 70%;
+      overflow-x: visible;
     }
 
     #highlightText {
@@ -83,6 +84,7 @@
       height: fit-content;
       width: 100%;
       justify-content: space-between;
+      overflow: visible;
 
       //For the category modal
       span {
