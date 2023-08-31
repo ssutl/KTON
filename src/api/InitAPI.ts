@@ -3,6 +3,7 @@ import axios, { AxiosResponse } from "axios";
 import { useContext } from "react";
 import { KTON_CONTEXT } from "../context/KTONContext";
 import { useRouter } from "next/router";
+import { demoBooks, demoUserInfo } from "@/helpers/DemoData";
 
 //This function is called on page load and fills the context with the users books and highlights
 
@@ -95,7 +96,15 @@ function InitAPI() {
       }
     };
 
-    fetchData();
+    const Demo = localStorage.getItem("Demo") === "true";
+    const authToken = localStorage.getItem("token");
+
+    if (authToken) {
+      fetchData();
+    } else if (Demo) {
+      updateUserInfo(demoUserInfo);
+      updateBooks(demoBooks);
+    }
   }
 
   return {

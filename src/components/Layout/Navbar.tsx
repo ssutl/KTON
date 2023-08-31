@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import SplitscreenIcon from "@mui/icons-material/Splitscreen";
 import TuneIcon from "@mui/icons-material/Tune";
 import AutoGraphIcon from "@mui/icons-material/AutoGraph";
+import { set } from "lodash";
 
 export interface NavbarProps {
   handleSettingsModal: () => void;
@@ -15,9 +16,11 @@ export default function Navbar({
   handleSettingsModal,
   settingsDisplayed,
 }: NavbarProps) {
-  const { books } = useContext(KTON_CONTEXT);
+  const { books, updateBooks } = useContext(KTON_CONTEXT);
   const router = useRouter();
   const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
+  const [demo, setDemo] = useState(false);
+  console.log("demo", demo);
 
   // getting the current route
   const isIndexRoute = router.pathname === "/";
@@ -40,6 +43,12 @@ export default function Navbar({
     const handleResize = () => setScreenWidth(window.innerWidth);
     handleResize();
     window.addEventListener("resize", () => handleResize());
+
+    //Updating demo state
+    setTimeout(() => {
+      const Demo = localStorage.getItem("Demo") === "true";
+      if (Demo) setDemo(Demo);
+    });
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -103,8 +112,20 @@ export default function Navbar({
           {DisplayLibrary && (
             <p onClick={() => router.push("/Library")}>Library</p>
           )}
-          {(DisplaySettings || isImportRoute) && (
+          {(DisplaySettings || isImportRoute) && !demo && (
             <p onClick={() => handleSettingsModal()}>Settings</p>
+          )}
+          {demo && (
+            <p
+              onClick={() => {
+                router.push("/");
+                localStorage.removeItem("Demo");
+                setDemo(false);
+                updateBooks(undefined);
+              }}
+            >
+              Login
+            </p>
           )}
         </div>
       </div>

@@ -132,7 +132,6 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
                 router.push("/");
                 localStorage.removeItem("token");
                 localStorage.removeItem("username");
-                sessionStorage.removeItem("clippings");
                 updateBooks(undefined);
                 handleSettingsModal();
               }}

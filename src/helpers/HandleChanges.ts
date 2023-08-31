@@ -68,6 +68,9 @@ function HandleChanges() {
     useContext(KTON_CONTEXT);
 
   const addRating = ({ data, book_id }: RatingProps) => {
+    //Checking if user is in demo mode
+    const Demo = localStorage.getItem("Demo") === "true";
+
     if (books) {
       const newState = books.map((book_context) => {
         //If book has same ID change rating locally
@@ -75,12 +78,20 @@ function HandleChanges() {
           return { ...book_context, rating: data };
         } else return book_context;
       });
+
+      //Handling request locally
       updateBooks(newState);
+
+      //Handling request on server only if not in demo mode
+      if (Demo) return;
       rateBookApi({ book_id: book_id, data: data });
     }
   };
 
   const addGenreToBook = ({ data, book_id, type }: GenreProps) => {
+    //Checking if user is in demo mode
+    const Demo = localStorage.getItem("Demo") === "true";
+
     if (books && book_id) {
       // Create an array containing the book ids, even if 'book_id' is a single string
       const bookIds = Array.isArray(book_id) ? book_id : [book_id];
@@ -99,7 +110,11 @@ function HandleChanges() {
         }
       });
 
+      //Handling request locally
       updateBooks(newState);
+
+      //Handling request on server only if not in demo mode
+      if (Demo) return;
 
       bookIds.forEach((id) => {
         // Sorting on server for each book using the API
@@ -112,6 +127,9 @@ function HandleChanges() {
   };
 
   const addGenreToUser = ({ data, book_id, type, color }: GenreProps) => {
+    //Checking if user is in demo mode
+    const Demo = localStorage.getItem("Demo") === "true";
+
     if (userinfo) {
       let newState = userinfo;
       let book = books?.filter((book) => book._id === book_id)[0];
@@ -132,7 +150,9 @@ function HandleChanges() {
       //sorting locally
       updateUserInfo(newState);
 
-      //Sorting on server
+      //Handling request on server only if not in demo mode
+      if (Demo) return;
+
       addGenreToUserApi({ data: newState.genres });
 
       //Adding it to the book that it was created from
@@ -163,6 +183,9 @@ function HandleChanges() {
     book_id,
     highlight_id,
   }: favouriteHighlightProps) => {
+    //Checking if user is in demo mode
+    const Demo = localStorage.getItem("Demo") === "true";
+
     if (books && typeof book_id === "string") {
       //Handling request locally
       const newState = books.map((book_context) => {
@@ -177,9 +200,13 @@ function HandleChanges() {
           };
         } else return book_context;
       });
+
+      //Handling request locally
       updateBooks(newState);
 
-      //Handling request on server
+      //Handling request on server only if not in demo mode
+      if (Demo) return;
+
       favouriteHighlightApi({
         book_id,
         highlight_id: highlight_id,
@@ -189,8 +216,10 @@ function HandleChanges() {
   };
 
   const deleteHighlight = ({ book_id, highlight_id }: deleteHighlightProps) => {
+    //Checking if user is in demo mode
+    const Demo = localStorage.getItem("Demo") === "true";
+
     if (books) {
-      //Handling request locally
       const value = !books
         .filter((book) => book._id === book_id)[0]
         .highlights.filter((highlight) => highlight._id === highlight_id)[0]
@@ -208,7 +237,13 @@ function HandleChanges() {
           };
         } else return book_context;
       });
+
+      //Handling request locally
       updateBooks(newState);
+
+      //Handling request on server only if not in demo mode
+      if (Demo) return;
+
       deleteHighlightApi({ book_id, highlight_id, data: value });
     }
   };
@@ -218,8 +253,10 @@ function HandleChanges() {
     book_id,
     highlight_id,
   }: annotateHighlightProps) => {
+    //Checking if user is in demo mode
+    const Demo = localStorage.getItem("Demo") === "true";
+
     if (books && typeof book_id === "string") {
-      //Handling request locally
       const newState = books.map((book_context) => {
         if (book_id === book_context._id) {
           return {
@@ -232,9 +269,13 @@ function HandleChanges() {
           };
         } else return book_context;
       });
+
+      //Handling request locally
       updateBooks(newState);
 
-      //Handling request on server
+      //Handling request on server only if not in demo mode
+      if (Demo) return;
+
       annotateHighlightApi({
         book_id,
         highlight_id: highlight_id,
@@ -249,13 +290,15 @@ function HandleChanges() {
     book_id,
     highlight_id,
   }: addCategoryToHighlightProps) => {
+    //Checking if user is in demo mode
+    const Demo = localStorage.getItem("Demo") === "true";
+
     if (books && book_id) {
       const bookIds = Array.isArray(book_id) ? book_id : [book_id];
       const highlightIds = Array.isArray(highlight_id)
         ? highlight_id
         : [highlight_id];
 
-      //Handling request locally
       const newState = books.map((book_context) => {
         //gonna map through the books and select the book that id is included in the array of book ids
         if (bookIds.includes(book_context._id)) {
@@ -279,7 +322,11 @@ function HandleChanges() {
         } else return book_context;
       });
 
+      //Handling request locally
       updateBooks(newState);
+
+      //Handling request on server only if not in demo mode
+      if (Demo) return;
 
       books.map((book) => {
         if (bookIds.includes(book._id)) {
@@ -312,8 +359,10 @@ function HandleChanges() {
     book_id,
     highlight_id,
   }: addCategoryToHighlightProps) => {
-    //Need to find the current categories on highlights by filtering books by id and then filtering highlights by id
+    //Checking if user is in demo mode
+    const Demo = localStorage.getItem("Demo") === "true";
 
+    //Need to find the current categories on highlights by filtering books by id and then filtering highlights by id
     if (userinfo && books) {
       let HighlightCategories = books
         .filter((book) => book._id === book_id)[0]
@@ -331,7 +380,9 @@ function HandleChanges() {
         categories: updatedCategories,
       });
 
-      //Handling request on server
+      //Handling request on server only if not in demo mode
+      if (Demo) return;
+
       addUserCategoryApi({
         data: updatedCategories,
       });
@@ -374,6 +425,9 @@ function HandleChanges() {
   };
 
   const addSummaryToBook = ({ data, book_id }: addSummaryToBookProps) => {
+    //Checking if user is in demo mode
+    const Demo = localStorage.getItem("Demo") === "true";
+
     if (books && data !== undefined && typeof book_id === "string") {
       const newState = books.map((book_context) => {
         //If book has same ID change rating locally
@@ -381,12 +435,20 @@ function HandleChanges() {
           return { ...book_context, summary: data };
         } else return book_context;
       });
+
+      //Handling request locally
       updateBooks(newState);
+
+      //Handling request on server only if not in demo mode
+      if (Demo) return;
       summariseBookApi({ book_id: book_id, data: data });
     }
   };
 
   const markBookAsAnnotated = ({ book_id }: markBookAsAnnotatedProps) => {
+    //Checking if user is in demo mode
+    const Demo = localStorage.getItem("Demo") === "true";
+
     if (books && typeof book_id === "string") {
       const data = !books.filter((book) => book._id === book_id)[0].annotated;
 
@@ -396,12 +458,18 @@ function HandleChanges() {
           return { ...book_context, annotated: data };
         } else return book_context;
       });
+      //Handling request locally
       updateBooks(newState);
+
+      //Handling request on server only if not in demo mode
+      if (Demo) return;
       markAsAnnotatedApi({ book_id: book_id, data: data });
     }
   };
 
   const updateBookCover = ({ data, book_id }: updateBookCoverProps) => {
+    //Checking if user is in demo mode
+    const Demo = localStorage.getItem("Demo") === "true";
     if (books && data && typeof book_id === "string") {
       const newState = books.map((book_context) => {
         //If book has same ID change rating locally
@@ -409,12 +477,18 @@ function HandleChanges() {
           return { ...book_context, cover_image: data };
         } else return book_context;
       });
+      //Handling request locally
       updateBooks(newState);
+
+      //Handling request on server only if not in demo mode
+      if (Demo) return;
       changeBookImageApi({ book_id: book_id, data: data });
     }
   };
 
   const deleteBook = ({ book_id }: { book_id: string }) => {
+    //Checking if user is in demo mode
+    const Demo = localStorage.getItem("Demo") === "true";
     if (books && typeof book_id === "string") {
       const value = !books.filter((book) => book._id === book_id)[0].deleted;
 
@@ -424,7 +498,11 @@ function HandleChanges() {
           return { ...book_context, deleted: value };
         } else return book_context;
       });
+      //Handling request locally
       updateBooks(newState);
+
+      //Handling request on server only if not in demo mode
+      if (Demo) return;
       deleteBookApi({ book_id: book_id, data: value });
     }
   };
