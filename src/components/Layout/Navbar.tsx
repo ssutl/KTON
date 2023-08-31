@@ -20,7 +20,7 @@ export default function Navbar({
   const router = useRouter();
   const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
   const [demo, setDemo] = useState(false);
-  console.log("demo", demo);
+  const [auth, setAuth] = useState(false);
 
   // getting the current route
   const isIndexRoute = router.pathname === "/";
@@ -47,6 +47,8 @@ export default function Navbar({
     //Updating demo state
     setTimeout(() => {
       const Demo = localStorage.getItem("Demo") === "true";
+      const Auth = localStorage.getItem("token") ? true : false;
+      if (Auth) setAuth(Auth);
       if (Demo) setDemo(Demo);
     });
 
@@ -112,10 +114,10 @@ export default function Navbar({
           {DisplayLibrary && (
             <p onClick={() => router.push("/Library")}>Library</p>
           )}
-          {(DisplaySettings || isImportRoute) && !demo && (
+          {auth && (DisplaySettings || isImportRoute) && (
             <p onClick={() => handleSettingsModal()}>Settings</p>
           )}
-          {demo && (
+          {demo && !auth && (
             <p
               onClick={() => {
                 router.push("/");
