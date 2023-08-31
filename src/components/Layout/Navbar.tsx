@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import SplitscreenIcon from "@mui/icons-material/Splitscreen";
 import TuneIcon from "@mui/icons-material/Tune";
 import AutoGraphIcon from "@mui/icons-material/AutoGraph";
-import { set } from "lodash";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 export interface NavbarProps {
   handleSettingsModal: () => void;
@@ -86,9 +86,21 @@ export default function Navbar({
               <SplitscreenIcon />
             </p>
           )}
-          {(DisplaySettings || isImportRoute) && (
+          {auth && (DisplaySettings || isImportRoute) && (
             <p onClick={() => handleSettingsModal()}>
               <TuneIcon />
+            </p>
+          )}
+          {demo && !auth && (
+            <p
+              onClick={() => {
+                router.push("/");
+                localStorage.removeItem("Demo");
+                setDemo(false);
+                updateBooks(undefined);
+              }}
+            >
+              <LogoutIcon />
             </p>
           )}
         </div>
