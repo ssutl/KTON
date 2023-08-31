@@ -20,6 +20,7 @@ export default function Navbar({
   const router = useRouter();
   const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
   const [demo, setDemo] = useState(false);
+  console.log("demo", demo);
 
   // getting the current route
   const isIndexRoute = router.pathname === "/";
@@ -44,8 +45,10 @@ export default function Navbar({
     window.addEventListener("resize", () => handleResize());
 
     //Updating demo state
-    const Demo = localStorage.getItem("Demo") === "true";
-    setDemo(Demo);
+    setTimeout(() => {
+      const Demo = localStorage.getItem("Demo") === "true";
+      if (Demo) setDemo(Demo);
+    });
 
     return () => {
       window.removeEventListener("resize", handleResize);
