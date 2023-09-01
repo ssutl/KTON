@@ -45,17 +45,15 @@ export default function Navbar({
     window.addEventListener("resize", () => handleResize());
 
     //Updating demo state
-    setTimeout(() => {
-      const Demo = localStorage.getItem("Demo") === "true";
-      const Auth = localStorage.getItem("token") ? true : false;
-      if (Auth) setAuth(Auth);
-      if (Demo) setDemo(Demo);
-    });
+    const Demo = localStorage.getItem("Demo") === "true";
+    const Auth = localStorage.getItem("token") ? true : false;
+    if (Auth) setAuth(Auth);
+    if (Demo) setDemo(Demo);
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [router.pathname]);
 
   //Display the navbar
   if (router.pathname === "/verify/[...id]") return null;
