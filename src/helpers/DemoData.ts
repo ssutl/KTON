@@ -20,7 +20,7 @@ export const demoUserInfo: userInfo = {
   notion_auth: "notion-auth-token-123",
   verified_email: true,
   subscription: true,
-  stripe_customer_id: "stripe-customer-id-123",
+  stripe_customer_id: "12345678",
   has_trial_period: false,
   subscription_end: new Date("2024-08-31"),
 };
@@ -29,7 +29,7 @@ export const demoBooks: Book[] = [
   {
     annotated: false,
     genre: ["Self-help", "Productivity", "Habits"],
-    _id: "63abd75e139a70021ced2924",
+    _id: "12345678",
     userID: "63b98299d4a24e32474d3ff7",
     cover_image:
       "https://m.media-amazon.com/images/I/81bGKUa1e0L._AC_UF894,1000_QL80_.jpg",
@@ -48,7 +48,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
     highlights: [
       {
         category: [],
-        _id: "63abd75e139a70021ced2925",
+        _id: "12345678",
         Text: "A habit is a routine or behavior that is performed regularly—and, in many cases, automatically.",
         Page: 9,
         LocationStart: 124,
@@ -61,7 +61,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "63abd75e139a70021ced2926",
+        _id: "12345678",
         Text: "A habit is a routine or behavior that is performed regularly—and, in many cases, automatically.",
         Page: 9,
         LocationStart: 124,
@@ -74,7 +74,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: ["Bars"],
-        _id: "63abd75e139a70021ced2927",
+        _id: "12345678",
         Text: "“the aggregation of marginal gains,”",
         Page: 14,
         LocationStart: 200,
@@ -87,7 +87,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "63abd75e139a70021ced2928",
+        _id: "12345678",
         Text: "if you broke down everything you could think of that goes into riding a bike, and then improve it by 1 percent, you will get a significant increase when you put them all together.”",
         Page: 14,
         LocationStart: 202,
@@ -100,7 +100,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "63abd75e139a70021ced2929",
+        _id: "12345678",
         Text: "Too often, we convince ourselves that massive success requires massive action.",
         Page: 15,
         LocationStart: 223,
@@ -113,7 +113,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "63abd75e139a70021ced292a",
+        _id: "12345678",
         Text: "if you can get 1 percent better each day for one year, you’ll end up thirty-seven times better by the time you’re done. Conversely, if you get 1 percent worse each day for one year, you’ll decline nearly down to zero. What starts as a small win or a minor setback accumulates into something much more.",
         Page: 15,
         LocationStart: 227,
@@ -126,7 +126,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "63abd75e139a70021ced292b",
+        _id: "12345678",
         Text: "Habits are the compound interest of self-improvement.",
         Page: 16,
         LocationStart: 235,
@@ -139,7 +139,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "63abd75e139a70021ced292c",
+        _id: "12345678",
         Text: "The same way that money multiplies through compound interest, the effects of your habits multiply as you repeat them.",
         Page: 16,
         LocationStart: 235,
@@ -155,7 +155,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
   {
     annotated: false,
     genre: ["Self-help", "Mindset", "Lifestyle"],
-    _id: "6431f987362d66021d97dc89",
+    _id: "12345678",
     userID: "63b98299d4a24e32474d3ff7",
     cover_image:
       "https://m.media-amazon.com/images/I/71QKQ9mwV7L._AC_UF894,1000_QL80_.jpg",
@@ -171,7 +171,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
     highlights: [
       {
         category: [],
-        _id: "6431f987362d66021d97dc8a",
+        _id: "12345678",
         Text: "Self-improvement and success often occur together. But that doesn’t necessarily mean they’re the same thing.",
         LocationStart: 71,
         LocationEnd: 72,
@@ -183,7 +183,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "6431f987362d66021d97dc8b",
+        _id: "12345678",
         Text: "Ironically, this fixation on the positive—on what’s better, what’s superior—only serves to remind us over and over again of what we are not, of what we lack, of what we should have been but failed to be.",
         LocationStart: 82,
         LocationEnd: 83,
@@ -195,7 +195,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "6431f987362d66021d97dc8c",
+        _id: "12345678",
         Text: "A confident man doesn’t feel a need to prove that he’s confident.",
         LocationStart: 85,
         LocationEnd: 85,
@@ -207,7 +207,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "6431f987362d66021d97dc8d",
+        _id: "12345678",
         Text: "giving too many fucks is bad for your mental health.",
         LocationStart: 93,
         LocationEnd: 94,
@@ -219,7 +219,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "6431f987362d66021d97dc8e",
+        _id: "12345678",
         Text: "The key to a good life is not giving a fuck about more; it’s giving a fuck about less, giving a fuck about only what is true and immediate and important.",
         LocationStart: 95,
         LocationEnd: 96,
@@ -231,7 +231,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "6431f987362d66021d97dc8f",
+        _id: "12345678",
         Text: "“I feel like shit, but who gives a fuck?”",
         LocationStart: 128,
         LocationEnd: 128,
@@ -243,7 +243,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "6431f987362d66021d97dc90",
+        _id: "12345678",
         Text: "Our crisis is no longer material; it’s existential, it’s spiritual.",
         LocationStart: 134,
         LocationEnd: 134,
@@ -255,7 +255,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "6431f987362d66021d97dc91",
+        _id: "12345678",
         Text: "Because there’s an infinite amount of things we can now see or know, there are also an infinite number of ways we can discover that we don’t measure up, that we’re not good enough, that things aren’t as great as they could be.",
         LocationStart: 135,
         LocationEnd: 137,
@@ -270,7 +270,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
   {
     annotated: false,
     genre: [],
-    _id: "64454238362d66021d9802ce",
+    _id: "12345678",
     userID: "63b98299d4a24e32474d3ff7",
     cover_image: "https://m.media-amazon.com/images/I/71dUSlTVOwL.jpg",
     isbn: "9780822100461",
@@ -285,7 +285,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
     highlights: [
       {
         category: [],
-        _id: "64454238362d66021d9802cf",
+        _id: "12345678",
         Text: "If you have an idea you’re excited about and you don’t bring it to life, it’s not uncommon for the idea to find its voice through another maker. This isn’t because the other artist stole your idea, but because the idea’s time has come.",
         LocationStart: 159,
         LocationEnd: 161,
@@ -297,7 +297,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "64454238362d66021d9802d0",
+        _id: "12345678",
         Text: "In this great unfolding, ideas and thoughts, themes and songs and other works of art exist in the aether and ripen on schedule, ready to find expression in the physical world.",
         LocationStart: 161,
         LocationEnd: 162,
@@ -309,7 +309,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "64454238362d66021d9802d1",
+        _id: "12345678",
         Text: "We are all translators for messages the universe is broadcasting.",
         LocationStart: 163,
         LocationEnd: 164,
@@ -321,7 +321,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "64454238362d66021d9802d2",
+        _id: "12345678",
         Text: "The best artists tend to be the ones with the most sensitive antennae to draw in the energy resonating at a particular moment.",
         LocationStart: 164,
         LocationEnd: 164,
@@ -333,7 +333,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "64454238362d66021d9802d3",
+        _id: "12345678",
         Text: "energetic more than tactile, intuitively perceived more than consciously recorded.",
         LocationStart: 172,
         LocationEnd: 172,
@@ -345,7 +345,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "64454238362d66021d9802d4",
+        _id: "12345678",
         Text: "Practicing a way of being that allows you to see the world through uncorrupted, innocent eyes can free you to act in concert with the universe’s timetable.",
         LocationStart: 184,
         LocationEnd: 185,
@@ -357,7 +357,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "64454238362d66021d9802d5",
+        _id: "12345678",
         Text: "There’s a time for certain ideas to arrive, and they find a way to express themselves through us.",
         LocationStart: 186,
         LocationEnd: 189,
@@ -369,7 +369,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "64454238362d66021d9802d6",
+        _id: "12345678",
         Text: "To the mind, this material appears to come from within. But that’s an illusion. There are tiny fragments of the vastness of Source stored within us. These precious wisps arise from the unconscious like vapor, and condense to form a thought. An idea.",
         LocationStart: 201,
         LocationEnd: 202,
@@ -381,7 +381,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
       },
       {
         category: [],
-        _id: "64454238362d66021d9802d7",
+        _id: "12345678",
         Text: "If something strikes me as interesting or beautiful, first I live that experience. Only afterward might I attempt to understand it.",
         LocationStart: 232,
         LocationEnd: 232,
