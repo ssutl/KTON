@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import SplitscreenIcon from "@mui/icons-material/Splitscreen";
 import TuneIcon from "@mui/icons-material/Tune";
 import AutoGraphIcon from "@mui/icons-material/AutoGraph";
-import LogoutIcon from "@mui/icons-material/Logout";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 export interface NavbarProps {
   handleSettingsModal: () => void;
@@ -62,17 +62,19 @@ export default function Navbar({
     return (
       <div className={styles.mobileNavbar}>
         <div className={styles.navbarWidth}>
-          <p
-            onClick={() => {
-              router.push("/Home");
-              if (settingsDisplayed) {
-                handleSettingsModal();
-              }
-            }}
-          >
-            <AutoGraphIcon />
-          </p>
-          {DisplayLibrary && (
+          {!demo && (
+            <p
+              onClick={() => {
+                router.push("/Home");
+                if (settingsDisplayed) {
+                  handleSettingsModal();
+                }
+              }}
+            >
+              <AutoGraphIcon />
+            </p>
+          )}
+          {DisplayLibrary && !demo && (
             <p
               onClick={() => {
                 router.push("/Library");
@@ -92,13 +94,13 @@ export default function Navbar({
           {demo && !auth && (
             <p
               onClick={() => {
-                router.push("/");
+                router.push("https://kton.xyz");
                 localStorage.removeItem("Demo");
                 setDemo(false);
                 updateBooks(undefined);
               }}
             >
-              <LogoutIcon />
+              <ExitToAppIcon />
             </p>
           )}
         </div>
@@ -115,13 +117,15 @@ export default function Navbar({
       <div className={styles.navbarWidth}>
         <h3
           onClick={() =>
-            router.push(`${isIndexRoute ? "https://kton.xyz" : "/Home"}`)
+            router.push(
+              `${isIndexRoute || demo ? "https://kton.xyz" : "/Home"}`
+            )
           }
         >
           KTON
         </h3>
         <div className={styles.navigationButtons}>
-          {DisplayLibrary && (
+          {DisplayLibrary && !demo && (
             <p onClick={() => router.push("/Library")}>Library</p>
           )}
           {auth && (DisplaySettings || isImportRoute) && (
@@ -130,13 +134,13 @@ export default function Navbar({
           {demo && !auth && (
             <p
               onClick={() => {
-                router.push("/");
+                router.push("https://kton.xyz");
                 localStorage.removeItem("Demo");
                 setDemo(false);
                 updateBooks(undefined);
               }}
             >
-              Login
+              Landing
             </p>
           )}
         </div>
