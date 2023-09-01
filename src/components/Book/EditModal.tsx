@@ -15,7 +15,6 @@ import { Book } from "@/api/Interface";
 import TextColorModal from "./TextColorModal";
 import ShareImageNatively from "@/helpers/ShareImageNatively";
 import ImageDownload from "@/helpers/ImageDownload";
-import { set } from "lodash";
 
 interface EditModalProps {
   refrence: React.RefObject<HTMLDivElement>;
