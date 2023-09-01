@@ -51,7 +51,6 @@ const BookPage = () => {
   const [divAboveHalf, setDivAboveHalf] = useState<boolean | undefined>(
     undefined
   );
-  console.log("divAboveHalf", divAboveHalf);
 
   const showFilterH3 =
     mainBook &&

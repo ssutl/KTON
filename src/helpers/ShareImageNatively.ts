@@ -26,7 +26,7 @@ const shareFile = (file: any, title: any, text: any) => {
         title,
         text,
       })
-      .then(() => console.log("Share was successful."))
+      .then(() => {})
       .catch((error) => {
         //Throw error
         throw new Error(error);

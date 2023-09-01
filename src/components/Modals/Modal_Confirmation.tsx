@@ -22,7 +22,6 @@ const Modal_Confirmation = ({
 
     try {
       const res = await DeleteUserApi();
-      console.log("res", res);
 
       if (res === "success") {
         closeSettingModal();

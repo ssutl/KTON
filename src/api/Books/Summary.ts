@@ -23,8 +23,6 @@ const summariseBookApi = async ({ book_id, data }: summariseBookApiProps) => {
       },
       data: { summary: data },
     });
-
-    console.log("res", res);
   } catch (err) {
     throw new Error("Failed summarising book");
   }
