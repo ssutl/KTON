@@ -49,18 +49,6 @@
       }
     }
 
-    .loading {
-      height: 100%;
-      width: 90%;
-      background-color: #e3e3e36b;
-      animation: loading-animation 1s infinite linear;
-
-      @include breakpoint-mixin("Laptop_S") {
-        width: calc(95% + 10px);
-        margin-left: 10px; // Add left margin
-      }
-    }
-
     .color-empty-light {
       fill: #191919;
     }
@@ -77,11 +65,24 @@
     .color-scale-4 {
       fill: #17459e;
     }
+
+    text {
+      font-size: 8px;
+      fill: #aaa;
+    }
   }
 
-  text {
-    font-size: 8px;
-    fill: #aaa;
+  .loading {
+    height: 100%;
+    width: 90%;
+    display: block;
+    background-color: #e3e3e36b;
+    animation: loading-animation 1s infinite linear;
+
+    @include breakpoint-mixin("Laptop_S") {
+      width: calc(95% + 10px);
+      margin-left: 10px; // Add left margin
+    }
   }
 
   @keyframes loading-animation {
