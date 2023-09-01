@@ -37,23 +37,33 @@ export default function Navbar({
       books?.filter((eachBook) => eachBook.deleted === false).length !== 0 &&
       books !== undefined);
 
-  //Screen width for mobile
-  useEffect(() => {
+  const getLocalStorage = () => {
     //Have to set screenwidth to disable share feature for mobile
-    const handleResize = () => setScreenWidth(window.innerWidth);
-    handleResize();
-    window.addEventListener("resize", () => handleResize());
 
     //Updating demo state
     const Demo = localStorage.getItem("Demo") === "true";
     const Auth = localStorage.getItem("token") ? true : false;
     if (Auth) setAuth(Auth);
     if (Demo) setDemo(Demo);
+  };
+
+  //Getting the local storage when the route changes
+  useEffect(() => {
+    getLocalStorage();
+  }, [router.pathname]);
+
+  //Getting the local storage when the page loads
+  useEffect(() => {
+    const handleResize = () => setScreenWidth(window.innerWidth);
+    handleResize();
+    window.addEventListener("resize", () => handleResize());
+
+    getLocalStorage();
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [router.pathname]);
+  }, []);
 
   //Display the navbar
   if (router.pathname === "/verify/[...id]") return null;
