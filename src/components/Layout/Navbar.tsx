@@ -23,7 +23,7 @@ export default function Navbar({
   const [auth, setAuth] = useState(false);
 
   // getting the current route
-  const isIndexRoute = router.pathname === "/";
+  const isIndexRoute = router.pathname === "/[[...index]]";
   const isImportRoute = router.pathname === "/Import";
   const isHome = router.pathname === "/Home";
   const isLibr = router.pathname === "/Library";
@@ -69,6 +69,7 @@ export default function Navbar({
   if (router.pathname === "/verify/[...id]") return null;
 
   const mobileNavbar = () => {
+    if (isIndexRoute) return null;
     return (
       <div className={styles.mobileNavbar}>
         <div className={styles.navbarWidth}>

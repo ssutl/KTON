@@ -62,6 +62,8 @@ const Highlight = ({ highlight, index }: highlightProps) => {
     handleResize();
     window.addEventListener("resize", () => handleResize());
 
+    setInputAnnotation(highlight.notes);
+
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -93,6 +95,7 @@ const Highlight = ({ highlight, index }: highlightProps) => {
         input.focus();
       }
     }, 50);
+    console.log(highlight, index);
     return (
       <div className={styles.annotationDropdown} ref={notesDropDownRef}>
         <TextareaAutosize
