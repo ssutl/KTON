@@ -99,11 +99,11 @@ function InitAPI() {
     const Demo = localStorage.getItem("Demo") === "true";
     const authToken = localStorage.getItem("token");
 
-    if (Demo) {
+    if (authToken) {
+      fetchData();
+    } else if (Demo) {
       updateUserInfo(demoUserInfo);
       updateBooks(demoBooks);
-    } else if (authToken) {
-      fetchData();
     }
   }
 
