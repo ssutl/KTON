@@ -15,6 +15,10 @@ export default function LoginPage() {
 
     if (router.isReady) {
       if (index && index[0] === "Demo") {
+        //Remove token and username from local storage to ensure they dont login as previous user
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        //Set demo to true
         localStorage.setItem("Demo", "true");
         router.push("/Library");
       }
