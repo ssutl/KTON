@@ -200,7 +200,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
     },
     {
       name: "Upgrade",
-      showCondition: userSubscribed,
+      showCondition: !userSubscribed,
       features: [
         {
           name: "Upgrade to Premium",

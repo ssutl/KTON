@@ -26,6 +26,7 @@ const SettingContent = ({
   const { books, highlights } = useContext(KTON_CONTEXT);
   const { deleteBook, deleteHighlight } = HandleChanges();
 
+  console.log("settingOption", settingOption);
   return (
     <div className={styles.settingContentContainer}>
       <div className={styles.settingContentHeader}>
