@@ -20,6 +20,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
   const [selectedSetting, setSelectedSetting] = useState<
     "Account" | "Books & Highlights" | "Import & Export" | "Upgrade"
   >("Account");
+  const userSubscribed = userinfo && userinfo.subscription_end < new Date();
 
   useEffect(() => {
     //Have to set screenwidth to conditionally change size of heat map
@@ -83,7 +84,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
               Manage
             </p>
           ),
-          showCondition: userinfo ? userinfo.subscription : false,
+          showCondition: userSubscribed,
         },
         {
           name: "Current Membership Plan",
@@ -92,17 +93,17 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
             <>
               <p
                 className={`${styles.button} ${
-                  !userinfo?.subscription ? styles.kton_active : ""
+                  !userSubscribed ? styles.kton_active : ""
                 }`}
               >
                 Free
               </p>
               <p
                 className={`${styles.button} ${
-                  userinfo?.subscription ? styles.kton_active : ""
+                  userSubscribed ? styles.kton_active : ""
                 }`}
                 onClick={() =>
-                  userinfo?.subscription ? null : setSelectedSetting("Upgrade")
+                  userSubscribed ? null : setSelectedSetting("Upgrade")
                 }
               >
                 Premium
@@ -118,7 +119,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
               ? new Date(userinfo.subscription_end).toDateString()
               : "N/A"
           }`,
-          showCondition: userinfo ? userinfo.subscription : false,
+          showCondition: userSubscribed,
         },
         {
           name: "Logout",
@@ -196,7 +197,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
     },
     {
       name: "Upgrade",
-      showCondition: userinfo ? !userinfo.subscription : true,
+      showCondition: userSubscribed,
       features: [
         {
           name: "Upgrade to Premium",
