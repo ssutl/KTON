@@ -1,7 +1,7 @@
 @import "../../styles/Layout/Breakpoints.module.scss";
 
 .pickerContainer {
-  position: absolute;
+  position: fixed;
   z-index: 1000;
   border-radius: 4px;
   overflow: hidden;
@@ -9,7 +9,7 @@
 
   @include breakpoint-mixin("Laptop_S") {
     top: 50%;
-    right: 110%;
+    right: 20%;
   }
 }
 
