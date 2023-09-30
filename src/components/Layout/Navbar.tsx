@@ -42,9 +42,7 @@ export default function Navbar({
 
     //Updating demo state
     const Demo = localStorage.getItem("Demo") === "true";
-    console.log("Demo", Demo);
     const Auth = localStorage.getItem("token") ? true : false;
-    console.log("Auth", Auth);
     if (Auth) setAuth(Auth);
     if (Demo) setDemo(Demo);
   };
