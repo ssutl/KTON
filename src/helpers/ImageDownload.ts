@@ -10,7 +10,10 @@ export interface ImageDownloadProps {
 
 const ImageDownload = ({ refrence, title, imageWidth }: ImageDownloadProps) => {
   const { userinfo } = useContext(KTON_CONTEXT);
-  const userSubscribed = userinfo && userinfo.subscription_end < new Date();
+  const userSubscribed =
+    userinfo &&
+    userinfo.subscription_end !== null &&
+    userinfo.subscription_end < new Date();
 
   //Image download function
   const handleImageDownload = useCallback(async () => {

@@ -51,7 +51,10 @@ const ShareOverlay = ({
   const [TextStyles, setTextStyles] = useState<TextStyles>();
   const [MetaDataStyles, setMetaDataStyles] = useState<MetaDataStyles>();
   const alert = useAlert();
-  const userSubscribed = userinfo && userinfo.subscription_end < new Date();
+  const userSubscribed =
+    userinfo &&
+    userinfo.subscription_end !== null &&
+    userinfo.subscription_end < new Date();
 
   useEffect(() => {
     if (userSubscribed) return;

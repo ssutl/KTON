@@ -20,7 +20,10 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
   const [selectedSetting, setSelectedSetting] = useState<
     "Account" | "Books & Highlights" | "Import & Export" | "Upgrade"
   >("Account");
-  const userSubscribed = userinfo && userinfo.subscription_end < new Date();
+  const userSubscribed =
+    userinfo &&
+    userinfo.subscription_end !== null &&
+    userinfo.subscription_end < new Date();
 
   useEffect(() => {
     //Have to set screenwidth to conditionally change size of heat map
