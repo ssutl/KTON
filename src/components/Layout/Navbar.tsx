@@ -136,7 +136,7 @@ export default function Navbar({
           KTON
         </h3>
         <div className={styles.navigationButtons}>
-          {DisplayLibrary && !demo && (
+          {DisplayLibrary && auth && (
             <p onClick={() => router.push("/Library")}>Library</p>
           )}
           {auth && (DisplaySettings || isImportRoute) && (
