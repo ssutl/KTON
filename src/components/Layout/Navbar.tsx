@@ -20,9 +20,7 @@ export default function Navbar({
   const router = useRouter();
   const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
   const [demo, setDemo] = useState(false);
-  console.log("demo", demo);
   const [auth, setAuth] = useState(false);
-  console.log("auth", auth);
 
   // getting the current route
   const isIndexRoute = router.pathname === "/[[...index]]";
@@ -44,14 +42,18 @@ export default function Navbar({
 
     //Updating demo state
     const Demo = localStorage.getItem("Demo") === "true";
+    console.log("Demo", Demo);
     const Auth = localStorage.getItem("token") ? true : false;
+    console.log("Auth", Auth);
     if (Auth) setAuth(Auth);
     if (Demo) setDemo(Demo);
   };
 
   //Getting the local storage when the route changes
   useEffect(() => {
-    getLocalStorage();
+    if (router.isReady) {
+      getLocalStorage();
+    }
   }, [router.pathname]);
 
   //Getting the local storage when the page loads
@@ -59,8 +61,6 @@ export default function Navbar({
     const handleResize = () => setScreenWidth(window.innerWidth);
     handleResize();
     window.addEventListener("resize", () => handleResize());
-
-    getLocalStorage();
 
     return () => {
       window.removeEventListener("resize", handleResize);
