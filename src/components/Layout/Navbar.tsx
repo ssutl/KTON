@@ -20,7 +20,9 @@ export default function Navbar({
   const router = useRouter();
   const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
   const [demo, setDemo] = useState(false);
+  console.log("demo", demo);
   const [auth, setAuth] = useState(false);
+  console.log("auth", auth);
 
   // getting the current route
   const isIndexRoute = router.pathname === "/[[...index]]";
