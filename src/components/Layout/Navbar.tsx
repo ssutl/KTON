@@ -21,6 +21,7 @@ export default function Navbar({
   const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
   const [demo, setDemo] = useState(false);
   const [auth, setAuth] = useState(false);
+  console.log("auth", auth);
 
   // getting the current route
   const isIndexRoute = router.pathname === "/[[...index]]";
@@ -59,6 +60,7 @@ export default function Navbar({
     const handleResize = () => setScreenWidth(window.innerWidth);
     handleResize();
     window.addEventListener("resize", () => handleResize());
+    getLocalStorage();
 
     return () => {
       window.removeEventListener("resize", handleResize);
