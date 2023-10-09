@@ -29,7 +29,7 @@ const Modal_Confirmation = ({
         localStorage.removeItem("token");
         localStorage.removeItem("username");
         sessionStorage.removeItem("clippings");
-        Router.push("/");
+        Router.replace("/");
         updateBooks(undefined);
       }
     } catch (error) {}

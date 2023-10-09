@@ -133,7 +133,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
             <p
               className={styles.button}
               onClick={() => {
-                router.push("/");
+                router.replace("/");
                 localStorage.removeItem("token");
                 localStorage.removeItem("username");
                 updateBooks(undefined);
