@@ -10,6 +10,10 @@ export interface ImageDownloadProps {
 
 const ImageDownload = ({ refrence, title, imageWidth }: ImageDownloadProps) => {
   const { userinfo } = useContext(KTON_CONTEXT);
+  const userSubscribed =
+    userinfo &&
+    userinfo.subscription_end !== null &&
+    userinfo.subscription_end < new Date();
 
   //Image download function
   const handleImageDownload = useCallback(async () => {
@@ -34,7 +38,7 @@ const ImageDownload = ({ refrence, title, imageWidth }: ImageDownloadProps) => {
     const watermarkElement = document.createElement("h1");
     watermarkElement.textContent = watermarkText;
 
-    if (!userinfo.subscription) {
+    if (!userSubscribed) {
       Object.assign(watermarkElement.style, watermarkStyles);
       // Append the watermark h2 element to the div
       refrence.current.appendChild(watermarkElement);

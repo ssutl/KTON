@@ -29,7 +29,7 @@ export const demoBooks: Book[] = [
   {
     annotated: false,
     genre: ["Self-help", "Productivity", "Habits"],
-    _id: "12345678",
+    _id: "1",
     userID: "63b98299d4a24e32474d3ff7",
     cover_image:
       "https://m.media-amazon.com/images/I/81bGKUa1e0L._AC_UF894,1000_QL80_.jpg",
@@ -155,7 +155,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
   {
     annotated: false,
     genre: ["Self-help", "Mindset", "Lifestyle"],
-    _id: "12345678",
+    _id: "2",
     userID: "63b98299d4a24e32474d3ff7",
     cover_image:
       "https://m.media-amazon.com/images/I/71QKQ9mwV7L._AC_UF894,1000_QL80_.jpg",
@@ -270,7 +270,7 @@ Lesson 3) Build identity-based habitsThe key to building lasting habits is focus
   {
     annotated: false,
     genre: [],
-    _id: "12345678",
+    _id: "3",
     userID: "63b98299d4a24e32474d3ff7",
     cover_image: "https://m.media-amazon.com/images/I/71dUSlTVOwL.jpg",
     isbn: "9780822100461",

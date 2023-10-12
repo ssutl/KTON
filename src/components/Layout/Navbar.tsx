@@ -49,7 +49,9 @@ export default function Navbar({
 
   //Getting the local storage when the route changes
   useEffect(() => {
-    getLocalStorage();
+    if (router.isReady) {
+      getLocalStorage();
+    }
   }, [router.pathname]);
 
   //Getting the local storage when the page loads
@@ -57,7 +59,6 @@ export default function Navbar({
     const handleResize = () => setScreenWidth(window.innerWidth);
     handleResize();
     window.addEventListener("resize", () => handleResize());
-
     getLocalStorage();
 
     return () => {
@@ -135,26 +136,36 @@ export default function Navbar({
         >
           KTON
         </h3>
-        <div className={styles.navigationButtons}>
-          {DisplayLibrary && !demo && (
-            <p onClick={() => router.push("/Library")}>Library</p>
-          )}
-          {auth && (DisplaySettings || isImportRoute) && (
-            <p onClick={() => handleSettingsModal()}>Settings</p>
-          )}
-          {demo && !auth && (
-            <p
-              onClick={() => {
-                router.push("https://kton.xyz");
-                localStorage.removeItem("Demo");
-                setDemo(false);
-                updateBooks(undefined);
-              }}
-            >
-              Landing
-            </p>
-          )}
-        </div>
+        {isIndexRoute && (
+          <p
+            onClick={() => router.push("https://kton.xyz")}
+            className={styles.backToLanding}
+          >
+            Back to landing
+          </p>
+        )}
+        {!isIndexRoute && (
+          <div className={styles.navigationButtons}>
+            {DisplayLibrary && auth && (
+              <p onClick={() => router.push("/Library")}>Library</p>
+            )}
+            {auth && (DisplaySettings || isImportRoute) && (
+              <p onClick={() => handleSettingsModal()}>Settings</p>
+            )}
+            {demo && !auth && (
+              <p
+                onClick={() => {
+                  router.push("https://kton.xyz");
+                  localStorage.removeItem("Demo");
+                  setDemo(false);
+                  updateBooks(undefined);
+                }}
+              >
+                Landing
+              </p>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

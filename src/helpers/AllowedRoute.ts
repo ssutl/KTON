@@ -6,7 +6,7 @@ const AllowedRoute = () => {
   const isDemo = localStorage.getItem("Demo") === "true";
 
   if (!authToken && !isDemo) {
-    Router.push("/");
+    Router.replace("/");
   }
 };
 

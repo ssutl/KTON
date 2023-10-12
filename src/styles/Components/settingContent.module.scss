@@ -27,7 +27,6 @@
 
     .settingSelect {
       padding: 15px 0px;
-      cursor: pointer;
       display: flex;
       flex-direction: column;
 
@@ -53,6 +52,7 @@
       }
 
       .buttonSection {
+        cursor: pointer;
         display: flex;
         column-gap: 20px;
         margin-top: 15px;

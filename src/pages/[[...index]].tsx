@@ -15,6 +15,7 @@ export default function LoginPage() {
 
     if (router.isReady) {
       if (index && index[0] === "Demo") {
+        //Set demo to true
         localStorage.setItem("Demo", "true");
         router.push("/Library");
       }

@@ -95,7 +95,6 @@ const Highlight = ({ highlight, index }: highlightProps) => {
         input.focus();
       }
     }, 50);
-    console.log(highlight, index);
     return (
       <div className={styles.annotationDropdown} ref={notesDropDownRef}>
         <TextareaAutosize

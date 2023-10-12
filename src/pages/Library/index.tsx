@@ -53,18 +53,18 @@ const Library = () => {
       setSelectedSort(selectedSort as "Recent" | "Rating" | "Oldest");
     }
 
-    //Handling control F
-    function handleKeyPress(e: KeyboardEvent) {
-      if (e.key === "f" && e.ctrlKey) {
-        e.preventDefault();
-        setDisplaySearchModal((prevDisplay) => !prevDisplay);
-      }
-    }
+    // //Handling control F
+    // function handleKeyPress(e: KeyboardEvent) {
+    //   if (e.key === "f" && e.ctrlKey) {
+    //     e.preventDefault();
+    //     setDisplaySearchModal((prevDisplay) => !prevDisplay);
+    //   }
+    // }
 
-    window.addEventListener("keydown", handleKeyPress);
+    // window.addEventListener("keydown", handleKeyPress);
 
     return () => {
-      window.removeEventListener("keydown", handleKeyPress);
+      // window.removeEventListener("keydown", handleKeyPress);
       window.removeEventListener("resize", handleResize);
     };
   }, []);

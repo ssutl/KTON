@@ -51,9 +51,13 @@ const ShareOverlay = ({
   const [TextStyles, setTextStyles] = useState<TextStyles>();
   const [MetaDataStyles, setMetaDataStyles] = useState<MetaDataStyles>();
   const alert = useAlert();
+  const userSubscribed =
+    userinfo &&
+    userinfo.subscription_end !== null &&
+    userinfo.subscription_end < new Date();
 
   useEffect(() => {
-    if (userinfo?.subscription) return;
+    if (userSubscribed) return;
     alert.show("Upgrade to premium to remove watermarks", {
       type: "info",
     });
@@ -74,7 +78,7 @@ const ShareOverlay = ({
           style={ImageStyles}
           contentEditable="true"
         >
-          {userinfo?.subscription !== true && (
+          {!userSubscribed && (
             <h1
               id={styles.watermark}
               style={{

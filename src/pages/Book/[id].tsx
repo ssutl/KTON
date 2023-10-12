@@ -73,15 +73,15 @@ const BookPage = () => {
       InitialiseApp();
     }
 
-    //Handling control F
-    function handleKeyPress(e: KeyboardEvent) {
-      if (e.key === "f" && e.ctrlKey) {
-        e.preventDefault();
-        setDisplaySearchModal((prevDisplay) => !prevDisplay);
-      }
-    }
+    // //Handling control F
+    // function handleKeyPress(e: KeyboardEvent) {
+    //   if (e.key === "f" && e.ctrlKey) {
+    //     e.preventDefault();
+    //     setDisplaySearchModal((prevDisplay) => !prevDisplay);
+    //   }
+    // }
 
-    window.addEventListener("keydown", handleKeyPress);
+    // window.addEventListener("keydown", handleKeyPress);
 
     //Scrolling to the highlighted text
     if (!router.query.highlight_text) return;
@@ -91,7 +91,7 @@ const BookPage = () => {
     }, 500);
 
     return () => {
-      window.removeEventListener("keydown", handleKeyPress);
+      // window.removeEventListener("keydown", handleKeyPress);
       window.removeEventListener("resize", handleResize);
       //Clean up the timer
       clearTimeout(scrollDelay);
