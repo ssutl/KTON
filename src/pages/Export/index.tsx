@@ -6,6 +6,7 @@ import styles from "../../styles/Pages/Export.module.scss";
 import ExportCard from "@/components/Export/ExportCard";
 import notionIcon from "../../../public/image/notion.png";
 import excelIcon from "../../../public/image/excel.png";
+import ankiIcon from "../../../public/image/anki.png";
 import { KTON_CONTEXT } from "../../context/KTONContext";
 import InitApi from "../../api/InitAPI";
 import { useAlert } from "react-alert";
@@ -15,6 +16,10 @@ const Export = () => {
   const { books, userinfo } = useContext(KTON_CONTEXT);
   const { InitialiseApp } = InitApi();
   const alert = useAlert();
+  const userSubscribed =
+    userinfo &&
+    userinfo.subscription_end !== null &&
+    new Date(userinfo.subscription_end) > new Date();
 
   const handleCSVApi = async () => {
     try {
@@ -71,19 +76,15 @@ const Export = () => {
   const exportOptions = [
     {
       name: "Notion",
-      description: userinfo?.subscription
+      description: userSubscribed
         ? "Integrate with Notion and easily copy your digital library to a notion database"
-        : "Notion integration is only available for premium users",
+        : "Notion integration is only available for premium users, please subscribe to use this feature.",
       image: notionIcon,
       onClick: () => {
-        if (userinfo?.subscription === true) {
+        if (userSubscribed) {
           //Open in new tab instead
-          window.open(
-            "https://api.notion.com/v1/oauth/authorize?client_id=7081a522-2c1f-445b-8a37-d73e11076dcd&response_type=code&owner=user&redirect_uri=https%3A%2F%2Fapp.kton.xyz%2FExport",
-            "_blank"
-          );
         } else {
-          alert.show("Only premium members can access notion exporting", {
+          alert.show("Only premium members can access anki exporting", {
             type: "info",
           });
         }
@@ -96,6 +97,54 @@ const Export = () => {
       image: excelIcon,
       onClick: () => {
         handleCSVApi();
+      },
+    },
+    {
+      name: "Anki Book Summaries",
+      description: userSubscribed
+        ? `Create an anki deck containing all your books and their corresponding summaries: Front: Book Title, Back: Summary`
+        : "Anki integration is only available for premium users, please subscribe to use this feature.",
+      image: ankiIcon,
+      onClick: () => {
+        if (userSubscribed) {
+          //Open in new tab instead
+        } else {
+          alert.show("Only premium members can access anki exporting", {
+            type: "info",
+          });
+        }
+      },
+    },
+    {
+      name: "Anki Book Highlights",
+      description: userSubscribed
+        ? `Create an anki deck containing all highlights from your favourite books: Front: Book Title, Back: starred quote`
+        : "Anki integration is only available for premium users, please subscribe to use this feature.",
+      image: ankiIcon,
+      onClick: () => {
+        if (userSubscribed) {
+          //Open in new tab instead
+        } else {
+          alert.show("Only premium members can access anki exporting", {
+            type: "info",
+          });
+        }
+      },
+    },
+    {
+      name: "Anki Vocab Builder",
+      description: userSubscribed
+        ? `Create an anki deck containing all the words and their defintions which you didn't know: Front: Word, Back: Definition`
+        : "Anki integration is only available for premium users, please subscribe to use this feature.",
+      image: ankiIcon,
+      onClick: () => {
+        if (userSubscribed) {
+          //Open in new tab instead
+        } else {
+          alert.show("Only premium members can access notion exporting", {
+            type: "info",
+          });
+        }
       },
     },
   ];

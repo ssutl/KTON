@@ -71,7 +71,7 @@
 
       @include breakpoint-mixin("Laptop_S") {
         padding: 20px 0px;
-        column-gap: 40px;
+        column-gap: 70px;
 
         grid-template-columns: repeat(
           3,
@@ -82,20 +82,6 @@
       @include portrait-min-width-mixin("Vertical_Display") {
         grid-template-columns: repeat(
           2,
-          1fr
-        ); /* Adjust the number of columns as needed */
-      }
-
-      @include breakpoint-mixin("laptop-wide") {
-        grid-template-columns: repeat(
-          5,
-          1fr
-        ); /* Adjust the number of columns as needed */
-      }
-
-      @include breakpoint-mixin("Desktop-wide") {
-        grid-template-columns: repeat(
-          6,
           1fr
         ); /* Adjust the number of columns as needed */
       }
