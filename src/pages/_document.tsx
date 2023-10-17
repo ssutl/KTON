@@ -4,42 +4,38 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        <title>KTON: Kindle Highlight Manager</title>
         <meta
-          name={"description"}
-          title={"description"}
-          content="A platform to organise, annotate and export your kindle highlights 📖📝"
-        />
-        <meta name={"og:title"} title={"og:title"} content="KTON" />
-        <meta
-          name={"og:description"}
-          title={"og:description"}
-          content="A platform to organise, annotate and export your kindle highlights 📖📝"
-        />
-        <meta
-          name={"og:image"}
-          title={"og:image"}
-          content="%PUBLIC_URL%/image/laptop.png"
+          name="description"
+          content="A platform to organise, annotate and export your imported kindle highlights 📖📝"
         />
 
-        {
-          //Fav icon
-        }
-        <link rel="icon" href="/image/bookIcon.png" />
+        <meta property="og:url" content="https://www.kton.xyz/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="KTON: Kindle Highlight Manager" />
+        <meta
+          property="og:description"
+          content="A platform to organise, annotate and export your imported kindle highlights 📖📝"
+        />
+        <meta
+          property="og:image"
+          content="https://kton.xyz%PUBLIC_URL%/SEO Image.jpg"
+        />
 
-        <link rel="shortcut icon" href="%PUBLIC_URL%/image/bookIcon.png" />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="%PUBLIC_URL%/image/bookIcon.png"
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content="kton.xyz" />
+        <meta property="twitter:url" content="https://www.kton.xyz/" />
+        <meta name="twitter:title" content="KTON: Kindle Highlight Manager" />
+        <meta
+          name="twitter:description"
+          content="A platform to organise, annotate and export your imported kindle highlights 📖📝"
         />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="%PUBLIC_URL%/image/bookIcon.png"
+        <meta
+          name="twitter:image"
+          content="https://kton.xyz%PUBLIC_URL%/SEO Image.jpg"
         />
-        <link rel="apple-touch-icon" sizes="512x512" href="bookIcon.png" />
+
+        <link rel="icon" href="/path/to/favicon.ico" />
       </Head>
       <body>
         <Main />
