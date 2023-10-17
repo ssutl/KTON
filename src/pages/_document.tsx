@@ -10,30 +10,24 @@ export default function Document() {
           content="A platform to organise, annotate and export your imported kindle highlights 📖📝"
         />
 
-        <meta property="og:url" content="https://www.kton.xyz/" />
+        <meta property="og:url" content="https://www.app.kton.xyz/" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="KTON: Kindle Highlight Manager" />
         <meta
           property="og:description"
           content="A platform to organise, annotate and export your imported kindle highlights 📖📝"
         />
-        <meta
-          property="og:image"
-          content="https://app.kton.xyz/images/SEO-image1.jpg"
-        />
+        <meta property="og:image" content="/images/SEO-image1.jpg" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="kton.xyz" />
-        <meta property="twitter:url" content="https://www.kton.xyz/" />
+        <meta property="twitter:url" content="https://www.app.kton.xyz/" />
         <meta name="twitter:title" content="KTON: Kindle Highlight Manager" />
         <meta
           name="twitter:description"
           content="A platform to organise, annotate and export your imported kindle highlights 📖📝"
         />
-        <meta
-          name="twitter:image"
-          content="https://app.kton.xyz/images/SEO-image1.jpg"
-        />
+        <meta name="twitter:image" content="/images/SEO-image1.jpg" />
 
         <link rel="icon" href="/images/bookIcon.png" />
       </Head>
