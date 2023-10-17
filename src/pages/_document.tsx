@@ -19,7 +19,7 @@ export default function Document() {
         />
         <meta
           property="og:image"
-          content="https://app.kton.xyz/images/SEO-image1.jpg"
+          content="https://app.kton.xyz/images/SEO-image1.png"
         />
 
         <meta name="twitter:card" content="summary_large_image" />
@@ -32,7 +32,7 @@ export default function Document() {
         />
         <meta
           name="twitter:image"
-          content="https://app.kton.xyz/images/SEO-image1.jpg"
+          content="https://app.kton.xyz/images/SEO-image1.png"
         />
 
         <link rel="icon" href="/images/bookIcon.png" />
