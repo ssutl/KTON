@@ -29,7 +29,7 @@ export default function Document() {
         />
         <meta name="twitter:image" content="%PUBLIC_URL%/SEO-Image1.jpg" />
 
-        <link rel="icon" href="%PUBLIC_URL%/image/bookIcon.png" />
+        <link rel="icon" href="%PUBLIC_URL%/bookIcon.png" />
       </Head>
       <body>
         <Main />
