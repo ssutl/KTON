@@ -35,7 +35,7 @@ export default function Document() {
           content="https://app.kton.xyz/images/SEO-image1.jpg"
         />
 
-        <link rel="apple-touch-icon" sizes="512x512" href="bookIcon.png" />
+        <link rel="icon" href="/images/bookIcon.png" />
       </Head>
       <body>
         <Main />
