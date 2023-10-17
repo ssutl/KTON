@@ -17,7 +17,10 @@ export default function Document() {
           property="og:description"
           content="A platform to organise, annotate and export your imported kindle highlights 📖📝"
         />
-        <meta property="og:image" content="/images/SEO-image1.jpg" />
+        <meta
+          property="og:image"
+          content="https://app.kton.xyz/images/SEO-image1.jpg"
+        />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="kton.xyz" />
@@ -27,7 +30,10 @@ export default function Document() {
           name="twitter:description"
           content="A platform to organise, annotate and export your imported kindle highlights 📖📝"
         />
-        <meta name="twitter:image" content="/images/SEO-image1.jpg" />
+        <meta
+          name="twitter:image"
+          content="https://app.kton.xyz/images/SEO-image1.jpg"
+        />
 
         <link rel="icon" href="/images/bookIcon.png" />
       </Head>
