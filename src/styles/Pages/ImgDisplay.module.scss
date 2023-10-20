@@ -1,0 +1,92 @@
+@import "../../styles/Layout/Breakpoints.module.scss";
+
+.ImgDisplayPage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: $blur-bg;
+  height: 100dvh;
+  z-index: 100;
+
+  .imgContainer {
+    height: 70%;
+    // width: fit-content;
+    position: relative;
+    border-radius: 10px;
+    background-color: orange;
+    max-width: 70%;
+    word-break: break-all;
+    overflow: hidden;
+
+    img {
+      height: 100%;
+      object-fit: cover;
+      //   display: none;
+    }
+
+    h2 {
+      position: absolute;
+      //   width: 100%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: difference;
+      font-size: 40px;
+      width: 70%;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .formContainer {
+    height: 70%;
+    width: 17%;
+    // border: 1px solid white;
+
+    .formCard {
+      width: 100%;
+      background-color: $modal-bg;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+        rgba(0, 0, 0, 0.22) 0px 10px 10px;
+      border-radius: 4px;
+      margin-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      padding: 2dvh 20px;
+
+      p {
+        margin-bottom: 15px;
+        opacity: 0.8;
+      }
+
+      .fileInput {
+        display: flex;
+        width: 100%;
+        background-color: white;
+        height: 30px;
+        border-radius: 3px;
+        overflow: hidden;
+        border: 0.5px solid $kton-blue;
+
+        .chooseFileBtn {
+          height: 100%;
+          width: 70%;
+        }
+        .browseBtn {
+          height: 100%;
+          width: 30%;
+          background-color: rgb(202, 202, 202);
+        }
+      }
+    }
+
+    .hideInput {
+      display: none;
+    }
+  }
+}

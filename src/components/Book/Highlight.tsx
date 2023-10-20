@@ -18,7 +18,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import { useRouter } from "next/router";
 import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 import HandleChanges from "@/helpers/HandleChanges";
-import ShareOverlay from "./ShareOverlay";
+import ImgGenerator from "../../../img_gen/src/Components/ImgGenerator/ImgGenerator";
 import { Tooltip } from "react-tooltip";
 import Modal_Add_Category from "../Modals/Modal_Add_Category";
 import { set } from "lodash";
@@ -174,13 +174,7 @@ const Highlight = ({ highlight, index }: highlightProps) => {
 
   return (
     <>
-      {displayShareOverlay && (
-        <ShareOverlay
-          closeModal={closeModal}
-          highlightText={highlight.Text}
-          index={index}
-        />
-      )}
+      {displayShareOverlay && <ImgGenerator />}
       <div className={styles.Highlight} id={`highlight-${index}`}>
         <div className={styles.mainHalf}>
           <h2 id={styles.highlightText}>{highlight.Text}</h2>
