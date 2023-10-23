@@ -37,7 +37,7 @@ const Modal_Add_Category = ({
   const filteredData =
     userinfo &&
     userinfo.categories.filter((eachHighlightCategory) =>
-      eachHighlightCategory.toLowerCase().includes(searchValue.toLowerCase())
+      eachHighlightCategory.toLowerCase().startsWith(searchValue.toLowerCase())
     );
 
   //Add overflow hidden to element behind when modal is open
