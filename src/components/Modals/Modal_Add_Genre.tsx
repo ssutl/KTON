@@ -113,32 +113,33 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
             />
           </div>
         ))}
-        {!filteredData.length && searchValue !== "" && (
-          <div
-            className={genericModalStyles.listItem}
-            onClick={() => {
-              addGenreToUser({
-                type: "add",
-                data: searchValue,
-                book_id: mainBook._id,
-                color: randomColor.color,
-              });
-              setSearchValue("");
-            }}
-          >
-            <p id={genericModalStyles.createText}>Create</p>
+        {!Object.keys(userinfo.genres).includes(searchValue) &&
+          searchValue !== "" && (
             <div
-              className={genericModalStyles.tag}
-              style={
-                {
-                  "--background-color": randomColor.hex,
-                } as React.CSSProperties
-              }
+              className={genericModalStyles.listItem}
+              onClick={() => {
+                addGenreToUser({
+                  type: "add",
+                  data: searchValue,
+                  book_id: mainBook._id,
+                  color: randomColor.color,
+                });
+                setSearchValue("");
+              }}
             >
-              <p>{searchValue}</p>
+              <p id={genericModalStyles.createText}>Create</p>
+              <div
+                className={genericModalStyles.tag}
+                style={
+                  {
+                    "--background-color": randomColor.hex,
+                  } as React.CSSProperties
+                }
+              >
+                <p>{searchValue}</p>
+              </div>
             </div>
-          </div>
-        )}
+          )}
       </div>
       <div
         className={genericModalStyles.modalBackground}

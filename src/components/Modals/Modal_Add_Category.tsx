@@ -109,7 +109,7 @@ const Modal_Add_Category = ({
             />
           </div>
         ))}
-        {!filteredData.length && searchValue !== "" && (
+        {!userinfo.categories.includes(searchValue) && searchValue !== "" && (
           <div
             className={genericModalStyles.listItem}
             onClick={() => {
