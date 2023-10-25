@@ -13,6 +13,7 @@ import changeBookImageApi from "@/api/Books/ChangeBookImage";
 import markAsAnnotatedApi from "@/api/Books/MarkAsAnnotated";
 import deleteBookApi from "@/api/Books/DeleteBook";
 import deleteHighlightApi from "@/api/Highlights/Delete";
+import { useAlert } from "react-alert";
 
 export interface RatingProps {
   data: number;
@@ -64,10 +65,11 @@ export interface updateBookCoverProps {
 }
 
 function HandleChanges() {
+  const alert = useAlert();
   const { updateBooks, books, userinfo, updateUserInfo } =
     useContext(KTON_CONTEXT);
 
-  const addRating = ({ data, book_id }: RatingProps) => {
+  const addRating = async ({ data, book_id }: RatingProps) => {
     //Checking if user is in demo mode
     const Demo = localStorage.getItem("Demo") === "true";
     const token = localStorage.getItem("token");
@@ -85,11 +87,18 @@ function HandleChanges() {
 
       //Handling request on server only if not in demo mode
       if (Demo && !token) return;
-      rateBookApi({ book_id: book_id, data: data });
+
+      try {
+        await rateBookApi({ book_id, data });
+      } catch (error) {
+        alert.error("Failed to rate book. Please try again later.", {
+          type: "error",
+        }); // Display error message
+      }
     }
   };
 
-  const addGenreToBook = ({ data, book_id, type }: GenreProps) => {
+  const addGenreToBook = async ({ data, book_id, type }: GenreProps) => {
     //Checking if user is in demo mode
     const Demo = localStorage.getItem("Demo") === "true";
     const token = localStorage.getItem("token");
@@ -120,15 +129,21 @@ function HandleChanges() {
 
       bookIds.forEach((id) => {
         // Sorting on server for each book using the API
-        addGenreToBookApi({
-          book_id: id,
-          data: newState.filter((book) => book._id === id)[0].genre, // Pass the genre data for the current book to the API
-        });
+        try {
+          addGenreToBookApi({
+            book_id: id,
+            data: newState.filter((book) => book._id === id)[0].genre, // Pass the genre data for the current book to the API
+          });
+        } catch (error) {
+          alert.error("Failed to add genre to book. Please try again later.", {
+            type: "error",
+          }); // Display error message
+        }
       });
     }
   };
 
-  const addGenreToUser = ({ data, book_id, type, color }: GenreProps) => {
+  const addGenreToUser = async ({ data, book_id, type, color }: GenreProps) => {
     //Checking if user is in demo mode
     const Demo = localStorage.getItem("Demo") === "true";
     const token = localStorage.getItem("token");
@@ -176,12 +191,18 @@ function HandleChanges() {
           return acc;
         }, [] as string[]);
 
-        addGenreToBook({ type, data, book_id: arrayOfIds });
+        try {
+          addGenreToBook({ type, data, book_id: arrayOfIds });
+        } catch (error) {
+          alert.error("Failed to update book genres. Please try again later.", {
+            type: "error",
+          }); // Display error message
+        }
       }
     }
   };
 
-  const favouriteHighlight = ({
+  const favouriteHighlight = async ({
     data,
     book_id,
     highlight_id,
@@ -211,15 +232,24 @@ function HandleChanges() {
       //Handling request on server only if not in demo mode
       if (Demo && !token) return;
 
-      favouriteHighlightApi({
-        book_id,
-        highlight_id: highlight_id,
-        data: data,
-      });
+      try {
+        favouriteHighlightApi({
+          book_id,
+          highlight_id: highlight_id,
+          data: data,
+        });
+      } catch (error) {
+        alert.error("Failed to favourite highlight. Please try again later.", {
+          type: "error",
+        }); // Display error message
+      }
     }
   };
 
-  const deleteHighlight = ({ book_id, highlight_id }: deleteHighlightProps) => {
+  const deleteHighlight = async ({
+    book_id,
+    highlight_id,
+  }: deleteHighlightProps) => {
     //Checking if user is in demo mode
     const Demo = localStorage.getItem("Demo") === "true";
     const token = localStorage.getItem("token");
@@ -249,11 +279,17 @@ function HandleChanges() {
       //Handling request on server only if not in demo mode
       if (Demo && !token) return;
 
-      deleteHighlightApi({ book_id, highlight_id, data: value });
+      try {
+        deleteHighlightApi({ book_id, highlight_id, data: value });
+      } catch (error) {
+        alert.error("Failed to delete highlight. Please try again later.", {
+          type: "error",
+        }); // Display error message
+      }
     }
   };
 
-  const annotateHighlight = ({
+  const annotateHighlight = async ({
     data,
     book_id,
     highlight_id,
@@ -282,15 +318,21 @@ function HandleChanges() {
       //Handling request on server only if not in demo mode
       if (Demo && !token) return;
 
-      annotateHighlightApi({
-        book_id,
-        highlight_id: highlight_id,
-        data: data,
-      });
+      try {
+        annotateHighlightApi({
+          book_id,
+          highlight_id: highlight_id,
+          data: data,
+        });
+      } catch (error) {
+        alert.error("Failed to annotate highlight. Please try again later.", {
+          type: "error",
+        }); // Display error message
+      }
     }
   };
 
-  const addCategoryToHighlight = ({
+  const addCategoryToHighlight = async ({
     data,
     type,
     book_id,
@@ -339,18 +381,27 @@ function HandleChanges() {
         if (bookIds.includes(book._id)) {
           book.highlights.map((highlight) => {
             if (highlightIds.includes(highlight._id)) {
-              addHighlightCategoryApi({
-                book_id: book._id,
-                highlight_id: highlight._id,
-                data: newState
-                  .filter(
-                    (bookFromNewState) => bookFromNewState._id === book._id
-                  )[0]
-                  .highlights.filter(
-                    (highlightFromNewState) =>
-                      highlightFromNewState._id === highlight._id
-                  )[0].category,
-              });
+              try {
+                addHighlightCategoryApi({
+                  book_id: book._id,
+                  highlight_id: highlight._id,
+                  data: newState
+                    .filter(
+                      (bookFromNewState) => bookFromNewState._id === book._id
+                    )[0]
+                    .highlights.filter(
+                      (highlightFromNewState) =>
+                        highlightFromNewState._id === highlight._id
+                    )[0].category,
+                });
+              } catch (error) {
+                alert.error(
+                  "Failed to update highlight categories. Please try again later.",
+                  {
+                    type: "error",
+                  }
+                ); // Display error message
+              }
             }
           });
         }
@@ -360,7 +411,7 @@ function HandleChanges() {
     }
   };
 
-  const addCategoryToUser = ({
+  const addCategoryToUser = async ({
     data,
     type,
     book_id,
@@ -391,9 +442,18 @@ function HandleChanges() {
       //Handling request on server only if not in demo mode
       if (Demo && !token) return;
 
-      addUserCategoryApi({
-        data: updatedCategories,
-      });
+      try {
+        addUserCategoryApi({
+          data: updatedCategories,
+        });
+      } catch (error) {
+        alert.error(
+          "Failed to update user categories. Please try again later.",
+          {
+            type: "error",
+          }
+        ); // Display error message
+      }
 
       //Adding it to the higlight it was created from
       if (type === "add" && !HighlightCategories.includes(data)) {
@@ -422,17 +482,26 @@ function HandleChanges() {
           return acc;
         }, [] as string[]);
 
-        addCategoryToHighlight({
-          type,
-          data,
-          book_id: arrayOfBookIds,
-          highlight_id: arrayOfHighlightIds,
-        });
+        try {
+          addCategoryToHighlight({
+            type,
+            data,
+            book_id: arrayOfBookIds,
+            highlight_id: arrayOfHighlightIds,
+          });
+        } catch (error) {
+          alert.error(
+            "Failed to update highlight categories. Please try again later.",
+            {
+              type: "error",
+            }
+          ); // Display error message
+        }
       }
     }
   };
 
-  const addSummaryToBook = ({ data, book_id }: addSummaryToBookProps) => {
+  const addSummaryToBook = async ({ data, book_id }: addSummaryToBookProps) => {
     //Checking if user is in demo mode
     const Demo = localStorage.getItem("Demo") === "true";
     const token = localStorage.getItem("token");
@@ -450,11 +519,18 @@ function HandleChanges() {
 
       //Handling request on server only if not in demo mode
       if (Demo && !token) return;
-      summariseBookApi({ book_id: book_id, data: data });
+
+      try {
+        summariseBookApi({ book_id: book_id, data: data });
+      } catch (error) {
+        alert.error("Failed to add summary to book. Please try again later.", {
+          type: "error",
+        }); // Display error message
+      }
     }
   };
 
-  const markBookAsAnnotated = ({ book_id }: markBookAsAnnotatedProps) => {
+  const markBookAsAnnotated = async ({ book_id }: markBookAsAnnotatedProps) => {
     //Checking if user is in demo mode
     const Demo = localStorage.getItem("Demo") === "true";
     const token = localStorage.getItem("token");
@@ -473,11 +549,21 @@ function HandleChanges() {
 
       //Handling request on server only if not in demo mode
       if (Demo && !token) return;
-      markAsAnnotatedApi({ book_id: book_id, data: data });
+
+      try {
+        markAsAnnotatedApi({ book_id: book_id, data: data });
+      } catch (error) {
+        alert.error(
+          "Failed to mark book as annotated. Please try again later.",
+          {
+            type: "error",
+          }
+        ); // Display error message
+      }
     }
   };
 
-  const updateBookCover = ({ data, book_id }: updateBookCoverProps) => {
+  const updateBookCover = async ({ data, book_id }: updateBookCoverProps) => {
     //Checking if user is in demo mode
     const Demo = localStorage.getItem("Demo") === "true";
     const token = localStorage.getItem("token");
@@ -494,11 +580,18 @@ function HandleChanges() {
 
       //Handling request on server only if not in demo mode
       if (Demo && !token) return;
-      changeBookImageApi({ book_id: book_id, data: data });
+
+      try {
+        changeBookImageApi({ book_id: book_id, data: data });
+      } catch (error) {
+        alert.error("Failed to update book cover. Please try again later.", {
+          type: "error",
+        }); // Display error message
+      }
     }
   };
 
-  const deleteBook = ({ book_id }: { book_id: string }) => {
+  const deleteBook = async ({ book_id }: { book_id: string }) => {
     //Checking if user is in demo mode
     const Demo = localStorage.getItem("Demo") === "true";
     const token = localStorage.getItem("token");
@@ -517,7 +610,14 @@ function HandleChanges() {
 
       //Handling request on server only if not in demo mode
       if (Demo && !token) return;
-      deleteBookApi({ book_id: book_id, data: value });
+
+      try {
+        deleteBookApi({ book_id: book_id, data: value });
+      } catch (error) {
+        alert.error("Failed to delete book. Please try again later.", {
+          type: "error",
+        }); // Display error message
+      }
     }
   };
 
