@@ -161,7 +161,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
       ],
     },
     {
-      name: "Import & Export",
+      name: "Import",
       showCondition: true,
       features: [
         {
@@ -180,22 +180,22 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
           ),
           showCondition: true,
         },
-        {
-          name: "Export Highlights",
-          description: "Export highlights to different formats",
-          button: (
-            <p
-              className={styles.button}
-              onClick={() => {
-                router.push("/Export");
-                handleSettingsModal();
-              }}
-            >
-              Export
-            </p>
-          ),
-          showCondition: true,
-        },
+        // {
+        //   name: "Export Highlights",
+        //   description: "Export highlights to different formats",
+        //   button: (
+        //     <p
+        //       className={styles.button}
+        //       onClick={() => {
+        //         router.push("/Export");
+        //         handleSettingsModal();
+        //       }}
+        //     >
+        //       Export
+        //     </p>
+        //   ),
+        //   showCondition: true,
+        // },
       ],
     },
     {

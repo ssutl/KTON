@@ -14,6 +14,7 @@ import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import CopyAllIcon from "@mui/icons-material/CopyAll";
 import TextareaAutosize from "react-textarea-autosize";
 import { useRouter } from "next/router";
 import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
@@ -270,7 +271,7 @@ const Highlight = ({ highlight, index }: highlightProps) => {
               data-tooltip-id={`my-tooltip-${index}`}
               data-tooltip-content="Copy"
             >
-              <ContentCopyIcon />
+              <CopyAllIcon />
             </p>
             {
               //Delete option

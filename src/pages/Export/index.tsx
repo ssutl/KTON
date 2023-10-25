@@ -99,54 +99,6 @@ const Export = () => {
         handleCSVApi();
       },
     },
-    {
-      name: "Anki Book Summaries",
-      description: userSubscribed
-        ? `Create an anki deck containing all your books and their corresponding summaries: Front: Book Title, Back: Summary`
-        : "Anki integration is only available for premium users, please subscribe to use this feature.",
-      image: ankiIcon,
-      onClick: () => {
-        if (userSubscribed) {
-          //Open in new tab instead
-        } else {
-          alert.show("Only premium members can access anki exporting", {
-            type: "info",
-          });
-        }
-      },
-    },
-    {
-      name: "Anki Book Highlights",
-      description: userSubscribed
-        ? `Create an anki deck containing all highlights from your favourite books: Front: Book Title, Back: starred quote`
-        : "Anki integration is only available for premium users, please subscribe to use this feature.",
-      image: ankiIcon,
-      onClick: () => {
-        if (userSubscribed) {
-          //Open in new tab instead
-        } else {
-          alert.show("Only premium members can access anki exporting", {
-            type: "info",
-          });
-        }
-      },
-    },
-    {
-      name: "Anki Vocab Builder",
-      description: userSubscribed
-        ? `Create an anki deck containing all the words and their defintions which you didn't know: Front: Word, Back: Definition`
-        : "Anki integration is only available for premium users, please subscribe to use this feature.",
-      image: ankiIcon,
-      onClick: () => {
-        if (userSubscribed) {
-          //Open in new tab instead
-        } else {
-          alert.show("Only premium members can access notion exporting", {
-            type: "info",
-          });
-        }
-      },
-    },
   ];
 
   return (
