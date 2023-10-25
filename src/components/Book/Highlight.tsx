@@ -13,14 +13,15 @@ import NotesIcon from "@mui/icons-material/Notes";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import ShareIcon from "@mui/icons-material/Share";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import TextareaAutosize from "react-textarea-autosize";
 import { useRouter } from "next/router";
 import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 import HandleChanges from "@/helpers/HandleChanges";
 import { Tooltip } from "react-tooltip";
 import Modal_Add_Category from "../Modals/Modal_Add_Category";
-import ImgDisplay from "../../../img_gen/src/Components/ImgDisplay/ImgDisplay";
+import { useAlert } from "react-alert";
+
 interface highlightProps {
   highlight: Book_highlight;
   setLoginModal: () => void;
@@ -28,6 +29,7 @@ interface highlightProps {
 }
 
 const Highlight = ({ highlight, index }: highlightProps) => {
+  const alert = useAlert();
   const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
   const {
     favouriteHighlight,
@@ -38,10 +40,8 @@ const Highlight = ({ highlight, index }: highlightProps) => {
   } = HandleChanges();
   const [annotationDropdown, setAnnotationDropdown] = useState<boolean>(false);
   const [inputAnnotation, setInputAnnotation] = useState(highlight.notes);
-  const [displayShareOverlay, setDisplayShareOverlay] = useState(false);
   const [displayCategoryModal, setDisplayCategoryModal] = useState(false);
   const [lastAnnotation, setLastAnnotation] = useState<string>("");
-  const [sharedHighlight, setSharedHighlight] = useState<string>("");
 
   //Refrence to the dropdowns and their buttons
   const tagButtonRef = useRef(null);
@@ -80,10 +80,6 @@ const Highlight = ({ highlight, index }: highlightProps) => {
       setInputAnnotation("");
       setAnnotationDropdown(false);
     }
-  };
-
-  const closeModal = () => {
-    setDisplayShareOverlay(false);
   };
 
   //Drop down annotation section for each highlight
@@ -173,7 +169,6 @@ const Highlight = ({ highlight, index }: highlightProps) => {
 
   return (
     <>
-      {displayShareOverlay && <ImgDisplay currentHighlight={sharedHighlight} />}
       <div className={styles.Highlight} id={`highlight-${index}`}>
         <div className={styles.mainHalf}>
           <h2 id={styles.highlightText}>{highlight.Text}</h2>
@@ -267,13 +262,15 @@ const Highlight = ({ highlight, index }: highlightProps) => {
             <p
               className={styles.highlightButton}
               onClick={() => {
-                setSharedHighlight(highlight.Text);
-                setDisplayShareOverlay(true);
+                navigator.clipboard.writeText(highlight.Text);
+                alert.show("Highlight copied to clipboard", {
+                  type: "success",
+                });
               }}
               data-tooltip-id={`my-tooltip-${index}`}
-              data-tooltip-content="Share"
+              data-tooltip-content="Copy"
             >
-              <ShareIcon />
+              <ContentCopyIcon />
             </p>
             {
               //Delete option

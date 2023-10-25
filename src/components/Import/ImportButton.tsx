@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "../../styles/Components/ImportButton.module.scss";
-import uploadedTxtHelper from "@/helpers/clippingsParse";
-import Router from "next/router";
 import ImportBooksApi from "@/api/Users/ImportBooks";
+import { useAlert } from "react-alert";
 
 interface ImportButtonProps {
   setProgress?: React.Dispatch<
@@ -14,6 +13,7 @@ interface ImportButtonProps {
 
 const ImportButton = ({ setProgress, progress }: ImportButtonProps) => {
   const [incomingFile, setIncomingFile] = useState<File | null>(null);
+  const alert = useAlert();
 
   //Function to handle the upload of the file
   const uploadFile = async () => {
@@ -46,7 +46,10 @@ const ImportButton = ({ setProgress, progress }: ImportButtonProps) => {
             ) {
               setIncomingFile(event.target.files[0]);
             } else {
-              alert(`Only 'My Clippings' files can be uploaded`);
+              alert.show("Only 'My Clippings' files can be uploaded", {
+                type: "error",
+                position: "top right",
+              });
             }
           }
         }}

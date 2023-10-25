@@ -2,6 +2,7 @@ import React, { useRef, useState, useContext, useEffect } from "react";
 import genericModalStyles from "../../styles/Components/Modal.module.scss";
 import HandleChanges from "@/helpers/HandleChanges";
 import { Book } from "@/api/Interface";
+import { useAlert } from "react-alert";
 
 interface Modal_Type_SaveProps {
   closeModal: () => void;
@@ -11,6 +12,7 @@ interface Modal_Type_SaveProps {
 const Modal_Type_Save = ({ closeModal, mainBook }: Modal_Type_SaveProps) => {
   const [searchValue, setSearchValue] = useState<string>("");
   const { updateBookCover } = HandleChanges();
+  const alert = useAlert();
 
   useEffect(() => {
     //Auto focus on input
@@ -55,7 +57,9 @@ const Modal_Type_Save = ({ closeModal, mainBook }: Modal_Type_SaveProps) => {
                 });
                 closeModal();
               } else {
-                alert("Invalid image URL");
+                alert.show("Invalid image URL", {
+                  type: "error",
+                });
               }
             }}
           >
