@@ -18,11 +18,9 @@ import TextareaAutosize from "react-textarea-autosize";
 import { useRouter } from "next/router";
 import useOutsideAlerter from "@/helpers/ClickOutsideFunction";
 import HandleChanges from "@/helpers/HandleChanges";
-import ShareOverlay from "./ShareOverlay";
 import { Tooltip } from "react-tooltip";
 import Modal_Add_Category from "../Modals/Modal_Add_Category";
-import { set } from "lodash";
-
+import ImgDisplay from "../../../img_gen/src/Components/ImgDisplay/ImgDisplay";
 interface highlightProps {
   highlight: Book_highlight;
   setLoginModal: () => void;
@@ -43,6 +41,7 @@ const Highlight = ({ highlight, index }: highlightProps) => {
   const [displayShareOverlay, setDisplayShareOverlay] = useState(false);
   const [displayCategoryModal, setDisplayCategoryModal] = useState(false);
   const [lastAnnotation, setLastAnnotation] = useState<string>("");
+  const [sharedHighlight, setSharedHighlight] = useState<string>("");
 
   //Refrence to the dropdowns and their buttons
   const tagButtonRef = useRef(null);
@@ -174,13 +173,7 @@ const Highlight = ({ highlight, index }: highlightProps) => {
 
   return (
     <>
-      {displayShareOverlay && (
-        <ShareOverlay
-          closeModal={closeModal}
-          highlightText={highlight.Text}
-          index={index}
-        />
-      )}
+      {displayShareOverlay && <ImgDisplay currentHighlight={sharedHighlight} />}
       <div className={styles.Highlight} id={`highlight-${index}`}>
         <div className={styles.mainHalf}>
           <h2 id={styles.highlightText}>{highlight.Text}</h2>
@@ -273,7 +266,10 @@ const Highlight = ({ highlight, index }: highlightProps) => {
             }
             <p
               className={styles.highlightButton}
-              onClick={() => setDisplayShareOverlay(true)}
+              onClick={() => {
+                setSharedHighlight(highlight.Text);
+                setDisplayShareOverlay(true);
+              }}
               data-tooltip-id={`my-tooltip-${index}`}
               data-tooltip-content="Share"
             >
