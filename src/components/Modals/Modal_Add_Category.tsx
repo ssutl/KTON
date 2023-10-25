@@ -67,6 +67,7 @@ const Modal_Add_Category = ({
         <div className={genericModalStyles.searchSection}>
           <input
             type="text"
+            value={searchValue}
             placeholder={"Search for a genre, or type in your own..."}
             onChange={(e) => setSearchValue(e.target.value)}
           />
@@ -87,6 +88,7 @@ const Modal_Add_Category = ({
                   book_id,
                   highlight_id: highlight._id,
                 });
+                setSearchValue("");
               }
             }}
           >
@@ -117,6 +119,7 @@ const Modal_Add_Category = ({
                 book_id,
                 highlight_id: highlight._id,
               });
+              setSearchValue("");
             }}
           >
             <p id={genericModalStyles.createText}>Create</p>
