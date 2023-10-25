@@ -64,6 +64,7 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
         <div className={genericModalStyles.searchSection}>
           <input
             type="text"
+            value={searchValue}
             placeholder={"Search for a genre, or type in your own..."}
             id="autoFocus"
             onChange={(e) => setSearchValue(e.target.value)}
@@ -83,6 +84,7 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
                   data: eachItem,
                   book_id: mainBook._id,
                 });
+                setSearchValue("");
               }
             }}
           >
@@ -121,6 +123,7 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
                 book_id: mainBook._id,
                 color: randomColor.color,
               });
+              setSearchValue("");
             }}
           >
             <p id={genericModalStyles.createText}>Create</p>
