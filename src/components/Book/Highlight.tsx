@@ -25,7 +25,6 @@ import { useAlert } from "react-alert";
 
 interface highlightProps {
   highlight: Book_highlight;
-  setLoginModal: () => void;
   index: number;
 }
 

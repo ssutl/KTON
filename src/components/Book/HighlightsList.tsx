@@ -1,6 +1,5 @@
 import { Book, Book_highlight, Meta_con_highlight } from "@/api/Interface";
 import Highlight from "./Highlight";
-import HandleLoginModal from "../Login/HandleLoginModal";
 import bookPageStyles from "../../styles/Pages/BookPage.module.scss";
 
 interface HighlightsListProps {
@@ -14,12 +13,9 @@ const HighlightsList: React.FC<HighlightsListProps> = ({
   selectedSort,
   selectedFilter,
 }) => {
-  const { LoginModal, setLoginModal } = HandleLoginModal();
-
   if (book)
     return (
       <div className={bookPageStyles.highlightList}>
-        {LoginModal()}
         {book.highlights
           .filter((eachHighlight) => eachHighlight.deleted === false)
           .sort((a: Book_highlight, b: Book_highlight) => {
@@ -39,12 +35,7 @@ const HighlightsList: React.FC<HighlightsListProps> = ({
               : eachHighlight
           )
           .map((eachHighlight, index) => (
-            <Highlight
-              highlight={eachHighlight}
-              key={index}
-              setLoginModal={setLoginModal}
-              index={index}
-            />
+            <Highlight highlight={eachHighlight} key={index} index={index} />
           ))}
       </div>
     );
