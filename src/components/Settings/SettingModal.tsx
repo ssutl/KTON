@@ -15,7 +15,7 @@ export interface SettingModalProps {
 }
 
 const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
-  const { userinfo, updateBooks } = useContext(KTON_CONTEXT);
+  const { userinfo, updateBooks, books } = useContext(KTON_CONTEXT);
   const router = useRouter();
   const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
   const [displayConfirmationModal, setDisplayConfirmationModal] =
@@ -201,19 +201,24 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
       showCondition: true,
       features: [
         {
-          name: "Import Highlights",
-          description: "Import highlights from your kindle device",
-          button: (
-            <p
-              className={styles.button}
-              onClick={() => {
-                router.push("/Import");
-                handleSettingsModal();
-              }}
-            >
-              Import
-            </p>
-          ),
+          name: "Import books",
+          description:
+            userSubscribed || (!userSubscribed && books && books.length < 15)
+              ? "Import books from your kindle device"
+              : "Free users can only import up to 10 books, upgrade to premium to import unlimited books!",
+          button:
+            userSubscribed ||
+            (!userSubscribed && books && books.length < 15) ? (
+              <p
+                className={styles.button}
+                onClick={() => {
+                  router.push("/Import");
+                  handleSettingsModal();
+                }}
+              >
+                Import
+              </p>
+            ) : null,
           showCondition: true,
         },
       ],
