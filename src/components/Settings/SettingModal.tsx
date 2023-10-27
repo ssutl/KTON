@@ -6,6 +6,9 @@ import { KTON_CONTEXT } from "../../context/KTONContext";
 import { useRouter } from "next/router";
 import createCheckout from "@/api/Membership/create_checkout";
 import Modal_Confirmation from "../Modals/Modal_Confirmation";
+import NotionApi from "@/api/Notion/NotionApi";
+import { useAlert } from "react-alert";
+import csvApi from "@/api/CSV/csvApi";
 
 export interface SettingModalProps {
   handleSettingsModal: () => void;
@@ -18,8 +21,10 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
   const [displayConfirmationModal, setDisplayConfirmationModal] =
     useState(false);
   const [selectedSetting, setSelectedSetting] = useState<
-    "Account" | "Books & Highlights" | "Import & Export" | "Upgrade"
+    "Account" | "Books & Highlights" | "Import" | "Upgrade" | "Export"
   >("Account");
+  const alert = useAlert();
+
   const userSubscribed =
     userinfo &&
     userinfo.subscription_end !== null &&
@@ -72,6 +77,21 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
 
       window.open(url, "_ blank");
     } catch (error) {}
+  };
+
+  const handleCSVApi = async () => {
+    try {
+      const response = await csvApi();
+      if (response === "success") {
+        alert.show("Successfully exported to CSV", {
+          type: "success",
+        });
+      }
+    } catch (err) {
+      alert.show("Error exporting to CSV", {
+        type: "error",
+      });
+    }
   };
 
   const settings: SettingOption[] = [
@@ -161,6 +181,22 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
       ],
     },
     {
+      name: "Books & Highlights",
+      showCondition: true,
+      features: [
+        {
+          name: "Handle Books",
+          description: "Delete or restore particular books",
+          showCondition: true,
+        },
+        {
+          name: "Restore Highlights",
+          description: "Restore deleted highlights",
+          showCondition: true,
+        },
+      ],
+    },
+    {
       name: "Import",
       showCondition: true,
       features: [
@@ -180,22 +216,57 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
           ),
           showCondition: true,
         },
-        // {
-        //   name: "Export Highlights",
-        //   description: "Export highlights to different formats",
-        //   button: (
-        //     <p
-        //       className={styles.button}
-        //       onClick={() => {
-        //         router.push("/Export");
-        //         handleSettingsModal();
-        //       }}
-        //     >
-        //       Export
-        //     </p>
-        //   ),
-        //   showCondition: true,
-        // },
+      ],
+    },
+    {
+      name: "Export",
+      showCondition: true,
+      features: [
+        {
+          name: "Export to Notion",
+          description: "Export highlights to Notion database",
+          image: "/images/notion.png",
+          button: (
+            <p
+              className={styles.button}
+              onClick={() => {
+                if (userinfo?.subscription === true) {
+                  //Open in new tab instead
+                  window.open(
+                    "https://api.notion.com/v1/oauth/authorize?client_id=7081a522-2c1f-445b-8a37-d73e11076dcd&response_type=code&owner=user&redirect_uri=https%3A%2F%2Fapp.kton.xyz%2FExport",
+                    "_blank"
+                  );
+                } else {
+                  alert.show(
+                    "Only premium members can access notion exporting",
+                    {
+                      type: "info",
+                    }
+                  );
+                }
+              }}
+            >
+              Export
+            </p>
+          ),
+          showCondition: true,
+        },
+        {
+          name: "Export to CSV",
+          description: "Export highlights to CSV file",
+          image: "/images/excel.png",
+          button: (
+            <p
+              className={styles.button}
+              onClick={() => {
+                handleCSVApi();
+              }}
+            >
+              Export
+            </p>
+          ),
+          showCondition: true,
+        },
       ],
     },
     {
@@ -226,22 +297,6 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
               </p>
             </>
           ),
-          showCondition: true,
-        },
-      ],
-    },
-    {
-      name: "Books & Highlights",
-      showCondition: true,
-      features: [
-        {
-          name: "Handle Books",
-          description: "Delete or restore particular books",
-          showCondition: true,
-        },
-        {
-          name: "Restore Highlights",
-          description: "Restore deleted highlights",
           showCondition: true,
         },
       ],

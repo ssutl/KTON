@@ -10,11 +10,12 @@ export interface SettingFeature {
   button?: JSX.Element;
   list?: JSX.Element;
   showCondition: boolean;
+  image?: string;
 }
 
 export interface SettingOption {
   showCondition: boolean;
-  name: "Account" | "Books & Highlights" | "Import & Export" | "Upgrade";
+  name: "Account" | "Books & Highlights" | "Import" | "Upgrade" | "Export";
   features: SettingFeature[];
 }
 
@@ -40,6 +41,11 @@ const SettingContent = ({
                 <div className={styles.selectTextSection}>
                   <p id={styles.selectName}>{feature.name}</p>
                   <h3 id={styles.selectDescription}>{feature.description}</h3>
+                  {settingOption.name === "Export" && (
+                    <div className={styles.exportImageHolder}>
+                      <img src={feature.image}></img>
+                    </div>
+                  )}
                 </div>
                 <div className={styles.buttonSection}>
                   {feature.button && feature.button}

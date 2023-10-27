@@ -29,19 +29,14 @@
     @include breakpoint-mixin("Laptop_S") {
       border-radius: 3px;
       flex-direction: row;
-      width: 85%;
-      height: 75dvh;
+      width: 75%;
+      height: 70dvh;
       border: 0.5px solid $border_laptop;
     }
 
-    @include breakpoint-mixin("Laptop_L") {
-      width: 75%;
-      height: 70dvh;
-    }
-
     @include breakpoint-mixin("Desktop_S") {
-      width: 65%;
-      height: 65dvh;
+      width: 60%;
+      height: 60dvh;
     }
 
     .mobileHeader {

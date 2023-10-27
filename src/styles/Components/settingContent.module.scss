@@ -48,6 +48,19 @@
 
         #selectDescription {
           opacity: 0.5;
+          margin-bottom: 15px;
+        }
+
+        .exportImageHolder {
+          height: 30px;
+          width: 30px;
+          overflow: hidden;
+
+          img {
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+          }
         }
       }
 
