@@ -27,6 +27,11 @@ const Modal_Add_Category = ({
   const router = useRouter();
   const book_id = router.query.id;
 
+  const userSubscribed =
+    userinfo &&
+    userinfo.subscription_end !== null &&
+    new Date(userinfo.subscription_end) > new Date();
+
   //When the genreInput changes, we want to change the color of the randomColor
   useEffect(() => {
     if (searchValue === "") {
@@ -113,6 +118,8 @@ const Modal_Add_Category = ({
           <div
             className={genericModalStyles.listItem}
             onClick={() => {
+              if (!userSubscribed && userinfo.categories.length >= 10) return;
+
               addCategoryToUser({
                 type: "add",
                 data: searchValue,
@@ -122,10 +129,16 @@ const Modal_Add_Category = ({
               setSearchValue("");
             }}
           >
-            <p id={genericModalStyles.createText}>Create</p>
-            <div className={genericModalStyles.tag}>
-              <p>{searchValue}</p>
-            </div>
+            <p id={genericModalStyles.createText}>
+              {!userSubscribed && userinfo.categories.length >= 10
+                ? "You have reached the limit of 10 highlight categories, feel free to upgrade to access unlimited category creation!"
+                : "Create"}
+            </p>
+            {!userSubscribed && userinfo.categories.length >= 10 ? null : (
+              <div className={genericModalStyles.tag}>
+                <p>{searchValue}</p>
+              </div>
+            )}
           </div>
         )}
       </div>

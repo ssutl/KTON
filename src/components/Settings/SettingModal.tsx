@@ -6,9 +6,9 @@ import { KTON_CONTEXT } from "../../context/KTONContext";
 import { useRouter } from "next/router";
 import createCheckout from "@/api/Membership/create_checkout";
 import Modal_Confirmation from "../Modals/Modal_Confirmation";
-import NotionApi from "@/api/Notion/NotionApi";
 import { useAlert } from "react-alert";
 import csvApi from "@/api/CSV/csvApi";
+import { Tooltip } from "react-tooltip";
 
 export interface SettingModalProps {
   handleSettingsModal: () => void;
@@ -205,7 +205,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
           description:
             userSubscribed || (!userSubscribed && books && books.length < 15)
               ? "Import books from your kindle device"
-              : "Free users can only import up to 10 books, upgrade to premium to import unlimited books!",
+              : "Free users can only import up to 15 books, upgrade to premium to import unlimited books!",
           button:
             userSubscribed ||
             (!userSubscribed && books && books.length < 15) ? (
@@ -234,6 +234,8 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
           button: (
             <p
               className={styles.button}
+              data-tooltip-id={`notion-tooltip-${userSubscribed}`}
+              data-tooltip-content="Notion currently has a limit of 100 highlights and 2000 characters per highlight. 📖"
               onClick={() => {
                 if (userSubscribed) {
                   //Open in new tab instead
@@ -242,16 +244,16 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
                     "_blank"
                   );
                 } else {
-                  alert.show(
-                    "Only premium members can access notion exporting",
-                    {
-                      type: "info",
-                    }
-                  );
+                  setSelectedSetting("Upgrade");
                 }
               }}
             >
-              Export
+              {!userSubscribed ? "Upgrade to unlock" : "Export"}
+              <Tooltip
+                id={`notion-tooltip-true`}
+                className={styles.toolTip}
+                noArrow
+              />
             </p>
           ),
           showCondition: true,
