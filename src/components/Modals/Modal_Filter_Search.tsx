@@ -98,7 +98,7 @@ const Modal_Filter_Search = ({
         >
           <div
             className={genericModalStyles.tag}
-            style={{ backgroundColor: "#3fcdfc" }}
+            style={{ backgroundColor: "#263341" }}
           >
             <StarIcon id={genericModalStyles.star} />
             <p>Starred</p>
