@@ -240,7 +240,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
                 if (userSubscribed) {
                   //Open in new tab instead
                   window.open(
-                    "https://api.notion.com/v1/oauth/authorize?client_id=7081a522-2c1f-445b-8a37-d73e11076dcd&response_type=code&owner=user&redirect_uri=https%3A%2F%2Fapp.kton.xyz%2FExport",
+                    "https://api.notion.com/v1/oauth/authorize?client_id=7081a522-2c1f-445b-8a37-d73e11076dcd&response_type=code&owner=user&redirect_uri=https%3A%2F%2Fapp.kton.xyz%2FHome",
                     "_blank"
                   );
                 } else {
