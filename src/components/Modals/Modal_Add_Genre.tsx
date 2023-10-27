@@ -18,6 +18,11 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
   const { addGenreToBook, addGenreToUser, updateBookCover } = HandleChanges();
   const [randomColor, setRandomColor] = useState(randomColorGenerator());
 
+  const userSubscribed =
+    userinfo &&
+    userinfo.subscription_end !== null &&
+    new Date(userinfo.subscription_end) > new Date();
+
   useEffect(() => {
     //Auto focus on input
     const input = document.getElementById("autoFocus");
@@ -118,26 +123,44 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
             <div
               className={genericModalStyles.listItem}
               onClick={() => {
-                addGenreToUser({
-                  type: "add",
-                  data: searchValue,
-                  book_id: mainBook._id,
-                  color: randomColor.color,
-                });
-                setSearchValue("");
+                if (
+                  !userSubscribed &&
+                  Object.keys(userinfo.genres).length >= 5
+                ) {
+                  closeModal();
+                  document.getElementById("settingBTN")?.click();
+                  setTimeout(() => {
+                    document.getElementById("Upgrade")?.click();
+                  }, 20);
+                } else {
+                  addGenreToUser({
+                    type: "add",
+                    data: searchValue,
+                    book_id: mainBook._id,
+                    color: randomColor.color,
+                  });
+                  setSearchValue("");
+                }
               }}
             >
-              <p id={genericModalStyles.createText}>Create</p>
-              <div
-                className={genericModalStyles.tag}
-                style={
-                  {
-                    "--background-color": randomColor.hex,
-                  } as React.CSSProperties
-                }
-              >
-                <p>{searchValue}</p>
-              </div>
+              <p id={genericModalStyles.createText}>
+                {!userSubscribed && Object.keys(userinfo.genres).length >= 5
+                  ? "You have reached the limit of 5 book genres, feel free to upgrade to access unlimited genre creation!"
+                  : "Create"}
+              </p>
+              {!userSubscribed &&
+              Object.keys(userinfo.genres).length >= 5 ? null : (
+                <div
+                  className={genericModalStyles.tag}
+                  style={
+                    {
+                      "--background-color": randomColor.hex,
+                    } as React.CSSProperties
+                  }
+                >
+                  <p>{searchValue}</p>
+                </div>
+              )}
             </div>
           )}
       </div>

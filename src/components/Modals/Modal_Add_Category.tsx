@@ -118,23 +118,29 @@ const Modal_Add_Category = ({
           <div
             className={genericModalStyles.listItem}
             onClick={() => {
-              if (!userSubscribed && userinfo.categories.length >= 10) return;
-
-              addCategoryToUser({
-                type: "add",
-                data: searchValue,
-                book_id,
-                highlight_id: highlight._id,
-              });
-              setSearchValue("");
+              if (!userSubscribed && userinfo.categories.length >= 5) {
+                closeModal();
+                document.getElementById("settingBTN")?.click();
+                setTimeout(() => {
+                  document.getElementById("Upgrade")?.click();
+                }, 20);
+              } else {
+                addCategoryToUser({
+                  type: "add",
+                  data: searchValue,
+                  book_id,
+                  highlight_id: highlight._id,
+                });
+                setSearchValue("");
+              }
             }}
           >
             <p id={genericModalStyles.createText}>
-              {!userSubscribed && userinfo.categories.length >= 10
-                ? "You have reached the limit of 10 highlight categories, feel free to upgrade to access unlimited category creation!"
+              {!userSubscribed && userinfo.categories.length >= 5
+                ? "You have reached the limit of 5 highlight categories, feel free to upgrade to access unlimited category creation!"
                 : "Create"}
             </p>
-            {!userSubscribed && userinfo.categories.length >= 10 ? null : (
+            {!userSubscribed && userinfo.categories.length >= 5 ? null : (
               <div className={genericModalStyles.tag}>
                 <p>{searchValue}</p>
               </div>
