@@ -168,6 +168,45 @@
       width: 100%;
     }
 
+    .freeBanner {
+      padding: 30px 0px;
+      //Plus 10px for the width of the scroll bar
+      width: calc(90% + 10px);
+      margin-right: auto;
+      margin-left: auto;
+      display: flex;
+      border-bottom: 0.5px solid $border_mobile;
+      align-items: center;
+      justify-content: space-between;
+
+      @include breakpoint-mixin("Laptop_S") {
+        border-top: 0.5px solid $border_laptop;
+        border-bottom: 0.5px solid $border_laptop;
+      }
+
+      h3 {
+        max-width: 80%;
+      }
+
+      .button {
+        padding: 5px 10px;
+        width: fit-content;
+        border-radius: 3px;
+        border: 0.5px solid $border_mobile;
+        white-space: nowrap;
+        cursor: pointer;
+        margin-top: 20px;
+
+        @include breakpoint-mixin("Laptop_S") {
+          border: 0.5px solid $border_laptop;
+        }
+
+        &:hover {
+          background-color: $hover;
+        }
+      }
+    }
+
     .bookInformation {
       display: flex;
       flex-direction: column;

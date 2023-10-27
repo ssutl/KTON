@@ -230,7 +230,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
             <p
               className={styles.button}
               onClick={() => {
-                if (userinfo?.subscription === true) {
+                if (userSubscribed) {
                   //Open in new tab instead
                   window.open(
                     "https://api.notion.com/v1/oauth/authorize?client_id=7081a522-2c1f-445b-8a37-d73e11076dcd&response_type=code&owner=user&redirect_uri=https%3A%2F%2Fapp.kton.xyz%2FExport",
@@ -276,7 +276,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
         {
           name: "Upgrade to Premium",
           description:
-            "Upgrade to premium to unlock all features: Notion integration, unlimited highlights, and no watermark on shared highlights",
+            "Upgrade to premium to unlock all features: Notion integration, unlimited highlights, unlimited highlight categories, and more!",
           button: (
             <>
               <p
@@ -335,6 +335,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
               <div
                 key={i}
                 className={styles.settingOption}
+                id={setting.name}
                 onClick={() => setSelectedSetting(setting.name)}
               >
                 <h3>{setting.name}</h3>

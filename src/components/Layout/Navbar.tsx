@@ -150,7 +150,9 @@ export default function Navbar({
               <p onClick={() => router.push("/Library")}>Library</p>
             )}
             {auth && (DisplaySettings || isImportRoute) && (
-              <p onClick={() => handleSettingsModal()}>Settings</p>
+              <p onClick={() => handleSettingsModal()} id="settingBTN">
+                Settings
+              </p>
             )}
             {demo && !auth && (
               <p
