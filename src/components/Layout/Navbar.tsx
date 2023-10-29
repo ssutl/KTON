@@ -20,7 +20,9 @@ export default function Navbar({
   const router = useRouter();
   const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
   const [demo, setDemo] = useState(false);
+  console.log("demo", demo);
   const [auth, setAuth] = useState(false);
+  console.log("auth", auth);
 
   // getting the current route
   const isIndexRoute = router.pathname === "/[[...index]]";
@@ -41,10 +43,12 @@ export default function Navbar({
     //Have to set screenwidth to disable share feature for mobile
 
     //Updating demo state
-    const Demo = localStorage.getItem("Demo") === "true";
-    const Auth = localStorage.getItem("token") ? true : false;
-    if (Auth) setAuth(Auth);
-    if (Demo) setDemo(Demo);
+    setTimeout(() => {
+      const Demo = localStorage.getItem("Demo") === "true";
+      const Auth = localStorage.getItem("token") ? true : false;
+      if (Auth) setAuth(Auth);
+      if (Demo) setDemo(Demo);
+    }, 100);
   };
 
   //Getting the local storage when the route changes
