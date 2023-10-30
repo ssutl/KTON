@@ -266,10 +266,14 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
             <p
               className={styles.button}
               onClick={() => {
-                handleCSVApi();
+                if (userSubscribed) {
+                  handleCSVApi();
+                } else {
+                  setSelectedSetting("Upgrade");
+                }
               }}
             >
-              Export
+              {!userSubscribed ? "Upgrade to unlock" : "Export"}
             </p>
           ),
           showCondition: true,
