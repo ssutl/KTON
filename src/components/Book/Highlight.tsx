@@ -13,7 +13,7 @@ import NotesIcon from "@mui/icons-material/Notes";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import ShareIcon from "@mui/icons-material/Share";
 import CopyAllIcon from "@mui/icons-material/CopyAll";
 import TextareaAutosize from "react-textarea-autosize";
 import { useRouter } from "next/router";
@@ -22,6 +22,7 @@ import HandleChanges from "@/helpers/HandleChanges";
 import { Tooltip } from "react-tooltip";
 import Modal_Add_Category from "../Modals/Modal_Add_Category";
 import { useAlert } from "react-alert";
+import ShareOverlay from "./ShareOverlay";
 
 interface highlightProps {
   highlight: Book_highlight;
@@ -42,6 +43,11 @@ const Highlight = ({ highlight, index }: highlightProps) => {
   const [inputAnnotation, setInputAnnotation] = useState(highlight.notes);
   const [displayCategoryModal, setDisplayCategoryModal] = useState(false);
   const [lastAnnotation, setLastAnnotation] = useState<string>("");
+  const [displayShareOverlay, setDisplayShareOverlay] = useState(false);
+
+  const closeModal = () => {
+    setDisplayShareOverlay(false);
+  };
 
   //Refrence to the dropdowns and their buttons
   const tagButtonRef = useRef(null);
@@ -169,6 +175,13 @@ const Highlight = ({ highlight, index }: highlightProps) => {
 
   return (
     <>
+      {displayShareOverlay && (
+        <ShareOverlay
+          closeModal={closeModal}
+          highlightText={highlight.Text}
+          index={index}
+        />
+      )}
       <div className={styles.Highlight} id={`highlight-${index}`}>
         <div className={styles.mainHalf}>
           <h2 id={styles.highlightText}>{highlight.Text}</h2>
@@ -271,6 +284,17 @@ const Highlight = ({ highlight, index }: highlightProps) => {
               data-tooltip-content="Copy"
             >
               <CopyAllIcon />
+            </p>
+            {
+              //Share option
+            }
+            <p
+              className={styles.highlightButton}
+              onClick={() => setDisplayShareOverlay(true)}
+              data-tooltip-id={`my-tooltip-${index}`}
+              data-tooltip-content="Share"
+            >
+              <ShareIcon />
             </p>
             {
               //Delete option
