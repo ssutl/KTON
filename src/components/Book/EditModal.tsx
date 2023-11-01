@@ -13,7 +13,7 @@ import styles from "../../styles/Components/EditModal.module.scss";
 import { ImageStyles, MetaDataStyles, TextStyles } from "./ShareOverlay";
 import { Book } from "@/api/Interface";
 import TextColorModal from "./TextColorModal";
-import ShareImageNatively from "@/helpers/ShareImageNatively";
+import ShareImageNatively from "../../helpers/ShareImageNatively";
 import ImageDownload from "@/helpers/ImageDownload";
 
 interface EditModalProps {
@@ -45,8 +45,8 @@ const EditModal = ({
   const [backgroundType, setBackgroundType] = useState<"image" | "gradient">(
     "gradient"
   );
-  const [imageHeight, setImageHeight] = useState<number>(400);
-  const [imageWidth, setImageWidth] = useState<number>(400);
+  const [imageHeight, setImageHeight] = useState<number>(500);
+  const [imageWidth, setImageWidth] = useState<number>(800);
   const [textWidth, setTextWidth] = useState<number>(95);
   const [textAlign, setTextAlign] = useState<textAlignTypes>("center");
   const [selectedCrop, setSelectedCrop] = useState<"portrait" | "square">(
