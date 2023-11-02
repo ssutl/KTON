@@ -78,7 +78,7 @@ const HeatMapBanner = () => {
               : screenWidth < 1024
               ? -200
               : screenWidth < 2560
-              ? -425
+              ? -440
               : -450
           )}
           endDate={today}
