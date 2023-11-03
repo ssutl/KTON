@@ -7,7 +7,7 @@ export default function Document() {
         <title>KTON: Kindle Highlight Manager</title>
         <meta
           name="description"
-          content="A platform to organise, annotate and export your imported kindle highlights 📖📝"
+          content="An all in one highlight manager for your e-books. We‘ll help you organise, annotate and export your kindle highlights. Join us with a free forever account and then optionally upgrade your plan to unlock more features. Finding your highlights made easy, happy reading with KTON! 📖📝"
         />
 
         <meta property="og:url" content="https://www.app.kton.xyz/" />
@@ -15,7 +15,7 @@ export default function Document() {
         <meta property="og:title" content="KTON: Kindle Highlight Manager" />
         <meta
           property="og:description"
-          content="A platform to organise, annotate and export your imported kindle highlights 📖📝"
+          content="An all in one highlight manager for your e-books. We‘ll help you organise, annotate and export your kindle highlights. Join us with a free forever account and then optionally upgrade your plan to unlock more features. Finding your highlights made easy, happy reading with KTON! 📖📝"
         />
         <meta
           property="og:image"
@@ -28,7 +28,7 @@ export default function Document() {
         <meta name="twitter:title" content="KTON: Kindle Highlight Manager" />
         <meta
           name="twitter:description"
-          content="A platform to organise, annotate and export your imported kindle highlights 📖📝"
+          content="An all in one highlight manager for your e-books. We‘ll help you organise, annotate and export your kindle highlights. Join us with a free forever account and then optionally upgrade your plan to unlock more features. Finding your highlights made easy, happy reading with KTON! 📖📝"
         />
         <meta
           name="twitter:image"
