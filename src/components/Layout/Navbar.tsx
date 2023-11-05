@@ -78,7 +78,7 @@ export default function Navbar({
     return (
       <div className={styles.mobileNavbar}>
         <div className={styles.navbarWidth}>
-          {!demo && (
+          {!isImportRoute && (
             <p
               onClick={() => {
                 router.push("/Home");
@@ -86,9 +86,7 @@ export default function Navbar({
                   handleSettingsModal();
                 }
               }}
-            >
-              <AutoGraphIcon />
-            </p>
+            ></p>
           )}
           {DisplayLibrary && !demo && (
             <p
@@ -134,7 +132,13 @@ export default function Navbar({
         <h3
           onClick={() =>
             router.push(
-              `${isIndexRoute || demo ? "https://kton.xyz" : "/Home"}`
+              `${
+                isIndexRoute || demo
+                  ? "https://kton.xyz"
+                  : isImportRoute
+                  ? "/"
+                  : "/Home"
+              }`
             )
           }
         >
