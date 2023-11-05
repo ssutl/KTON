@@ -68,7 +68,7 @@ const ImportComponent = () => {
         <h2>{JSON.parse(username)}</h2>
         <p>
           {progress === "None"
-            ? `Firstly locate "Clippings.txt"`
+            ? `Firstly plug in your Kindle, then open file explorer and locate your "Clippings.txt", click it!`
             : progress === "Started"
             ? `Uploading.... ${percentage}%`
             : `Happy reading!`}
