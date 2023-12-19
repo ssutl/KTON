@@ -13,7 +13,7 @@ const ImageDownload = ({ refrence, title, imageWidth }: ImageDownloadProps) => {
   const userSubscribed =
     userinfo &&
     userinfo.subscription_end !== null &&
-    userinfo.subscription_end < new Date();
+    new Date(userinfo.subscription_end) > new Date();
 
   //Image download function
   const handleImageDownload = useCallback(async () => {

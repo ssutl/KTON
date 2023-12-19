@@ -15,8 +15,10 @@ const Modal_Select = ({
   closeModal,
 }: Modal_SelectProps) => {
   //Add overflow hidden to element behind when modal is open
+
   useEffect(() => {
     const scrollHalf = document.getElementById("Library");
+
     if (scrollHalf) {
       scrollHalf.style.overflow = "hidden";
       return () => {
@@ -49,7 +51,7 @@ const Modal_Select = ({
                 selectedSort === eachItem &&
                 selectedSort !== "Recent"
               ) {
-                onItemClick!(undefined);
+                onItemClick!("Recent");
               } else {
                 onItemClick!(eachItem);
               }

@@ -6,6 +6,7 @@ import SentimentDissatisfiedOutlinedIcon from "@mui/icons-material/SentimentDiss
 import SentimentNeutralOutlinedIcon from "@mui/icons-material/SentimentNeutralOutlined";
 import SentimentVerySatisfiedOutlinedIcon from "@mui/icons-material/SentimentVerySatisfiedOutlined";
 import userFeedbackApi from "@/api/Users/UserFeedback";
+import { useAlert } from "react-alert";
 
 export interface FeedbackModalProps {
   closeModal: () => void;
@@ -19,6 +20,7 @@ const FeedbackModal = ({ closeModal }: FeedbackModalProps) => {
     "Sad" | "Neutral" | "Happy" | undefined
   >(undefined);
   const feedbackUser = localStorage.getItem("username");
+  const alert = useAlert();
 
   //If the user has selected a mood and left some feedback, send it to the backend
   const handleSendFeedback = async () => {
@@ -31,11 +33,18 @@ const FeedbackModal = ({ closeModal }: FeedbackModalProps) => {
       });
 
       if (response === "Feedback sent") {
-        alert("Thanks for the feedback!");
+        alert.show("Thanks for the feedback!", {
+          type: "success",
+        });
         closeModal();
       }
     } else {
-      alert("Please select a satisfaction face thing and leave some feedback");
+      alert.show(
+        "Please select a satisfaction face thing and leave some feedback",
+        {
+          type: "error",
+        }
+      );
     }
   };
 

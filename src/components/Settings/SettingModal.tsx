@@ -6,24 +6,29 @@ import { KTON_CONTEXT } from "../../context/KTONContext";
 import { useRouter } from "next/router";
 import createCheckout from "@/api/Membership/create_checkout";
 import Modal_Confirmation from "../Modals/Modal_Confirmation";
+import { useAlert } from "react-alert";
+import csvApi from "@/api/CSV/csvApi";
+import { Tooltip } from "react-tooltip";
 
 export interface SettingModalProps {
   handleSettingsModal: () => void;
 }
 
 const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
-  const { userinfo, updateBooks } = useContext(KTON_CONTEXT);
+  const { userinfo, updateBooks, books } = useContext(KTON_CONTEXT);
   const router = useRouter();
   const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
   const [displayConfirmationModal, setDisplayConfirmationModal] =
     useState(false);
   const [selectedSetting, setSelectedSetting] = useState<
-    "Account" | "Books & Highlights" | "Import & Export" | "Upgrade"
+    "Account" | "Books & Highlights" | "Import" | "Upgrade" | "Export"
   >("Account");
+  const alert = useAlert();
+
   const userSubscribed =
     userinfo &&
     userinfo.subscription_end !== null &&
-    userinfo.subscription_end < new Date();
+    new Date(userinfo.subscription_end) > new Date();
 
   useEffect(() => {
     //Have to set screenwidth to conditionally change size of heat map
@@ -72,6 +77,21 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
 
       window.open(url, "_ blank");
     } catch (error) {}
+  };
+
+  const handleCSVApi = async () => {
+    try {
+      const response = await csvApi();
+      if (response === "success") {
+        alert.show("Successfully exported to CSV", {
+          type: "success",
+        });
+      }
+    } catch (err) {
+      alert.show("Error exporting to CSV", {
+        type: "error",
+      });
+    }
   };
 
   const settings: SettingOption[] = [
@@ -161,37 +181,99 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
       ],
     },
     {
-      name: "Import & Export",
+      name: "Books & Highlights",
       showCondition: true,
       features: [
         {
-          name: "Import Highlights",
-          description: "Import highlights from your kindle device",
+          name: "Handle Books",
+          description: "Delete or restore particular books",
+          showCondition: true,
+        },
+        {
+          name: "Restore Highlights",
+          description: "Restore deleted highlights",
+          showCondition: true,
+        },
+      ],
+    },
+    {
+      name: "Import",
+      showCondition: true,
+      features: [
+        {
+          name: "Import books",
+          description:
+            userSubscribed || (!userSubscribed && books && books.length < 15)
+              ? "Import books from your kindle device"
+              : "Free users can only import up to 15 books, upgrade to premium to import unlimited books!",
+          button:
+            userSubscribed ||
+            (!userSubscribed && books && books.length < 15) ? (
+              <p
+                className={styles.button}
+                onClick={() => {
+                  router.push("/Import");
+                  handleSettingsModal();
+                }}
+              >
+                Import
+              </p>
+            ) : null,
+          showCondition: true,
+        },
+      ],
+    },
+    {
+      name: "Export",
+      showCondition: true,
+      features: [
+        {
+          name: "Export to Notion",
+          description: "Export highlights to Notion database",
+          image: "/images/notion.png",
           button: (
             <p
               className={styles.button}
+              data-tooltip-id={`notion-tooltip-${userSubscribed}`}
+              data-tooltip-content="Notion currently has a limit of 100 highlights and 2000 characters per highlight. 📖"
               onClick={() => {
-                router.push("/Import");
-                handleSettingsModal();
+                if (userSubscribed) {
+                  //Open in new tab instead
+                  window.open(
+                    "https://api.notion.com/v1/oauth/authorize?client_id=7081a522-2c1f-445b-8a37-d73e11076dcd&response_type=code&owner=user&redirect_uri=https%3A%2F%2Fapp.kton.xyz%2FHome",
+                    "_blank"
+                  );
+                } else {
+                  setSelectedSetting("Upgrade");
+                }
               }}
             >
-              Import
+              {!userSubscribed ? "Upgrade to unlock" : "Export"}
+              <Tooltip
+                id={`notion-tooltip-true`}
+                className={styles.toolTip}
+                noArrow
+              />
             </p>
           ),
           showCondition: true,
         },
         {
-          name: "Export Highlights",
-          description: "Export highlights to different formats",
+          name: "Export to CSV",
+          description: "Export highlights to CSV file",
+          image: "/images/excel.png",
           button: (
             <p
               className={styles.button}
               onClick={() => {
-                router.push("/Export");
-                handleSettingsModal();
+                if (userSubscribed) {
+                  handleCSVApi();
+                } else {
+                  setSelectedSetting("Upgrade");
+                }
               }}
             >
-              Export
+              {!userSubscribed ? "Upgrade to unlock" : "Export"}
             </p>
           ),
           showCondition: true,
@@ -205,7 +287,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
         {
           name: "Upgrade to Premium",
           description:
-            "Upgrade to premium to unlock all features: Notion integration, unlimited highlights, and no watermark on shared highlights",
+            "Upgrade to premium to unlock all features: Notion integration, unlimited highlights, unlimited highlight categories, and more!",
           button: (
             <>
               <p
@@ -226,22 +308,6 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
               </p>
             </>
           ),
-          showCondition: true,
-        },
-      ],
-    },
-    {
-      name: "Books & Highlights",
-      showCondition: true,
-      features: [
-        {
-          name: "Handle Books",
-          description: "Delete or restore particular books",
-          showCondition: true,
-        },
-        {
-          name: "Restore Highlights",
-          description: "Restore deleted highlights",
           showCondition: true,
         },
       ],
@@ -280,6 +346,7 @@ const SettingModal = ({ handleSettingsModal }: SettingModalProps) => {
               <div
                 key={i}
                 className={styles.settingOption}
+                id={setting.name}
                 onClick={() => setSelectedSetting(setting.name)}
               >
                 <h3>{setting.name}</h3>

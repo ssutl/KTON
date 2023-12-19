@@ -54,7 +54,7 @@ const ShareOverlay = ({
   const userSubscribed =
     userinfo &&
     userinfo.subscription_end !== null &&
-    userinfo.subscription_end < new Date();
+    new Date(userinfo.subscription_end) > new Date();
 
   useEffect(() => {
     if (userSubscribed) return;

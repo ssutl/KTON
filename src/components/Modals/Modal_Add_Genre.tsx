@@ -18,6 +18,11 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
   const { addGenreToBook, addGenreToUser, updateBookCover } = HandleChanges();
   const [randomColor, setRandomColor] = useState(randomColorGenerator());
 
+  const userSubscribed =
+    userinfo &&
+    userinfo.subscription_end !== null &&
+    new Date(userinfo.subscription_end) > new Date();
+
   useEffect(() => {
     //Auto focus on input
     const input = document.getElementById("autoFocus");
@@ -64,6 +69,7 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
         <div className={genericModalStyles.searchSection}>
           <input
             type="text"
+            value={searchValue}
             placeholder={"Search for a genre, or type in your own..."}
             id="autoFocus"
             onChange={(e) => setSearchValue(e.target.value)}
@@ -83,6 +89,7 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
                   data: eachItem,
                   book_id: mainBook._id,
                 });
+                setSearchValue("");
               }
             }}
           >
@@ -111,31 +118,51 @@ const Modal_Add_Genre = ({ mainBook, closeModal }: Modal_Add_GenreProps) => {
             />
           </div>
         ))}
-        {!filteredData.length && searchValue !== "" && (
-          <div
-            className={genericModalStyles.listItem}
-            onClick={() => {
-              addGenreToUser({
-                type: "add",
-                data: searchValue,
-                book_id: mainBook._id,
-                color: randomColor.color,
-              });
-            }}
-          >
-            <p id={genericModalStyles.createText}>Create</p>
+        {!Object.keys(userinfo.genres).includes(searchValue) &&
+          searchValue !== "" && (
             <div
-              className={genericModalStyles.tag}
-              style={
-                {
-                  "--background-color": randomColor.hex,
-                } as React.CSSProperties
-              }
+              className={genericModalStyles.listItem}
+              onClick={() => {
+                if (
+                  !userSubscribed &&
+                  Object.keys(userinfo.genres).length >= 5
+                ) {
+                  closeModal();
+                  document.getElementById("settingBTN")?.click();
+                  setTimeout(() => {
+                    document.getElementById("Upgrade")?.click();
+                  }, 20);
+                } else {
+                  addGenreToUser({
+                    type: "add",
+                    data: searchValue,
+                    book_id: mainBook._id,
+                    color: randomColor.color,
+                  });
+                  setSearchValue("");
+                }
+              }}
             >
-              <p>{searchValue}</p>
+              <p id={genericModalStyles.createText}>
+                {!userSubscribed && Object.keys(userinfo.genres).length >= 5
+                  ? "You have reached the limit of 5 book genres, feel free to upgrade to access unlimited genre creation!"
+                  : "Create"}
+              </p>
+              {!userSubscribed &&
+              Object.keys(userinfo.genres).length >= 5 ? null : (
+                <div
+                  className={genericModalStyles.tag}
+                  style={
+                    {
+                      "--background-color": randomColor.hex,
+                    } as React.CSSProperties
+                  }
+                >
+                  <p>{searchValue}</p>
+                </div>
+              )}
             </div>
-          </div>
-        )}
+          )}
       </div>
       <div
         className={genericModalStyles.modalBackground}

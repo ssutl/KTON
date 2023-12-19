@@ -68,11 +68,23 @@ const ImportComponent = () => {
         <h2>{JSON.parse(username)}</h2>
         <p>
           {progress === "None"
-            ? `Firstly locate "Clippings.txt"`
+            ? `How to locate file:`
             : progress === "Started"
             ? `Uploading.... ${percentage}%`
             : `Happy reading!`}
         </p>
+        {progress === "None" ? (
+          <p>1) Plug your Kindle in to your computer.</p>
+        ) : null}
+        {progress === "None" ? (
+          <p>2) Open the Kindle drive and open the documents folder.</p>
+        ) : null}
+        {progress === "None" ? (
+          <p>
+            3) You should see a file called &quot;`My Clippings.txt&quot;`.
+            Select that file and click &quot;Open&quot;.
+          </p>
+        ) : null}
       </div>
       <ImportButton setProgress={setProgress} progress={progress} />
       {progress === "Started" ? (

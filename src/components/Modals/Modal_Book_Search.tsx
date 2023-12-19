@@ -105,16 +105,19 @@ const Modal_Book_Search = ({ closeModal }: Modal_Book_SearchProps) => {
             {
               //Show book titles
             }
-            {books.filter((eachBook) =>
-              eachBook.title
-                .toLocaleUpperCase()
-                .includes(searchValue.toLocaleUpperCase())
-            ).length !== 0 && (
+            {books
+              .filter((eachbook) => !eachbook.deleted)
+              .filter((eachBook) =>
+                eachBook.title
+                  .toLocaleUpperCase()
+                  .includes(searchValue.toLocaleUpperCase())
+              ).length !== 0 && (
               <div className={genericModalStyles.listItemType}>
                 <h2>Book Titles</h2>
               </div>
             )}
             {books
+              .filter((eachbook) => !eachbook.deleted)
               .filter((eachBook) =>
                 eachBook.title
                   .toLocaleUpperCase()
@@ -134,11 +137,13 @@ const Modal_Book_Search = ({ closeModal }: Modal_Book_SearchProps) => {
             {
               //Show authors
             }
-            {books.filter((eachBook) =>
-              eachBook.author
-                .toLocaleUpperCase()
-                .includes(searchValue.toLocaleUpperCase())
-            ).length !== 0 && (
+            {books
+              .filter((eachbook) => !eachbook.deleted)
+              .filter((eachBook) =>
+                eachBook.author
+                  .toLocaleUpperCase()
+                  .includes(searchValue.toLocaleUpperCase())
+              ).length !== 0 && (
               <div className={genericModalStyles.listItemType}>
                 <h2>Authors</h2>
               </div>
@@ -147,6 +152,7 @@ const Modal_Book_Search = ({ closeModal }: Modal_Book_SearchProps) => {
               [
                 ...new Set(
                   books
+                    .filter((eachbook) => !eachbook.deleted)
                     .filter((eachBook) =>
                       eachBook.author
                         .toLocaleUpperCase()

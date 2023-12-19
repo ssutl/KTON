@@ -27,6 +27,11 @@ const Modal_Add_Category = ({
   const router = useRouter();
   const book_id = router.query.id;
 
+  const userSubscribed =
+    userinfo &&
+    userinfo.subscription_end !== null &&
+    new Date(userinfo.subscription_end) > new Date();
+
   //When the genreInput changes, we want to change the color of the randomColor
   useEffect(() => {
     if (searchValue === "") {
@@ -37,7 +42,7 @@ const Modal_Add_Category = ({
   const filteredData =
     userinfo &&
     userinfo.categories.filter((eachHighlightCategory) =>
-      eachHighlightCategory.toLowerCase().includes(searchValue.toLowerCase())
+      eachHighlightCategory.toLowerCase().startsWith(searchValue.toLowerCase())
     );
 
   //Add overflow hidden to element behind when modal is open
@@ -67,6 +72,7 @@ const Modal_Add_Category = ({
         <div className={genericModalStyles.searchSection}>
           <input
             type="text"
+            value={searchValue}
             placeholder={"Search for a genre, or type in your own..."}
             onChange={(e) => setSearchValue(e.target.value)}
           />
@@ -87,6 +93,7 @@ const Modal_Add_Category = ({
                   book_id,
                   highlight_id: highlight._id,
                 });
+                setSearchValue("");
               }
             }}
           >
@@ -107,22 +114,37 @@ const Modal_Add_Category = ({
             />
           </div>
         ))}
-        {!filteredData.length && searchValue !== "" && (
+        {!userinfo.categories.includes(searchValue) && searchValue !== "" && (
           <div
             className={genericModalStyles.listItem}
             onClick={() => {
-              addCategoryToUser({
-                type: "add",
-                data: searchValue,
-                book_id,
-                highlight_id: highlight._id,
-              });
+              if (!userSubscribed && userinfo.categories.length >= 5) {
+                closeModal();
+                document.getElementById("settingBTN")?.click();
+                setTimeout(() => {
+                  document.getElementById("Upgrade")?.click();
+                }, 20);
+              } else {
+                addCategoryToUser({
+                  type: "add",
+                  data: searchValue,
+                  book_id,
+                  highlight_id: highlight._id,
+                });
+                setSearchValue("");
+              }
             }}
           >
-            <p id={genericModalStyles.createText}>Create</p>
-            <div className={genericModalStyles.tag}>
-              <p>{searchValue}</p>
-            </div>
+            <p id={genericModalStyles.createText}>
+              {!userSubscribed && userinfo.categories.length >= 5
+                ? "You have reached the limit of 5 highlight categories, feel free to upgrade to access unlimited category creation!"
+                : "Create"}
+            </p>
+            {!userSubscribed && userinfo.categories.length >= 5 ? null : (
+              <div className={genericModalStyles.tag}>
+                <p>{searchValue}</p>
+              </div>
+            )}
           </div>
         )}
       </div>

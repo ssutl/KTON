@@ -20,7 +20,9 @@ export default function Navbar({
   const router = useRouter();
   const [screenWidth, setScreenWidth] = useState<number | undefined>(undefined);
   const [demo, setDemo] = useState(false);
+  console.log("demo", demo);
   const [auth, setAuth] = useState(false);
+  console.log("auth", auth);
 
   // getting the current route
   const isIndexRoute = router.pathname === "/[[...index]]";
@@ -41,10 +43,12 @@ export default function Navbar({
     //Have to set screenwidth to disable share feature for mobile
 
     //Updating demo state
-    const Demo = localStorage.getItem("Demo") === "true";
-    const Auth = localStorage.getItem("token") ? true : false;
-    if (Auth) setAuth(Auth);
-    if (Demo) setDemo(Demo);
+    setTimeout(() => {
+      const Demo = localStorage.getItem("Demo") === "true";
+      const Auth = localStorage.getItem("token") ? true : false;
+      if (Auth) setAuth(Auth);
+      if (Demo) setDemo(Demo);
+    }, 100);
   };
 
   //Getting the local storage when the route changes
@@ -74,7 +78,7 @@ export default function Navbar({
     return (
       <div className={styles.mobileNavbar}>
         <div className={styles.navbarWidth}>
-          {!demo && (
+          {!isImportRoute && (
             <p
               onClick={() => {
                 router.push("/Home");
@@ -82,9 +86,7 @@ export default function Navbar({
                   handleSettingsModal();
                 }
               }}
-            >
-              <AutoGraphIcon />
-            </p>
+            ></p>
           )}
           {DisplayLibrary && !demo && (
             <p
@@ -130,7 +132,13 @@ export default function Navbar({
         <h3
           onClick={() =>
             router.push(
-              `${isIndexRoute || demo ? "https://kton.xyz" : "/Home"}`
+              `${
+                isIndexRoute || demo
+                  ? "https://kton.xyz"
+                  : isImportRoute
+                  ? "/"
+                  : "/Home"
+              }`
             )
           }
         >
@@ -150,7 +158,9 @@ export default function Navbar({
               <p onClick={() => router.push("/Library")}>Library</p>
             )}
             {auth && (DisplaySettings || isImportRoute) && (
-              <p onClick={() => handleSettingsModal()}>Settings</p>
+              <p onClick={() => handleSettingsModal()} id="settingBTN">
+                Settings
+              </p>
             )}
             {demo && !auth && (
               <p

@@ -77,7 +77,7 @@ const LoginComponent = () => {
       <div className={styles.loginFormSect}>
         <div className={styles.passwordInputContainer}>
           <input
-            type="text"
+            type="email"
             placeholder="Email"
             required
             value={email}
