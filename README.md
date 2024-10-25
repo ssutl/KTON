@@ -8,7 +8,7 @@ https://github.com/user-attachments/assets/d27d34fb-4849-4470-bbfe-53c6e97bb503
 1. NextJS + Typescript
 3. Sass
 
-### Backend (Coded by @SitrucL)
+### Backend 
 1. NodeJs
 2. Express
 3. MongoDB
