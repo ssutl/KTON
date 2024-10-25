@@ -1,42 +1,37 @@
-Here’s an enhanced README with emojis and more engaging feature descriptions:
-
----
-
 # 📚 KTON
 
-KTON is a personalized library that collects, categorizes, and stores all your Kindle highlights in one place, enhancing your reading experience by allowing you to annotate and revisit insights effortlessly.
+KTON organizes all your Kindle highlights in one place, allowing you to annotate and revisit them through a simple interface to enhance your reading experience.
 
-![KTON Demo](https://github.com/user-attachments/assets/d27d34fb-4849-4470-bbfe-53c6e97bb503)
+
+https://github.com/user-attachments/assets/a9b5acb0-441f-4bbd-a930-7812e1f08c43
+
 
 ## 🛠️ Technologies Used
 
 ### 🎨 Frontend
-- **Next.js** + TypeScript
-- **Sass**
+- Next.js + TypeScript
+- Sass
 
-### 🔧 Backend
-- **Node.js**
-- **Express**
-- **MongoDB**
+### 🔧 Backend 
+- Node.js
+- Express
+- MongoDB
 
-## 🌟 Features
-
-1. 🔐 **Login Authentication** - Securely log in to access your library.
-2. 📂 **File Uploading & Book Importing** - Easily upload .txt files to import books.
-3. ✏️ **Highlight Annotation** - Add notes to highlights for a personalized touch.
-4. 🎲 **Random Quotes** - Get inspired with a random quote each session.
-5. 📊 **Data Analytics** - View reading habits and trends through interactive graphs.
-6. 🔗 **Share Highlights** - Seamlessly share favorite highlights across platforms.
+## 🌟 Key Features
+1. **Login Authentication** – Secure access to personal highlights.
+2. **File Upload & Book Import** – Upload .txt files for book highlights.
+3. **Highlight Annotation** – Annotate notes to personalize insights.
+4. **Random Quotes** – See a fresh highlight on each login.
+5. **Analytics** – Visualize reading data in graphs.
+6. **Share Highlights** – Share your highlights across platforms.
 
 ## 🚀 How it Works
+Sign up and upload a `.txt` file of Kindle highlights. KTON processes the file, organizing books in your library with a clean, accessible display.
 
-Sign up, upload your `.txt` file, and KTON organizes your books and highlights into a clean, manageable library. Enjoy a personalized reading and reviewing experience!
-
-## 🛠️ Running the Application
+## 🛠️ Run the Application
 
 ### Frontend
-1. Start the frontend server with:
-   ```bash
-   npm start
-   ```
-
+Start with:
+```bash
+npm start
+```
