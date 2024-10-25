@@ -1,7 +1,6 @@
 # KTON
 This software collates, categorises and stores all my kindle highlights in one location. It allows me to annotate and review my highlights through a simple interface, in order to aid my reading experience.
 
-https://youtu.be/CTTct3dwtmw
 
 # Technologies Used
 ### Frontend
