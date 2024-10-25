@@ -74,7 +74,7 @@ export default function Navbar({
   if (router.pathname === "/verify/[...id]") return null;
 
   const mobileNavbar = () => {
-    if (isIndexRoute || demo) return null;
+    if (isIndexRoute) return null;
     return (
       <div className={styles.mobileNavbar}>
         <div className={styles.navbarWidth}>
@@ -105,6 +105,18 @@ export default function Navbar({
               <TuneIcon />
             </p>
           )}
+          {demo && !auth && (
+            <p
+              onClick={() => {
+                router.push("https://kton-landing.vercel.app/");
+                localStorage.removeItem("Demo");
+                setDemo(false);
+                updateBooks(undefined);
+              }}
+            >
+              Landing
+            </p>
+          )}
         </div>
       </div>
     );
@@ -122,7 +134,7 @@ export default function Navbar({
             router.push(
               `${
                 isIndexRoute || demo
-                  ? "https://kton.xyz"
+                  ? "https://kton.vercel.app/"
                   : isImportRoute
                   ? "/"
                   : "/Home"
