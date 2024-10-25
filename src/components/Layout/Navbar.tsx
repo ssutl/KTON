@@ -146,7 +146,7 @@ export default function Navbar({
         </h3>
         {isIndexRoute && (
           <p
-            onClick={() => router.push("https://kton.xyz")}
+            onClick={() => router.push("https://kton-landing.vercel.app/")}
             className={styles.backToLanding}
           >
             Back to landing
