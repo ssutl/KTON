@@ -74,7 +74,7 @@ export default function Navbar({
   if (router.pathname === "/verify/[...id]") return null;
 
   const mobileNavbar = () => {
-    if (isIndexRoute) return null;
+    if (isIndexRoute || demo) return null;
     return (
       <div className={styles.mobileNavbar}>
         <div className={styles.navbarWidth}>
@@ -103,18 +103,6 @@ export default function Navbar({
           {auth && (DisplaySettings || isImportRoute) && (
             <p onClick={() => handleSettingsModal()}>
               <TuneIcon />
-            </p>
-          )}
-          {demo && !auth && (
-            <p
-              onClick={() => {
-                router.push("https://kton.xyz");
-                localStorage.removeItem("Demo");
-                setDemo(false);
-                updateBooks(undefined);
-              }}
-            >
-              <ExitToAppIcon />
             </p>
           )}
         </div>
