@@ -165,7 +165,7 @@ export default function Navbar({
             {demo && !auth && (
               <p
                 onClick={() => {
-                  router.push("https://kton.xyz");
+                  router.push("https://kton-landing.vercel.app/");
                   localStorage.removeItem("Demo");
                   setDemo(false);
                   updateBooks(undefined);
